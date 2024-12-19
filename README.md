@@ -2,7 +2,7 @@
 
 [🇫🇷 Français](README.md) | [🇬🇧 English](/.github/i18n/README.en.md)
 
-**Développeur Front End (Javascript+VueJS), PHP & Designer expérimenté dans la gestion des projets web**
+**Manager, Développeur Front End (Javascript+VueJS), PHP & Designer expérimenté dans la gestion des projets web**
 
 [![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
 [![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
