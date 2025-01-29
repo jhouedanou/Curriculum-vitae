@@ -93,6 +93,8 @@ _Group(e) Kamit Communications Inc_, Montreal, Canada
 
 ## 🏆 **Recent Achievements**
 
+
+- [Quizz for St-Avé](https://quizzstave.netflify.app/)
 - [PSD Integration into WordPress & Gutenberg template](https://bfedition.com/soboa95ans)
 - [VodaFone Landing page](https://txtengage-vodafone.vercel.app/): Landing page for Vodafone South Africa
 - [Calorie Counter](https://dinor-calorie-counter-alt.vercel.app/): Calorie counter for SANIA/Dinor, developed in VueJS
