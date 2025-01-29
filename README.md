@@ -117,6 +117,7 @@ _Group(e) Kamit Communications Inc_, Montréal, Canada
 
 ## 🏆 **Réalisations récentes**
 
+- [Quizz St-Avé](https://quizzstave.netflify.app/)
 - [Intégration PSD en template Wordpress & "gutenberg"](https://bfedition.com/soboa95ans)
 - [Landing page VodaFone](https://txtengage-vodafone.vercel.app/) : Landing page pour Vodafone Afrique du Sud
 - [Compteur de calories](https://dinor-calorie-counter-alt.vercel.app/) : Compteur de calories pour SANIA/Dinor, développé en VueJS- [Questionnaire RH](https://ciprelrh.netlify.app/) : Questionnaire RH, développé pour l'entreprise CIPREL pour le salon SIREXE
