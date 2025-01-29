@@ -110,4 +110,3 @@ _Group(e) Kamit Communications Inc_, Montreal, Canada
 
 > [houedanou.com](https://houedanou.com) • [@afrowebdesigner](https://twitter.com/afrowebdesigner) • [GitHub](https://github.com/jhouedanou)
 
-_Last translation update: [Current Date]_
