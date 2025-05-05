@@ -117,6 +117,7 @@ _Group(e) Kamit Communications Inc_, Montréal, Canada
 
 ## 🏆 **Réalisations récentes**
 
+- [Jeu Dinor 70 ans](https://roue.dinorapp.com/)
 - [Quizz St-Avé](https://quizzstave.netlify.app/)
 - [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.com)
 - [Landing page VodaFone](https://txtengage-vodafone.vercel.app/) : Landing page pour Vodafone Afrique du Sud
