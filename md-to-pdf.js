@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
         <meta charset="utf-8">
         <title>README</title>
         <style>
-          body { font-family: 'Segoe UI Emoji', 'Apple Color Emoji', Arial, sans-serif; margin: 40px; }
+          body { font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', Arial, sans-serif; margin: 40px; }
           pre, code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
         </style>
       </head>
