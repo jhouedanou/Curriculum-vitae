@@ -1,7 +1,5 @@
 # **Jean Luc Houédanou**
 
-        <!-- [🇫🇷 Français](README.md) | [🇬🇧 English](/.github/i18n/README.en.md) -->
-
 **Manager/Développeur Front End (Javascript+VueJS)/
 PHP & Designer expérimenté dans la gestion des projets web**
 
