@@ -1,4 +1,4 @@
-# **Jean Luc Houédanou** 
+# **Jean-Luc Lionel Houédanou** 
 
 **Manager, Développeur Front End (VueJS), PHP et Designer expérimenté dans la gestion des projets web**
 
@@ -8,9 +8,7 @@
 [![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
 [![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
 
-
 ---
-
 ## 💼 **Expérience professionnelle**
 
 ### **Directeur des solutions digitales**
@@ -118,7 +116,7 @@ _Group(e) Kamit Communications Inc_, Montréal, Canada
 
 - [Jeu Dinor 70 ans](https://roue.dinorapp.com/)
 - [Quizz St-Avé](https://quizzstave.netlify.app/)
-- [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.com)
+- [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.sn)
 - [Landing page VodaFone](https://txtengage-vodafone.vercel.app/) : Landing page pour Vodafone Afrique du Sud
 - [Compteur de calories](https://dinor-calorie-counter-alt.vercel.app/) : Compteur de calories pour SANIA/Dinor, développé en VueJS- [Questionnaire RH](https://ciprelrh.netlify.app/) : Questionnaire RH, développé pour l'entreprise CIPREL pour le salon SIREXE
 - [Jeu CIPREL](https://jeuciprel.vercel.app/) : Jeu interactif en VueJS, développé pour l'entreprise CIPREL pour le salon SIREXE
