@@ -3,22 +3,22 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   const markdown = fs.readFileSync('README.md', 'utf-8');
-  const markdownBase64 = Buffer.from(markdown, 'utf-8').toString('base64');
   const html = `
     <html>
       <head>
         <meta charset="utf-8">
         <title>README</title>
         <style>
-          body { font-family: Arial, sans-serif; margin: 40px; }
+          body { font-family: 'Segoe UI Emoji', 'Apple Color Emoji', Arial, sans-serif; margin: 40px; }
           pre, code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
         </style>
       </head>
       <body>
         <div id="md"></div>
+        <script id="md-src" type="text/plain">${markdown.replace(/<\//g, '<\/')}</script>
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script>
-          const markdown = atob('${markdownBase64}');
+          const markdown = document.getElementById('md-src').textContent;
           document.getElementById('md').innerHTML = marked.parse(markdown);
         </script>
       </body>
