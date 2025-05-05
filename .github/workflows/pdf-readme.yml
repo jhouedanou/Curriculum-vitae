@@ -14,16 +14,11 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Installer les dépendances
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-
-      - name: Convertir README.md en PDF
-        uses: baileyjm02/markdown-to-pdf@v1
+      - name: Convertir README.md en PDF avec md-to-pdf
+        uses: tj-actions/md-to-pdf@v3
         with:
-          input_path: README.md
-          output_dir: .
-          build_html: false
-          build_pdf: true
+          input_file: README.md
+          output_file: README.pdf
 
       - name: Upload du PDF en tant qu'artefact
         uses: actions/upload-artifact@v4
