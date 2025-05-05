@@ -1,0 +1,26 @@
+name: Générer PDF du README
+
+on:
+  push:
+    paths:
+      - README.md
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Convertir README.md en PDF et HTML
+        uses: yuchanns/markdown-to-pdf-and-html@v1
+        with:
+          input_path: README.md
+          output_pdf_path: README.pdf
+          output_html_path: README.html
+
+      - name: Upload du PDF en tant qu’artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: README PDF
+          path: README.pdf
