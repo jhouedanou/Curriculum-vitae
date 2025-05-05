@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   const markdown = fs.readFileSync('README.md', 'utf-8');
+  const markdownBase64 = Buffer.from(markdown, 'utf-8').toString('base64');
   const html = `
     <html>
       <head>
@@ -14,10 +15,11 @@ const puppeteer = require('puppeteer');
         </style>
       </head>
       <body>
-        <pre id="md"></pre>
+        <div id="md"></div>
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script>
-          document.getElementById('md').outerHTML = marked.parse(`"""${markdown.replace(/`/g, '\`')}"""`);
+          const markdown = atob('${markdownBase64}');
+          document.getElementById('md').innerHTML = marked.parse(markdown);
         </script>
       </body>
     </html>
