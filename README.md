@@ -114,15 +114,16 @@ _Group(e) Kamit Communications Inc_, Montréal, Canada
 
 ## 🏆 **Réalisations récentes**
 
-- [Jeu Dinor 70 ans](https://roue.dinorapp.com/)
-- [Quizz St-Avé](https://quizzstave.netlify.app/)
+- [Jeu Dinor 70 ans](https://roue.dinorapp.com/) : création d'un jeu interactif pour célébrer les 70 ans de l'entreprise Dinor, avec un dashboard d'administration pour la gestion des utilisateurs et des résultats , utilisant filament et supabase
+- [Quizz St-Avé](https://quizzstave.netlify.app/) : en NuxtJS, un quizz pour le groupe St-Avé
 - [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.sn)
 - [Landing page VodaFone](https://txtengage-vodafone.vercel.app/) : Landing page pour Vodafone Afrique du Sud
-- [Compteur de calories](https://dinor-calorie-counter-alt.vercel.app/) : Compteur de calories pour SANIA/Dinor, développé en VueJS- [Questionnaire RH](https://ciprelrh.netlify.app/) : Questionnaire RH, développé pour l'entreprise CIPREL pour le salon SIREXE
+- [Compteur de calories](https://dinor-calorie-counter-alt.vercel.app/) : Compteur de calories pour SANIA/Dinor, développé en VueJS
+- [Questionnaire RH](https://ciprelrh.netlify.app/) : Questionnaire RH, développé pour l'entreprise CIPREL pour le salon SIREXE
 - [Jeu CIPREL](https://jeuciprel.vercel.app/) : Jeu interactif en VueJS, développé pour l'entreprise CIPREL pour le salon SIREXE
 - [TiméoRH](https://timeo-rh.vercel.app/) : Design, intégration en VueJS/Nuxt
-- [BigFiveSolutions.com](https://bigfivesolutions.com/) : Intégration Adobe XD en VueJS
-- [BigFive360.com](https://bigfive360.com) : Intégration Adobe XD en Angular
+- [BigFiveSolutions.com](https://bigfivesolutions.com/) : Intégration Adobe XD en site web VueJS
+- [BigFive360.com](https://bigfive360.com) : Intégration Adobe XD en site web Angular
 - [BBLome.com](https://bblome.com) : Design & prototypage sous Adobe XD, création d'un template WordPress
 - [Soeguibe.com](https://soeguibe.com) : Design & prototypage sous Adobe XD, création d'un template WordPress
 

@@ -1,9 +1,9 @@
-name: Générer PDF du README
+name: Générer PDF pour tous les fichiers Markdown
 
 on:
   push:
     paths:
-      - README.md
+      - '**.md'
   release:
     types: [published]
 
@@ -19,20 +19,24 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Installer Puppeteer
-        run: npm install puppeteer
+      - name: Installer md-to-pdf
+        run: npm install -g md-to-pdf
 
-      - name: Générer le PDF avec Puppeteer
-        run: node md-to-pdf.js
+      - name: Générer les PDF pour tous les fichiers .md
+        run: |
+          for file in *.md; do
+            [ -e "$file" ] || continue
+            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body
+          done
 
-      - name: Upload du PDF en tant qu'artefact
+      - name: Upload des PDF en tant qu'artefacts
         uses: actions/upload-artifact@v4
         with:
-          name: README PDF
-          path: README.pdf
+          name: PDFs Markdown
+          path: '*.pdf'
 
-      - name: Upload du PDF à la release
+      - name: Upload des PDF à la release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: README.pdf
+          files: '*.pdf'
