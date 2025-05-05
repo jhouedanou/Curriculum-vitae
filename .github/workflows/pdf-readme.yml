@@ -14,11 +14,16 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Convertir README.md en PDF avec md-to-pdf
-        uses: tj-actions/md-to-pdf@v3
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
         with:
-          input_file: README.md
-          output_file: README.pdf
+          node-version: '20'
+
+      - name: Installer markdown-pdf
+        run: npm install -g markdown-pdf
+
+      - name: Convertir README.md en PDF
+        run: markdown-pdf README.md
 
       - name: Upload du PDF en tant qu'artefact
         uses: actions/upload-artifact@v4
