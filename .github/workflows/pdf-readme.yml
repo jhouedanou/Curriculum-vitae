@@ -14,16 +14,11 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Installer Node.js
-        uses: actions/setup-node@v4
+      - name: Convertir README.md en PDF avec markdown-pdf-action
+        uses: BlueHatbRit/markdown-pdf-action@v1.2.0
         with:
-          node-version: '20'
-
-      - name: Installer markdown-pdf
-        run: npm install -g markdown-pdf
-
-      - name: Convertir README.md en PDF
-        run: markdown-pdf README.md
+          input_path: README.md
+          output_path: README.pdf
 
       - name: Upload du PDF en tant qu'artefact
         uses: actions/upload-artifact@v4
