@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - README.md
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -24,3 +26,9 @@ jobs:
         with:
           name: README PDF
           path: README.pdf
+
+      - name: Upload du PDF à la release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: README.pdf
