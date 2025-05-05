@@ -4,15 +4,16 @@
 
 [![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
 [![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
+[![GitHub](https://img.shields.io/badge/GitHub-jhouedanou-181717)](https://github.com/jhouedanou)
 [![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
 [![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
-[![GitHub](https://img.shields.io/badge/GitHub-jhouedanou-181717)](https://github.com/jhouedanou)
+
 
 ---
 
 ## 💼 **Expérience professionnelle**
 
-### **Directeur solutions digitales**
+### **Directeur des solutions digitales**
 
 _Big Five Solutions_, Abidjan, Côte d'Ivoire  
 **Juin 2019 - Actuellement**
