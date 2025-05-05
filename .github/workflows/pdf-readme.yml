@@ -20,12 +20,12 @@ jobs:
       - name: Convertir README.md en PDF
         uses: baileyjm02/markdown-to-pdf@v1
         with:
-          input_dir: .
+          input_path: README.md
           output_dir: .
-          input_file: README.md
           build_html: false
+          build_pdf: true
 
-      - name: Upload du PDF en tant qu’artefact
+      - name: Upload du PDF en tant qu'artefact
         uses: actions/upload-artifact@v4
         with:
           name: README PDF
