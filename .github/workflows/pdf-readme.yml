@@ -19,15 +19,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Installer md-to-pdf
-        run: npm install -g md-to-pdf
+      - name: Installer les dépendances
+        run: npm install puppeteer marked
 
-      - name: Générer les PDF pour tous les fichiers .md
-        run: |
-          for file in *.md; do
-            [ -e "$file" ] || continue
-            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"printBackground": true}' --launch-options '{"args": ["--no-sandbox", "--disable-setuid-sandbox"]}'
-          done
+      - name: Générer les PDF avec le script personnalisé
+        run: node md-to-pdf.js
 
       - name: Upload des PDF en tant qu'artefacts
         uses: actions/upload-artifact@v4
