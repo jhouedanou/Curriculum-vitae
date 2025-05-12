@@ -34,7 +34,7 @@ _WeDev Group_, Abidjan, Ivory Coast
 _Adonai Agri Batis_, Abidjan, Ivory Coast  
 **February 2017 – June 2017** (5 months)
 
-> Development of digital communication strategy and management of the company's online presence.
+> In charge of the digital communication strategy and the management of the company's online presence.
 
 ---
 
