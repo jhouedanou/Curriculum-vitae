@@ -26,7 +26,7 @@ jobs:
         run: |
           for file in *.md; do
             [ -e "$file" ] || continue
-            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body
+            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"printBackground": true}' --launch-options '{"args": ["--no-sandbox", "--disable-setuid-sandbox"]}'
           done
 
       - name: Upload des PDF en tant qu'artefacts
