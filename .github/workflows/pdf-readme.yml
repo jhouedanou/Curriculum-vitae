@@ -19,11 +19,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Installer les dépendances
-        run: npm install puppeteer marked
+      - name: Installer md-to-pdf
+        run: npm install -g md-to-pdf
 
-      - name: Générer les PDF avec le script personnalisé
-        run: node md-to-pdf.js
+      - name: Générer les PDF pour tous les fichiers .md
+        run: |
+          for file in *.md; do
+            [ -e "$file" ] || continue
+            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --launch-options.args='["--no-sandbox"]'
+          done
 
       - name: Upload des PDF en tant qu'artefacts
         uses: actions/upload-artifact@v4
@@ -36,3 +40,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: '*.pdf'
+          token: ${{ secrets.GITHUB_TOKEN }}
