@@ -16,7 +16,7 @@
 _Big Five Solutions_, Abidjan, Côte d'Ivoire  
 **Juin 2019 - Actuellement**
 
-> Responsable de la stratégie digitale, du développement et de l'intégration des solutions technologiques pour les clients.
+> Responsable de la stratégie digitale, du développement et de l'intégration des solutions technologiques pour les clients et le département social media.
 
 ---
 

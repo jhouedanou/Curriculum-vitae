@@ -24,8 +24,9 @@ jobs:
 
       - name: Générer les PDF pour tous les fichiers .md (récursif)
         run: |
+          export PUPPETEER_ARGS="--no-sandbox"
           find . -name "*.md" | while read file; do
-            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --launch-options.args='["--no-sandbox"]'
+            md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body
           done
 
       - name: Upload des PDF en tant qu'artefacts
