@@ -22,10 +22,9 @@ jobs:
       - name: Installer md-to-pdf
         run: npm install -g md-to-pdf
 
-      - name: Générer les PDF pour tous les fichiers .md
+      - name: Générer les PDF pour tous les fichiers .md (récursif)
         run: |
-          for file in *.md; do
-            [ -e "$file" ] || continue
+          find . -name "*.md" | while read file; do
             md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --launch-options.args='["--no-sandbox"]'
           done
 
@@ -33,11 +32,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PDFs Markdown
-          path: '*.pdf'
+          path: '**/*.pdf'
 
       - name: Upload des PDF à la release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: '*.pdf'
+          files: '**/*.pdf'
           token: ${{ secrets.GITHUB_TOKEN }}
