@@ -1,133 +1,115 @@
-# **Jean-Luc Lionel Houédanou**
+# CV Jean-Luc Houédanou - Guide de conversion en PDF
 
-**Manager, Développeur Front End (VueJS), PHP et Designer expérimenté dans la gestion des projets web**
+Ce dépôt contient le CV de Jean-Luc Houédanou en formats Markdown et PDF, en versions française et anglaise.
 
-[![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
-[![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
-[![GitHub](https://img.shields.io/badge/GitHub-jhouedanou-181717)](https://github.com/jhouedanou)
-[![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
-[![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
+## 📋 Contenu du dépôt
 
----
-## 💼 **Expérience professionnelle**
+- `CVHOUEDANOUJeanLuc.md` - CV en français (format Markdown)
+- `ResumeHOUEDANOUJeanLuc.md` - CV en anglais (format Markdown)
+- `CV_HOUEDANOU_JeanLuc.pdf` - PDF généré à partir du CV en français
+- `CV_HOUEDANOU_JeanLuc-en.pdf` - PDF généré à partir du CV en anglais
+- `github-markdown.css` - Feuille de style pour le rendu Markdown
+- `md-to-pdf.js` - Script de conversion Markdown vers PDF
+- `package.json` - Configuration du projet
 
-### **Directeur des solutions digitales**
+## 🚀 Instructions pour la conversion Markdown → PDF
 
-_Big Five Solutions_, Abidjan, Côte d'Ivoire  
-**Juin 2019 - Actuellement**
+### Prérequis
 
-> Responsable de la stratégie digitale, du développement et de l'intégration des solutions technologiques pour les clients et le département social media.
+Assurez-vous d'avoir Node.js installé sur votre système. Si ce n'est pas le cas, [téléchargez-le ici](https://nodejs.org/).
 
----
+### Installation
 
-### **Head Of Design**
+1. Clonez ce dépôt :
+   ```sh
+   git clone https://github.com/jhouedanou/Curriculum-vitae.git
+   cd Curriculum-vitae
+   ```
 
-_WeDev Group_, Abidjan, Côte d'Ivoire  
-**Juin 2017 - Juin 2019** (2 ans)
+2. Installez les dépendances :
+   ```sh
+   npm install
+   ```
 
-> Gestion des équipes de design, conception d'interfaces utilisateur, et création de maquettes pour des solutions web et mobiles.
+### Commandes de conversion
 
----
+#### Utilisation avec npm (recommandé)
 
-### **Responsable communication digitale**
+```sh
+# Convertir tous les fichiers Markdown en PDF
+npm run build-pdf
 
-_Adonai Agri Batis_, Abidjan, Côte d'Ivoire  
-**Février 2017 – Juin 2017** (5 mois)
+# Convertir uniquement le CV en français
+npm run build-pdf-fr
 
-> Développement de la stratégie de communication digitale et gestion de la présence en ligne de l'entreprise.
+# Convertir uniquement le CV en anglais
+npm run build-pdf-en
 
----
+# Convertir tous les fichiers avec des marges minimales (5mm)
+npm run build-pdf-minimal
 
-### **Chargé de projet web et communication digitale**
+# Convertir le CV français avec des marges minimales
+npm run build-pdf-fr-minimal
 
-_CIFIDE_, Abidjan, Côte d'Ivoire  
-**Juillet 2016 - Janvier 2017** (7 mois)
+# Convertir le CV anglais avec des marges minimales
+npm run build-pdf-en-minimal
 
-> Supervision des projets de création de sites web et coordination des campagnes de communication numérique.
+# Optimisé pour tenir sur 2 pages maximum (marges 3mm, échelle 0.95)
+npm run build-pdf-2pages
 
----
+# CV français optimisé pour 2 pages
+npm run build-pdf-fr-2pages
 
-### **Webmaster**
+# CV anglais optimisé pour 2 pages
+npm run build-pdf-en-2pages
+```
 
-_CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire  
-**Août 2013 - Mars 2016** (3 ans 2 mois)
+#### Conversion avec des marges minimales
 
-> Gestion complète du site web, optimisation du contenu et des performances, et support technique.
+Pour générer un PDF avec des marges très petites (5mm) :
 
----
+```sh
+npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"margin": "5mm"}'
+```
 
-### **Responsable du site web**
+ou pour le CV en anglais :
 
-_Electoral Reform International Services_, Abidjan, Côte d'Ivoire  
-**Janvier 2013 - Juin 2013** (6 mois)
+```sh
+npx md-to-pdf ResumeHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"margin": "5mm"}'
+```
 
-> Administration du site web, mise à jour de contenu et amélioration des fonctionnalités pour une meilleure expérience utilisateur.
+#### Options personnalisées
 
----
+Vous pouvez personnaliser davantage le rendu PDF avec différentes options :
 
-### **Consultant formateur à l'utilisation des TIC**
+```sh
+# Format A4 avec des marges spécifiques
+npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"format": "A4", "margin": "10mm"}'
 
-_Internews Europe_, Abidjan, Côte d'Ivoire  
-**Mai 2012** (1 mois)
+# Orientation paysage
+npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"format": "A4", "landscape": true, "margin": "7mm"}'
+```
 
-> Formation des professionnels à l'utilisation des nouvelles technologies de l'information et de la communication (TIC).
+## 🔄 Mettre à jour le workflow GitHub Actions
 
----
+Si vous souhaitez modifier la façon dont les PDF sont générés automatiquement via GitHub Actions, vous pouvez éditer le fichier `.github/workflows/pdf-readme.yml`.
 
-### **Web designer & Infographiste**
+### Configuration recommandée pour des marges minimales
 
-_Chrisalys Group_, Abidjan, Côte d'Ivoire  
-**Octobre 2011 - Mai 2012** (1 mois)
+Remplacez la section de génération PDF dans le workflow par :
 
-> Conception graphique et création de supports visuels pour des projets web et print.
+```yaml
+- name: Générer les PDF avec marges minimales
+  run: |
+    find . -name "*.md" | while read file; do
+      npx md-to-pdf "$file" --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{"margin": "5mm"}'
+    done
+```
 
----
+## ⚠️ Remarque importante
 
-### **Responsable associé de la division e-commerce**
-
-_Group(e) Kamit Communications Inc_, Montréal, Canada  
-**Septembre 2009 - Avril 2011** (1 an 8 mois)
-
-> Gestion de la division e-commerce, développement de plateformes en ligne et gestion des relations avec les clients.
-
----
-
-## 🛠 **Compétences techniques**
-
-- **Langages** : PHP, JavaScript (VueJS, Angular)
-- **Design** : Web Design, Infographie
-- **Outils** : Adobe XD, Affinity Designer, Affinity Photo, DaVinci Resolve
-- **Administration** : Serveur Linux
-
----
-
-## 🎓 **Formation**
-
-| Diplôme                                                    | Institution                                                                  | Période     |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------- |
-| **Master en Gestion du commerce électronique**             | Université de Sherbrooke, Canada                                             | 2007 - 2008 |
-| **Certificat en Gestion de l'information et des systèmes** | Université de Sherbrooke, Canada                                             | 2008 - 2009 |
-| **Bachelor en Administration des affaires**                | Université Canadienne des Arts, des Sciences et du Management, Côte d'Ivoire | 2002 - 2006 |
-| **Baccalauréat en Economie et Sciences**                   | Collège Jean Mermoz, Côte d'Ivoire                                           | 1995 - 2002 |
-
----
-
-## 🏆 **Réalisations récentes**
-- [CASTEL AFRIQUE](https://castel-afrique.com/) : Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive
-- [CIPREL](https://ciprel.com/) : Création d'un site web pour l'entreprise CIPREL, intégration de maquettes Adobe XD en site web responsive
-- [Jeu Dinor 70 ans](https://roue.dinorapp.com/) : création d'un jeu interactif pour célébrer les 70 ans de l'entreprise Dinor, avec un dashboard d'administration pour la gestion des utilisateurs et des résultats , utilisant filament et supabase
-- [Quizz St-Avé](https://quizzstave.netlify.app/) : en NuxtJS, un quizz pour le groupe St-Avé
-- [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.sn)
-- [Landing page VodaFone](https://txtengage-vodafone.vercel.app/) : Landing page pour Vodafone Afrique du Sud
-- [Compteur de calories](https://dinor-calorie-counter-alt.vercel.app/) : Compteur de calories pour SANIA/Dinor, développé en VueJS
-- [Questionnaire RH](https://ciprelrh.netlify.app/) : Questionnaire RH, développé pour l'entreprise CIPREL pour le salon SIREXE
-- [Jeu CIPREL](https://jeuciprel.vercel.app/) : Jeu interactif en VueJS, développé pour l'entreprise CIPREL pour le salon SIREXE
-- [TiméoRH](https://timeo-rh.vercel.app/) : Design, intégration en VueJS/Nuxt
-- [BigFiveSolutions.com](https://bigfivesolutions.com/) : Intégration Adobe XD en site web VueJS
-- [BigFive360.com](https://bigfive360.com) : Intégration Adobe XD en site web Angular
-- [BBLome.com](https://bblome.com) : Design & prototypage sous Adobe XD, création d'un template WordPress
-- [Soeguibe.com](https://soeguibe.com) : Design & prototypage sous Adobe XD, création d'un template WordPress
+Ne pas utiliser l'option `--launch-options.args` qui provoque une erreur avec la version actuelle de md-to-pdf.
 
 ---
 
-> [houedanou.com](https://houedanou.com) • [@afrowebdesigner](https://twitter.com/afrowebdesigner) • [GitHub](https://github.com/jhouedanou)
+Pour plus d'informations, consultez la [documentation officielle de md-to-pdf](https://github.com/simonhaenisch/md-to-pdf).

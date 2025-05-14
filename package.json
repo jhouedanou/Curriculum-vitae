@@ -1,0 +1,27 @@
+{
+  "name": "curriculum-vitae",
+  "version": "1.0.0",
+  "description": "CV Jean-Luc Houédanou",
+  "main": "md-to-pdf.js",
+  "scripts": {
+    "build-pdf": "for file in *.md; do npx md-to-pdf \"$file\" --stylesheet github-markdown.css --body-class=markdown-body; done",
+    "build-pdf-en": "npx md-to-pdf ResumeHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body",
+    "build-pdf-fr": "npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body",
+    "build-pdf-minimal": "for file in *.md; do npx md-to-pdf \"$file\" --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"5mm\"}'; done",
+    "build-pdf-en-minimal": "npx md-to-pdf ResumeHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"5mm\"}'",
+    "build-pdf-fr-minimal": "npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"5mm\"}'",
+    "build-pdf-2pages": "for file in *.md; do npx md-to-pdf \"$file\" --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"3mm\", \"scale\": 0.95, \"printBackground\": true}'; done",
+    "build-pdf-fr-2pages": "npx md-to-pdf CVHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"3mm\", \"scale\": 0.95, \"printBackground\": true}'",
+    "build-pdf-en-2pages": "npx md-to-pdf ResumeHOUEDANOUJeanLuc.md --stylesheet github-markdown.css --body-class=markdown-body --pdf-options '{\"margin\": \"3mm\", \"scale\": 0.95, \"printBackground\": true}'"
+  },
+  "keywords": [
+    "cv",
+    "resume",
+    "pdf"
+  ],
+  "author": "Jean-Luc Houédanou",
+  "license": "MIT",
+  "devDependencies": {
+    "md-to-pdf": "^5.2.4"
+  }
+}
