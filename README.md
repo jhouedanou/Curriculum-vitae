@@ -1,4 +1,4 @@
-# **Jean-Luc Lionel Houédanou** 
+# **Jean-Luc Lionel Houédanou**
 
 **Manager, Développeur Front End (VueJS), PHP et Designer expérimenté dans la gestion des projets web**
 
@@ -113,7 +113,8 @@ _Group(e) Kamit Communications Inc_, Montréal, Canada
 ---
 
 ## 🏆 **Réalisations récentes**
-
+- [CASTEL AFRIQUE](https://castel-afrique.com/) : Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive
+- [CIPREL](https://ciprel.com/) : Création d'un site web pour l'entreprise CIPREL, intégration de maquettes Adobe XD en site web responsive
 - [Jeu Dinor 70 ans](https://roue.dinorapp.com/) : création d'un jeu interactif pour célébrer les 70 ans de l'entreprise Dinor, avec un dashboard d'administration pour la gestion des utilisateurs et des résultats , utilisant filament et supabase
 - [Quizz St-Avé](https://quizzstave.netlify.app/) : en NuxtJS, un quizz pour le groupe St-Avé
 - [Intégration PSD en template Wordpress & "gutenberg"](https://soboa95ans.sn)

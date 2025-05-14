@@ -113,7 +113,8 @@ _Group(e) Kamit Communications Inc_, Montreal, Canada
 ---
 
 ## 🏆 **Recent Achievements**
-
+- [CASTEL AFRIQUE](https://castel-afrique.com/): Creation of a website for the CASTEL group, integration of Adobe XD mockups into a responsive website
+- [CIPREL](https://ciprel.com/): Creation of a website for CIPREL company, integration of Adobe XD mockups into a responsive website
 - [Dinor 70th Anniversary Game](https://roue.dinorapp.com/): creation of an interactive game to celebrate Dinor's 70th anniversary, with an admin dashboard for user and results management, using filament and supabase
 - [St-Avé Quiz](https://quizzstave.netlify.app/): in NuxtJS, a quiz for the St-Avé group
 - [PSD Integration into WordPress & Gutenberg template](https://soboa95ans.sn)
