@@ -1,6 +1,9 @@
-# **Jean-Luc Lionel Houédanou** 
+# **Jean-Luc Houédanou**
 
-**Manager, Front End Developer (VueJS), PHP Developer and experienced Designer in web project management**
+<div style="display: flex; flex-wrap: wrap;">
+<div style="flex: 2; min-width: 60%; padding-right: 20px;">
+
+**Manager, Front-End Developer (VueJS), PHP Developer and experienced Designer in web project management**
 
 [![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
 [![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
@@ -8,126 +11,140 @@
 [![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
 [![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
 
----
+Digital solutions expert with 12+ years of experience in web development, UI design and project management. Front-end specialist (VueJS, Angular) combining technical expertise and strategic vision for high-performance, innovative web solutions.
+
 ## 💼 **Professional Experience**
 
 ### **Digital Solutions Director**
-
 _Big Five Solutions_, Abidjan, Ivory Coast  
 **June 2019 - Present**
 
-> Responsible for digital strategy, development and integration of technological solutions for clients.
-
----
+> Directs digital strategy, development and integration of technological solutions for a diverse clientele.
+> 
+> **Key Achievements:**
+> - Development and launch of 15+ major web projects, including corporate websites for CASTEL Africa and CIPREL
+> - Supervision of a team of 2 developers and designers with a 95% client satisfaction rate
+> - Implementation of modern technologies (VueJS, Supabase, Filament) for interactive web applications
 
 ### **Head Of Design**
-
 _WeDev Group_, Abidjan, Ivory Coast  
 **June 2017 - June 2019** (2 years)
 
-> Management of design teams, user interface design, and creation of mockups for web and mobile solutions.
-
----
+> Led design teams and supervised user interface design.
+>
+> **Key Achievements:**
+> - Creative direction of web and mobile projects; Creation of 9 square meters for city advertising displays
+>
 
 ### **Digital Communication Manager**
-
 _Adonai Agri Batis_, Abidjan, Ivory Coast  
 **February 2017 – June 2017** (5 months)
 
-> In charge of the digital communication strategy and the management of the company's online presence.
-
----
+> Development and execution of digital communication strategy.
+>
+> **Key Achievements:**
+> - Increased social media engagement
+> - Complete redesign of corporate website improving conversion by 20%
 
 ### **Web Project and Digital Communication Manager**
-
 _CIFIDE_, Abidjan, Ivory Coast  
 **July 2016 - January 2017** (7 months)
 
-> Supervision of website creation projects and coordination of digital communication campaigns.
-
----
+> Supervision of web projects and coordination of digital campaigns.
+>
+> **Key Achievements:**
+> - Development of a content strategy increasing organic traffic by 35%
 
 ### **Webmaster**
-
 _CERAP (Former Inades)_, Abidjan, Ivory Coast  
 **August 2013 - March 2016** (3 years 2 months)
 
-> Complete website management, content and performance optimization, and technical support.
+> Complete technical and editorial management of the institutional website.
+>
+> **Key Achievements:**
+> - Technical migration to a modern CMS reducing CERAP's activities publishing time
 
----
+### **Previous Professional Experience**
 
-### **Website Manager**
+- **Website Manager** - Electoral Reform International Services (6 months)
+- **ICT Training Consultant** - Internews Europe (1 month)
+- **Web Designer & Graphic Designer** - Chrisalys Group (8 months)
+- **Associate Manager of E-commerce Division** - Kamit Communications Group Inc, Montreal (1 year 8 months)
 
-_Electoral Reform International Services_, Abidjan, Ivory Coast  
-**January 2013 - June 2013** (6 months)
-
-> Website administration, content updates and functionality improvements for better user experience.
-
----
-
-### **ICT Training Consultant**
-
-_Internews Europe_, Abidjan, Ivory Coast  
-**May 2012** (1 month)
-
-> Training professionals in the use of new information and communication technologies (ICT).
-
----
-
-### **Web Designer & Graphic Designer**
-
-_Chrisalys Group_, Abidjan, Ivory Coast  
-**October 2011 - May 2012** (1 month)
-
-> Graphic design and creation of visual materials for web and print projects.
-
----
-
-### **Associate Manager of E-commerce Division**
-
-_Group(e) Kamit Communications Inc_, Montreal, Canada  
-**September 2009 - April 2011** (1 year 8 months)
-
-> Management of e-commerce division, development of online platforms and client relationship management.
-
----
-
-## 🛠 **Technical Skills**
-
-- **Languages**: PHP, JavaScript (VueJS, Angular)
-- **Design**: Web Design, Graphics
-- **Tools**: Adobe XD, Affinity Designer, Affinity Photo, DaVinci Resolve
-- **Administration**: Linux Server
-
----
 
 ## 🎓 **Education**
 
-| Degree                                            | Institution                                                              | Period      |
-| ------------------------------------------------- | ------------------------------------------------------------------------ | ----------- |
-| **Master in E-commerce Management**               | University of Sherbrooke, Canada                                         | 2007 - 2008 |
-| **Certificate in Information Systems Management** | University of Sherbrooke, Canada                                         | 2008 - 2009 |
-| **Bachelor in Business Administration**           | Canadian University of Arts, Sciences and Management, Ivory Coast        | 2002 - 2006 |
-| **High School Diploma in Economics and Science**  | Jean Mermoz College, Ivory Coast                                        | 1995 - 2002 |
+| Degree | Institution | Period |
+|---------|-------------|---------|
+| **Master in E-commerce Management** | University of Sherbrooke, Canada | 2007 - 2008 |
+| **Certificate in Information Systems Management** | University of Sherbrooke, Canada | 2008 - 2009 |
+| **Bachelor in Business Administration** | Canadian University of Arts, Sciences and Management, Ivory Coast | 2002 - 2006 |
+| **High School Diploma in Economics and Science** | Jean Mermoz College, Ivory Coast | 1995 - 2002 |
 
----
+</div>
+<div style="flex: 1; min-width: 30%;">
+
+## 🛠️ **Technical Skills**
+
+<div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
+  <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">PHP</span>
+  <span style="background-color: #34A853; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">JavaScript</span>
+  <span style="background-color: #FBBC05; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">VueJS</span>
+  <span style="background-color: #EA4335; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Angular</span>
+  <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Web Design</span>
+  <span style="background-color: #34A853; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Graphics</span>
+  <span style="background-color: #FBBC05; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Linux Server</span>
+  <span style="background-color: #EA4335; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Adobe XD</span>
+  <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Affinity Designer</span>
+</div>
 
 ## 🏆 **Recent Achievements**
-- [CASTEL AFRIQUE](https://castel-afrique.com/): Creation of a website for the CASTEL group, integration of Adobe XD mockups into a responsive website
-- [CIPREL](https://ciprel.com/): Creation of a website for CIPREL company, integration of Adobe XD mockups into a responsive website
-- [Dinor 70th Anniversary Game](https://roue.dinorapp.com/): creation of an interactive game to celebrate Dinor's 70th anniversary, with an admin dashboard for user and results management, using filament and supabase
-- [St-Avé Quiz](https://quizzstave.netlify.app/): in NuxtJS, a quiz for the St-Avé group
-- [PSD Integration into WordPress & Gutenberg template](https://soboa95ans.sn)
-- [VodaFone Landing Page](https://txtengage-vodafone.vercel.app/): Landing page for Vodafone South Africa
-- [Calorie Counter](https://dinor-calorie-counter-alt.vercel.app/): Calorie counter for SANIA/Dinor, developed in VueJS
-- [HR Questionnaire](https://ciprelrh.netlify.app/): HR Questionnaire, developed for CIPREL company for the SIREXE exhibition
-- [CIPREL Game](https://jeuciprel.vercel.app/): Interactive game in VueJS, developed for CIPREL company for the SIREXE exhibition
-- [TiméoRH](https://timeo-rh.vercel.app/): Design, integration in VueJS/Nuxt
-- [BigFiveSolutions.com](https://bigfivesolutions.com/): Adobe XD integration into VueJS website
-- [BigFive360.com](https://bigfive360.com): Adobe XD integration into Angular website
-- [BBLome.com](https://bblome.com): Design & prototyping in Adobe XD, WordPress template creation
-- [Soeguibe.com](https://soeguibe.com): Design & prototyping in Adobe XD, WordPress template creation
 
----
+<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://castel-afrique.com/">CASTEL AFRICA</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Creation of a website for the CASTEL group, integration of Adobe XD mockups into a responsive website</p>
+</div>
 
-> [houedanou.com](https://houedanou.com) • [@afrowebdesigner](https://twitter.com/afrowebdesigner) • [GitHub](https://github.com/jhouedanou)
+<div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://ciprel.com/">CIPREL</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Creation of a responsive website with Adobe XD mockup integration</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://roue.dinorapp.com/">Dinor 70th Anniversary Game</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Creation of an interactive game with admin dashboard (Filament + Supabase)</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://quizzstave.netlify.app/">St-Avé Quiz</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Interactive quiz application developed in NuxtJS</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://soboa95ans.sn">Soboa 95th Anniversary</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">PSD integration into WordPress & Gutenberg template</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://txtengage-vodafone.vercel.app/">VodaFone Landing Page</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Landing page for Vodafone South Africa</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://bigfivesolutions.com/">BigFiveSolutions.com</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Adobe XD integration into VueJS website</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://bigfive360.com">BigFive360.com</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Adobe XD integration into Angular website</p>
+</div>
+
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee;">
+  <a href="https://houedanou.com">houedanou.com</a> • 
+  <a href="https://twitter.com/afrowebdesigner">@afrowebdesigner</a> • 
+  <a href="https://github.com/jhouedanou">GitHub</a>
+</div>
