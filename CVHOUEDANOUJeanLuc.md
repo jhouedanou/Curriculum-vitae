@@ -19,7 +19,7 @@ Expert en solutions digitales avec 12+ ans d'expérience en développement web, 
 _Big Five Solutions_, Abidjan, Côte d'Ivoire  
 **Juin 2019 - Présent**
 
-> Dirige la stratégie digitale, le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
+> Dirige le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
 > 
 > **Réalisations clés:**
 > - Développement et lancement de 15+ projets web majeurs, dont des sites corporate pour CASTEL Afrique et CIPREL
@@ -76,8 +76,8 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
 
 | Diplôme | Institution | Période |
 |---------|-------------|---------|
-| **Master en Gestion du commerce électronique** | Université de Sherbrooke, Canada | 2007 - 2008 |
 | **Certificat en Gestion de l'information et des systèmes** | Université de Sherbrooke, Canada | 2008 - 2009 |
+| **Master en Gestion du commerce électronique** | Université de Sherbrooke, Canada | 2007 - 2008 |
 | **Bachelor en Administration des affaires** | Université Canadienne des Arts, des Sciences et du Management, Côte d'Ivoire | 2002 - 2006 |
 | **Baccalauréat en Economie et Sciences** | Collège Jean Mermoz, Côte d'Ivoire | 1995 - 2002 |
 
@@ -99,6 +99,17 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
 </div>
 
 ## 🏆 **Réalisations récentes**
+
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://blackwolftechnologies.co.za/txtengage/">Landing page VodaFone</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Landing page pour Vodafone Afrique du Sud</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://bigfivesolutions.com/">BigFiveSolutions.com</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web VueJS</p>
+</div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://castel-afrique.com/">CASTEL AFRIQUE</a></strong>
@@ -125,15 +136,7 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
   <p style="font-size: 0.9em; margin: 5px 0;">Intégration PSD en template WordPress & Gutenberg</p>
 </div>
 
-<div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://txtengage-vodafone.vercel.app/">Landing page VodaFone</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Landing page pour Vodafone Afrique du Sud</p>
-</div>
 
-<div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://bigfivesolutions.com/">BigFiveSolutions.com</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web VueJS</p>
-</div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://bigfive360.com">BigFive360.com</a></strong>
