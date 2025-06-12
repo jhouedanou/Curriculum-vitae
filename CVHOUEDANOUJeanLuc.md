@@ -19,10 +19,12 @@ Expert en solutions digitales avec 12+ ans d'expérience en développement web, 
 _Big Five Solutions_, Abidjan, Côte d'Ivoire  
 **Juin 2019 - Présent**
 
-> Dirige le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
-> 
+> - Dirige le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
+> - Gestion et sécurité de 8 serveurs Linux (CentOS, Ubuntu) pour hébergement de sites web et applications
+> - Supervision de l'équipe de développement, garantissant la qualité et la performance des projets.
+
 > **Réalisations clés:**
-> - Développement et lancement de 15+ projets web majeurs, dont des sites corporate pour CASTEL Afrique et CIPREL
+> - Développement et lancement de plusieurs projets web majeurs, dont des sites corporate pour Vodacom, CASTEL Afrique et CIPREL
 > - Supervision d'une équipe de 2 développeurs et designers avec un taux de satisfaction client de 95%
 > - Implémentation de technologies modernes (VueJS, Supabase, Filament) pour des applications web interactives
 
@@ -102,8 +104,13 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
 
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://blackwolftechnologies.co.za/txtengage/">Landing page VodaFone</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Landing page pour Vodafone Afrique du Sud</p>
+  <strong><a href="https://txtengage.co.za">Landing page Vodacom</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Landing page pour Vodacom Afrique du Sud</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://castel-afrique.com/">CASTEL AFRIQUE</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive</p>
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
@@ -111,10 +118,7 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
   <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web VueJS</p>
 </div>
 
-<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://castel-afrique.com/">CASTEL AFRIQUE</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive</p>
-</div>
+
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://ciprel.com/">CIPREL</a></strong>
