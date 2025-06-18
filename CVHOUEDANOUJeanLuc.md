@@ -1,5 +1,7 @@
 # **Jean-Luc Houédanou**
 
+**Né le 24 février 1984 • Célibataire • Sans enfants**
+
 <div style="display: flex; flex-wrap: wrap;">
 <div style="flex: 2; min-width: 60%; padding-right: 20px;">
 
