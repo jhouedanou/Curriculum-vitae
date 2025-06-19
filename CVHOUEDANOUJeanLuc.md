@@ -114,10 +114,9 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://bigfivesolutions.com/">BigFiveSolutions.com</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web VueJS</p>
+  <strong><a href="https://roue.dinorapp.com/">Jeu Dinor 70 ans</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un jeu interactif avec dashboard d'administration (Filament + Supabase)</p>
 </div>
-
 
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
@@ -125,10 +124,7 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
   <p style="font-size: 0.9em; margin: 5px 0;">Création d'un site web responsive avec intégration de maquettes Adobe XD</p>
 </div>
 
-<div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://roue.dinorapp.com/">Jeu Dinor 70 ans</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un jeu interactif avec dashboard d'administration (Filament + Supabase)</p>
-</div>
+
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://quizzstave.netlify.app/">Quizz St-Avé</a></strong>
