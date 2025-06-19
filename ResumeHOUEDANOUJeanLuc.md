@@ -1,9 +1,11 @@
 # **Jean-Luc Houédanou**
 
+**Born on February 24, 1984 • Single • No children**
+
 <div style="display: flex; flex-wrap: wrap;">
 <div style="flex: 2; min-width: 60%; padding-right: 20px;">
 
-**Manager, Développeur Front End (VueJS), PHP et Designer expérimenté dans la gestion des projets web**
+**Manager, Front End Developer (VueJS), PHP and Designer experienced in web project management**
 
 [![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
 [![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
@@ -11,80 +13,82 @@
 [![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
 [![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
 
-Expert en solutions digitales avec 12+ ans d'expérience en développement web, UI design et gestion de projets. Spécialiste front-end (VueJS, Angular) alliant expertise technique et vision stratégique pour des solutions web performantes et innovantes.
+Digital solutions expert with 12+ years of experience in web development, UI design, and project management. Front-end specialist (VueJS, Angular) combining technical expertise and strategic vision for high-performance, innovative web solutions.
 
-## 💼 **Expérience Professionnelle**
+## 💼 **Professional Experience**
 
-### **Directeur des Solutions Digitales**
+### **Director of Digital Solutions**
 _Big Five Solutions_, Abidjan, Côte d'Ivoire  
-**Juin 2019 - Présent**
+**June 2019 - Present**
 
-> Dirige le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
-> 
-> **Réalisations clés:**
-> - Développement et lancement de 15+ projets web majeurs, dont des sites corporate pour CASTEL Afrique et CIPREL
-> - Supervision d'une équipe de 2 développeurs et designers avec un taux de satisfaction client de 95%
-> - Implémentation de technologies modernes (VueJS, Supabase, Filament) pour des applications web interactives
+> - Leads the development and integration of technological solutions for a diverse clientele.
+> - Manages and secures 8 Linux servers (CentOS, Ubuntu) for website and application hosting
+> - Supervises the development team, ensuring project quality and performance.
+
+> **Key Achievements:**
+> - Developed and launched several major web projects, including corporate sites for Vodacom, CASTEL Africa, and CIPREL
+> - Supervised a team of 2 developers and designers with a 95% client satisfaction rate
+> - Implemented modern technologies (VueJS, Supabase, Filament) for interactive web applications
 
 ### **Head Of Design**
 _WeDev Group_, Abidjan, Côte d'Ivoire  
-**Juin 2017 - Juin 2019** (2 ans)
+**June 2017 - June 2019** (2 years)
 
-> Dirigeait les équipes de design et supervisait la conception d'interfaces utilisateur.
+> Led design teams and supervised user interface design.
 >
-> **Réalisations clés:**
-> - Direction créative des projets web et mobiles; Création de 9 metres carrés pour affichage publlicitaire en ville.
+> **Key Achievements:**
+> - Creative direction of web and mobile projects; Created 9 square meters of advertising displays in the city.
 >
 
-### **Responsable Communication Digitale**
+### **Digital Communication Manager**
 _Adonai Agri Batis_, Abidjan, Côte d'Ivoire  
-**Février 2017 – Juin 2017** (5 mois)
+**February 2017 – June 2017** (5 months)
 
-> Développement et exécution de la stratégie de communication digitale.
+> Developed and executed the digital communication strategy.
 >
-> **Réalisations clés:**
-> - Augmentation de l'engagement sur les réseaux sociaux
-> - Refonte complète du site web corporatif améliorant la conversion de 20%
+> **Key Achievements:**
+> - Increased engagement on social networks
+> - Complete redesign of the corporate website, improving conversion by 20%
 
-### **Chargé de Projet Web et Communication Digitale**
+### **Web Project and Digital Communication Manager**
 _CIFIDE_, Abidjan, Côte d'Ivoire  
-**Juillet 2016 - Janvier 2017** (7 mois)
+**July 2016 - January 2017** (7 months)
 
-> Supervision des projets web et coordination des campagnes digitales.
+> Supervised web projects and coordinated digital campaigns.
 >
-> **Réalisations clés:**
-> - Élaboration d'une stratégie de contenu augmentant le trafic organique de 35%
+> **Key Achievements:**
+> - Developed a content strategy increasing organic traffic by 35%
 
 ### **Webmaster**
-_CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire  
-**Août 2013 - Mars 2016** (3 ans 2 mois)
+_CERAP (Formerly Inades)_, Abidjan, Côte d'Ivoire  
+**August 2013 - March 2016** (3 years 2 months)
 
-> Gestion technique et éditoriale complète du site web institutionnel.
+> Full technical and editorial management of the institutional website.
 >
-> **Réalisations clés:**
-> - Migration technique vers un CMS moderne réduisant le délai de mise en ligne des activités du CERAP
+> **Key Achievements:**
+> - Technical migration to a modern CMS, reducing the time to publish CERAP activities
 
-### **Expérience Professionnelle Antérieure**
+### **Previous Professional Experience**
 
-- **Responsable du site web** - Electoral Reform International Services (6 mois)
-- **Consultant formateur TIC** - Internews Europe (1 mois)
-- **Web designer & Infographiste** - Chrisalys Group (8 mois)
-- **Responsable associé division e-commerce** - Groupe Kamit Communications Inc, Montréal (1 an 8 mois)
+- **Website Manager** - Electoral Reform International Services (6 months)
+- **ICT Trainer Consultant** - Internews Europe (1 month)
+- **Web Designer & Graphic Designer** - Chrisalys Group (8 months)
+- **Associate Manager, E-commerce Division** - Groupe Kamit Communications Inc, Montreal (1 year 8 months)
 
 
-## 🎓 **Formation**
+## 🎓 **Education**
 
-| Diplôme | Institution | Période |
-|---------|-------------|---------|
-| **Certificat en Gestion de l'information et des systèmes** | Université de Sherbrooke, Canada | 2008 - 2009 |
-| **Master en Gestion du commerce électronique** | Université de Sherbrooke, Canada | 2007 - 2008 |
-| **Bachelor en Administration des affaires** | Université Canadienne des Arts, des Sciences et du Management, Côte d'Ivoire | 2002 - 2006 |
-| **Baccalauréat en Economie et Sciences** | Collège Jean Mermoz, Côte d'Ivoire | 1995 - 2002 |
+| Degree | Institution | Period |
+|--------|-------------|--------|
+| **Certificate in Information and Systems Management** | University of Sherbrooke, Canada | 2008 - 2009 |
+| **Master's in E-commerce Management** | University of Sherbrooke, Canada | 2007 - 2008 |
+| **Bachelor in Business Administration** | Canadian University of Arts, Sciences and Management, Côte d'Ivoire | 2002 - 2006 |
+| **Baccalaureate in Economics and Sciences** | Jean Mermoz College, Côte d'Ivoire | 1995 - 2002 |
 
 </div>
 <div style="flex: 1; min-width: 30%;">
 
-## 🛠️ **Compétences techniques**
+## 🛠️ **Technical Skills**
 
 <div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
   <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">PHP</span>
@@ -92,55 +96,57 @@ _CERAP (Ancien Inades)_, Abidjan, Côte d'Ivoire
   <span style="background-color: #FBBC05; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">VueJS</span>
   <span style="background-color: #EA4335; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Angular</span>
   <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Web Design</span>
-  <span style="background-color: #34A853; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Infographie</span>
-  <span style="background-color: #FBBC05; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Serveur Linux</span>
+  <span style="background-color: #34A853; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Graphic Design</span>
+  <span style="background-color: #FBBC05; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Linux Server</span>
   <span style="background-color: #EA4335; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Adobe XD</span>
   <span style="background-color: #4285F4; color: white; margin: 3px; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">Affinity Designer</span>
 </div>
 
-## 🏆 **Réalisations récentes**
+## 🏆 **Recent Achievements**
 
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://blackwolftechnologies.co.za/txtengage/">Landing page VodaFone</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Landing page pour Vodafone Afrique du Sud</p>
+  <strong><a href="https://txtengage.co.za">Vodacom Landing page</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Landing page for Vodacom South Africa</p>
+</div>
+
+<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
+  <strong><a href="https://castel-afrique.com/">CASTEL AFRICA</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Website creation for the CASTEL group, integration of Adobe XD mockups into a responsive website</p>
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://bigfivesolutions.com/">BigFiveSolutions.com</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web VueJS</p>
+  <p style="font-size: 0.9em; margin: 5px 0;">Adobe XD to VueJS website integration</p>
 </div>
 
-<div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://castel-afrique.com/">CASTEL AFRIQUE</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive</p>
-</div>
+
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #34A853; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://ciprel.com/">CIPREL</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un site web responsive avec intégration de maquettes Adobe XD</p>
+  <p style="font-size: 0.9em; margin: 5px 0;">Creation of a responsive website with Adobe XD mockup integration</p>
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #FBBC05; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://roue.dinorapp.com/">Jeu Dinor 70 ans</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Création d'un jeu interactif avec dashboard d'administration (Filament + Supabase)</p>
+  <strong><a href="https://roue.dinorapp.com/">Dinor 70 years Game</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">Creation of an interactive game with admin dashboard (Filament + Supabase)</p>
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://quizzstave.netlify.app/">Quizz St-Avé</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Application quiz interactive développée en NuxtJS</p>
+  <p style="font-size: 0.9em; margin: 5px 0;">Interactive quiz application developed in NuxtJS</p>
 </div>
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #4285F4; padding: 10px; margin-bottom: 10px;">
-  <strong><a href="https://soboa95ans.sn">Soboa 95 ans</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Intégration PSD en template WordPress & Gutenberg</p>
+  <strong><a href="https://soboa95ans.sn">Soboa 95 years</a></strong>
+  <p style="font-size: 0.9em; margin: 5px 0;">PSD to WordPress & Gutenberg template integration</p>
 </div>
 
 
 
 <div style="background-color: #f9f9f9; border-left: 4px solid #EA4335; padding: 10px; margin-bottom: 10px;">
   <strong><a href="https://bigfive360.com">BigFive360.com</a></strong>
-  <p style="font-size: 0.9em; margin: 5px 0;">Intégration Adobe XD en site web Angular</p>
+  <p style="font-size: 0.9em; margin: 5px 0;">Adobe XD to Angular website integration</p>
 </div>
 
 </div>
