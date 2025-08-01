@@ -1,19 +1,8 @@
-# Jean-Luc Houédanou
-## Développeur Web Fullstack | Designer UI/UX | Chef de Projet Digital
+# Jean Luc Houédanou
 
 **Email:** jeanluc@houedanou.com  
 **Téléphone:** +225 07 48 34 82 21  
-**Localisation:** Abidjan, Côte d'Ivoire  
-**Site Web:** https://houedanou.com  
-**GitHub:** https://github.com/jhouedanou  
-**Né le:** 24 février 1984
-
----
-
-## PROFIL PROFESSIONNEL
-
-**Directeur Solutions Digitales** expérimenté avec **plus de 12 ans d'expertise** en développement web, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Angular) alliant expertise technique et vision stratégique pour des solutions web performantes et innovantes.
-
+**Date de naissance:** 24 février 1984
 
 ---
 
@@ -21,10 +10,11 @@
 <tr>
 <td width="60%" valign="top">
 
-## EXPÉRIENCE PROFESSIONNELLE
+## 🔹 Expérience professionnelle
 
-### **Directeur Solutions Digitales**
-**Big Five Solutions** | Juin 2019 - Présent | Abidjan, Côte d'Ivoire
+### Juin 2019 - Actuellement
+**Directeur solutions digitales**  
+Big Five Solutions, Abidjan, Côte d'Ivoire
 
 Dirige le développement et l'intégration des solutions technologiques pour une clientèle diversifiée.
 
@@ -36,8 +26,9 @@ Dirige le développement et l'intégration des solutions technologiques pour une
 
 ---
 
-### **Head of Design**
-**WeDev Group** | Juin 2017 - Juin 2019 | Abidjan, Côte d'Ivoire
+### Juin 2017 - Juin 2019 (2 ans)
+**Head Of Design**  
+WeDev Group, Abidjan, Côte d'Ivoire
 
 Dirigeait les équipes de design et supervisait la conception d'interfaces utilisateur.
 
@@ -48,8 +39,9 @@ Dirigeait les équipes de design et supervisait la conception d'interfaces utili
 
 ---
 
-### **Responsable Communication Digitale**
-**Adonai Agri Batis** | Février 2017 - Juin 2017 | Abidjan, Côte d'Ivoire
+### Février 2017 - Juin 2017 (5 mois)
+**Responsable communication digitale**  
+Adonai Agri Batis, Abidjan, Côte d'Ivoire
 
 Développement et exécution de la stratégie de communication digitale.
 
@@ -60,8 +52,9 @@ Développement et exécution de la stratégie de communication digitale.
 
 ---
 
-### **Chargé de Projet Web & Communication Digitale**
-**CIFIDE** | Juillet 2016 - Janvier 2017 | Abidjan, Côte d'Ivoire
+### Juillet 2016 - Janvier 2017 (7 mois)
+**Chargé de projet web et communication digitale**  
+CIFIDE, Abidjan, Côte d'Ivoire
 
 Supervision des projets web et coordination des campagnes digitales.
 
@@ -72,8 +65,9 @@ Supervision des projets web et coordination des campagnes digitales.
 
 ---
 
-### **Webmaster**
-**CERAP (Ancien Inades)** | Août 2013 - Mars 2016 | Abidjan, Côte d'Ivoire
+### Août 2013 - Mars 2016 (3 ans 2 mois)
+**Webmaster**  
+CERAP (Ancien Inades), Abidjan, Côte d'Ivoire
 
 Gestion technique et éditoriale complète du site web institutionnel.
 
@@ -84,35 +78,53 @@ Gestion technique et éditoriale complète du site web institutionnel.
 
 ---
 
-### **Expérience Professionnelle Antérieure**
-
-**Responsable du Site Web**  
-*Electoral Reform International Services* | Janvier 2013 - Juillet 2013
-
-**Consultant Formateur TIC**  
-*Internews Europe* | Avril 2012
-
-**Web Designer & Infographiste**  
-*Chrisalys Group* | Mai 2012 - Décembre 2012
-
-**Responsable Associé Division E-commerce**  
-*Groupe Kamit Communications Inc, Montréal* | Septembre 2009 - Avril 2011
+### Janvier 2013 - Juin 2013 (6 mois)
+**Responsable du site web**  
+Electoral Reform International Services, Abidjan, Côte d'Ivoire
 
 ---
 
-## FORMATION ACADÉMIQUE
+### Mai 2012 (1 mois)
+**Consultant formateur à l'utilisation des TIC**  
+Internews Europe, Abidjan, Côte d'Ivoire
 
-**Master en Gestion du Commerce Électronique**  
-*Université de Sherbrooke, Canada* | 2007 - 2008
+---
 
+### Mai 2012 - Décembre 2012 (1 an)
+**Web designer & Infographiste**  
+Chrisalys Group, Abidjan, Côte d'Ivoire
+
+---
+
+### Septembre 2009 - Avril 2011 (1 an 8 mois)
+**Responsable associé de la division e-commerce**  
+Groupe Kamit Communications Inc, Montréal Canada
+
+---
+
+## Parcours académique
+
+### 2008 - 2009
 **Certificat en Gestion de l'Information et des Systèmes**  
-*Université de Sherbrooke, Canada* | 2008 - 2009
+Université de Sherbrooke, Canada
 
+### 2007 - 2008
+**Master en Gestion du Commerce Électronique**  
+Université de Sherbrooke, Canada
+
+### 2002 - 2006
 **Baccalauréat en Administration des Affaires**  
-*Université Canadienne des Arts, Sciences et Management, Côte d'Ivoire* | 2002 - 2006
+Université Canadienne des Arts, Sciences et Management, Côte d'Ivoire
 
+### 1995 - 2002
 **Baccalauréat en Économie et Sciences**  
-*Collège Jean Mermoz, Côte d'Ivoire* | 1995 - 2002
+Collège Jean Mermoz, Côte d'Ivoire
+
+---
+
+## PROFIL PROFESSIONNEL
+
+**Directeur Solutions Digitales** expérimenté avec **plus de 12 ans d'expertise** en développement web, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Angular) alliant expertise technique et vision stratégique pour des solutions web performantes et innovantes.
 
 ---
 
@@ -124,92 +136,101 @@ Gestion technique et éditoriale complète du site web institutionnel.
 </td>
 <td width="40%" valign="top">
 
-## RÉALISATIONS 
+## Dernières réalisations
 
 ### **Landing Page Vodacom**
-Landing page pour Vodacom Afrique du Sud
+**https://txtengage.co.za**  
+Landing page pour Vodacom Afrique du Sud  
 *Technologies:* VueJS, Responsive Design
-*URL:* txtengage.co.za
 
 ### **CASTEL AFRIQUE**
+**https://castel-afrique.com**  
 Création d'un site web pour le groupe CASTEL, intégration de maquettes Adobe XD en site web responsive
-*URL:* castel-afrique.com
 
-### **Jeu Dinor 70 ans**
-Création d'un jeu interactif avec dashboard d'administration (Filament + Supabase)
-*URL:* roue.dinorapp.com
+
 
 ### **CIPREL**
+**https://ciprel.ci**  
 Création d'un site web responsive avec intégration de maquettes Adobe XD
-*URL:* ciprel.com
 
 ### **Quizz St-Avé**
+**https://quizzstave.netlify.app**  
 Application quiz interactive développée en NuxtJS
-*URL:* quizzstave.netlify.app
 
 ### **Soboa 95 ans**
+**https://soboa95ans.sn**  
 Site web commémoratif avec design sur-mesure
-*URL:* soboa95ans.sn
 
 ### **BigFive360 & BBlome**
+**https://bigfive360.com | https://bblome.com**  
 Portails personnalisés avec solutions sur-mesure
-*URLs:* bigfive360.com | bblome.com
 
+### **Intégration Adobe XD en VueJS**
+**https://bigfive.solutions/**  
+Design & prototypage sous Adobe XD
+Création d'un site web en VueJS
+
+### **https://soeguibe.com**
+Design & prototypage sous Adobe XD  
+Création d'un template WordPress
+### **Jeu Dinor 70 ans**
+**https://roue.dinorapp.com**  
+Création d'un jeu interactif avec dashboard d'administration (Filament + Supabase)
 ### **Projets Récents**
-• Intégration PSD en template WordPress & Gutenberg
-• Intégration Adobe XD en site web Angular
-• Solutions e-commerce complètes
+• Intégration PSD en template WordPress & Gutenberg  
+• Intégration Adobe XD en site web Angular  
+• Solutions e-commerce complètes  
 • Applications web interactives
 
 ---
 
-## COMPÉTENCES TECHNIQUES
+## Compétences & Logiciels
 
 ### **Développement Frontend**
-• VueJS
-• Angular  
-• NuxtJS
-• JavaScript
-• HTML5
-• CSS3
-• Responsive Web Design
+• VueJS ●●●●●●●●
+• Angular ●●●●●●●●●
+• NuxtJS ●●●●●●●
+• JavaScript ●●●●●●●●
+• HTML5 ●●●●●●●●
+• CSS3 ●●●●●●●●
+• Responsive Web Design ●●●●●●●
 
 ### **Développement Backend**
-• PHP
-• Laravel
-• Filament
-• Supabase
-• MySQL
-• APIs RESTful
-• Administration Linux
+• PHP ●●●●●●●●
+• Laravel ●●●●●●●
+• Filament ●●●●●●
+• Supabase ●●●●●●
+• MySQL ●●●●●●●
+• APIs RESTful ●●●●●●
+• Administration serveur Linux ●●●●●●●
 
 ### **Design & Outils**
-• Adobe XD
-• Figma
-• Suite Affinity
-• UI/UX Design
-• Design Graphique
-• DaVinci Resolve
+• Adobe XD ●●●●●●●●●
+• Figma ●●●●●●●
+• Suite Affinity ●●●●●●●
+• Affinity Designer ●●●●●●●
+• Affinity Photo ●●●●●●●
+• UI/UX Design ●●●●●●●●
+• Design Graphique ●●●●●●●
+• DaVinci Resolve ●●●●●●●
 
 ### **Gestion de Projet**
-• SCRUM
-• Kanban
-• Agile
-• Leadership d'Équipe
-• Relation Client
-• Planification Stratégique
+• SCRUM ●●●●●●●
+• Kanban ●●●●●●●
+• Agile ●●●●●●●
+• Leadership d'Équipe ●●●●●●●
+• Relation Client ●●●●●●●●
+• Planification Stratégique ●●●●●●●
 
 ---
 
-## PRÉSENCE EN LIGNE
+## Divers
 
-**Portfolio:** https://houedanou.com  
 **GitHub:** https://github.com/jhouedanou  
+**Blog dédié aux technologies de l'information:** https://houedanou.com  
 **Instagram:** @jlhouedanou  
 **Twitter:** @afrowebdesigner
 
 </td>
 </tr>
 </table>
-
----
