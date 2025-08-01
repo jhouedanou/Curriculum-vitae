@@ -1,85 +1,231 @@
-# Jean-Luc Houédanou
+<div style="font-size: 12px; line-height: 1.4;">
 
-Jean-Luc Houédanou – Fullstack Web Developer | UI Designer | Digital Project Manager
+# Jean Luc Houédanou
 
-Born February 24, 1984 • Single • No children
-
-Email : jeanluc@houedanou.com  |  Phone : +225 07 48 34 82 21
-GitHub : https://github.com/jhouedanou  |  Portfolio : https://houedanou.com
-
----
-
-## Skills
-
-Front-End : VueJS, Angular, NuxtJS
-Back-End : PHP, Laravel, Filament, Supabase
-Tools : Adobe XD, Figma, Git, Linux (Ubuntu, CentOS)
-Project Management : SCRUM, Kanban
-Design : UI/UX, Web Design, Graphic Design
+**Email:** jeanluc@houedanou.com  
+**Phone:** +225 07 48 34 82 21  
+**LinkedIn:** [https://www.linkedin.com/in/jlhouedanou/](https://www.linkedin.com/in/jlhouedanou/)
 
 ---
 
-## Professional Experience
+<table>
+<tr>
+<td width="60%" valign="top">
 
-Digital Solutions Director
-Big Five Solutions, Abidjan, Ivory Coast  
-June 2019 - Present
-- Lead development and integration of technological solutions for diverse clientele.
-- Manage and secure 8 Linux servers (CentOS, Ubuntu) for web hosting and applications.
-- Supervise development team, ensuring project quality and performance.
-- Develop and launch major web projects (Vodacom, CASTEL Africa, CIPREL).
-- Lead team of 2 developers and designers (95% client satisfaction rate).
-- Implement modern technologies (VueJS, Supabase, Filament).
+## 🔹 Professional Experience
 
-Head Of Design
-WeDev Group, Abidjan, Ivory Coast  
-June 2017 - June 2019
-- Lead design teams and supervise user interface design.
-- Creative direction for web and mobile projects.
-- Create urban advertising displays.
+### June 2019 - Present
+**Digital Solutions Director**  
+Big Five Solutions, Abidjan, Côte d'Ivoire
 
-Digital Communication Manager
-Adonai Agri Batis, Abidjan, Ivory Coast  
-February 2017 – June 2017
-- Develop and execute digital communication strategy.
-- Increase social media engagement.
-- Complete corporate website redesign (+20% conversion).
+Leads the development and integration of full-stack web solutions and digital platforms for a diverse clientele, combining strategic vision and technical expertise to create measurable value.
 
-Web Project Manager & Digital Communication
-CIFIDE, Abidjan, Ivory Coast  
-July 2016 - January 2017
-- Supervise web projects and coordinate digital campaigns.
-- Develop content strategy (+35% organic traffic).
-
-Webmaster
-CERAP (Former Inades), Abidjan, Ivory Coast  
-August 2013 - March 2016
-- Complete technical and editorial management of institutional website.
-- Technical migration to modern CMS (reduced publishing time).
-
-Previous Professional Experience
-- Website Manager – Electoral Reform International Services (6 months)
-- ICT Training Consultant – Internews Europe (1 month)
-- Web Designer & Graphic Designer – Chrisalys Group (8 months)
-- Associate Manager E-commerce Division – Groupe Kamit Communications Inc, Montreal (1 year 8 months)
+**Key Achievements:**
+- Development and launch of 15+ major web projects, including corporate sites for Vodacom, CASTEL Africa and CIPREL, generating an average 40% increase in client traffic
+- Supervision and mentoring of a team of 2 developers and designers with 95% client satisfaction rate and 100% on-time project delivery
+- Management and securing of 8 Linux servers (CentOS, Ubuntu) for high availability hosting, reducing downtime by 90%
+- Implementation of modern technologies (VueJS, Supabase, Filament) for interactive web applications, improving performance by 60%
 
 ---
 
-## Education
+### June 2017 - June 2019 (2 years)
+**Head Of Design**  
+WeDev Group, Abidjan, Côte d'Ivoire
 
-- Certificate in Information and Systems Management – University of Sherbrooke, Canada (2008 - 2009)
-- Master's in E-commerce Management – University of Sherbrooke, Canada (2007 - 2008)
-- Bachelor's in Business Administration – Canadian University of Arts, Sciences and Management, Ivory Coast (2002 - 2006)
-- High School Diploma in Economics and Sciences – Jean Mermoz College, Ivory Coast (1995 - 2002)
+Led design strategy and supervised user interface design to strengthen brand identity and customer experience.
+
+**Key Achievements:**
+- Creative direction of 25+ web and mobile projects with a user-centered approach
+- Development of design guidelines and consistent visual systems adopted by the entire team
+- Visual communication strategy increasing brand recognition by 35%
 
 ---
 
-## Recent Achievements
+### February 2017 - June 2017 (5 months)
+**Digital Communication Manager**  
+Adonai Agri Batis, Abidjan, Côte d'Ivoire
 
-- Vodacom South Africa Landing Page (https://txtengage.co.za)
-- CASTEL AFRICA Website (https://castel-afrique.com)
-- Dinor 70 Years Interactive Game (https://roue.dinorapp.com)
-- CIPREL Website (https://ciprel.com)
-- Quizz St-Avé Application (https://quizzstave.netlify.app)
-- Soboa 95 Years Website (https://soboa95ans.sn)
-- BigFive360.com Website (https://bigfive360.com) 
+Development and execution of digital communication strategy to strengthen online presence.
+
+**Key Achievements:**
+- Complete redesign of corporate website improving conversion by 20% and reducing bounce rate by 30%
+- Increased social media engagement by 150% in 4 months
+- Creation of a comprehensive digital communication framework, streamlining content creation and improving campaign efficiency by 45%
+
+---
+
+### July 2016 - January 2017 (7 months)
+**Web Project Manager and Digital Communication**  
+CIFIDE, Abidjan, Côte d'Ivoire
+
+Supervision of web projects and coordination of digital campaigns with focus on client satisfaction.
+
+**Key Achievements:**
+- Development of content strategy increasing organic traffic by 35% in 6 months
+- Simultaneous management of 8 web projects with 100% on-time delivery
+- Maintenance of strong client relationships with a portfolio of 12 clients, resulting in 85% client retention
+
+---
+
+### August 2013 - March 2016 (3 years 2 months)
+**Webmaster**  
+CERAP (Former Inades), Abidjan, Côte d'Ivoire
+
+Complete technical and editorial management of institutional website with focus on modernization and security.
+
+**Key Achievements:**
+- Technical migration to modern CMS reducing CERAP activity publishing time by 75%
+- Implementation of robust security measures, eliminating 100% of security incidents
+- Complete supervision of editorial and technical operations with 99% uptime
+
+---
+
+### **Previous Experience**
+
+- **Website Manager** | Electoral Reform International Services (Jan-June 2013)  
+- **ICT Training Consultant** | Internews Europe (May 2012)  
+- **Web Designer & Graphic Designer** | Chrisalys Group (May-Dec 2012)  
+- **Associate Manager E-commerce Division** | Kamit Communications Inc Group, Montreal (Sep 2009-Apr 2011)
+
+---
+
+## Academic Background
+
+### 2008 - 2009
+**Certificate in Information and Systems Management**  
+University of Sherbrooke, Canada
+
+### 2007 - 2008
+**Master's in E-commerce Management**  
+University of Sherbrooke, Canada
+
+### 2002 - 2006
+**Bachelor's in Business Administration**  
+Canadian University of Arts, Sciences and Management, Côte d'Ivoire
+
+### 1995 - 2002
+**Baccalaureate in Economics and Sciences**  
+Collège Jean Mermoz, Côte d'Ivoire
+
+---
+
+## LANGUAGES
+
+**French:** Native language  
+**English:** Fluent
+
+</td>
+<td width="40%" valign="top">
+
+## PROFESSIONAL PROFILE
+
+**Experienced Digital Solutions Director** with **over 12 years of expertise** in full-stack web development, UI/UX design and digital project management.
+
+**Front-end specialist** (VueJS, Angular) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
+
+**Passionate about technological innovation** and team leadership, I thrive in dynamic environments where I can transform complex challenges into growth opportunities.
+
+---
+
+## Portfolio - Key Projects
+
+### **Vodacom Landing Page**
+**https://txtengage.co.za**  
+*Role:* Lead Developer | *Technologies:* VueJS, Responsive Design  
+Landing page for Vodacom South Africa optimizing user engagement
+
+### **CASTEL AFRICA**
+**https://castel-afrique.com**  
+*Role:* Project Manager & Developer | *Impact:* Responsive corporate site  
+Complete integration of Adobe XD mockups into high-performance website
+
+### **Dinor 70 Years Game**
+**https://roue.dinorapp.com**  
+*Role:* Full-stack Developer | *Technologies:* Filament + Supabase  
+Interactive game with administration dashboard for anniversary event
+
+### **CIPREL**
+**https://ciprel.ci**  
+*Role:* Front-end Developer | *Challenge:* Pixel-perfect integration  
+Responsive website with performance optimization
+
+### **St-Avé Quiz**
+**https://quizzstave.netlify.app**  
+*Role:* Full-stack Developer | *Technologies:* NuxtJS  
+Interactive quiz application with advanced scoring system
+
+### **Soboa 95 Years**
+**https://soboa95ans.sn**  
+*Role:* Designer & Developer | *Impact:* Custom commemorative site  
+Complete design and development with unique design
+
+### **BigFive360 & BBlome**
+**https://bigfive360.com | https://bblome.com**  
+*Role:* Technical Architect | *Impact:* Personalized portals  
+Custom solutions with complex integrations
+
+### **Adobe XD to VueJS Integration**
+**https://bigfive.solutions/**  
+*Role:* Front-end Developer | *Methodology:* Design System  
+Faithful mockup integration with reusable components
+
+### **Soeguibe**
+**https://soeguibe.com**  
+*Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP  
+Custom WordPress template with advanced editor
+
+---
+
+## Skills & Software
+
+### **Frontend Development**
+- VueJS ●●●●●●●●
+- Angular ●●●●●●●●●
+- NuxtJS ●●●●●●●
+- JavaScript ●●●●●●●●
+- HTML5 ●●●●●●●●
+- CSS3 ●●●●●●●●
+- Responsive Web Design ●●●●●●●
+
+### **Backend Development**
+- PHP ●●●●●●●●
+- Laravel ●●●●●●●
+- Filament ●●●●●●
+- Supabase ●●●●●●
+- MySQL ●●●●●●●
+- RESTful APIs ●●●●●●
+- Linux Server Administration ●●●●●●●
+
+### **Design & Tools**
+- Adobe XD ●●●●●●●●●
+- Figma ●●●●●●●
+- Affinity Suite ●●●●●●●
+- UI/UX Design ●●●●●●●●
+- Graphic Design ●●●●●●●
+- DaVinci Resolve ●●●●●●●
+
+### **Project Management**
+- SCRUM ●●●●●●●
+- Kanban ●●●●●●●
+- Agile ●●●●●●●
+- Jira ●●●●●●
+- Team Leadership ●●●●●●●
+- Client Relations ●●●●●●●●
+- Strategic Planning ●●●●●●●
+
+---
+
+## Miscellaneous
+
+**GitHub:** https://github.com/jhouedanou  
+**Blog dedicated to information technologies:** https://houedanou.com  
+**Instagram:** @jlhouedanou  
+**Twitter:** @afrowebdesigner
+
+**Date of birth:** February 24, 1984
+
+</td>
+</tr>
+</table>
+
+</div> 

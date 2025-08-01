@@ -145,7 +145,7 @@ Intégration complète de maquettes Adobe XD en site web performant
 Jeu interactif avec dashboard d'administration pour événement anniversaire
 
 ### **CIPREL**
-**https://ciprel.com**  
+**https://ciprel.ci**  
 *Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect  
 Site web responsive avec optimisation des performances
 
