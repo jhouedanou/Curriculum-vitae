@@ -2,12 +2,12 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const markdown = fs.readFileSync('README.md', 'utf-8');
+  const markdown = fs.readFileSync('cv_HOUEDANOU.md', 'utf-8');
   const html = `
     <html>
       <head>
         <meta charset="utf-8">
-        <title>README</title>
+        <title>CV Jean Luc Houédanou</title>
         <style>
           /* Add your custom CSS here */
           body {
@@ -88,6 +88,6 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const page = await browser.newPage();
   await page.setContent(html, {waitUntil: 'networkidle0'});
-  await page.pdf({path: 'README.pdf', format: 'A4', printBackground: true, margin: {top: 40, bottom: 40, left: 40, right: 40}});
+  await page.pdf({path: 'cv_HOUEDANOU.pdf', format: 'A4', printBackground: true, margin: {top: 40, bottom: 40, left: 40, right: 40}});
   await browser.close();
 })();
