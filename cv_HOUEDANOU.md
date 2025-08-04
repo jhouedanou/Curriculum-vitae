@@ -1,13 +1,10 @@
 <div style="font-size: 12px; line-height: 1.4;">
 
 # Jean Luc Houédanou
-
 **Email:** jeanluc@houedanou.com  
 **Téléphone:** +225 07 48 34 82 21  
 **LinkedIn:** [https://www.linkedin.com/in/jlhouedanou/](https://www.linkedin.com/in/jlhouedanou/)
-
 ---
-
 <table>
 <tr>
 <td width="60%" valign="top">
