@@ -130,7 +130,7 @@ Collège Jean Mermoz, Côte d'Ivoire
 ## Portfolio - Projets Clés
 
 ### **Landing Page Vodacom**
-**https://txtengage.co.za**  
+**https://vodamedia.co.za/txtengage/**  
 *Rôle:* Développeur Lead | *Technologies:* VueJS, Responsive Design  
 Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
 
@@ -149,8 +149,8 @@ Jeu interactif avec dashboard d'administration pour événement anniversaire
 *Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect  
 Site web responsive avec optimisation des performances
 
-### **Quizz St-Avé**
-**https://quizzstave.netlify.app**  
+### **Quizz CIPREL RH pour le SIREXE**
+**https://ciprelrh.netlify.app/questionnaire**  
 *Rôle:* Développeur Full-stack | *Technologies:* NuxtJS  
 Application quiz interactive avec système de scoring avancé
 
