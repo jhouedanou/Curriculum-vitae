@@ -204,6 +204,12 @@ Template WordPress personnalisé avec éditeur avancé
 - Design Graphique ●●●●●●●
 - DaVinci Resolve ●●●●●●●
 
+### **DevOps & Infrastructure**
+- Pipelines CI/CD avec GitLab ●●●●●●
+- Containerisation (Docker) ●●●●●●
+- Gestion de clusters de bases de données (PostgreSQL BDR, MariaDB Galera) ●●●●●●
+- Sécurité web ●●●●●●●
+
 ### **Gestion de Projet**
 - SCRUM ●●●●●●●
 - Kanban ●●●●●●●
