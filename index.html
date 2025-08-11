@@ -236,6 +236,14 @@
             transition: transform 0.3s ease;
         }
 
+        .project-image img.loading {
+            opacity: 0;
+        }
+
+        .project-image img.loaded {
+            opacity: 1;
+        }
+
         .project-card:hover .project-image img {
             transform: scale(1.05);
         }
@@ -522,7 +530,14 @@
                         @click="openModal(project)"
                     >
                         <div class="project-image">
-                            <img v-if="project.image" :src="project.image" :alt="project.title">
+                            <img 
+                                v-if="project.screenshot" 
+                                :src="getScreenshotUrl(project.url)" 
+                                :alt="project.title"
+                                @load="onImageLoad"
+                                @error="onImageError"
+                                class="loading"
+                            >
                             <span v-else class="material-icons">{{ project.icon }}</span>
                         </div>
                         <div class="project-content">
@@ -587,7 +602,7 @@
                             url: "https://vodamedia.co.za/txtengage/",
                             category: "frontend",
                             icon: "code",
-                            image: "https://api.apiflash.com/v1/urltoimage?access_key=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://vodamedia.co.za/txtengage/&width=1200&height=800&format=png",
+                            screenshot: true,
                             challenges: "Optimisation des performances et adaptation multi-device",
                             challengesEn: "Performance optimization and multi-device adaptation",
                             results: "Amélioration de 40% de l'engagement utilisateur",
@@ -606,7 +621,7 @@
                             url: "https://castel-afrique.com",
                             category: "frontend",
                             icon: "business",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://castel-afrique.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Intégration pixel-perfect et optimisation des performances",
                             challengesEn: "Pixel-perfect integration and performance optimization",
                             results: "Site responsive haute performance livré dans les délais",
@@ -625,7 +640,7 @@
                             url: "https://roue.dinorapp.com",
                             category: "fullstack",
                             icon: "sports_esports",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://roue.dinorapp.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Architecture scalable et temps réel",
                             challengesEn: "Scalable architecture and real-time functionality",
                             results: "Plus de 1000 participants lors de l'événement",
@@ -644,7 +659,7 @@
                             url: "https://ciprel.ci",
                             category: "frontend",
                             icon: "electrical_services",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://ciprel.ci&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Intégration pixel-perfect et performances",
                             challengesEn: "Pixel-perfect integration and performance",
                             results: "Amélioration de 60% des performances",
@@ -663,7 +678,7 @@
                             url: "https://ciprelrh.netlify.app/questionnaire",
                             category: "fullstack",
                             icon: "quiz",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://ciprelrh.netlify.app/questionnaire&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Système de scoring complexe et analytics",
                             challengesEn: "Complex scoring system and analytics",
                             results: "Interface intuitive avec reporting détaillé",
@@ -682,7 +697,7 @@
                             url: "https://soboa95ans.sn",
                             category: "frontend",
                             icon: "cake",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://soboa95ans.sn&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Design unique et animations fluides",
                             challengesEn: "Unique design and smooth animations",
                             results: "Site commémoratif remarqué par l'industrie",
@@ -701,7 +716,7 @@
                             url: "https://bigfive360.com",
                             category: "fullstack",
                             icon: "architecture",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://bigfive360.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Architecture complexe et intégrations multiples",
                             challengesEn: "Complex architecture and multiple integrations",
                             results: "Portails haute performance avec 99% uptime",
@@ -720,7 +735,7 @@
                             url: "https://bigfive.solutions/",
                             category: "frontend",
                             icon: "design_services",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://bigfive.solutions/&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Design System et composants réutilisables",
                             challengesEn: "Design System and reusable components",
                             results: "Système de design adopté par toute l'équipe",
@@ -739,7 +754,7 @@
                             url: "https://soeguibe.com",
                             category: "wordpress",
                             icon: "web",
-                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://soeguibe.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            screenshot: true,
                             challenges: "Éditeur personnalisé et fonctionnalités avancées",
                             challengesEn: "Custom editor and advanced features",
                             results: "Template WordPress flexible et performant",
@@ -800,6 +815,23 @@
                 },
                 toggleLanguage() {
                     this.currentLang = this.currentLang === 'fr' ? 'en' : 'fr';
+                },
+                getScreenshotUrl(url) {
+                    // Utilise plusieurs APIs de screenshot en fallback
+                    return `https://api.urlbox.io/v1/ca482d7e-9417-4569-90fe-80f7c5e1c781/png?url=${encodeURIComponent(url)}&width=1200&height=800&format=png`;
+                },
+                onImageLoad(event) {
+                    event.target.classList.remove('loading');
+                    event.target.classList.add('loaded');
+                },
+                onImageError(event) {
+                    // En cas d'erreur, utilise l'icône à la place
+                    const projectCard = event.target.closest('.project-card');
+                    const iconElement = projectCard.querySelector('.material-icons');
+                    if (iconElement) {
+                        event.target.style.display = 'none';
+                        iconElement.style.display = 'block';
+                    }
                 },
                 openModal(project) {
                     this.selectedProject = project;
