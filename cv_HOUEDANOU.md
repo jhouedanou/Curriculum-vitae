@@ -141,6 +141,11 @@ Intégration complète de maquettes Adobe XD en site web performant
 *Rôle:* Développeur Full-stack | *Technologies:* React, Next.js, TypeScript  
 Application de suivi des calories avec interface moderne
 
+### **Dinor App**
+**https://new.dinorapp.com/**  
+*Rôle:* Architecte Full-stack | *Technologies:* Filament, VueJS/NuxtJS, Flutter  
+Plateforme complète de recettes et astuces culinaires multi-plateformes
+
 ### **CIPREL**
 **https://ciprel.ci**  
 *Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect  
@@ -227,6 +232,9 @@ Template WordPress personnalisé avec éditeur avancé
 
 **GitHub:** https://github.com/jhouedanou  
 **Blog dédié aux technologies de l'information:** https://houedanou.com  
+**Portfolio en ligne:** https://jhouedanou.github.io/Curriculum-vitae/  
+**Portfolio (FR):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-fr.html  
+**Portfolio (EN):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-en.html  
 **Instagram:** @jlhouedanou  
 **Twitter:** @afrowebdesigner
 

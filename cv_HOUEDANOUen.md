@@ -136,10 +136,15 @@ Landing page for Vodacom South Africa optimizing user engagement
 *Role:* Project Manager & Developer | *Impact:* Responsive corporate site  
 Complete integration of Adobe XD mockups into high-performance website
 
-### **Dinor 70th Anniversary Game**
-**https://roue.dinorapp.com**  
-*Role:* Full-stack Developer | *Technologies:* Filament + Supabase  
-Interactive game with administration dashboard for anniversary event
+### **Dinor Calorie Counter**
+**https://dinor-calorie-counter-alt.vercel.app/**  
+*Role:* Full-stack Developer | *Technologies:* React, Next.js, TypeScript  
+Calorie tracking application with modern interface
+
+### **Dinor App**
+**https://new.dinorapp.com/**  
+*Role:* Full-stack Architect | *Technologies:* Filament, VueJS/NuxtJS, Flutter  
+Complete multi-platform cooking recipes and tips platform
 
 ### **CIPREL**
 **https://ciprel.ci**  
@@ -156,10 +161,15 @@ Interactive quiz application with advanced scoring system
 *Role:* Designer & Developer | *Impact:* Custom commemorative site  
 Complete design and development with unique design
 
-### **BigFive360 & BBlome**
-**https://bigfive360.com | https://bblome.com**  
-*Role:* Technical Architect | *Impact:* Personalized portals  
-Custom solutions with complex integrations
+### **BigFive360**
+**https://bigfive360.com**  
+*Role:* Front-end Developer | *Technologies:* HTML5, CSS3, JavaScript  
+Website presenting 360° virtual tour services
+
+### **BBlome**
+**https://bblome.com**  
+*Role:* WordPress Integrator | *Technologies:* WordPress, PHP  
+WordPress website presenting BBlome brewery with attractive design
 
 ### **Adobe XD to VueJS Integration**
 **https://bigfive.solutions/**  
@@ -222,6 +232,9 @@ Custom WordPress template with advanced editor
 
 **GitHub:** https://github.com/jhouedanou  
 **Blog dedicated to information technology:** https://houedanou.com  
+**Online Portfolio:** https://jhouedanou.github.io/Curriculum-vitae/  
+**Portfolio (FR):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-fr.html  
+**Portfolio (EN):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-en.html  
 **Instagram:** @jlhouedanou  
 **Twitter:** @afrowebdesigner
 
