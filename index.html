@@ -463,6 +463,11 @@
                     {{ currentLang === 'fr' ? 'English' : 'Français' }}
                 </button>
 
+                <a href="cv_HOUEDANOU.pdf" download="CV_Jean_Luc_HOUEDANOU.pdf" class="language-toggle" style="text-decoration: none; display: flex; margin-bottom: 24px;">
+                    <span class="material-icons">download</span>
+                    {{ texts.downloadCV }}
+                </a>
+
                 <div class="stats-sidebar">
                     <div class="stat-item">
                         <span class="stat-number">{{ projects.length }}+</span>
@@ -781,7 +786,8 @@
                             technologies: 'Technologies',
                             description: 'Description',
                             challenges: 'Défis',
-                            results: 'Résultats'
+                            results: 'Résultats',
+                            downloadCV: 'Télécharger CV'
                         },
                         en: {
                             title: 'Portfolio',
@@ -798,7 +804,8 @@
                             technologies: 'Technologies',
                             description: 'Description',
                             challenges: 'Challenges',
-                            results: 'Results'
+                            results: 'Results',
+                            downloadCV: 'Download CV'
                         }
                     }[this.currentLang];
                 },
