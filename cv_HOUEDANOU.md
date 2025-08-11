@@ -136,10 +136,10 @@ Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
 *Rôle:* Chef de projet & Développeur | *Impact:* Site corporate responsive  
 Intégration complète de maquettes Adobe XD en site web performant
 
-### **Jeu Dinor 70 ans**
-**https://roue.dinorapp.com**  
-*Rôle:* Développeur Full-stack | *Technologies:* Filament + Supabase  
-Jeu interactif avec dashboard d'administration pour événement anniversaire
+### **Dinor Calorie Counter**
+**https://dinor-calorie-counter-alt.vercel.app/**  
+*Rôle:* Développeur Full-stack | *Technologies:* React, Next.js, TypeScript  
+Application de suivi des calories avec interface moderne
 
 ### **CIPREL**
 **https://ciprel.ci**  
@@ -156,10 +156,15 @@ Application quiz interactive avec système de scoring avancé
 *Rôle:* Designer & Développeur | *Impact:* Site commémoratif sur-mesure  
 Conception et développement complet avec design unique
 
-### **BigFive360 & BBlome**
-**https://bigfive360.com | https://bblome.com**  
-*Rôle:* Architecte technique | *Impact:* Portails personnalisés  
-Solutions sur-mesure avec intégrations complexes
+### **BigFive360**
+**https://bigfive360.com**  
+*Rôle:* Développeur Front-end | *Technologies:* HTML5, CSS3, JavaScript  
+Site web présentant un service de visite virtuelle 360°
+
+### **BBlome**
+**https://bblome.com**  
+*Rôle:* Intégrateur WordPress | *Technologies:* WordPress, PHP  
+Site web présentant la brasserie BBlome avec design attractif
 
 ### **Intégration Adobe XD en VueJS**
 **https://bigfive.solutions/**  
