@@ -10,68 +10,123 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --vue-green: #41B883;
-            --nuxt-green: #00DC82;
-            --primary-dark: #35495E;
+            --columbia-blue: #D3E2F2;
+            --vivid-sky-blue: #27CDFE;
+            --celtic-blue: #056AC6;
+            --light-sky-blue: #93D2FD;
+            --royal-blue: #1463F5;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, var(--vue-green) 0%, var(--nuxt-green) 100%);
+            background: #f8f9fa;
             min-height: 100vh;
+            color: #2d3436;
         }
         
         .is-fullheight {
             min-height: 100vh;
         }
 
-
+#pa5 {
+            padding: 2rem 1.5rem !important
+        }
         .sidebar {
-            background: rgba(53, 73, 94, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 2rem;
-            color: white;
+            background: #ffffff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            color: #2d3436;
             min-height: 100vh;
-            width: 280px;
+            width: 320px;
+            position: relative;
+            margin: 0 1rem 1rem 1rem;
+            border-radius: 0 0 16px 16px;
         }
 
         .main-content {
-            padding: 2rem;
+            padding: 3rem 2rem;
+            background: #f8f9fa;
         }
 
-        .is-rounded {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease;
+        .profile-avatar {
+            width: 120px !important;
+            height: 120px !important;
+            border: 4px solid #e9ecef;
+            transition: all 0.3s ease;
+            margin: 0 auto 2rem;
         }
         
-        .is-rounded:hover {
-            transform: scale(1.05);
+        .profile-avatar:hover {
+            border-color: var(--royal-blue);
+            box-shadow: 0 10px 30px rgba(20, 99, 245, 0.2);
         }
 
         .is-clickable {
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            border-radius: 12px;
         }
         
         .is-clickable:hover {
-            transform: translateY(-2px);
-        }
-
-
-
-
-
-
-
-        img.loading {
-            opacity: 0;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         
-        img.loaded {
-            opacity: 1;
+        .modern-button {
+            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
         }
+        
+        .modern-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20, 99, 245, 0.4);
+            color: white;
+        }
+        
+        .stats-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            border-color: var(--royal-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            background: #f1f3f4;
+        }
+        
+        .menu-item.is-active {
+            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
+            color: white;
+            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
+        }
+
+
+
+
+
+
+
 
 
         .fade-enter-active, .fade-leave-active {
@@ -84,15 +139,44 @@
         }
 
 
+        .hero-section {
+            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--vivid-sky-blue) 100%);
+            padding: 4rem 2rem;
+            margin: -3rem -2rem 3rem -2rem;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .project-card-modern {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card-modern:hover {
+            border-color: var(--royal-blue);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
         @media (max-width: 1024px) {
             .sidebar {
-                width: 100%;
+                width: calc(100% - 2rem);
                 min-height: auto;
-                padding: 1.5rem;
+                padding: 2rem 1.5rem;
+                margin: 0 1rem 1rem 1rem;
+                border-radius: 0 0 16px 16px;
             }
             
             .main-content {
-                padding: 1.5rem 1rem;
+                padding: 2rem 1rem;
+            }
+            
+            .hero-section {
+                margin: -2rem -1rem 2rem -1rem;
+                padding: 3rem 1rem;
             }
         }
     </style>
@@ -101,78 +185,75 @@
     <div id="app">
         <div class="columns is-gapless is-fullheight">
             <!-- Sidebar -->
-            <div class="column is-narrow sidebar has-background-primary-dark">
+            <div id="pa5" class="column is-narrow sidebar pa-5">
                 <div class="has-text-centered mb-6">
-                    <figure class="image is-128x128 is-inline-block mb-4">
-                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="is-rounded">
+                    <figure class="image is-inline-block">
+                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="profile-avatar is-rounded">
                     </figure>
-                    <h2 class="title is-4 has-text-white mb-2">Jean Luc Houédanou</h2>
-                    <p class="subtitle is-6 has-text-white-ter" v-if="texts.subtitle">{{ texts.subtitle }}</p>
+                    <h2 class="title is-3 has-text-dark mb-2">Jean Luc Houédanou</h2>
+                    <p class="subtitle is-6 has-text-grey" v-if="texts.subtitle">{{ texts.subtitle }}</p>
                 </div>
 
-                <button type="button" @click="toggleLanguage" class="button is-outlined is-white mb-4">
-                    <span class="material-icons">translate</span>
-                    {{ currentLang === 'fr' ? 'English' : 'Français' }}
-                </button>
+                <div class="buttons is-centered mb-5">
+                    <button type="button" @click="toggleLanguage" class="button modern-button mb-3">
+                        <span class="icon"><i class="material-icons">translate</i></span>
+                        <span>{{ currentLang === 'fr' ? 'English' : 'Français' }}</span>
+                    </button>
+                    <a :href="currentLang === 'fr' ? 'https://github.com/bigfiver/Curriculum-vitae/raw/main/cv_HOUEDANOU.pdf' : 'https://github.com/bigfiver/Curriculum-vitae/raw/main/cv_HOUEDANOUen.pdf'" :download="currentLang === 'fr' ? 'CV_Jean_Luc_HOUEDANOU_FR.pdf' : 'CV_Jean_Luc_HOUEDANOU_EN.pdf'" class="button modern-button">
+                        <span class="icon"><i class="material-icons">download</i></span>
+                        <span>{{ texts.downloadCV }}</span>
+                    </a>
+                </div>
 
-                <a :href="currentLang === 'fr' ? 'https://github.com/bigfiver/Curriculum-vitae/raw/main/cv_HOUEDANOU.pdf' : 'https://github.com/bigfiver/Curriculum-vitae/raw/main/cv_HOUEDANOUen.pdf'" :download="currentLang === 'fr' ? 'CV_Jean_Luc_HOUEDANOU_FR.pdf' : 'CV_Jean_Luc_HOUEDANOU_EN.pdf'" class="button is-outlined is-white mb-6">
-                    <span class="material-icons">download</span>
-                    {{ texts.downloadCV }}
-                </a>
-
-                <div class="columns is-mobile mb-6">
-                    <div class="column has-text-centered">
-                        <div class="box has-background-white-ter">
-                            <p class="title is-3 has-text-primary">{{ projects.length }}+</p>
-                            <p class="subtitle is-7">{{ texts.projectsRealized }}</p>
+                <div class="columns is-mobile is-gapless mb-6">
+                    <div class="column">
+                        <div class="stats-card mr-1">
+                            <p class="title is-4 has-text-info mb-1">{{ projects.length }}+</p>
+                            <p class="is-size-7 has-text-grey">{{ texts.projectsRealized }}</p>
                         </div>
                     </div>
-                    <div class="column has-text-centered">
-                        <div class="box has-background-white-ter">
-                            <p class="title is-3 has-text-primary">5+</p>
-                            <p class="subtitle is-7">{{ texts.yearsExperience }}</p>
+                    <div class="column">
+                        <div class="stats-card mx-1">
+                            <p class="title is-4 has-text-info mb-1">5+</p>
+                            <p class="is-size-7 has-text-grey">{{ texts.yearsExperience }}</p>
                         </div>
                     </div>
-                    <div class="column has-text-centered">
-                        <div class="box has-background-white-ter">
-                            <p class="title is-3 has-text-primary">95%</p>
-                            <p class="subtitle is-7">{{ texts.clientSatisfaction }}</p>
+                    <div class="column">
+                        <div class="stats-card ml-1">
+                            <p class="title is-4 has-text-info mb-1">95%</p>
+                            <p class="is-size-7 has-text-grey">{{ texts.clientSatisfaction }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-6">
-                    <p class="has-text-weight-semibold has-text-white-ter mb-3 is-uppercase is-size-7">{{ texts.categories }}</p>
-                    <aside class="menu">
-                        <ul class="menu-list">
-                            <li><a @click="setFilter('all')" :class="{ 'is-active has-background-white has-text-primary': activeFilter === 'all' }" class="has-text-white">
-                                <span class="icon"><i class="material-icons">apps</i></span>
-                                <span>{{ texts.all }}</span>
-                            </a></li>
-                            <li><a @click="setFilter('frontend')" :class="{ 'is-active has-background-white has-text-primary': activeFilter === 'frontend' }" class="has-text-white">
-                                <span class="icon"><i class="material-icons">code</i></span>
-                                <span>Frontend</span>
-                            </a></li>
-                            <li><a @click="setFilter('fullstack')" :class="{ 'is-active has-background-white has-text-primary': activeFilter === 'fullstack' }" class="has-text-white">
-                                <span class="icon"><i class="material-icons">layers</i></span>
-                                <span>Full-stack</span>
-                            </a></li>
-                            <li><a @click="setFilter('wordpress')" :class="{ 'is-active has-background-white has-text-primary': activeFilter === 'wordpress' }" class="has-text-white">
-                                <span class="icon"><i class="material-icons">web</i></span>
-                                <span>WordPress</span>
-                            </a></li>
-                        </ul>
-                    </aside>
+                    <p class="has-text-weight-semibold has-text-grey mb-4 is-uppercase is-size-7 has-text-centered">{{ texts.categories }}</p>
+                    <div class="menu-items">
+                        <div @click="setFilter('all')" :class="{ 'is-active': activeFilter === 'all' }" class="menu-item">
+                            <span class="icon is-small mr-2"><i class="material-icons">apps</i></span>
+                            <span>{{ texts.all }}</span>
+                        </div>
+                        <div @click="setFilter('frontend')" :class="{ 'is-active': activeFilter === 'frontend' }" class="menu-item">
+                            <span class="icon is-small mr-2"><i class="material-icons">code</i></span>
+                            <span>Frontend</span>
+                        </div>
+                        <div @click="setFilter('fullstack')" :class="{ 'is-active': activeFilter === 'fullstack' }" class="menu-item">
+                            <span class="icon is-small mr-2"><i class="material-icons">layers</i></span>
+                            <span>Full-stack</span>
+                        </div>
+                        <div @click="setFilter('wordpress')" :class="{ 'is-active': activeFilter === 'wordpress' }" class="menu-item">
+                            <span class="icon is-small mr-2"><i class="material-icons">web</i></span>
+                            <span>WordPress</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Main Content -->
             <div class="column main-content">
-                <div class="hero is-medium has-text-centered mb-6">
-                    <div class="hero-body">
-                        <h1 class="title is-1 has-text-white">{{ texts.title }}</h1>
-                        <p class="subtitle is-4 has-text-white-ter">{{ filteredProjects.length }} {{ texts.projects }}</p>
-                    </div>
+                <div class="hero-section">
+                    <h1 class="title is-1 mb-3">{{ texts.title }}</h1>
+                    <p class="subtitle is-4 has-text-white-ter">{{ filteredProjects.length }} {{ texts.projects }}</p>
                 </div>
 
                 <div class="container">
@@ -182,18 +263,10 @@
                             :key="project.id"
                             class="column is-one-third-desktop is-half-tablet"
                         >
-                            <div class="card is-clickable" @click="openModal(project)">
+                            <div class="project-card-modern is-clickable" @click="openModal(project)">
                                 <div class="card-image">
-                                    <figure class="image is-3by2">
-                                        <img 
-                                            v-if="project.screenshot" 
-                                            :src="getScreenshotUrl(project.url)" 
-                                            :alt="project.title"
-                                            @load="onImageLoad"
-                                            @error="onImageError"
-                                            class="loading"
-                                        >
-                                        <div v-else class="has-background-primary is-flex is-align-items-center is-justify-content-center" style="height: 100%;">
+                                    <figure class="image">
+                                        <div class="is-flex is-align-items-center is-justify-content-center" style="height: 200px; background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));">
                                             <span class="icon is-large has-text-white">
                                                 <i class="material-icons is-size-1">{{ project.icon }}</i>
                                             </span>
@@ -201,18 +274,18 @@
                                     </figure>
                                 </div>
                                 <div class="card-content">
-                                    <div class="content">
-                                        <h4 class="title is-5 mb-2">{{ project.title }}</h4>
-                                        <span class="tag is-primary mb-3">{{ currentLang === 'fr' ? project.role : project.roleEn }}</span>
-                                        <p class="mb-4">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
-                                        <div class="field is-grouped is-grouped-multiline mb-4">
-                                            <div class="control" v-for="tech in project.technologies" :key="tech">
-                                                <div class="tags has-addons">
-                                                    <span class="tag is-light">{{ tech }}</span>
-                                                </div>
-                                            </div>
+                                    <div class="card-content p-5">
+                                        <h4 class="title is-4 mb-3 has-text-dark">{{ project.title }}</h4>
+                                        <div class="mb-3">
+                                            <span class="tag is-info is-light is-medium">{{ currentLang === 'fr' ? project.role : project.roleEn }}</span>
                                         </div>
-                                        <a :href="project.url" class="button is-primary is-small" target="_blank" @click.stop>
+                                        <p class="has-text-grey mb-4" style="line-height: 1.6;">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
+                                        <div class="tags mb-4">
+                                            <span v-for="tech in project.technologies" :key="tech" class="tag is-light is-rounded">
+                                                {{ tech }}
+                                            </span>
+                                        </div>
+                                        <a :href="project.url" class="button modern-button is-small" target="_blank" @click.stop>
                                             <span class="icon is-small">
                                                 <i class="material-icons">launch</i>
                                             </span>
@@ -233,17 +306,34 @@
                             <p class="modal-card-title">{{ selectedProject.title }}</p>
                             <button class="delete" aria-label="close" @click="closeModal"></button>
                         </header>
-                        <section class="modal-card-body">
+                        <section class="modal-card-body p-6">
                             <div class="content">
-                                <p><strong>{{ texts.role }}:</strong> {{ currentLang === 'fr' ? selectedProject.role : selectedProject.roleEn }}</p>
-                                <p><strong>{{ texts.technologies }}:</strong> {{ selectedProject.technologies.join(', ') }}</p>
-                                <p><strong>{{ texts.description }}:</strong> {{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p>
-                                <p><strong>{{ texts.challenges }}:</strong> {{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p>
-                                <p><strong>{{ texts.results }}:</strong> {{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p>
+                                <div class="mb-4">
+                                    <h6 class="title is-6 has-text-info mb-2">{{ texts.role }}</h6>
+                                    <p class="has-text-grey">{{ currentLang === 'fr' ? selectedProject.role : selectedProject.roleEn }}</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h6 class="title is-6 has-text-info mb-2">{{ texts.technologies }}</h6>
+                                    <div class="tags">
+                                        <span v-for="tech in selectedProject.technologies" :key="tech" class="tag is-light">{{ tech }}</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <h6 class="title is-6 has-text-info mb-2">{{ texts.description }}</h6>
+                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h6 class="title is-6 has-text-info mb-2">{{ texts.challenges }}</h6>
+                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p>
+                                </div>
+                                <div class="mb-4">
+                                    <h6 class="title is-6 has-text-info mb-2">{{ texts.results }}</h6>
+                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p>
+                                </div>
                             </div>
                         </section>
-                        <footer class="modal-card-foot">
-                            <a :href="selectedProject.url" class="button is-primary" target="_blank">
+                        <footer class="modal-card-foot has-background-light">
+                            <a :href="selectedProject.url" class="button modern-button" target="_blank">
                                 <span class="icon">
                                     <i class="material-icons">launch</i>
                                 </span>
@@ -279,7 +369,7 @@
                             url: "https://vodamedia.co.za/txtengage/",
                             category: "frontend",
                             icon: "code",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Optimisation des performances et adaptation multi-device",
                             challengesEn: "Performance optimization and multi-device adaptation",
                             results: "Amélioration de 40% de l'engagement utilisateur",
@@ -298,7 +388,7 @@
                             url: "https://castel-afrique.com",
                             category: "frontend",
                             icon: "business",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Intégration pixel-perfect et optimisation des performances",
                             challengesEn: "Pixel-perfect integration and performance optimization",
                             results: "Site responsive haute performance livré dans les délais",
@@ -317,7 +407,7 @@
                             url: "https://roue.dinorapp.com",
                             category: "fullstack",
                             icon: "sports_esports",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Architecture scalable et temps réel",
                             challengesEn: "Scalable architecture and real-time functionality",
                             results: "Plus de 1000 participants lors de l'événement",
@@ -336,7 +426,7 @@
                             url: "https://ciprel.ci",
                             category: "frontend",
                             icon: "electrical_services",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Intégration pixel-perfect et performances",
                             challengesEn: "Pixel-perfect integration and performance",
                             results: "Amélioration de 60% des performances",
@@ -355,7 +445,7 @@
                             url: "https://ciprelrh.netlify.app/questionnaire",
                             category: "fullstack",
                             icon: "quiz",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Système de scoring complexe et analytics",
                             challengesEn: "Complex scoring system and analytics",
                             results: "Interface intuitive avec reporting détaillé",
@@ -374,7 +464,7 @@
                             url: "https://soboa95ans.sn",
                             category: "frontend",
                             icon: "cake",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Design unique et animations fluides",
                             challengesEn: "Unique design and smooth animations",
                             results: "Site commémoratif remarqué par l'industrie",
@@ -393,7 +483,7 @@
                             url: "https://bigfive360.com",
                             category: "fullstack",
                             icon: "architecture",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Architecture complexe et intégrations multiples",
                             challengesEn: "Complex architecture and multiple integrations",
                             results: "Portails haute performance avec 99% uptime",
@@ -412,7 +502,7 @@
                             url: "https://bigfive.solutions/",
                             category: "frontend",
                             icon: "design_services",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Design System et composants réutilisables",
                             challengesEn: "Design System and reusable components",
                             results: "Système de design adopté par toute l'équipe",
@@ -431,7 +521,7 @@
                             url: "https://soeguibe.com",
                             category: "wordpress",
                             icon: "web",
-                            screenshot: true,
+                            screenshot: false,
                             challenges: "Éditeur personnalisé et fonctionnalités avancées",
                             challengesEn: "Custom editor and advanced features",
                             results: "Template WordPress flexible et performant",
@@ -494,23 +584,6 @@
                 },
                 toggleLanguage() {
                     this.currentLang = this.currentLang === 'fr' ? 'en' : 'fr';
-                },
-                getScreenshotUrl(url) {
-                    // Utilise plusieurs APIs de screenshot en fallback
-                    return `https://api.urlbox.io/v1/ca482d7e-9417-4569-90fe-80f7c5e1c781/png?url=${encodeURIComponent(url)}&width=1200&height=800&format=png`;
-                },
-                onImageLoad(event) {
-                    event.target.classList.remove('loading');
-                    event.target.classList.add('loaded');
-                },
-                onImageError(event) {
-                    // En cas d'erreur, utilise l'icône à la place
-                    const projectCard = event.target.closest('.project-card');
-                    const iconElement = projectCard.querySelector('.material-icons');
-                    if (iconElement) {
-                        event.target.style.display = 'none';
-                        iconElement.style.display = 'block';
-                    }
                 },
                 openModal(project) {
                     this.selectedProject = project;
