@@ -176,45 +176,45 @@ Template WordPress personnalisé avec éditeur avancé
 ## Compétences & Logiciels
 
 ### **Développement Frontend**
-- VueJS ●●●●●●●●
-- Angular ●●●●●●●●●
-- NuxtJS ●●●●●●●
-- JavaScript ●●●●●●●●
-- HTML5 ●●●●●●●●
-- CSS3 ●●●●●●●●
-- Responsive Web Design ●●●●●●●
+- VueJS (5 ans d'expérience, Expert)
+- Angular (4 ans d'expérience, Avancé)
+- NuxtJS (3 ans d'expérience, Intermédiaire+)
+- JavaScript (8 ans d'expérience, Expert)
+- HTML5 (12 ans d'expérience, Expert)
+- CSS3 (12 ans d'expérience, Expert)
+- Responsive Web Design (8 ans d'expérience, Avancé)
 
 ### **Développement Backend**
-- PHP ●●●●●●●●
-- Laravel ●●●●●●●
-- Filament ●●●●●●
-- Supabase ●●●●●●
-- MySQL ●●●●●●●
-- APIs RESTful ●●●●●●
-- Administration serveur Linux ●●●●●●●
+- PHP (10 ans d'expérience, Expert)
+- Laravel (5 ans d'expérience, Avancé)
+- Filament (2 ans d'expérience, Intermédiaire)
+- Supabase (2 ans d'expérience, Intermédiaire)
+- MySQL (8 ans d'expérience, Avancé)
+- APIs RESTful (6 ans d'expérience, Avancé)
+- Administration serveur Linux (7 ans d'expérience, Avancé)
 
 ### **Design & Outils**
-- Adobe XD ●●●●●●●●●
-- Figma ●●●●●●●
-- Suite Affinity ●●●●●●●
-- UI/UX Design ●●●●●●●●
-- Design Graphique ●●●●●●●
-- DaVinci Resolve ●●●●●●●
+- Adobe XD (6 ans d'expérience, Expert)
+- Figma (4 ans d'expérience, Avancé)
+- Suite Affinity (5 ans d'expérience, Avancé)
+- UI/UX Design (8 ans d'expérience, Expert)
+- Design Graphique (10 ans d'expérience, Avancé)
+- DaVinci Resolve (3 ans d'expérience, Intermédiaire+)
 
 ### **DevOps & Infrastructure**
-- Pipelines CI/CD avec GitLab ●●●●●●
-- Containerisation (Docker) ●●●●●●
-- Gestion de clusters de bases de données (PostgreSQL BDR, MariaDB Galera) ●●●●●●
-- Sécurité web ●●●●●●●
+- Pipelines CI/CD avec GitLab (3 ans d'expérience, Intermédiaire+)
+- Containerisation (Docker) (3 ans d'expérience, Intermédiaire+)
+- Gestion de clusters de bases de données (PostgreSQL BDR, MariaDB Galera) (4 ans d'expérience, Intermédiaire+)
+- Sécurité web (7 ans d'expérience, Avancé)
 
 ### **Gestion de Projet**
-- SCRUM ●●●●●●●
-- Kanban ●●●●●●●
-- Agile ●●●●●●●
-- Jira ●●●●●●
-- Leadership d'Équipe ●●●●●●●
-- Relation Client ●●●●●●●●
-- Planification Stratégique ●●●●●●●
+- SCRUM (6 ans d'expérience, Avancé)
+- Kanban (5 ans d'expérience, Avancé)
+- Agile (6 ans d'expérience, Avancé)
+- Jira (4 ans d'expérience, Intermédiaire+)
+- Leadership d'Équipe (5 ans d'expérience, Avancé)
+- Relation Client (12 ans d'expérience, Expert)
+- Planification Stratégique (5 ans d'expérience, Avancé)
 
 ---
 

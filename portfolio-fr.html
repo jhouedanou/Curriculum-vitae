@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Jean Luc Houédanou</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --vue-green: #41B883;
+            --vue-dark: #35495E;
+            --nuxt-green: #00DC82;
+            --nuxt-dark: #020420;
+            --primary: var(--vue-green);
+            --primary-dark: #369970;
+            --secondary: var(--nuxt-green);
+            --dark: var(--vue-dark);
+            --surface: #FFFFFF;
+            --surface-variant: #F5F5F5;
+            --on-surface: #1C1B1F;
+            --on-primary: #FFFFFF;
+            --outline: #79747E;
+            --shadow: rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--vue-green) 0%, var(--nuxt-green) 100%);
+            min-height: 100vh;
+            color: var(--on-surface);
+        }
+
+        .app-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 32px 24px;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            width: 280px;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            grid-column: 2;
+            padding: 32px;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: block;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-title {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .language-toggle {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+            text-decoration: none;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-sidebar {
+            margin-bottom: 32px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: var(--surface);
+            color: var(--primary);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--vue-green), var(--nuxt-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 24px;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--on-surface);
+            line-height: 1.4;
+        }
+
+        .project-role {
+            background: var(--primary);
+            color: var(--on-primary);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-description {
+            color: var(--outline);
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: var(--surface-variant);
+            color: var(--on-surface);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .project-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: all 0.4s ease;
+        }
+
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 24px;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 24px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--outline);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--on-surface);
+        }
+
+        .modal p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+            color: var(--on-surface);
+        }
+
+        .modal strong {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 24px;
+            }
+            
+            .main-content {
+                grid-column: 1;
+                padding: 24px 16px;
+            }
+            
+            .profile-section {
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 20px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                margin: 0;
+            }
+            
+            .stats-sidebar {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .stats-sidebar {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="app-layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="profile-section">
+                    <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="logo">
+                    <h2 class="profile-name">Jean Luc Houédanou</h2>
+                    <p class="profile-title">Directeur Solutions Digitales</p>
+                </div>
+
+                <a href="portfolio-en.html" class="language-toggle">
+                    <span class="material-icons">translate</span>
+                    English Version
+                </a>
+
+                <div class="stats-sidebar">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ projects.length }}+</span>
+                        <span class="stat-label">Projets</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Années</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Satisfaction</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Catégories</div>
+                    <div 
+                        class="nav-item" 
+                        :class="{ active: activeFilter === 'tous' }"
+                        @click="setFilter('tous')"
+                    >
+                        <span class="material-icons">apps</span>
+                        Tous
+                    </div>
+                    <div 
+                        class="nav-item" 
+                        :class="{ active: activeFilter === 'frontend' }"
+                        @click="setFilter('frontend')"
+                    >
+                        <span class="material-icons">code</span>
+                        Frontend
+                    </div>
+                    <div 
+                        class="nav-item" 
+                        :class="{ active: activeFilter === 'fullstack' }"
+                        @click="setFilter('fullstack')"
+                    >
+                        <span class="material-icons">layers</span>
+                        Full-stack
+                    </div>
+                    <div 
+                        class="nav-item" 
+                        :class="{ active: activeFilter === 'wordpress' }"
+                        @click="setFilter('wordpress')"
+                    >
+                        <span class="material-icons">web</span>
+                        WordPress
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="header">
+                    <h1>Portfolio</h1>
+                    <p>{{ filteredProjects.length }} projets</p>
+                </div>
+
+                <transition-group name="fade" tag="div" class="portfolio-grid">
+                    <div 
+                        v-for="project in filteredProjects" 
+                        :key="project.id"
+                        class="project-card"
+                        @click="openModal(project)"
+                    >
+                        <div class="project-image">
+                            <img v-if="project.image" :src="project.image" :alt="project.title">
+                            <span v-else class="material-icons">{{ project.icon }}</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">{{ project.title }}</h3>
+                            <span class="project-role">{{ project.role }}</span>
+                            <p class="project-description">{{ project.description }}</p>
+                            <div class="project-tech">
+                                <span v-for="tech in project.technologies" :key="tech" class="tech-tag">
+                                    {{ tech }}
+                                </span>
+                            </div>
+                            <a :href="project.url" class="project-link" target="_blank" @click.stop>
+                                <span class="material-icons">launch</span>
+                                Voir le projet
+                            </a>
+                        </div>
+                    </div>
+                </transition-group>
+
+                <!-- Modal -->
+                <div v-if="selectedProject" class="modal" @click="closeModal">
+                    <div class="modal-content" @click.stop>
+                        <button type="button" class="modal-close" @click="closeModal">
+                            <span class="material-icons">close</span>
+                        </button>
+                        <h2>{{ selectedProject.title }}</h2>
+                        <p><strong>Rôle:</strong> {{ selectedProject.role }}</p>
+                        <p><strong>Technologies:</strong> {{ selectedProject.technologies.join(', ') }}</p>
+                        <p><strong>Description:</strong> {{ selectedProject.fullDescription }}</p>
+                        <p><strong>Défis:</strong> {{ selectedProject.challenges }}</p>
+                        <p><strong>Résultats:</strong> {{ selectedProject.results }}</p>
+                        <a :href="selectedProject.url" class="project-link" target="_blank">
+                            <span class="material-icons">launch</span>
+                            Visiter le site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    activeFilter: 'tous',
+                    selectedProject: null,
+                    projects: [
+                        {
+                            id: 1,
+                            title: "Landing Page Vodacom",
+                            role: "Développeur Lead",
+                            description: "Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur",
+                            fullDescription: "Développement d'une landing page interactive pour Vodacom avec focus sur l'engagement utilisateur et les conversions.",
+                            technologies: ["VueJS", "Responsive Design", "CSS3"],
+                            url: "https://vodamedia.co.za/txtengage/",
+                            category: "frontend",
+                            icon: "code",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://vodamedia.co.za/txtengage/&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Optimisation des performances et adaptation multi-device",
+                            results: "Amélioration de 40% de l'engagement utilisateur"
+                        },
+                        {
+                            id: 2,
+                            title: "CASTEL AFRIQUE",
+                            role: "Chef de projet & Développeur",
+                            description: "Intégration complète de maquettes Adobe XD en site web performant",
+                            fullDescription: "Développement complet du site corporate de CASTEL Afrique avec intégration pixel-perfect des maquettes.",
+                            technologies: ["HTML5", "CSS3", "JavaScript", "Adobe XD"],
+                            url: "https://castel-afrique.com",
+                            category: "frontend",
+                            icon: "business",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://castel-afrique.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Intégration pixel-perfect et optimisation des performances",
+                            results: "Site responsive haute performance livré dans les délais"
+                        },
+                        {
+                            id: 3,
+                            title: "Jeu Dinor 70 ans",
+                            role: "Développeur Full-stack",
+                            description: "Jeu interactif avec dashboard d'administration pour événement anniversaire",
+                            fullDescription: "Application web interactive complète avec système de jeu, dashboard administrateur et gestion des utilisateurs.",
+                            technologies: ["Filament", "Supabase", "VueJS", "PHP"],
+                            url: "https://roue.dinorapp.com",
+                            category: "fullstack",
+                            icon: "sports_esports",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://roue.dinorapp.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Architecture scalable et temps réel",
+                            results: "Plus de 1000 participants lors de l'événement"
+                        },
+                        {
+                            id: 4,
+                            title: "CIPREL",
+                            role: "Développeur Front-end",
+                            description: "Site web responsive avec optimisation des performances",
+                            fullDescription: "Développement du site corporate de CIPREL avec focus sur l'expérience utilisateur et les performances.",
+                            technologies: ["HTML5", "CSS3", "JavaScript", "Responsive"],
+                            url: "https://ciprel.ci",
+                            category: "frontend",
+                            icon: "electrical_services",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://ciprel.ci&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Intégration pixel-perfect et performances",
+                            results: "Amélioration de 60% des performances"
+                        },
+                        {
+                            id: 5,
+                            title: "Quizz CIPREL RH",
+                            role: "Développeur Full-stack",
+                            description: "Application quiz interactive avec système de scoring avancé",
+                            fullDescription: "Plateforme de quiz RH complète avec système de scoring, analytics et reporting pour le SIREXE.",
+                            technologies: ["NuxtJS", "VueJS", "JavaScript"],
+                            url: "https://ciprelrh.netlify.app/questionnaire",
+                            category: "fullstack",
+                            icon: "quiz",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://ciprelrh.netlify.app/questionnaire&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Système de scoring complexe et analytics",
+                            results: "Interface intuitive avec reporting détaillé"
+                        },
+                        {
+                            id: 6,
+                            title: "Soboa 95 ans",
+                            role: "Designer & Développeur",
+                            description: "Conception et développement complet avec design unique",
+                            fullDescription: "Site commémoratif sur-mesure pour les 95 ans de Soboa avec design unique et animations personnalisées.",
+                            technologies: ["HTML5", "CSS3", "JavaScript", "Design"],
+                            url: "https://soboa95ans.sn",
+                            category: "frontend",
+                            icon: "cake",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://soboa95ans.sn&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Design unique et animations fluides",
+                            results: "Site commémoratif remarqué par l'industrie"
+                        },
+                        {
+                            id: 7,
+                            title: "BigFive360 & BBlome",
+                            role: "Architecte technique",
+                            description: "Solutions sur-mesure avec intégrations complexes",
+                            fullDescription: "Développement de portails d'entreprise personnalisés avec intégrations API complexes et architecture modulaire.",
+                            technologies: ["VueJS", "Laravel", "APIs", "Architecture"],
+                            url: "https://bigfive360.com",
+                            category: "fullstack",
+                            icon: "architecture",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://bigfive360.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Architecture complexe et intégrations multiples",
+                            results: "Portails haute performance avec 99% uptime"
+                        },
+                        {
+                            id: 8,
+                            title: "BigFive Solutions",
+                            role: "Développeur Front-end",
+                            description: "Intégration fidèle des maquettes avec composants réutilisables",
+                            fullDescription: "Site corporate avec système de design complet et composants réutilisables basés sur les maquettes Adobe XD.",
+                            technologies: ["VueJS", "Design System", "Adobe XD"],
+                            url: "https://bigfive.solutions/",
+                            category: "frontend",
+                            icon: "design_services",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://bigfive.solutions/&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Design System et composants réutilisables",
+                            results: "Système de design adopté par toute l'équipe"
+                        },
+                        {
+                            id: 9,
+                            title: "Soeguibe",
+                            role: "Intégrateur WordPress",
+                            description: "Template WordPress personnalisé avec éditeur avancé",
+                            fullDescription: "Développement d'un thème WordPress sur-mesure avec éditeur Gutenberg personnalisé et fonctionnalités avancées.",
+                            technologies: ["WordPress", "Gutenberg", "PHP", "Custom Post Types"],
+                            url: "https://soeguibe.com",
+                            category: "wordpress",
+                            icon: "web",
+                            image: "https://shot.screenshotapi.net/screenshot?token=18A60MH-V85MD3M-JA38SDD-7F2MJHJ&url=https://soeguibe.com&width=1200&height=800&output=image&file_type=png&wait_for_event=load",
+                            challenges: "Éditeur personnalisé et fonctionnalités avancées",
+                            results: "Template WordPress flexible et performant"
+                        }
+                    ]
+                }
+            },
+            computed: {
+                filteredProjects() {
+                    if (this.activeFilter === 'tous') {
+                        return this.projects;
+                    }
+                    return this.projects.filter(project => project.category === this.activeFilter);
+                }
+            },
+            methods: {
+                setFilter(filter) {
+                    this.activeFilter = filter;
+                },
+                openModal(project) {
+                    this.selectedProject = project;
+                    document.body.style.overflow = 'hidden';
+                },
+                closeModal() {
+                    this.selectedProject = null;
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
