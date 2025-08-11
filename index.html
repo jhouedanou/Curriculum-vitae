@@ -482,8 +482,8 @@
                     <div class="nav-title">{{ texts.categories }}</div>
                     <div 
                         class="nav-item" 
-                        :class="{ active: activeFilter === 'tous' }"
-                        @click="setFilter('tous')"
+                        :class="{ active: activeFilter === 'all' }"
+                        @click="setFilter('all')"
                     >
                         <span class="material-icons">apps</span>
                         {{ texts.all }}
@@ -585,9 +585,9 @@
         createApp({
             data() {
                 return {
-                    activeFilter: 'tous',
+                    activeFilter: 'all',
                     selectedProject: null,
-                    currentLang: 'fr',
+                    currentLang: 'en',
                     projects: [
                         {
                             id: 1,
@@ -803,7 +803,7 @@
                     }[this.currentLang];
                 },
                 filteredProjects() {
-                    if (this.activeFilter === 'tous') {
+                    if (this.activeFilter === 'all') {
                         return this.projects;
                     }
                     return this.projects.filter(project => project.category === this.activeFilter);
