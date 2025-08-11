@@ -3,7 +3,7 @@
 # Jean Luc Houédanou
 **Email:** jeanluc@houedanou.com  
 **Téléphone:** +225 07 48 34 82 21  
-**LinkedIn:** [https://www.linkedin.com/in/jlhouedanou/](https://www.linkedin.com/in/jlhouedanou/)
+**Portfolio:** [https://jhouedanou.github.io/Curriculum-vitae/](https://jhouedanou.github.io/Curriculum-vitae/) 
 ---
 <table>
 <tr>
@@ -233,8 +233,6 @@ Template WordPress personnalisé avec éditeur avancé
 **GitHub:** https://github.com/jhouedanou  
 **Blog dédié aux technologies de l'information:** https://houedanou.com  
 **Portfolio en ligne:** https://jhouedanou.github.io/Curriculum-vitae/  
-**Portfolio (FR):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-fr.html  
-**Portfolio (EN):** https://github.com/bigfiver/Curriculum-vitae/raw/main/portfolio-en.html  
 **Instagram:** @jlhouedanou  
 **Twitter:** @afrowebdesigner
 
