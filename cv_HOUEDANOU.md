@@ -1,13 +1,30 @@
 <div style="font-size: 12px; line-height: 1.4;">
+<style>
+table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+table td:first-child {
+    width: 75% !important;
+    max-width: 75% !important;
+}
+table td:last-child {
+    width: 25% !important;
+    max-width: 25% !important;
+}
+</style>
 
 # Jean Luc Houédanou
-**Email:** jeanluc@houedanou.com  
-**Téléphone:** +225 07 48 34 82 21  
-**Portfolio:** [https://jhouedanou.github.io/Curriculum-vitae/](https://jhouedanou.github.io/Curriculum-vitae/) 
+<div style="font-size: 12px;">
+<strong>Email:</strong> jeanluc@houedanou.com<br>
+<strong>Téléphone:</strong> +225 07 48 34 82 21<br>
+<strong>Portfolio:</strong> <a href="https://jhouedanou.github.io/Curriculum-vitae/">https://jhouedanou.github.io/Curriculum-vitae/</a>
+</div> 
 ---
-<table>
+<table style="width: 100%; table-layout: fixed;">
 <tr>
-<td width="60%" valign="top">
+<td width="75%" style="width: 75%; vertical-align: top;">
 
 ## 🔹 Expérience professionnelle
 
@@ -106,13 +123,51 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ---
 
-## LANGUES
+## Compétences & Logiciels
 
-**Français:** Langue maternelle  
-**Anglais:** Courant
+### **Développement Frontend**
+- VueJS (5 ans d'expérience, Expert)
+- Angular (4 ans d'expérience, Avancé)
+- NuxtJS (3 ans d'expérience, Intermédiaire+)
+- JavaScript (8 ans d'expérience, Expert)
+- HTML5 (12 ans d'expérience, Expert)
+- CSS3 (12 ans d'expérience, Expert)
+- Responsive Web Design (8 ans d'expérience, Avancé)
+
+### **Développement Backend**
+- PHP (10 ans d'expérience, Expert)
+- Laravel (5 ans d'expérience, Avancé)
+- Filament (2 ans d'expérience, Intermédiaire)
+- Supabase (2 ans d'expérience, Intermédiaire)
+- MySQL (8 ans d'expérience, Avancé)
+- APIs RESTful (6 ans d'expérience, Avancé)
+- Administration serveur Linux (7 ans d'expérience, Avancé)
+
+### **Design & Outils**
+- Adobe XD (6 ans d'expérience, Expert)
+- Figma (4 ans d'expérience, Avancé)
+- Suite Affinity (5 ans d'expérience, Avancé)
+- UI/UX Design (8 ans d'expérience, Expert)
+- Design Graphique (10 ans d'expérience, Avancé)
+- DaVinci Resolve (3 ans d'expérience, Intermédiaire+)
+
+### **DevOps & Infrastructure**
+- Pipelines CI/CD avec GitLab (3 ans d'expérience, Intermédiaire+)
+- Containerisation (Docker) (3 ans d'expérience, Intermédiaire+)
+- Gestion de clusters de bases de données (PostgreSQL BDR, MariaDB Galera) (4 ans d'expérience, Intermédiaire+)
+- Sécurité web (7 ans d'expérience, Avancé)
+
+### **Gestion de Projet**
+- SCRUM (6 ans d'expérience, Avancé)
+- Kanban (5 ans d'expérience, Avancé)
+- Agile (6 ans d'expérience, Avancé)
+- Jira (4 ans d'expérience, Intermédiaire+)
+- Leadership d'Équipe (5 ans d'expérience, Avancé)
+- Relation Client (12 ans d'expérience, Expert)
+- Planification Stratégique (5 ans d'expérience, Avancé)
 
 </td>
-<td width="40%" valign="top">
+<td width="25%" style="width: 25%; vertical-align: top;">
 
 ## PROFIL PROFESSIONNEL
 
@@ -121,6 +176,13 @@ Collège Jean Mermoz, Côte d'Ivoire
 **Spécialiste front-end** (VueJS, Angular) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable.
 
 **Passionné par l'innovation technologique** et le leadership d'équipe, je m'épanouis dans des environnements dynamiques où je peux transformer des défis complexes en opportunités de croissance.
+
+---
+
+## LANGUES
+
+**Français:** Langue maternelle  
+**Anglais:** Courant
 
 ---
 
@@ -182,17 +244,17 @@ Intégration fidèle des maquettes avec composants réutilisables
 Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH
 
 ### **App Mobile TimeoRH**
-**Prototype Figma**  
+**https://tinyurl.com/timeo-mobile-app**  
 *Rôle:* UI/UX Designer | *Technologies:* Figma, Mobile Design  
 Prototype mobile complet sur Figma pour application RH
 
 ### **Kekeli Power**
-**Prototype Figma**  
+**https://tinyurl.com/kekeli-power-ui**  
 *Rôle:* UI/UX Designer | *Technologies:* Figma, Energy Tech  
 Interface utilisateur moderne pour application énergétique
 
 ### **Fondation Hamadou Hampathé Ba**
-**Prototype Figma**  
+**https://tinyurl.com/fondation-hhb**  
 *Rôle:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
 Site web institutionnel avec design culturel authentique
 
@@ -200,51 +262,6 @@ Site web institutionnel avec design culturel authentique
 **https://soeguibe.com**  
 *Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP  
 Template WordPress personnalisé avec éditeur avancé
-
----
-
-## Compétences & Logiciels
-
-### **Développement Frontend**
-- VueJS (5 ans d'expérience, Expert)
-- Angular (4 ans d'expérience, Avancé)
-- NuxtJS (3 ans d'expérience, Intermédiaire+)
-- JavaScript (8 ans d'expérience, Expert)
-- HTML5 (12 ans d'expérience, Expert)
-- CSS3 (12 ans d'expérience, Expert)
-- Responsive Web Design (8 ans d'expérience, Avancé)
-
-### **Développement Backend**
-- PHP (10 ans d'expérience, Expert)
-- Laravel (5 ans d'expérience, Avancé)
-- Filament (2 ans d'expérience, Intermédiaire)
-- Supabase (2 ans d'expérience, Intermédiaire)
-- MySQL (8 ans d'expérience, Avancé)
-- APIs RESTful (6 ans d'expérience, Avancé)
-- Administration serveur Linux (7 ans d'expérience, Avancé)
-
-### **Design & Outils**
-- Adobe XD (6 ans d'expérience, Expert)
-- Figma (4 ans d'expérience, Avancé)
-- Suite Affinity (5 ans d'expérience, Avancé)
-- UI/UX Design (8 ans d'expérience, Expert)
-- Design Graphique (10 ans d'expérience, Avancé)
-- DaVinci Resolve (3 ans d'expérience, Intermédiaire+)
-
-### **DevOps & Infrastructure**
-- Pipelines CI/CD avec GitLab (3 ans d'expérience, Intermédiaire+)
-- Containerisation (Docker) (3 ans d'expérience, Intermédiaire+)
-- Gestion de clusters de bases de données (PostgreSQL BDR, MariaDB Galera) (4 ans d'expérience, Intermédiaire+)
-- Sécurité web (7 ans d'expérience, Avancé)
-
-### **Gestion de Projet**
-- SCRUM (6 ans d'expérience, Avancé)
-- Kanban (5 ans d'expérience, Avancé)
-- Agile (6 ans d'expérience, Avancé)
-- Jira (4 ans d'expérience, Intermédiaire+)
-- Leadership d'Équipe (5 ans d'expérience, Avancé)
-- Relation Client (12 ans d'expérience, Expert)
-- Planification Stratégique (5 ans d'expérience, Avancé)
 
 ---
 

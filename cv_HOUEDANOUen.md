@@ -1,13 +1,30 @@
 <div style="font-size: 12px; line-height: 1.4;">
+<style>
+table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+table td:first-child {
+    width: 75% !important;
+    max-width: 75% !important;
+}
+table td:last-child {
+    width: 25% !important;
+    max-width: 25% !important;
+}
+</style>
 
 # Jean Luc Houédanou
-**Email:** jeanluc@houedanou.com  
-**Phone:** +225 07 48 34 82 21  
-**Portfolio:** [https://jhouedanou.github.io/Curriculum-vitae/](https://jhouedanou.github.io/Curriculum-vitae/)  
+<div style="font-size: 12px;">
+<strong>Email:</strong> jeanluc@houedanou.com<br>
+<strong>Phone:</strong> +225 07 48 34 82 21<br>
+<strong>Portfolio:</strong> <a href="https://jhouedanou.github.io/Curriculum-vitae/">https://jhouedanou.github.io/Curriculum-vitae/</a>
+</div>  
 ---
-<table>
+<table style="width: 100%; table-layout: fixed;">
 <tr>
-<td width="60%" valign="top">
+<td width="75%" style="width: 75%; vertical-align: top;">
 
 ## 🔹 Professional Experience
 
@@ -104,15 +121,9 @@ Canadian University of Arts, Sciences and Management, Côte d'Ivoire
 **Bachelor's in Economics and Science**  
 Jean Mermoz College, Côte d'Ivoire
 
----
-
-## LANGUAGES
-
-**French:** Native language  
-**English:** Fluent
 
 </td>
-<td width="40%" valign="top">
+<td width="25%" style="width: 25%; vertical-align: top;">
 
 ## PROFESSIONAL PROFILE
 
@@ -121,6 +132,13 @@ Experienced **Digital Solutions Director** with **over 12 years of expertise** i
 **Front-end specialist** (VueJS, Angular) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
 
 **Passionate about technological innovation** and team leadership, I thrive in dynamic environments where I can transform complex challenges into growth opportunities.
+
+---
+
+## LANGUAGES
+
+**French:** Native language  
+**English:** Fluent
 
 ---
 
@@ -182,17 +200,17 @@ Faithful mockup integration with reusable components
 Figma design conception and VueJS frontend conversion for HR dashboard
 
 ### **TimeoRH Mobile App**
-**Figma Prototype**  
+**https://tinyurl.com/timeo-mobile-app**  
 *Role:* UI/UX Designer | *Technologies:* Figma, Mobile Design  
 Complete mobile prototype on Figma for HR application
 
 ### **Kekeli Power**
-**Figma Prototype**  
+**https://tinyurl.com/kekeli-power-ui**  
 *Role:* UI/UX Designer | *Technologies:* Figma, Energy Tech  
 Modern user interface for energy application
 
 ### **Hamadou Hampathé Ba Foundation**
-**Figma Prototype**  
+**https://tinyurl.com/fondation-hhb**  
 *Role:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
 Institutional website with authentic cultural design
 
@@ -200,6 +218,22 @@ Institutional website with authentic cultural design
 **https://soeguibe.com**  
 *Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP  
 Custom WordPress template with advanced editor
+
+---
+
+## Miscellaneous
+
+**GitHub:** https://github.com/jhouedanou  
+**Blog dedicated to information technology:** https://houedanou.com  
+**Online Portfolio:** https://jhouedanou.github.io/Curriculum-vitae/  
+**Instagram:** @jlhouedanou  
+**Twitter:** @afrowebdesigner
+
+**Date of birth:** February 24, 1984
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -245,21 +279,5 @@ Custom WordPress template with advanced editor
 - Team Leadership (5 years experience, Advanced)
 - Client Relations (12 years experience, Expert)
 - Strategic Planning (5 years experience, Advanced)
-
----
-
-## Miscellaneous
-
-**GitHub:** https://github.com/jhouedanou  
-**Blog dedicated to information technology:** https://houedanou.com  
-**Online Portfolio:** https://jhouedanou.github.io/Curriculum-vitae/  
-**Instagram:** @jlhouedanou  
-**Twitter:** @afrowebdesigner
-
-**Date of birth:** February 24, 1984
-
-</td>
-</tr>
-</table>
 
 </div>
