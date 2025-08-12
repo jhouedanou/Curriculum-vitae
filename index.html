@@ -15,6 +15,7 @@
             --celtic-blue: #056AC6;
             --light-sky-blue: #93D2FD;
             --royal-blue: #1463F5;
+            --royal-blue-rgb: 20, 99, 245;
         }
 
         body {
@@ -300,6 +301,245 @@
                 display: none;
             }
         }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15px;
+            height: 100%;
+            width: 2px;
+            background: var(--royal-blue);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 6px;
+            top: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--royal-blue);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--royal-blue);
+        }
+
+        .page-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .navigation-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            text-align: center;
+            min-height: 70px;
+            justify-content: center;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+            color: #495057;
+            line-height: 1.2;
+        }
+
+        .nav-item:hover {
+            background: #e9ecef;
+            border-color: var(--royal-blue);
+            transform: translateY(-2px);
+        }
+
+        .nav-item:hover i {
+            color: var(--royal-blue);
+            transform: scale(1.1);
+        }
+
+        .nav-item:hover span {
+            color: var(--royal-blue);
+        }
+
+        .nav-item.is-active {
+            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
+            border-color: var(--royal-blue);
+            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
+        }
+
+        .nav-item.is-active i {
+            color: white;
+        }
+
+        .nav-item.is-active span {
+            color: white;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .navigation-menu {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            
+            .nav-item {
+                min-height: 60px;
+                padding: 8px 6px;
+            }
+            
+            .nav-item i {
+                font-size: 18px;
+            }
+            
+            .nav-item span {
+                font-size: 10px;
+            }
+        }
+
+        .projects-page {
+            position: relative;
+        }
+
+        .filters-overlay {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 12px 16px;
+            border-radius: 50px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            pointer-events: all;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            min-width: 55px;
+        }
+
+        .filter-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .filter-item span {
+            font-size: 9px;
+            font-weight: 500;
+            color: #6c757d;
+            text-align: center;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .filter-item:hover {
+            background: rgba(var(--royal-blue-rgb), 0.1);
+            transform: translateY(-2px);
+        }
+
+        .filter-item:hover i {
+            color: var(--royal-blue);
+            transform: scale(1.1);
+        }
+
+        .filter-item:hover span {
+            color: var(--royal-blue);
+        }
+
+        .filter-item.is-active {
+            background: var(--royal-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(20, 99, 245, 0.4);
+        }
+
+        .filter-item.is-active i {
+            color: white;
+        }
+
+        .filter-item.is-active span {
+            color: white;
+            font-weight: 600;
+        }
+
+
+        @media (max-width: 768px) {
+            .filters-overlay {
+                bottom: 15px;
+                left: 15px;
+                right: 15px;
+                transform: none;
+            }
+            
+            .filters-container {
+                justify-content: space-between;
+                padding: 10px 12px;
+                gap: 4px;
+            }
+            
+            .filter-item {
+                padding: 6px 8px;
+                min-width: 45px;
+            }
+            
+            .filter-item i {
+                font-size: 16px;
+            }
+            
+            .filter-item span {
+                font-size: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -315,7 +555,7 @@
         <div class="columns is-gapless is-fullheight">
             <!-- Sidebar -->
             <div id="pa5" class="column is-narrow sidebar pa-5" :class="{ 'mobile-open': sidebarOpen }">
-                <div class="has-text-centered mb-6">
+                <div class="has-text-centered mb-4">
                     <figure class="image is-inline-block">
                         <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="profile-avatar is-rounded">
                     </figure>
@@ -323,18 +563,39 @@
                     <p class="subtitle is-6 has-text-grey" v-if="texts.subtitle">{{ texts.subtitle }}</p>
                 </div>
 
-                <div class="buttons is-centered mb-5">
-                    <button type="button" @click="toggleLanguage" class="button modern-button mb-3">
+                <div class="mb-5">
+                    <div class="navigation-menu">
+                        <div @click="setPage('about')" :class="{ 'is-active': currentPage === 'about' }" class="nav-item">
+                            <i class="material-icons">person</i>
+                            <span>{{ texts.whoIAm }}</span>
+                        </div>
+                        <div @click="setPage('experience')" :class="{ 'is-active': currentPage === 'experience' }" class="nav-item">
+                            <i class="material-icons">work</i>
+                            <span>{{ texts.experience }}</span>
+                        </div>
+                        <div @click="setPage('projects')" :class="{ 'is-active': currentPage === 'projects' }" class="nav-item">
+                            <i class="material-icons">code</i>
+                            <span>{{ texts.projects }}</span>
+                        </div>
+                        <div @click="setPage('contact')" :class="{ 'is-active': currentPage === 'contact' }" class="nav-item">
+                            <i class="material-icons">contact_mail</i>
+                            <span>{{ texts.contact }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons is-centered mb-4">
+                    <button type="button" @click="toggleLanguage" class="button modern-button is-small mb-2">
                         <span class="icon"><i class="material-icons">translate</i></span>
                         <span>{{ currentLang === 'fr' ? 'English' : 'Français' }}</span>
                     </button>
-                    <a :href="currentLang === 'fr' ? 'https://drive.google.com/file/d/12yjqLoVAZKMn3btAEjhvtMViy6N7j934/view?usp=sharing' : 'https://drive.google.com/file/d/13GQs9tbtcpM0aNI51pktzaQzXhCI23OT/view?usp=sharing'" :download="currentLang === 'fr' ? 'CV_Jean_Luc_HOUEDANOU_FR.pdf' : 'CV_Jean_Luc_HOUEDANOU_EN.pdf'" class="button modern-button">
+                    <a :href="currentLang === 'fr' ? 'https://drive.google.com/file/d/12yjqLoVAZKMn3btAEjhvtMViy6N7j934/view?usp=sharing' : 'https://drive.google.com/file/d/13GQs9tbtcpM0aNI51pktzaQzXhCI23OT/view?usp=sharing'" :download="currentLang === 'fr' ? 'CV_Jean_Luc_HOUEDANOU_FR.pdf' : 'CV_Jean_Luc_HOUEDANOU_EN.pdf'" class="button modern-button is-small">
                         <span class="icon"><i class="material-icons">download</i></span>
                         <span>{{ texts.downloadCV }}</span>
                     </a>
                 </div>
 
-                <div class="columns is-mobile is-gapless mb-6">
+                <div class="columns is-mobile is-gapless mb-4">
                     <div class="column">
                         <div class="stats-card mr-1">
                             <p class="title is-4 has-text-info mb-1">{{ projects.length }}+</p>
@@ -351,32 +612,6 @@
                         <div class="stats-card ml-1">
                             <p class="title is-4 has-text-info mb-1">95%</p>
                             <p class="is-size-7 has-text-grey">{{ texts.clientSatisfaction }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <p class="has-text-weight-semibold has-text-grey mb-4 is-uppercase is-size-7 has-text-centered">{{ texts.categories }}</p>
-                    <div class="menu-items">
-                        <div @click="setFilter('all')" :class="{ 'is-active': activeFilter === 'all' }" class="menu-item">
-                            <span class="icon is-small mr-2"><i class="material-icons">apps</i></span>
-                            <span>{{ texts.all }}</span>
-                        </div>
-                        <div @click="setFilter('frontend')" :class="{ 'is-active': activeFilter === 'frontend' }" class="menu-item">
-                            <span class="icon is-small mr-2"><i class="material-icons">code</i></span>
-                            <span>Frontend</span>
-                        </div>
-                        <div @click="setFilter('fullstack')" :class="{ 'is-active': activeFilter === 'fullstack' }" class="menu-item">
-                            <span class="icon is-small mr-2"><i class="material-icons">layers</i></span>
-                            <span>Full-stack</span>
-                        </div>
-                        <div @click="setFilter('wordpress')" :class="{ 'is-active': activeFilter === 'wordpress' }" class="menu-item">
-                            <span class="icon is-small mr-2"><i class="material-icons">web</i></span>
-                            <span>WordPress</span>
-                        </div>
-                        <div @click="setFilter('figma')" :class="{ 'is-active': activeFilter === 'figma' }" class="menu-item">
-                            <span class="icon is-small mr-2"><i class="material-icons">design_services</i></span>
-                            <span>Figma</span>
                         </div>
                     </div>
                 </div>
@@ -401,50 +636,323 @@
 
             <!-- Main Content -->
             <div class="column main-content">
-                <div class="hero-section">
-                    <h1 class="title is-1 mb-3">{{ texts.title }}</h1>
-                </div>
-
-                <div class="container">
-                    <transition-group name="fade" tag="div" class="columns is-multiline">
-                        <div 
-                            v-for="project in filteredProjects" 
-                            :key="project.id"
-                            class="column is-one-third-desktop is-half-tablet"
-                        >
-                            <div class="project-card-modern is-clickable" @click="openModal(project)">
-                                <div class="card-image">
-                                    <figure class="image">
-                                        <div class="is-flex is-align-items-center is-justify-content-center" style="height: 200px; background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));">
-                                            <span class="icon is-large has-text-white">
-                                                <i class="material-icons is-size-1">{{ project.icon }}</i>
-                                            </span>
+                <!-- Page 1: Qui je suis -->
+                <div v-if="currentPage === 'about'" class="page-content">
+                    <div class="hero-section">
+                        <h1 class="title is-1 mb-3">{{ texts.whoIAm }}</h1>
+                    </div>
+                    <div class="container">
+                        <div class="content is-large">
+                            <div class="box">
+                                <h2 class="title is-3 has-text-info mb-4">{{ texts.aboutTitle }}</h2>
+                                <p class="is-size-5 mb-5" style="line-height: 1.8;">{{ texts.aboutDescription }}</p>
+                            </div>
+                            <div class="columns is-multiline">
+                                <div class="column is-half">
+                                    <div class="box has-text-centered">
+                                        <div class="icon is-large has-text-info mb-3">
+                                            <i class="material-icons is-size-1">code</i>
                                         </div>
-                                    </figure>
+                                        <h4 class="title is-4 mb-3">{{ texts.capability1Title }}</h4>
+                                        <p>{{ texts.capability1Desc }}</p>
+                                    </div>
                                 </div>
-                                <div class="card-content">
-                                    <div class="card-content p-5">
-                                        <h4 class="title is-4 mb-3 has-text-dark">{{ project.title }}</h4>
-                                        <div class="mb-3">
-                                            <span class="tag is-info is-light is-medium">{{ currentLang === 'fr' ? project.role : project.roleEn }}</span>
+                                <div class="column is-half">
+                                    <div class="box has-text-centered">
+                                        <div class="icon is-large has-text-info mb-3">
+                                            <i class="material-icons is-size-1">design_services</i>
                                         </div>
-                                        <p class="has-text-grey mb-4" style="line-height: 1.6;">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
-                                        <div class="tags mb-4">
-                                            <span v-for="tech in project.technologies" :key="tech" class="tag is-light is-rounded">
-                                                {{ tech }}
-                                            </span>
+                                        <h4 class="title is-4 mb-3">{{ texts.capability2Title }}</h4>
+                                        <p>{{ texts.capability2Desc }}</p>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="box has-text-centered">
+                                        <div class="icon is-large has-text-info mb-3">
+                                            <i class="material-icons is-size-1">groups</i>
                                         </div>
-                                        <a :href="project.url" class="button modern-button is-small" target="_blank" @click.stop>
-                                            <span class="icon is-small">
-                                                <i class="material-icons">launch</i>
-                                            </span>
-                                            <span>{{ texts.viewProject }}</span>
-                                        </a>
+                                        <h4 class="title is-4 mb-3">{{ texts.capability3Title }}</h4>
+                                        <p>{{ texts.capability3Desc }}</p>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="box has-text-centered">
+                                        <div class="icon is-large has-text-info mb-3">
+                                            <i class="material-icons is-size-1">architecture</i>
+                                        </div>
+                                        <h4 class="title is-4 mb-3">{{ texts.capability4Title }}</h4>
+                                        <p>{{ texts.capability4Desc }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </transition-group>
+                    </div>
+                </div>
+
+                <!-- Page 2: Expérience -->
+                <div v-if="currentPage === 'experience'" class="page-content">
+                    <div class="hero-section">
+                        <h1 class="title is-1 mb-3">{{ texts.experience }}</h1>
+                    </div>
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column is-8">
+                                <div class="box">
+                                    <h2 class="title is-3 has-text-info mb-4">{{ texts.professionalExp }}</h2>
+                                    <div class="timeline">
+                                        <div class="timeline-item mb-5">
+                                            <div class="timeline-marker is-info"></div>
+                                            <div class="timeline-content">
+                                                <p class="heading">2019 - {{ texts.present }}</p>
+                                                <h4 class="title is-4">{{ texts.currentRole }}</h4>
+                                                <p class="subtitle is-6">Big Five Solutions</p>
+                                                <p>{{ texts.currentRoleDesc }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item mb-5">
+                                            <div class="timeline-marker is-info"></div>
+                                            <div class="timeline-content">
+                                                <p class="heading">2017 - 2019</p>
+                                                <h4 class="title is-4">Head Of Design</h4>
+                                                <p class="subtitle is-6">WeDev Group</p>
+                                                <p>{{ texts.headDesignDesc }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item mb-5">
+                                            <div class="timeline-marker is-info"></div>
+                                            <div class="timeline-content">
+                                                <p class="heading">2017</p>
+                                                <h4 class="title is-4">{{ texts.digitalCommRole }}</h4>
+                                                <p class="subtitle is-6">Adonai Agri Batis</p>
+                                                <p>{{ texts.digitalCommDesc }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-4">
+                                <div class="box">
+                                    <h3 class="title is-4 has-text-info mb-4">{{ texts.education }}</h3>
+                                    <div class="content">
+                                        <div class="mb-4">
+                                            <p class="heading">2008-2009</p>
+                                            <p class="has-text-weight-semibold">{{ texts.certGestion }}</p>
+                                            <p class="is-size-7">{{ texts.univSherbrooke }}</p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="heading">2007-2008</p>
+                                            <p class="has-text-weight-semibold">{{ texts.masterEcommerce }}</p>
+                                            <p class="is-size-7">{{ texts.univSherbrooke }}</p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="heading">2002-2006</p>
+                                            <p class="has-text-weight-semibold">{{ texts.bacBusiness }}</p>
+                                            <p class="is-size-7">{{ texts.univCanadienne }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <h3 class="title is-5 has-text-info mb-4">{{ texts.keySkills }}</h3>
+                                    <div class="tags">
+                                        <span class="tag is-info">VueJS</span>
+                                        <span class="tag is-info">PHP</span>
+                                        <span class="tag is-info">Laravel</span>
+                                        <span class="tag is-info">Figma</span>
+                                        <span class="tag is-info">UI/UX</span>
+                                        <span class="tag is-info">Leadership</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 3: Projets -->
+                <div v-if="currentPage === 'projects'" class="page-content projects-page">
+                    <div class="hero-section">
+                        <h1 class="title is-1 mb-3">{{ texts.projects }}</h1>
+                    </div>
+                    <div class="container">
+                        <transition-group name="fade" tag="div" class="columns is-multiline">
+                            <div 
+                                v-for="project in filteredProjects" 
+                                :key="project.id"
+                                class="column is-one-third-desktop is-half-tablet"
+                            >
+                                <div class="project-card-modern is-clickable" @click="openModal(project)">
+                                    <div class="card-image">
+                                        <figure class="image">
+                                            <div class="is-flex is-align-items-center is-justify-content-center" style="height: 200px; background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));">
+                                                <span class="icon is-large has-text-white">
+                                                    <i class="material-icons is-size-1">{{ project.icon }}</i>
+                                                </span>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-content p-5">
+                                            <h4 class="title is-4 mb-3 has-text-dark">{{ project.title }}</h4>
+                                            <div class="mb-3">
+                                                <span class="tag is-info is-light is-medium">{{ currentLang === 'fr' ? project.role : project.roleEn }}</span>
+                                            </div>
+                                            <p class="has-text-grey mb-4" style="line-height: 1.6;">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
+                                            <div class="tags mb-4">
+                                                <span v-for="tech in project.technologies" :key="tech" class="tag is-light is-rounded">
+                                                    {{ tech }}
+                                                </span>
+                                            </div>
+                                            <a :href="project.url" class="button modern-button is-small" target="_blank" @click.stop>
+                                                <span class="icon is-small">
+                                                    <i class="material-icons">launch</i>
+                                                </span>
+                                                <span>{{ texts.viewProject }}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition-group>
+                    </div>
+                    
+                    <!-- Filters Overlay -->
+                    <div class="filters-overlay">
+                        <div class="filters-container">
+                            <div class="filter-item" @click="setFilter('all')" :class="{ 'is-active': activeFilter === 'all' }">
+                                <i class="material-icons">apps</i>
+                                <span>{{ texts.all }}</span>
+                            </div>
+                            <div class="filter-item" @click="setFilter('frontend')" :class="{ 'is-active': activeFilter === 'frontend' }">
+                                <i class="material-icons">code</i>
+                                <span>Frontend</span>
+                            </div>
+                            <div class="filter-item" @click="setFilter('fullstack')" :class="{ 'is-active': activeFilter === 'fullstack' }">
+                                <i class="material-icons">layers</i>
+                                <span>Full-stack</span>
+                            </div>
+                            <div class="filter-item" @click="setFilter('wordpress')" :class="{ 'is-active': activeFilter === 'wordpress' }">
+                                <i class="material-icons">web</i>
+                                <span>WordPress</span>
+                            </div>
+                            <div class="filter-item" @click="setFilter('figma')" :class="{ 'is-active': activeFilter === 'figma' }">
+                                <i class="material-icons">design_services</i>
+                                <span>Figma</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 4: Contact -->
+                <div v-if="currentPage === 'contact'" class="page-content">
+                    <div class="hero-section">
+                        <h1 class="title is-1 mb-3">{{ texts.contact }}</h1>
+                    </div>
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column is-6">
+                                <div class="box">
+                                    <h2 class="title is-3 has-text-info mb-4">{{ texts.getInTouch }}</h2>
+                                    <form action="https://usebasin.com/f/92bbd2d1503a" method="POST">
+                                        <div class="field">
+                                            <label class="label">{{ texts.name }}</label>
+                                            <div class="control">
+                                                <input class="input" type="text" name="name" :placeholder="texts.namePlaceholder" required>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label">{{ texts.email }}</label>
+                                            <div class="control">
+                                                <input class="input" type="email" name="email" :placeholder="texts.emailPlaceholder" required>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label">{{ texts.subject }}</label>
+                                            <div class="control">
+                                                <input class="input" type="text" name="subject" :placeholder="texts.subjectPlaceholder" required>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label">{{ texts.message }}</label>
+                                            <div class="control">
+                                                <textarea class="textarea" name="message" rows="6" :placeholder="texts.messagePlaceholder" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="control">
+                                                <button type="submit" class="button modern-button is-fullwidth">
+                                                    <span class="icon">
+                                                        <i class="material-icons">send</i>
+                                                    </span>
+                                                    <span>{{ texts.sendMessage }}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="box">
+                                    <h2 class="title is-3 has-text-info mb-4">{{ texts.contactInfo }}</h2>
+                                    <div class="content">
+                                        <div class="media mb-4">
+                                            <div class="media-left">
+                                                <span class="icon is-large has-text-info">
+                                                    <i class="material-icons is-size-3">email</i>
+                                                </span>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-6">Email</p>
+                                                <p><a href="mailto:jeanluc@houedanou.com">jeanluc@houedanou.com</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="media mb-4">
+                                            <div class="media-left">
+                                                <span class="icon is-large has-text-info">
+                                                    <i class="material-icons is-size-3">phone</i>
+                                                </span>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-6">{{ texts.phone }}</p>
+                                                <p><a href="tel:+22507483482211">+225 07 48 34 82 21</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="media mb-4">
+                                            <div class="media-left">
+                                                <span class="icon is-large has-text-info">
+                                                    <i class="material-icons is-size-3">language</i>
+                                                </span>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-6">Portfolio</p>
+                                                <p><a href="https://jhouedanou.github.io/Curriculum-vitae/" target="_blank">jhouedanou.github.io/Curriculum-vitae</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="media mb-4">
+                                            <div class="media-left">
+                                                <span class="icon is-large has-text-info">
+                                                    <i class="material-icons is-size-3">article</i>
+                                                </span>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-6">Blog</p>
+                                                <p><a href="https://houedanou.com" target="_blank">houedanou.com</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <span class="icon is-large has-text-info">
+                                                    <i class="material-icons is-size-3">code</i>
+                                                </span>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-6">GitHub</p>
+                                                <p><a href="https://github.com/jhouedanou" target="_blank">github.com/jhouedanou</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Modal -->
@@ -505,6 +1013,7 @@
                     selectedProject: null,
                     currentLang: 'en',
                     sidebarOpen: false,
+                    currentPage: 'about',
                     projects: [
                         {
                             id: 1,
@@ -823,8 +1332,47 @@
                             yearsExperience: "Années",
                             clientSatisfaction: 'Satisfaction',
                             all: 'Tous',
-                            categories: 'Catégories',
-                            projects: 'projets',
+                            navigation: 'Navigation',
+                            whoIAm: 'Qui je suis',
+                            experience: 'Expérience',
+                            projects: 'Réalisations',
+                            contact: 'Contact',
+                            aboutTitle: 'Directeur Solutions Digitales',
+                            aboutDescription: 'Passionné par l\'innovation technologique avec plus de 12 ans d\'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Je transforme des défis complexes en opportunités de croissance en alliant expertise technique et vision stratégique.',
+                            capability1Title: 'Développement Web',
+                            capability1Desc: 'Expert en VueJS, PHP, Laravel avec une approche full-stack moderne et performante.',
+                            capability2Title: 'Design UI/UX',
+                            capability2Desc: 'Conception d\'interfaces utilisateur intuitives avec Figma et Adobe XD.',
+                            capability3Title: 'Leadership',
+                            capability3Desc: 'Gestion d\'équipes et de projets complexes avec une approche collaborative.',
+                            capability4Title: 'Architecture',
+                            capability4Desc: 'Conception de solutions techniques robustes et évolutives.',
+                            professionalExp: 'Expérience Professionnelle',
+                            present: 'Présent',
+                            currentRole: 'Directeur Solutions Digitales',
+                            currentRoleDesc: 'Direction du développement et de l\'intégration de solutions web full-stack pour une clientèle diversifiée.',
+                            headDesignDesc: 'Direction de la stratégie design et supervision de la conception d\'interfaces utilisateur.',
+                            digitalCommRole: 'Responsable Communication Digitale',
+                            digitalCommDesc: 'Développement et exécution de la stratégie de communication digitale.',
+                            education: 'Formation',
+                            certGestion: 'Certificat en Gestion de l\'Information',
+                            masterEcommerce: 'Master en Gestion du Commerce Électronique',
+                            bacBusiness: 'Baccalauréat en Administration des Affaires',
+                            univSherbrooke: 'Université de Sherbrooke, Canada',
+                            univCanadienne: 'Université Canadienne des Arts, Sciences et Management',
+                            keySkills: 'Compétences Clés',
+                            getInTouch: 'Contactez-moi',
+                            contactInfo: 'Informations de Contact',
+                            name: 'Nom',
+                            email: 'Email',
+                            subject: 'Sujet',
+                            message: 'Message',
+                            phone: 'Téléphone',
+                            namePlaceholder: 'Votre nom',
+                            emailPlaceholder: 'votre@email.com',
+                            subjectPlaceholder: 'Sujet de votre message',
+                            messagePlaceholder: 'Votre message...',
+                            sendMessage: 'Envoyer le message',
                             viewProject: 'Voir le projet',
                             visitSite: 'Visiter le site',
                             role: 'Rôle',
@@ -841,8 +1389,47 @@
                             yearsExperience: 'Years',
                             clientSatisfaction: 'Satisfaction',
                             all: 'All',
-                            categories: 'Categories',
-                            projects: 'projects',
+                            navigation: 'Navigation',
+                            whoIAm: 'Who I Am',
+                            experience: 'Experience',
+                            projects: 'Projects',
+                            contact: 'Contact',
+                            aboutTitle: 'Digital Solutions Director',
+                            aboutDescription: 'Passionate about technological innovation with over 12 years of expertise in full-stack web development, UI/UX design, and digital project management. I transform complex challenges into growth opportunities by combining technical expertise with strategic vision.',
+                            capability1Title: 'Web Development',
+                            capability1Desc: 'Expert in VueJS, PHP, Laravel with a modern and performant full-stack approach.',
+                            capability2Title: 'UI/UX Design',
+                            capability2Desc: 'Designing intuitive user interfaces with Figma and Adobe XD.',
+                            capability3Title: 'Leadership',
+                            capability3Desc: 'Managing teams and complex projects with a collaborative approach.',
+                            capability4Title: 'Architecture',
+                            capability4Desc: 'Designing robust and scalable technical solutions.',
+                            professionalExp: 'Professional Experience',
+                            present: 'Present',
+                            currentRole: 'Digital Solutions Director',
+                            currentRoleDesc: 'Leading development and integration of full-stack web solutions for diverse clientele.',
+                            headDesignDesc: 'Leading design strategy and supervising user interface design.',
+                            digitalCommRole: 'Digital Communication Manager',
+                            digitalCommDesc: 'Developing and executing digital communication strategy.',
+                            education: 'Education',
+                            certGestion: 'Certificate in Information Management',
+                            masterEcommerce: 'Master in E-commerce Management',
+                            bacBusiness: 'Bachelor in Business Administration',
+                            univSherbrooke: 'University of Sherbrooke, Canada',
+                            univCanadienne: 'Canadian University of Arts, Sciences and Management',
+                            keySkills: 'Key Skills',
+                            getInTouch: 'Get In Touch',
+                            contactInfo: 'Contact Information',
+                            name: 'Name',
+                            email: 'Email',
+                            subject: 'Subject',
+                            message: 'Message',
+                            phone: 'Phone',
+                            namePlaceholder: 'Your name',
+                            emailPlaceholder: 'your@email.com',
+                            subjectPlaceholder: 'Subject of your message',
+                            messagePlaceholder: 'Your message...',
+                            sendMessage: 'Send Message',
                             viewProject: 'View Project',
                             visitSite: 'Visit Website',
                             role: 'Role',
@@ -864,6 +1451,9 @@
             methods: {
                 setFilter(filter) {
                     this.activeFilter = filter;
+                },
+                setPage(page) {
+                    this.currentPage = page;
                 },
                 toggleLanguage() {
                     this.currentLang = this.currentLang === 'fr' ? 'en' : 'fr';
