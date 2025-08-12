@@ -176,6 +176,26 @@ Site web présentant la brasserie BBlome avec design attractif
 *Rôle:* Développeur Front-end | *Méthodologie:* Design System  
 Intégration fidèle des maquettes avec composants réutilisables
 
+### **Dashboard Timeo RH**
+**https://timeo-rh.vercel.app/**  
+*Rôle:* UI/UX Designer & Développeur Full-stack | *Technologies:* Figma, VueJS  
+Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH
+
+### **App Mobile TimeoRH**
+**Prototype Figma**  
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Mobile Design  
+Prototype mobile complet sur Figma pour application RH
+
+### **Kekeli Power**
+**Prototype Figma**  
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Energy Tech  
+Interface utilisateur moderne pour application énergétique
+
+### **Fondation Hamadou Hampathé Ba**
+**Prototype Figma**  
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
+Site web institutionnel avec design culturel authentique
+
 ### **Soeguibe**
 **https://soeguibe.com**  
 *Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP  

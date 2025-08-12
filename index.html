@@ -23,9 +23,33 @@
             min-height: 100vh;
             color: #2d3436;
         }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan); }
+            50% { box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-pink), 0 0 90px var(--neon-pink); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
         
         .is-fullheight {
             min-height: 100vh;
+        }
+        
+        .columns.is-gapless.is-fullheight {
+            align-items: flex-start;
         }
 
 #pa5 {
@@ -36,12 +60,14 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.05);
             padding: 2rem 1.5rem;
             color: #2d3436;
-            min-height: 100vh;
+            height: 100vh;
             width: 320px;
             position: sticky;
             top: 0;
             margin: 0 1rem 1rem 1rem;
             border-radius: 0 0 16px 16px;
+            overflow-y: auto;
+            align-self: flex-start;
         }
 
         .main-content {
@@ -162,12 +188,96 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         
-        @media (max-width: 1024px) {
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--royal-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
+        }
+
+        .hamburger:hover {
+            background: var(--vivid-sky-blue);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        .sidebar-overlay.is-active {
+            display: block;
+        }
+
+        .sidebar.mobile-open {
+            display: block !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            overflow-y: auto;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
             .sidebar {
-                width: calc(100% - 2rem);
+                display: none;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+                margin-top: 60px;
+            }
+            
+            .hero-section {
+                margin: -2rem -1rem 2rem -1rem;
+                padding: 3rem 1rem;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            .profile-avatar {
+                width: 80px !important;
+                height: 80px !important;
+            }
+
+            .stats-card {
+                padding: 0.75rem;
+            }
+
+            .project-card-modern {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .sidebar {
+                width: 300px;
                 min-height: auto;
-                padding: 2rem 1.5rem;
-                margin: 0 1rem 1rem 1rem;
+                padding: 1.5rem;
+                margin: 0 0.5rem 0.5rem 0.5rem;
                 border-radius: 0 0 16px 16px;
             }
             
@@ -179,14 +289,32 @@
                 margin: -2rem -1rem 2rem -1rem;
                 padding: 3rem 1rem;
             }
+
+            .column.is-one-third-desktop {
+                width: 50% !important;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .hamburger {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div id="app">
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger" @click="toggleSidebar">
+            <i class="material-icons">menu</i>
+        </button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" :class="{ 'is-active': sidebarOpen }" @click="closeSidebar"></div>
+
         <div class="columns is-gapless is-fullheight">
             <!-- Sidebar -->
-            <div id="pa5" class="column is-narrow sidebar pa-5">
+            <div id="pa5" class="column is-narrow sidebar pa-5" :class="{ 'mobile-open': sidebarOpen }">
                 <div class="has-text-centered mb-6">
                     <figure class="image is-inline-block">
                         <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="profile-avatar is-rounded">
@@ -246,16 +374,28 @@
                             <span class="icon is-small mr-2"><i class="material-icons">web</i></span>
                             <span>WordPress</span>
                         </div>
+                        <div @click="setFilter('figma')" :class="{ 'is-active': activeFilter === 'figma' }" class="menu-item">
+                            <span class="icon is-small mr-2"><i class="material-icons">design_services</i></span>
+                            <span>Figma</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="has-text-centered">
-                    <a href="https://houedanou.com" target="_blank" class="button modern-button is-small">
-                        <span class="icon is-small">
-                            <i class="material-icons">article</i>
-                        </span>
-                        <span>Blog</span>
-                    </a>
+                    <div class="buttons is-centered">
+                        <a href="https://houedanou.com" target="_blank" class="button modern-button is-small">
+                            <span class="icon is-small">
+                                <i class="material-icons">article</i>
+                            </span>
+                            <span>Blog</span>
+                        </a>
+                        <a href="https://github.com/jhouedanou" target="_blank" class="button modern-button is-small">
+                            <span class="icon is-small">
+                                <i class="material-icons">code</i>
+                            </span>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -364,6 +504,7 @@
                     activeFilter: 'all',
                     selectedProject: null,
                     currentLang: 'en',
+                    sidebarOpen: false,
                     projects: [
                         {
                             id: 1,
@@ -556,6 +697,82 @@
                             resultsEn: "Design system adopted by entire team"
                         },
                         {
+                            id: 11,
+                            title: "Dashboard Timeo RH",
+                            role: "UI/UX Designer & Développeur Full-stack",
+                            roleEn: "UI/UX Designer & Full-stack Developer", 
+                            description: "Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH",
+                            descriptionEn: "Figma design conception and VueJS frontend conversion for HR dashboard",
+                            fullDescription: "Conception complète d'un dashboard RH sur Figma puis développement de l'interface utilisateur en VueJS avec fonctionnalités avancées de gestion des ressources humaines.",
+                            fullDescriptionEn: "Complete HR dashboard design on Figma then user interface development in VueJS with advanced human resources management features.",
+                            technologies: ["Figma", "VueJS", "UI/UX Design", "Dashboard"],
+                            url: "https://timeo-rh.vercel.app/",
+                            category: "figma",
+                            icon: "dashboard",
+                            screenshot: false,
+                            challenges: "Conception UX/UI intuitive et développement d'interface complexe",
+                            challengesEn: "Intuitive UX/UI design and complex interface development",
+                            results: "Dashboard moderne et fonctionnel pour la gestion RH",
+                            resultsEn: "Modern and functional dashboard for HR management"
+                        },
+                        {
+                            id: 12,
+                            title: "App Mobile TimeoRH",
+                            role: "UI/UX Designer",
+                            roleEn: "UI/UX Designer",
+                            description: "Prototype mobile complet sur Figma pour application RH",
+                            descriptionEn: "Complete mobile prototype on Figma for HR application",
+                            fullDescription: "Conception d'une application mobile complète pour la gestion des ressources humaines avec interface intuitive et expérience utilisateur optimisée.",
+                            fullDescriptionEn: "Complete mobile application design for human resources management with intuitive interface and optimized user experience.",
+                            technologies: ["Figma", "Mobile Design", "UI/UX", "Prototyping"],
+                            url: "https://www.figma.com/proto/2020d0oYwqBP5iDNsvSZCx/TimeoRH-v1?node-id=1-123&starting-point-node-id=1%3A73",
+                            category: "figma",
+                            icon: "phone_android",
+                            screenshot: false,
+                            challenges: "Design mobile responsive et expérience utilisateur fluide",
+                            challengesEn: "Responsive mobile design and smooth user experience",
+                            results: "Prototype mobile interactif prêt pour développement",
+                            resultsEn: "Interactive mobile prototype ready for development"
+                        },
+                        {
+                            id: 13,
+                            title: "Kekeli Power",
+                            role: "UI/UX Designer",
+                            roleEn: "UI/UX Designer",
+                            description: "Interface utilisateur moderne pour application énergétique",
+                            descriptionEn: "Modern user interface for energy application",
+                            fullDescription: "Conception d'interface pour application dans le domaine énergétique avec focus sur l'expérience utilisateur et l'accessibilité des données techniques.",
+                            fullDescriptionEn: "Interface design for energy sector application with focus on user experience and technical data accessibility.",
+                            technologies: ["Figma", "UI/UX Design", "Energy Tech"],
+                            url: "https://www.figma.com/proto/oDDg1iznhgcetzRrxBLrh1/Kekeli?node-id=1430-2082&t=V7VYhGmearVdFi7x-0",
+                            category: "figma",
+                            icon: "electric_bolt",
+                            screenshot: false,
+                            challenges: "Interface technique accessible et design moderne",
+                            challengesEn: "Accessible technical interface and modern design",
+                            results: "Design system complet pour application énergétique",
+                            resultsEn: "Complete design system for energy application"
+                        },
+                        {
+                            id: 14,
+                            title: "Fondation Hamadou Hampathé Ba",
+                            role: "UI/UX Designer",
+                            roleEn: "UI/UX Designer",
+                            description: "Site web institutionnel avec design culturel authentique",
+                            descriptionEn: "Institutional website with authentic cultural design",
+                            fullDescription: "Conception d'un site web pour la fondation culturelle avec respect des valeurs traditionnelles et interface moderne adaptée au contenu éducatif.",
+                            fullDescriptionEn: "Website design for cultural foundation respecting traditional values with modern interface adapted to educational content.",
+                            technologies: ["Figma", "Cultural Design", "UI/UX"],
+                            url: "https://www.figma.com/proto/RkKr0fIma2HZ1JP9mi6jQu/Untitled?node-id=1-14",
+                            category: "figma",
+                            icon: "account_balance",
+                            screenshot: false,
+                            challenges: "Design culturel respectueux et interface moderne",
+                            challengesEn: "Respectful cultural design and modern interface",
+                            results: "Site institutionnel alliant tradition et modernité",
+                            resultsEn: "Institutional site combining tradition and modernity"
+                        },
+                        {
                             id: 9,
                             title: "Soeguibe",
                             role: "Intégrateur WordPress",
@@ -638,6 +855,18 @@
                 },
                 closeModal() {
                     this.selectedProject = null;
+                    document.body.style.overflow = 'auto';
+                },
+                toggleSidebar() {
+                    this.sidebarOpen = !this.sidebarOpen;
+                    if (this.sidebarOpen) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = 'auto';
+                    }
+                },
+                closeSidebar() {
+                    this.sidebarOpen = false;
                     document.body.style.overflow = 'auto';
                 }
             }

@@ -176,6 +176,26 @@ WordPress website presenting BBlome brewery with attractive design
 *Role:* Front-end Developer | *Methodology:* Design System  
 Faithful mockup integration with reusable components
 
+### **Timeo HR Dashboard**
+**https://timeo-rh.vercel.app/**  
+*Role:* UI/UX Designer & Full-stack Developer | *Technologies:* Figma, VueJS  
+Figma design conception and VueJS frontend conversion for HR dashboard
+
+### **TimeoRH Mobile App**
+**Figma Prototype**  
+*Role:* UI/UX Designer | *Technologies:* Figma, Mobile Design  
+Complete mobile prototype on Figma for HR application
+
+### **Kekeli Power**
+**Figma Prototype**  
+*Role:* UI/UX Designer | *Technologies:* Figma, Energy Tech  
+Modern user interface for energy application
+
+### **Hamadou Hampathé Ba Foundation**
+**Figma Prototype**  
+*Role:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
+Institutional website with authentic cultural design
+
 ### **Soeguibe**
 **https://soeguibe.com**  
 *Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP  
