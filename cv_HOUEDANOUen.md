@@ -278,7 +278,8 @@ Custom WordPress template with advanced editor
 **Instagram:** @jlhouedanou  
 **Twitter:** @afrowebdesigner
 
-**Date of birth:** February 24, 1984
+**Date of birth:** February 24, 1984  
+**Status:** Single with no children, holder of a B driving license
 
 </td>
 </tr>
