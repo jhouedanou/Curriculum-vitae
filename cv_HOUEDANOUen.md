@@ -121,6 +121,50 @@ Canadian University of Arts, Sciences and Management, Côte d'Ivoire
 **Bachelor's in Economics and Science**  
 Jean Mermoz College, Côte d'Ivoire
 
+---
+
+## Skills & Software
+
+### **Frontend Development**
+- VueJS (5 years experience, Expert)
+- Angular (4 years experience, Advanced)
+- NuxtJS (3 years experience, Intermediate+)
+- JavaScript (8 years experience, Expert)
+- HTML5 (12 years experience, Expert)
+- CSS3 (12 years experience, Expert)
+- Responsive Web Design (8 years experience, Advanced)
+
+### **Backend Development**
+- PHP (10 years experience, Expert)
+- Laravel (5 years experience, Advanced)
+- Filament (2 years experience, Intermediate)
+- Supabase (2 years experience, Intermediate)
+- MySQL (8 years experience, Advanced)
+- RESTful APIs (6 years experience, Advanced)
+- Linux Server Administration (7 years experience, Advanced)
+
+### **Design & Tools**
+- Adobe XD (6 years experience, Expert)
+- Figma (4 years experience, Advanced)
+- Affinity Suite (5 years experience, Advanced)
+- UI/UX Design (8 years experience, Expert)
+- Graphic Design (10 years experience, Advanced)
+- DaVinci Resolve (3 years experience, Intermediate+)
+
+### **DevOps & Infrastructure**
+- CI/CD Pipelines with GitLab (3 years experience, Intermediate+)
+- Containerization (Docker) (3 years experience, Intermediate+)
+- Database cluster management (PostgreSQL BDR, MariaDB Galera) (4 years experience, Intermediate+)
+- Web Security (7 years experience, Advanced)
+
+### **Project Management**
+- SCRUM (6 years experience, Advanced)
+- Kanban (5 years experience, Advanced)
+- Agile (6 years experience, Advanced)
+- Jira (4 years experience, Intermediate+)
+- Team Leadership (5 years experience, Advanced)
+- Client Relations (12 years experience, Expert)
+- Strategic Planning (5 years experience, Advanced)
 
 </td>
 <td width="25%" style="width: 25%; vertical-align: top;">
@@ -214,6 +258,11 @@ Modern user interface for energy application
 *Role:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
 Institutional website with authentic cultural design
 
+### **CIPREL Drag & Drop Game**
+**https://jeuciprel.vercel.app/**  
+*Role:* Full-stack Developer | *Technologies:* JavaScript, Drag & Drop API  
+Interactive game with drag and drop functionality for educational training
+
 ### **Soeguibe**
 **https://soeguibe.com**  
 *Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP  
@@ -234,50 +283,5 @@ Custom WordPress template with advanced editor
 </td>
 </tr>
 </table>
-
----
-
-## Skills & Software
-
-### **Frontend Development**
-- VueJS (5 years experience, Expert)
-- Angular (4 years experience, Advanced)
-- NuxtJS (3 years experience, Intermediate+)
-- JavaScript (8 years experience, Expert)
-- HTML5 (12 years experience, Expert)
-- CSS3 (12 years experience, Expert)
-- Responsive Web Design (8 years experience, Advanced)
-
-### **Backend Development**
-- PHP (10 years experience, Expert)
-- Laravel (5 years experience, Advanced)
-- Filament (2 years experience, Intermediate)
-- Supabase (2 years experience, Intermediate)
-- MySQL (8 years experience, Advanced)
-- RESTful APIs (6 years experience, Advanced)
-- Linux Server Administration (7 years experience, Advanced)
-
-### **Design & Tools**
-- Adobe XD (6 years experience, Expert)
-- Figma (4 years experience, Advanced)
-- Affinity Suite (5 years experience, Advanced)
-- UI/UX Design (8 years experience, Expert)
-- Graphic Design (10 years experience, Advanced)
-- DaVinci Resolve (3 years experience, Intermediate+)
-
-### **DevOps & Infrastructure**
-- CI/CD Pipelines with GitLab (3 years experience, Intermediate+)
-- Containerization (Docker) (3 years experience, Intermediate+)
-- Database cluster management (PostgreSQL BDR, MariaDB Galera) (4 years experience, Intermediate+)
-- Web Security (7 years experience, Advanced)
-
-### **Project Management**
-- SCRUM (6 years experience, Advanced)
-- Kanban (5 years experience, Advanced)
-- Agile (6 years experience, Advanced)
-- Jira (4 years experience, Intermediate+)
-- Team Leadership (5 years experience, Advanced)
-- Client Relations (12 years experience, Expert)
-- Strategic Planning (5 years experience, Advanced)
 
 </div>

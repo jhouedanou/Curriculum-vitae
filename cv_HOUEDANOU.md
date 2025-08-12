@@ -258,6 +258,11 @@ Interface utilisateur moderne pour application énergétique
 *Rôle:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
 Site web institutionnel avec design culturel authentique
 
+### **Jeu CIPREL Drag & Drop**
+**https://jeuciprel.vercel.app/**  
+*Rôle:* Développeur Full-stack | *Technologies:* JavaScript, Drag & Drop API  
+Jeu interactif avec fonctionnalités de glisser-déposer pour formation ludique
+
 ### **Soeguibe**
 **https://soeguibe.com**  
 *Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP  
