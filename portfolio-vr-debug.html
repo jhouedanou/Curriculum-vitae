@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio VR - Debug Version</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- A-Frame Core -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 1000;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h3>🥽 Portfolio VR - Version Debug</h3>
+        <p>Status: <span id="status">Chargement...</span></p>
+        <p>Éléments: <span id="elements">0</span></p>
+        <button onclick="enterVR()">Entrer en VR</button>
+    </div>
+
+    <a-scene 
+        id="vr-scene"
+        vr-mode-ui="enabled: true"
+        background="color: #D3E2F2"
+        loading-screen="dotsColor: #0593FC; backgroundColor: #D3E2F2"
+        renderer="antialias: true"
+        debug-scene
+    >
+        <!-- Éclairage simple -->
+        <a-light type="ambient" color="#ffffff" intensity="0.6"></a-light>
+        <a-light type="directional" position="2 4 2" color="#ffffff" intensity="0.4"></a-light>
+
+        <!-- Sol -->
+        <a-plane 
+            position="0 0 0" 
+            rotation="-90 0 0" 
+            width="20" 
+            height="20" 
+            color="#E6F0FA"
+        ></a-plane>
+
+        <!-- Centre : Avatar principal -->
+        <a-entity id="center" position="0 2 -3">
+            <a-sphere 
+                radius="0.8" 
+                color="#0593FC"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+            >
+                <!-- Texte simple sur la sphère -->
+                <a-text 
+                    value="JL" 
+                    position="0 0 0.85" 
+                    align="center" 
+                    color="white"
+                    scale="3 3 3"
+                ></a-text>
+            </a-sphere>
+            
+            <!-- Nom en dessous -->
+            <a-text 
+                position="0 -1.5 0" 
+                value="Jean Luc Houédanou"
+                align="center"
+                color="#0593FC"
+                scale="2 2 2"
+            ></a-text>
+        </a-entity>
+
+        <!-- Projets autour en cercle -->
+        
+        <!-- Projet 1: Vodacom -->
+        <a-entity position="3 1.5 -1" class="project-item" data-site="vodacom">
+            <a-box 
+                width="1" 
+                height="1.5" 
+                depth="0.1" 
+                color="#8B5CF6"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 8000"
+            ></a-box>
+            <a-text 
+                position="0 -1 0" 
+                value="VODACOM"
+                align="center"
+                color="#8B5CF6"
+                scale="1.5 1.5 1.5"
+            ></a-text>
+        </a-entity>
+
+        <!-- Projet 2: Castel -->
+        <a-entity position="-3 1.5 -1" class="project-item" data-site="castel">
+            <a-box 
+                width="1" 
+                height="1.5" 
+                depth="0.1" 
+                color="#F97316"
+                animation="property: rotation; to: 0 -360 0; loop: true; dur: 8000"
+            ></a-box>
+            <a-text 
+                position="0 -1 0" 
+                value="CASTEL"
+                align="center"
+                color="#F97316"
+                scale="1.5 1.5 1.5"
+            ></a-text>
+        </a-entity>
+
+        <!-- Projet 3: Dinor -->
+        <a-entity position="0 1.5 -5" class="project-item" data-site="dinor">
+            <a-box 
+                width="1" 
+                height="1.5" 
+                depth="0.1" 
+                color="#10B981"
+                animation="property: rotation; to: 360 0 360; loop: true; dur: 8000"
+            ></a-box>
+            <a-text 
+                position="0 -1 0" 
+                value="DINOR APP"
+                align="center"
+                color="#10B981"
+                scale="1.5 1.5 1.5"
+            ></a-text>
+        </a-entity>
+
+        <!-- Projet 4: BigFive -->
+        <a-entity position="3 1.5 -5" class="project-item" data-site="bigfive">
+            <a-box 
+                width="1" 
+                height="1.5" 
+                depth="0.1" 
+                color="#3B82F6"
+                animation="property: rotation; to: -360 360 0; loop: true; dur: 8000"
+            ></a-box>
+            <a-text 
+                position="0 -1 0" 
+                value="BIGFIVE"
+                align="center"
+                color="#3B82F6"
+                scale="1.5 1.5 1.5"
+            ></a-text>
+        </a-entity>
+
+        <!-- Instructions -->
+        <a-text 
+            position="0 4 -3"
+            value="Cliquez sur les projets pour les visiter"
+            align="center"
+            color="#246CB7"
+            scale="1.5 1.5 1.5"
+        ></a-text>
+
+        <!-- Camera avec contrôles -->
+        <a-entity 
+            id="rig" 
+            movement-controls="fly: false"
+            position="0 1.6 0"
+        >
+            <a-entity 
+                id="camera"
+                camera
+                look-controls
+                wasd-controls
+            >
+                <!-- Curseur simple -->
+                <a-cursor 
+                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                    material="color: #0593FC; shader: flat"
+                    raycaster="objects: .project-item"
+                ></a-cursor>
+            </a-entity>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        // Debug component
+        AFRAME.registerComponent('debug-scene', {
+            init: function () {
+                console.log('🌟 Scene debug initialisée');
+                document.getElementById('status').textContent = 'Scène chargée';
+                
+                // Compter les éléments
+                setTimeout(() => {
+                    const elements = document.querySelectorAll('a-entity, a-box, a-sphere, a-text').length;
+                    document.getElementById('elements').textContent = elements;
+                }, 1000);
+            }
+        });
+
+        // Gestion des clics sur les projets
+        document.addEventListener('DOMContentLoaded', function() {
+            const projects = document.querySelectorAll('.project-item');
+            
+            projects.forEach(project => {
+                project.addEventListener('click', function(evt) {
+                    const site = this.getAttribute('data-site');
+                    console.log('Clic sur:', site);
+                    
+                    const urls = {
+                        vodacom: 'https://vodamedia.co.za/txtengage/',
+                        castel: 'https://castel-afrique.com',
+                        dinor: 'https://new.dinorapp.com/',
+                        bigfive: 'https://bigfive.solutions/'
+                    };
+                    
+                    if (urls[site]) {
+                        if (confirm(`Visiter ${site.toUpperCase()}?`)) {
+                            window.open(urls[site], '_blank');
+                        }
+                    }
+                });
+                
+                // Animation au survol
+                project.addEventListener('mouseenter', function() {
+                    const box = this.querySelector('a-box');
+                    if (box) {
+                        box.setAttribute('animation__hover', 'property: scale; to: 1.1 1.1 1.1; dur: 200');
+                    }
+                });
+                
+                project.addEventListener('mouseleave', function() {
+                    const box = this.querySelector('a-box');
+                    if (box) {
+                        box.setAttribute('animation__hover', 'property: scale; to: 1 1 1; dur: 200');
+                    }
+                });
+            });
+        });
+
+        function enterVR() {
+            const scene = document.querySelector('a-scene');
+            if (scene.is('vr-mode')) {
+                scene.exitVR();
+            } else {
+                scene.enterVR();
+            }
+        }
+
+        // Log du chargement
+        document.querySelector('a-scene').addEventListener('loaded', function () {
+            console.log('✅ Scène VR complètement chargée');
+            document.getElementById('status').textContent = 'Prêt pour VR';
+        });
+    </script>
+</body>
+</html>
