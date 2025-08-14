@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test VR Minimal</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+</head>
+<body>
+    <h1>Test A-Frame</h1>
+    <p>Si vous voyez ce texte, le HTML fonctionne.</p>
+    
+    <a-scene background="color: red">
+        <a-box position="0 0.5 -3" rotation="0 45 0" color="blue"></a-box>
+        <a-sphere position="2 1.25 -5" radius="1.25" color="green"></a-sphere>
+        <a-cylinder position="-2 0.75 -3" radius="0.5" height="1.5" color="yellow"></a-cylinder>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="purple"></a-plane>
+        
+        <a-text value="Hello VR!" position="0 2 -3" color="white"></a-text>
+        
+        <a-camera>
+            <a-cursor color="white"></a-cursor>
+        </a-camera>
+    </a-scene>
+    
+    <script>
+        console.log('Script chargé');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM ready');
+        });
+        
+        setTimeout(() => {
+            console.log('A-Frame loaded?', typeof AFRAME !== 'undefined');
+        }, 2000);
+    </script>
+</body>
+</html>

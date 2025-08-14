@@ -147,32 +147,35 @@ class VRDetector {
     }
 
     /**
-     * Détecte les APIs spécifiques VR
+     * Détecte les APIs spécifiques VR - VERSION STRICTE
      */
     detectVRAPIs() {
-        // WebXR présent
+        // Ne pas marquer comme VR juste parce que WebXR existe
+        // WebXR est disponible sur tous les navigateurs modernes
         if (navigator.xr) {
-            this.vrDevices.otherVR = true;
-            console.log('WebXR API détectée');
+            console.log('WebXR API disponible (mais pas forcément VR)');
+            // Ne pas activer otherVR automatiquement
         }
 
-        // WebVR deprecated mais encore utilisé
+        // WebVR deprecated - plus utilisé
         if (navigator.getVRDisplays) {
-            this.vrDevices.otherVR = true;
             console.log('WebVR API détectée (deprecated)');
+            // Ne pas activer otherVR automatiquement non plus
         }
 
-        // Détection des contrôleurs de jeu (souvent présents en VR)
+        // Détection des contrôleurs de jeu VR spécifiques uniquement
         if (navigator.getGamepads) {
             const gamepads = navigator.getGamepads();
             for (const gamepad of gamepads) {
                 if (gamepad && (
                     gamepad.id.toLowerCase().includes('oculus') ||
                     gamepad.id.toLowerCase().includes('quest') ||
-                    gamepad.id.toLowerCase().includes('vr')
+                    gamepad.id.toLowerCase().includes('vive') ||
+                    gamepad.id.toLowerCase().includes('wmr') ||
+                    gamepad.id.toLowerCase().includes('openvr')
                 )) {
                     this.vrDevices.otherVR = true;
-                    console.log('Contrôleur VR détecté:', gamepad.id);
+                    console.log('Contrôleur VR réel détecté:', gamepad.id);
                     break;
                 }
             }
@@ -335,8 +338,8 @@ class VRDetector {
 // Export pour utilisation
 window.VRDetector = VRDetector;
 
-// Auto-détection au chargement si activé
-if (window.VR_AUTO_DETECT_ENABLED !== false) {
+// Auto-détection désactivée par défaut - activation manuelle uniquement
+if (window.VR_AUTO_DETECT_ENABLED === true) {
     document.addEventListener('DOMContentLoaded', async () => {
         // Attendre un peu que la page se charge
         setTimeout(async () => {
@@ -345,7 +348,7 @@ if (window.VR_AUTO_DETECT_ENABLED !== false) {
             
             console.log('🔍 Résultat détection VR:', deviceInfo);
             
-            if (deviceInfo.shouldRedirect) {
+            if (deviceInfo.shouldRedirect && deviceInfo.type !== 'none') {
                 // Redirection avec délai pour permettre à l'utilisateur de voir
                 detector.redirectToVR(deviceInfo, 2000);
             } else {
@@ -354,3 +357,18 @@ if (window.VR_AUTO_DETECT_ENABLED !== false) {
         }, 1000);
     });
 }
+
+// Fonction manuelle pour tester la VR
+window.testVRDetection = async function() {
+    const detector = new VRDetector();
+    const deviceInfo = await detector.detectVRDevice();
+    console.log('🔍 Test VR:', deviceInfo);
+    
+    if (deviceInfo.shouldRedirect) {
+        if (confirm(`Appareil VR détecté: ${deviceInfo.device}\nVoulez-vous accéder à la version VR?`)) {
+            detector.redirectToVR(deviceInfo, 500);
+        }
+    } else {
+        alert('Aucun appareil VR détecté');
+    }
+};
