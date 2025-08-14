@@ -209,6 +209,7 @@
                 height="0.2" 
                 mixin="material-primary"
                 shadow="cast: true"
+                class="click-target"
             ></a-cylinder>
             
             <!-- Icône Material Design: Person -->
@@ -251,6 +252,7 @@
                 mixin="material-secondary"
                 animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
                 opacity="0.7"
+                class="click-target"
             ></a-ring>
             
             <!-- Titre -->
@@ -270,6 +272,7 @@
                 height="0.2" 
                 mixin="material-secondary"
                 shadow="cast: true"
+                class="click-target"
             ></a-cylinder>
             
             <!-- Icône Material Design: Work (Briefcase) -->
@@ -304,6 +307,7 @@
                 mixin="material-primary"
                 animation="property: rotation; to: 0 0 -360; loop: true; dur: 10000"
                 opacity="0.7"
+                class="click-target"
             ></a-ring>
             
             <a-text 
@@ -322,6 +326,7 @@
                 height="0.2" 
                 mixin="material-accent"
                 shadow="cast: true"
+                class="click-target"
             ></a-cylinder>
             
             <!-- Logo intelligemment placé au centre -->
@@ -576,6 +581,7 @@
                 mixin="material-secondary"
                 animation="property: rotation; to: 0 0 360; loop: true; dur: 12000"
                 opacity="0.3"
+                class="click-target"
             ></a-ring>
             
             <a-text 
@@ -594,6 +600,7 @@
                 height="0.2" 
                 mixin="material-primary"
                 shadow="cast: true"
+                class="click-target"
             ></a-cylinder>
             
             <!-- Icône Material Design: Email -->
@@ -628,6 +635,7 @@
                 mixin="material-accent"
                 animation="property: rotation; to: 0 0 -360; loop: true; dur: 15000"
                 opacity="0.7"
+                class="click-target"
             ></a-ring>
             
             <a-text 
@@ -639,73 +647,7 @@
             ></a-text>
         </a-entity>
 
-        <!-- PORTAIL 5: COMPÉTENCES (Icône Star) -->
-        <a-entity id="portal-skills" position="-3 2 3" portal-component="target: skills">
-            <a-cylinder 
-                radius="1.5" 
-                height="0.2" 
-                mixin="material-secondary"
-                shadow="cast: true"
-            ></a-cylinder>
-            
-            <!-- Icône Material Design: Star -->
-            <a-entity position="0 1 0">
-                <!-- Étoile principale -->
-                <a-entity>
-                    <!-- Pointes de l'étoile -->
-                    <a-triangle 
-                        vertex-a="0 0.5 0" 
-                        vertex-b="-0.15 0 0" 
-                        vertex-c="0.15 0 0"
-                        mixin="material-surface"
-                    ></a-triangle>
-                    <a-triangle 
-                        vertex-a="0 -0.5 0" 
-                        vertex-b="-0.15 0 0" 
-                        vertex-c="0.15 0 0"
-                        mixin="material-surface"
-                        rotation="0 0 180"
-                    ></a-triangle>
-                    <a-triangle 
-                        vertex-a="0.5 0 0" 
-                        vertex-b="0 -0.15 0" 
-                        vertex-c="0 0.15 0"
-                        mixin="material-surface"
-                        rotation="0 0 90"
-                    ></a-triangle>
-                    <a-triangle 
-                        vertex-a="-0.5 0 0" 
-                        vertex-b="0 -0.15 0" 
-                        vertex-c="0 0.15 0"
-                        mixin="material-surface"
-                        rotation="0 0 -90"
-                    ></a-triangle>
-                </a-entity>
-                <!-- Centre lumineux -->
-                <a-sphere 
-                    radius="0.15" 
-                    mixin="material-accent"
-                    animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 2000"
-                ></a-sphere>
-            </a-entity>
-            
-            <a-ring 
-                radius-inner="1.6" 
-                radius-outer="2" 
-                position="0 1 0" 
-                mixin="material-primary"
-                animation="property: rotation; to: 0 0 360; loop: true; dur: 6000"
-                opacity="0.7"
-            ></a-ring>
-            
-            <a-text 
-                position="0 -0.8 0" 
-                value="COMPÉTENCES"
-                mixin="text-white"
-                geometry="primitive: plane; width: 3; height: 0.6"
-                material="color: rgba(39,205,254,0.9); opacity: 0.9"
-            ></a-text>
-        </a-entity>
+        <!-- SUPPRIMÉ: ancien portail COMPÉTENCES pour simplifier -->
 
         <!-- Éléments de navigation flottants -->
         <a-entity id="nav-helpers" position="0 4 0">
@@ -737,7 +679,7 @@
         </a-entity>
 
         <!-- Camera et contrôles optimisés pour VR -->
-        <a-entity 
+            <a-entity 
             id="rig" 
             movement-controls="fly: false; constrainToNavMesh: false"
             position="0 1.6 8"
@@ -757,7 +699,7 @@
                     animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
                     geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
                     material="color: #0593FC; shader: flat; opacity: 0.9"
-                    raycaster="objects: [portal-component], [project-navigator], [site-navigator]; far: 50; interval: 100"
+                    raycaster="objects: .click-target, .project-solid, [project-navigator], [site-navigator]; far: 50; interval: 100"
                     cursor="fuse: true; fuseTimeout: 2000"
                 ></a-cursor>
                 
@@ -821,11 +763,6 @@
                         name: "Contact",
                         description: "Prenons contact pour vos projets",
                         url: "index.html#contact"
-                    },
-                    skills: {
-                        name: "Compétences",
-                        description: "Technologies et expertises maîtrisées",
-                        url: "index.html#skills"
                     }
                 };
 
@@ -855,10 +792,8 @@
                             easing: 'easeOutQuad'
                         });
                         
-                        // Transition vers la section correspondante
-                        if (confirm(`Naviguer vers: ${config.name}\n${config.description}`)) {
-                            window.location.href = config.url;
-                        }
+                        // Transition vers la section correspondante (sans popup)
+                        window.location.href = config.url;
                     }, 300);
                 });
 
@@ -1101,11 +1036,9 @@
                         }, 150);
                     }
                     
-                    // Confirmation et ouverture
+                    // Ouverture directe du projet sans popup
                     setTimeout(() => {
-                        if (confirm(`Visiter ${config.name}?\\n\\n${config.description}`)) {
-                            window.open(config.url, '_blank', 'noopener,noreferrer');
-                        }
+                        window.open(config.url, '_blank', 'noopener,noreferrer');
                     }, 300);
                 });
             }

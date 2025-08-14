@@ -792,6 +792,20 @@
                     ]
                 }
             },
+            mounted() {
+                // Synchronise la page avec le hash (#about, #experience, #projects, #contact)
+                const updateFromHash = () => {
+                    const hash = (window.location.hash || '#about').replace('#', '');
+                    const allowed = ['about', 'experience', 'projects', 'contact'];
+                    if (allowed.includes(hash)) {
+                        this.currentPage = hash;
+                    }
+                };
+                // Au chargement
+                updateFromHash();
+                // Sur changement de hash
+                window.addEventListener('hashchange', updateFromHash);
+            },
             computed: {
                 texts() {
                     return {
@@ -932,9 +946,13 @@
                 },
                 setPage(page) {
                     this.currentPage = page;
+                    // Met à jour l'URL pour permettre la navigation depuis la VR
+                    window.location.hash = page;
                 },
                 setPageAndCloseMobileSidebar(page) {
                     this.currentPage = page;
+                    // Met à jour l'URL pour permettre la navigation depuis la VR
+                    window.location.hash = page;
                     // Fermer la sidebar sur mobile après avoir changé de page
                     if (window.innerWidth <= 768 && this.sidebarOpen) {
                         this.closeSidebar();
