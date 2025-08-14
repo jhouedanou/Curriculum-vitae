@@ -456,18 +456,27 @@ body {
 .material-icons-two-tone,
 .material-icons-outlined {
     font-family: 'Material Icons' !important;
-    font-weight: normal;
-    font-style: normal;
+    font-weight: normal !important;
+    font-style: normal !important;
     font-size: inherit;
     line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
+    letter-spacing: normal !important;
+    text-transform: none !important;
     display: inline-block;
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Forcer les icônes même dans les éléments avec police Outfit */
+* .material-icons,
+.sidebar .material-icons,
+.nav-item .material-icons,
+.button .material-icons {
+    font-family: 'Material Icons' !important;
 }
 
 /* Variante outlined dédiée */
@@ -841,7 +850,7 @@ a[target="_blank"]:not([rel*="noopener"]) {
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 10000;
+    z-index: 10001;
     background: var(--md-primary);
     color: white;
     border: none;
@@ -880,19 +889,32 @@ a[target="_blank"]:not([rel*="noopener"]) {
     display: block;
 }
 
-.sidebar.mobile-open {
-    display: block !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 85%;
-    max-width: 400px;
-    height: 100%;
-    z-index: 9999;
-    overflow-y: auto;
-    border-radius: 0 24px 24px 0;
-    margin: 0;
-    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+/* Redéfinir le style mobile-open pour qu'il soit plus spécifique */
+@media (max-width: 768px) {
+    .sidebar.mobile-open {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 85%;
+        max-width: 400px;
+        height: 100vh;
+        z-index: 10000;
+        overflow-y: auto;
+        border-radius: 0 24px 24px 0;
+        margin: 0;
+        padding: 2rem 1.5rem;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+        background: var(--md-surface-container);
+        transform: translateX(0) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* S'assurer que tous les éléments de la sidebar sont visibles */
+    .sidebar.mobile-open * {
+        visibility: visible !important;
+    }
 }
 
 /* Timeline améliorée */
@@ -1041,6 +1063,13 @@ a[target="_blank"]:not([rel*="noopener"]) {
 
     .sidebar {
         display: none;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.mobile-open {
+        display: block !important;
+        transform: translateX(0);
     }
     
     .main-content {
@@ -1074,19 +1103,35 @@ a[target="_blank"]:not([rel*="noopener"]) {
     .navigation-menu {
         grid-template-columns: 1fr 1fr;
         gap: 8px;
+        margin-bottom: 1rem;
     }
     
     .nav-item {
         min-height: 70px;
         padding: 12px 8px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--md-outline-variant);
     }
     
     .nav-item i {
         font-size: 20px;
+        font-family: 'Material Icons' !important;
     }
     
     .nav-item span {
         font-size: 11px;
+        font-family: 'Outfit', 'Roboto', sans-serif;
+    }
+    
+    /* S'assurer que la sidebar mobile est visible */
+    .sidebar.mobile-open .navigation-menu {
+        display: grid !important;
+        visibility: visible !important;
+    }
+    
+    .sidebar.mobile-open .nav-item {
+        display: flex !important;
+        visibility: visible !important;
     }
     
     .filters-overlay {
@@ -1118,6 +1163,24 @@ a[target="_blank"]:not([rel*="noopener"]) {
     .button.modern-button {
         font-size: 14px;
         padding: 12px 20px;
+    }
+    
+    .button.modern-button .material-icons {
+        font-family: 'Material Icons' !important;
+        font-size: 18px;
+    }
+    
+    /* Améliorer la visibilité des boutons en mobile */
+    .buttons.is-centered {
+        display: flex !important;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .stats-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--md-outline-variant);
     }
 }
 
