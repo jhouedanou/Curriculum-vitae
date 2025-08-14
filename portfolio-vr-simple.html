@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio VR Simple - Jean Luc Houédanou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- A-Frame simplifié -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+        }
+        
+        .ui-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 280px;
+        }
+        
+        .ui-info h3 {
+            margin: 0 0 10px 0;
+            color: #0593FC;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .ui-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .vr-btn {
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .vr-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-info">
+        <h3>🥽 Portfolio VR</h3>
+        <p><strong>Jean Luc Houédanou</strong><br>Digital Solutions Director</p>
+        <p>Utilisez votre souris pour regarder autour</p>
+        <button class="vr-btn" onclick="enterVR()">Mode VR</button>
+    </div>
+
+    <a-scene 
+        vr-mode-ui="enabled: true"
+        background="color: #D3E2F2"
+        loading-screen="dotsColor: #0593FC; backgroundColor: #D3E2F2"
+        renderer="antialias: true"
+    >
+        <!-- Éclairage simple -->
+        <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+        <a-light type="directional" position="5 10 5" color="#ffffff" intensity="0.5"></a-light>
+
+        <!-- Sol -->
+        <a-plane 
+            position="0 0 0" 
+            rotation="-90 0 0" 
+            width="30" 
+            height="30" 
+            color="#E6F0FA"
+        ></a-plane>
+
+        <!-- Logo deplace sur le cote avec infos -->
+        <a-entity position="6 2 -2">
+            <a-sphere 
+                radius="0.4" 
+                color="#0593FC"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 20000"
+            >
+                <a-text 
+                    value="JL" 
+                    position="0 0 0.45" 
+                    align="center" 
+                    color="white"
+                    width="12"
+                    font="roboto"
+                ></a-text>
+            </a-sphere>
+            
+            <a-text 
+                position="0 -0.8 0" 
+                value="Jean Luc Houedanou"
+                align="center"
+                color="#0593FC"
+                width="6"
+                font="roboto"
+            ></a-text>
+            
+            <a-text 
+                position="0 -1.1 0" 
+                value="Digital Solutions Director"
+                align="center"
+                color="#246CB7"
+                width="5"
+                font="roboto"
+            ></a-text>
+        </a-entity>
+
+        <!-- Texte incitatif central -->
+        <a-entity position="0 2.5 -5">
+            <a-text 
+                position="0 0.5 0"
+                value="PORTFOLIO VR IMMERSIF"
+                align="center"
+                color="#0593FC"
+                width="10"
+                font="roboto"
+            ></a-text>
+            
+            <a-text 
+                position="0 0 0"
+                value="Tournez-vous pour decouvrir les portails"
+                align="center"
+                color="#246CB7"
+                width="8"
+                font="roboto"
+            ></a-text>
+            
+            <a-text 
+                position="0 -0.5 0"
+                value="← Regardez autour de vous →"
+                align="center"
+                color="#27CDFE"
+                width="7"
+                font="roboto"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 15000"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAILS PRINCIPAUX correspondant au menu sidebar -->
+        
+        <!-- PORTAIL 1: A PROPOS -->
+        <a-entity position="-4 2 -3" class="portal" data-target="about">
+            <a-cylinder 
+                radius="1.2" 
+                height="0.15" 
+                color="#0593FC"
+            ></a-cylinder>
+            
+            <!-- Icône personne -->
+            <a-entity position="0 0.8 0">
+                <a-sphere radius="0.2" position="0 0.4 0" color="white"></a-sphere>
+                <a-cylinder radius="0.3" height="0.6" position="0 0 0" color="white"></a-cylinder>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.3" 
+                radius-outer="1.5" 
+                position="0 0.8 0" 
+                color="#27CDFE"
+                animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.5 0" 
+                value="A PROPOS"
+                align="center"
+                color="white"
+                width="6"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 2: EXPERIENCE -->
+        <a-entity position="4 2 -3" class="portal" data-target="experience">
+            <a-cylinder 
+                radius="1.2" 
+                height="0.15" 
+                color="#27CDFE"
+            ></a-cylinder>
+            
+            <!-- Icône travail (mallette) -->
+            <a-entity position="0 0.8 0">
+                <a-box width="0.8" height="0.5" depth="0.2" color="white"></a-box>
+                <a-box width="0.2" height="0.1" depth="0.25" position="0 0.3 0" color="white"></a-box>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.3" 
+                radius-outer="1.5" 
+                position="0 0.8 0" 
+                color="#0593FC"
+                animation="property: rotation; to: 0 0 -360; loop: true; dur: 10000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.5 0" 
+                value="EXPERIENCE"
+                align="center"
+                color="white"
+                width="6"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 3: PROJETS/REALISATIONS -->
+        <a-entity position="0 2 -7" class="portal" data-target="projects">
+            <a-cylinder 
+                radius="1.5" 
+                height="0.15" 
+                color="#246CB7"
+            ></a-cylinder>
+            
+            <!-- Icône code/projets -->
+            <a-entity position="0 0.8 0">
+                <a-box width="0.8" height="0.6" depth="0.05" color="white"></a-box>
+                <a-box width="0.6" height="0.03" depth="0.08" position="-0.1 0.1 0" color="#0593FC"></a-box>
+                <a-box width="0.5" height="0.03" depth="0.08" position="0.05 -0.1 0" color="#27CDFE"></a-box>
+                <a-box width="0.7" height="0.03" depth="0.08" position="0 -0.3 0" color="#246CB7"></a-box>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.6" 
+                radius-outer="1.8" 
+                position="0 0.8 0" 
+                color="#27CDFE"
+                animation="property: rotation; to: 0 0 360; loop: true; dur: 12000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.5 0" 
+                value="REALISATIONS"
+                align="center"
+                color="white"
+                width="6"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 4: CONTACT -->
+        <a-entity position="-4 2 -7" class="portal" data-target="contact">
+            <a-cylinder 
+                radius="1.2" 
+                height="0.15" 
+                color="#EC4899"
+            ></a-cylinder>
+            
+            <!-- Icône email -->
+            <a-entity position="0 0.8 0">
+                <a-box width="0.8" height="0.5" depth="0.05" color="white"></a-box>
+                <a-ring radius="0.1" radius-tubular="0.02" position="0 0 0.06" color="#EC4899"></a-ring>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.3" 
+                radius-outer="1.5" 
+                position="0 0.8 0" 
+                color="#F97316"
+                animation="property: rotation; to: 0 0 -360; loop: true; dur: 15000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.5 0" 
+                value="CONTACT"
+                align="center"
+                color="white"
+                width="6"
+            ></a-text>
+        </a-entity>
+
+        <!-- Instructions avec simulation navigation -->
+        <a-text 
+            position="0 3.5 -5"
+            value="Cliquez sur les portails pour explorer chaque univers"
+            align="center"
+            color="#246CB7"
+            width="8"
+            font="roboto"
+        ></a-text>
+        
+        <!-- Indicateur de navigation VR -->
+        <a-entity id="nav-indicator" position="0 0.5 -2">
+            <a-ring 
+                radius-inner="0.1" 
+                radius-outer="0.15" 
+                color="#27CDFE"
+                animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"
+                opacity="0.8"
+            ></a-ring>
+            <a-text 
+                position="0 -0.3 0"
+                value="Utilisez la souris ou regardez autour"
+                align="center"
+                color="#0593FC"
+                width="6"
+                font="roboto"
+            ></a-text>
+        </a-entity>
+
+        <!-- Camera avec controles ameliores et simulation navigation -->
+        <a-entity 
+            movement-controls="fly: false; constrainToNavMesh: false"
+            position="0 1.6 0"
+            id="camera-rig"
+        >
+            <a-entity camera look-controls="pointerLockEnabled: false" wasd-controls>
+                <!-- Curseur ameliore avec feedback visuel -->
+                <a-cursor 
+                    id="main-cursor"
+                    geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+                    material="color: #0593FC; shader: flat; opacity: 0.9"
+                    raycaster="objects: .portal, .project-item, .back-button"
+                    animation__click="property: scale; startEvents: click; from: 0.5 0.5 0.5; to: 1.2 1.2 1.2; dur: 150"
+                    animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.8 0.8 0.8; dur: 1500"
+                    cursor="fuse: true; fuseTimeout: 2000"
+                ></a-cursor>
+                
+                <!-- Reticule central pour aider la navigation -->
+                <a-ring 
+                    radius-inner="0.005" 
+                    radius-outer="0.008" 
+                    position="0 0 -0.5" 
+                    material="color: #27CDFE; shader: flat; opacity: 0.6"
+                ></a-ring>
+                
+                <!-- Indicateur direction -->
+                <a-text 
+                    id="direction-hint"
+                    position="0 0.15 -0.8"
+                    value=""
+                    align="center"
+                    color="#0593FC"
+                    width="4"
+                    font="roboto"
+                    visible="false"
+                ></a-text>
+            </a-entity>
+        </a-entity>
+        
+        <!-- Boussole VR pour navigation -->
+        <a-entity id="vr-compass" position="0 3 -2">
+            <a-torus 
+                radius="0.3" 
+                radius-tubular="0.02" 
+                color="#246CB7"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 60000"
+                opacity="0.7"
+            >
+                <!-- Points cardinaux -->
+                <a-text value="N" position="0 0 0.32" align="center" color="#0593FC" width="15" font="roboto"></a-text>
+                <a-text value="S" position="0 0 -0.32" align="center" color="#0593FC" width="15" font="roboto"></a-text>
+                <a-text value="E" position="0.32 0 0" align="center" color="#27CDFE" width="15" font="roboto"></a-text>
+                <a-text value="O" position="-0.32 0 0" align="center" color="#27CDFE" width="15" font="roboto"></a-text>
+            </a-torus>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        // État de l'application VR
+        let currentUniverse = 'home';
+        
+        // Gestion de la navigation entre univers avec simulation amelioree
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Portfolio VR avec portails charge');
+            
+            // Initialiser les aides de navigation
+            initNavigationHelpers();
+            
+            const portals = document.querySelectorAll('.portal');
+            
+            portals.forEach(portal => {
+                portal.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    const portalName = this.querySelector('a-text').getAttribute('value');
+                    
+                    console.log('Clic sur portail:', portalName, '→', target);
+                    
+                    navigateToUniverse(target, portalName);
+                });
+                
+                // Animation hover pour les portails
+                portal.addEventListener('mouseenter', function() {
+                    // Élever le portail
+                    this.setAttribute('animation__hover', 'property: position; to: ' + 
+                        this.getAttribute('position').x + ' ' + 
+                        (parseFloat(this.getAttribute('position').y) + 0.2) + ' ' + 
+                        this.getAttribute('position').z + '; dur: 200');
+                    
+                    // Agrandir l'anneau
+                    const ring = this.querySelector('a-ring');
+                    if (ring) {
+                        ring.setAttribute('animation__glow', 'property: scale; to: 1.1 1.1 1.1; dur: 200');
+                    }
+                });
+                
+                portal.addEventListener('mouseleave', function() {
+                    // Redescendre le portail
+                    this.setAttribute('animation__hover', 'property: position; to: ' + 
+                        this.getAttribute('position').x + ' ' + 
+                        (parseFloat(this.getAttribute('position').y) - 0.2) + ' ' + 
+                        this.getAttribute('position').z + '; dur: 200');
+                    
+                    // Réduire l'anneau
+                    const ring = this.querySelector('a-ring');
+                    if (ring) {
+                        ring.setAttribute('animation__glow', 'property: scale; to: 1 1 1; dur: 200');
+                    }
+                });
+            });
+        });
+
+        function navigateToUniverse(target, portalName) {
+            if (target === 'projects') {
+                // Pour les réalisations, on peut soit aller sur la page web soit créer un univers VR
+                if (confirm(`Explorer l'univers ${portalName} ?\\n\\n• OUI = Univers VR des projets\\n• NON = Aller sur la page web`)) {
+                    loadProjectsUniverse();
+                } else {
+                    window.location.href = 'index.html#projects';
+                }
+            } else if (target === 'about') {
+                if (confirm(`Explorer l'univers ${portalName} ?\\n\\n• OUI = Univers VR About\\n• NON = Aller sur la page web`)) {
+                    loadAboutUniverse();
+                } else {
+                    window.location.href = 'index.html#about';
+                }
+            } else if (target === 'experience') {
+                if (confirm(`Explorer l'univers ${portalName} ?\\n\\n• OUI = Univers VR Experience\\n• NON = Aller sur la page web`)) {
+                    loadExperienceUniverse();
+                } else {
+                    window.location.href = 'index.html#experience';
+                }
+            } else if (target === 'contact') {
+                // Contact redirige directement vers la page
+                if (confirm(`Aller vers ${portalName} ?`)) {
+                    window.location.href = 'index.html#contact';
+                }
+            }
+        }
+
+        function loadProjectsUniverse() {
+            console.log('🚀 Chargement univers Projets/Realisations');
+            currentUniverse = 'projects';
+            
+            // Ici on pourrait créer dynamiquement un univers VR avec tous les projets
+            // Pour l'instant, on crée une scène avec les projets principaux
+            createProjectsScene();
+        }
+
+        function loadAboutUniverse() {
+            console.log('👤 Chargement univers À Propos');
+            currentUniverse = 'about';
+            // Créer une scène avec les informations personnelles
+            alert('Univers À Propos - En développement\\nRedirection vers la page web...');
+            window.location.href = 'index.html#about';
+        }
+
+        function loadExperienceUniverse() {
+            console.log('💼 Chargement univers Experience');
+            currentUniverse = 'experience';
+            alert('Univers Experience - En développement\\nRedirection vers la page web...');
+            window.location.href = 'index.html#experience';
+        }
+
+        function createProjectsScene() {
+            // Masquer les portails principaux
+            const portals = document.querySelectorAll('.portal');
+            portals.forEach(portal => {
+                portal.setAttribute('visible', false);
+            });
+            
+            // Changer les instructions
+            const instructions = document.querySelector('a-text[value*="portails"]');
+            if (instructions) {
+                instructions.setAttribute('value', 'Univers Realisations - Cliquez sur les projets pour les visiter');
+            }
+            
+            // Créer les projets dans l'espace
+            createProjectElements();
+            
+            // Ajouter un bouton de retour
+            createBackButton();
+        }
+
+        function createProjectElements() {
+            const scene = document.querySelector('a-scene');
+            const projects = [
+                { name: 'VODACOM', desc: 'Landing Page VueJS', url: 'https://vodamedia.co.za/txtengage/', pos: '-3 1.5 -4', color: '#8B5CF6' },
+                { name: 'CASTEL', desc: 'Site Corporate', url: 'https://castel-afrique.com', pos: '3 1.5 -4', color: '#F97316' },
+                { name: 'DINOR APP', desc: 'Multi-Platform App', url: 'https://new.dinorapp.com/', pos: '-3 1.5 -7', color: '#10B981' },
+                { name: 'BIGFIVE', desc: 'Design System', url: 'https://bigfive.solutions/', pos: '3 1.5 -7', color: '#3B82F6' },
+                { name: 'PORTFOLIO VR', desc: 'Experience immersive', url: '#', pos: '0 1.5 -8', color: '#EC4899' }
+            ];
+            
+            projects.forEach((project, index) => {
+                const projectEntity = document.createElement('a-entity');
+                projectEntity.setAttribute('position', project.pos);
+                projectEntity.setAttribute('class', 'project-item');
+                projectEntity.setAttribute('data-url', project.url);
+                
+                // Boîte du projet
+                const box = document.createElement('a-box');
+                box.setAttribute('width', '1');
+                box.setAttribute('height', '1.2');
+                box.setAttribute('depth', '0.1');
+                box.setAttribute('color', project.color);
+                box.setAttribute('animation', `property: rotation; to: 0 360 0; loop: true; dur: ${10000 + index * 2000}`);
+                
+                // Nom du projet
+                const nameText = document.createElement('a-text');
+                nameText.setAttribute('position', '0 -0.8 0');
+                nameText.setAttribute('value', project.name);
+                nameText.setAttribute('align', 'center');
+                nameText.setAttribute('color', project.color);
+                nameText.setAttribute('width', '6');
+                nameText.setAttribute('font', 'roboto');
+                
+                // Description
+                const descText = document.createElement('a-text');
+                descText.setAttribute('position', '0 -1.1 0');
+                descText.setAttribute('value', project.desc);
+                descText.setAttribute('align', 'center');
+                descText.setAttribute('color', '#666');
+                descText.setAttribute('width', '5');
+                descText.setAttribute('font', 'roboto');
+                
+                projectEntity.appendChild(box);
+                projectEntity.appendChild(nameText);
+                projectEntity.appendChild(descText);
+                
+                // Ajouter les événements
+                projectEntity.addEventListener('click', function() {
+                    if (project.url !== '#') {
+                        if (confirm(`Visiter ${project.name}?\\n\\nCela ouvrira le site dans un nouvel onglet.`)) {
+                            window.open(project.url, '_blank', 'noopener,noreferrer');
+                        }
+                    }
+                });
+                
+                projectEntity.addEventListener('mouseenter', function() {
+                    box.setAttribute('animation__hover', 'property: scale; to: 1.1 1.1 1.1; dur: 200');
+                });
+                
+                projectEntity.addEventListener('mouseleave', function() {
+                    box.setAttribute('animation__hover', 'property: scale; to: 1 1 1; dur: 200');
+                });
+                
+                scene.appendChild(projectEntity);
+            });
+            
+            // Mettre à jour le raycaster
+            const cursor = document.querySelector('a-cursor');
+            cursor.setAttribute('raycaster', 'objects: .project-item, .back-button');
+        }
+
+        function createBackButton() {
+            const scene = document.querySelector('a-scene');
+            
+            const backButton = document.createElement('a-entity');
+            backButton.setAttribute('position', '0 1 -2');
+            backButton.setAttribute('class', 'back-button');
+            
+            const button = document.createElement('a-cylinder');
+            button.setAttribute('radius', '0.5');
+            button.setAttribute('height', '0.1');
+            button.setAttribute('color', '#FF6B6B');
+            
+            const buttonText = document.createElement('a-text');
+            buttonText.setAttribute('position', '0 0.06 0');
+            buttonText.setAttribute('value', 'RETOUR');
+            buttonText.setAttribute('align', 'center');
+            buttonText.setAttribute('color', 'white');
+            buttonText.setAttribute('width', '8');
+            buttonText.setAttribute('font', 'roboto');
+            
+            backButton.appendChild(button);
+            backButton.appendChild(buttonText);
+            
+            backButton.addEventListener('click', function() {
+                returnToMainPortals();
+            });
+            
+            scene.appendChild(backButton);
+        }
+
+        function returnToMainPortals() {
+            // Supprimer les éléments créés
+            const projectItems = document.querySelectorAll('.project-item');
+            const backButton = document.querySelector('.back-button');
+            
+            projectItems.forEach(item => item.remove());
+            if (backButton) backButton.remove();
+            
+            // Réafficher les portails
+            const portals = document.querySelectorAll('.portal');
+            portals.forEach(portal => {
+                portal.setAttribute('visible', true);
+            });
+            
+            // Restaurer les instructions
+            const instructions = document.querySelector('a-text[value*="Realisations"]');
+            if (instructions) {
+                instructions.setAttribute('value', 'Cliquez sur les portails pour explorer chaque univers');
+            }
+            
+            // Restaurer le raycaster
+            const cursor = document.querySelector('a-cursor');
+            cursor.setAttribute('raycaster', 'objects: .portal');
+            
+            currentUniverse = 'home';
+            console.log('🏠 Retour à l\\'accueil des portails');
+        }
+
+        function enterVR() {
+            const scene = document.querySelector('a-scene');
+            if (scene.is('vr-mode')) {
+                scene.exitVR();
+            } else {
+                scene.enterVR().catch(error => {
+                    console.log('Erreur VR:', error);
+                    alert('VR non disponible: ' + error.message);
+                });
+            }
+        }
+
+        // Fonction d'aide a la navigation
+        function initNavigationHelpers() {
+            const camera = document.querySelector('[camera]');
+            const directionHint = document.querySelector('#direction-hint');
+            const navIndicator = document.querySelector('#nav-indicator');
+            
+            // Afficher des hints de direction selon ou regarde l'utilisateur
+            let rotationTimer;
+            
+            if (camera && directionHint) {
+                camera.addEventListener('componentchanged', function(evt) {
+                    if (evt.detail.name === 'rotation') {
+                        clearTimeout(rotationTimer);
+                        
+                        const rotation = evt.detail.newData;
+                        let hint = '';
+                        
+                        // Determiner la direction et afficher un hint
+                        if (rotation.y < -45 && rotation.y > -135) {
+                            hint = 'Portail EXPERIENCE a droite →';
+                        } else if (rotation.y > 45 && rotation.y < 135) {
+                            hint = '← Portail A PROPOS a gauche';
+                        } else if (Math.abs(rotation.y) > 135) {
+                            hint = 'Logo et infos derriere vous';
+                        } else {
+                            hint = 'Portails REALISATIONS et CONTACT devant';
+                        }
+                        
+                        directionHint.setAttribute('value', hint);
+                        directionHint.setAttribute('visible', true);
+                        
+                        // Masquer le hint apres 3 secondes
+                        rotationTimer = setTimeout(() => {
+                            directionHint.setAttribute('visible', false);
+                        }, 3000);
+                    }
+                });
+            }
+            
+            // Animer l'indicateur de navigation pendant 10 secondes au debut
+            if (navIndicator) {
+                setTimeout(() => {
+                    navIndicator.setAttribute('visible', false);
+                }, 10000);
+            }
+            
+            // Raccourcis clavier pour navigation
+            document.addEventListener('keydown', function(event) {
+                switch(event.key) {
+                    case '1':
+                        focusOnPortal('about');
+                        break;
+                    case '2': 
+                        focusOnPortal('experience');
+                        break;
+                    case '3':
+                        focusOnPortal('projects');
+                        break;
+                    case '4':
+                        focusOnPortal('contact');
+                        break;
+                    case 'h':
+                        showHelp();
+                        break;
+                }
+            });
+        }
+        
+        function focusOnPortal(target) {
+            const portal = document.querySelector(`[data-target="${target}"]`);
+            if (portal) {
+                const position = portal.getAttribute('position');
+                const camera = document.querySelector('#camera-rig');
+                
+                // Animation de rotation vers le portail
+                const targetRotation = getRotationTowards(position);
+                camera.setAttribute('animation', `property: rotation; to: 0 ${targetRotation} 0; dur: 1000; easing: easeInOutQuad`);
+                
+                console.log(`Focus sur portail: ${target}`);
+            }
+        }
+        
+        function getRotationTowards(targetPos) {
+            // Calcul approximatif de rotation vers une position
+            const x = parseFloat(targetPos.x);
+            const z = parseFloat(targetPos.z);
+            
+            if (x > 2) return -90; // Droite
+            if (x < -2) return 90;  // Gauche  
+            if (z > -5) return 0;   // Devant
+            return 180; // Derriere
+        }
+        
+        function showHelp() {
+            const helpText = `
+NAVIGATION VR:
+• Souris: Regarder autour
+• WASD: Se deplacer  
+• Clic: Activer portails
+• 1-4: Focus sur portails
+• H: Aide
+• Mode VR: Bouton "Mode VR"
+            `;
+            alert(helpText);
+        }
+
+        // Log du chargement
+        document.querySelector('a-scene').addEventListener('loaded', function () {
+            console.log('✅ Scene VR avec portails chargee');
+            
+            // Afficher une aide au demarrage
+            setTimeout(() => {
+                const hint = document.querySelector('#direction-hint');
+                if (hint) {
+                    hint.setAttribute('value', 'Appuyez sur H pour l\'aide');
+                    hint.setAttribute('visible', true);
+                    setTimeout(() => hint.setAttribute('visible', false), 4000);
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

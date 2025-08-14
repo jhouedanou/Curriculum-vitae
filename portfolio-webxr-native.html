@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio WebXR Native - Jean Luc Houédanou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+        
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .ui-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 350px;
+        }
+        
+        .ui-overlay h2 {
+            margin: 0 0 10px 0;
+            color: #0593FC;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .ui-overlay p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .vr-button {
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.01em;
+            margin: 10px 5px 5px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(5, 147, 252, 0.3);
+        }
+        
+        .vr-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(5, 147, 252, 0.4);
+        }
+        
+        .vr-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+        }
+        
+        .project-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 16px;
+            display: none;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .project-info h3 {
+            margin: 0 0 10px 0;
+            color: #0593FC;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        
+        .project-info p {
+            margin: 0 0 20px 0;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-overlay" id="ui-overlay">
+        <h2>🥽 Portfolio WebXR Native</h2>
+        <p><strong>Jean Luc Houédanou</strong></p>
+        <p>Digital Solutions Director</p>
+        
+        <div id="webxr-status">
+            <p class="status">Vérification WebXR...</p>
+        </div>
+        
+        <button class="vr-button" id="vr-button" disabled>
+            Démarrer VR
+        </button>
+        
+        <button class="vr-button" id="ar-button" disabled>
+            Démarrer AR (Vision Pro)
+        </button>
+        
+        <div class="status" id="status">Initialisation...</div>
+    </div>
+    
+    <div class="project-info" id="project-info">
+        <h3 id="project-title">Projet</h3>
+        <p id="project-description">Description</p>
+        <button class="vr-button" id="visit-button">Visiter le site</button>
+        <button class="vr-button" onclick="hideProjectInfo()">Fermer</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        class WebXRPortfolio {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.gl = this.canvas.getContext('webgl2') || this.canvas.getContext('webgl');
+                this.xrSession = null;
+                this.xrReferenceSpace = null;
+                this.animationId = null;
+                
+                // Projets portfolio
+                this.projects = {
+                    vodacom: {
+                        name: 'Vodacom TXT Engage',
+                        description: 'Landing Page Interactive - VueJS + Responsive Design',
+                        url: 'https://vodamedia.co.za/txtengage/',
+                        color: [0.545, 0.361, 0.965] // #8B5CF6
+                    },
+                    castel: {
+                        name: 'Castel Afrique',
+                        description: 'Site Corporate - HTML5 + CSS3 + JavaScript',
+                        url: 'https://castel-afrique.com',
+                        color: [0.976, 0.451, 0.086] // #F97316
+                    },
+                    dinor: {
+                        name: 'Dinor App Multi-Platform',
+                        description: 'Application Multi-Platform - Filament + Vue + Flutter',
+                        url: 'https://new.dinorapp.com/',
+                        color: [0.063, 0.725, 0.506] // #10B981
+                    },
+                    bigfive: {
+                        name: 'BigFive Solutions',
+                        description: 'Design System - VueJS + Adobe XD',
+                        url: 'https://bigfive.solutions/',
+                        color: [0.231, 0.510, 0.965] // #3B82F6
+                    }
+                };
+                
+                this.currentProject = null;
+                this.time = 0;
+                
+                this.init();
+            }
+            
+            async init() {
+                this.setupCanvas();
+                await this.checkWebXRSupport();
+                this.setupEventListeners();
+                this.startRender();
+                
+                document.getElementById('status').textContent = 'Prêt - Cliquez sur les objets pour les explorer';
+            }
+            
+            setupCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                
+                if (!this.gl) {
+                    document.getElementById('status').textContent = 'Erreur: WebGL non supporté';
+                    return;
+                }
+                
+                this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+                this.gl.enable(this.gl.DEPTH_TEST);
+                this.gl.clearColor(0.827, 0.886, 0.949, 1.0); // #D3E2F2
+            }
+            
+            async checkWebXRSupport() {
+                const statusEl = document.getElementById('webxr-status');
+                const vrButton = document.getElementById('vr-button');
+                const arButton = document.getElementById('ar-button');
+                
+                if ('xr' in navigator) {
+                    try {
+                        // Vérifier support VR
+                        const vrSupported = await navigator.xr.isSessionSupported('immersive-vr');
+                        if (vrSupported) {
+                            statusEl.innerHTML = '<p class="status" style="color: green;">✅ VR supporté</p>';
+                            vrButton.disabled = false;
+                            
+                            // Vérifier les espaces de référence supportés
+                            this.checkReferenceSpaces();
+                        }
+                        
+                        // Vérifier support AR (Vision Pro)
+                        const arSupported = await navigator.xr.isSessionSupported('immersive-ar');
+                        if (arSupported) {
+                            arButton.disabled = false;
+                            statusEl.innerHTML += '<p class="status" style="color: green;">✅ AR supporté</p>';
+                        }
+                        
+                        if (!vrSupported && !arSupported) {
+                            statusEl.innerHTML = '<p class="status" style="color: orange;">⚠️ WebXR disponible mais pas de casque détecté</p>';
+                        }
+                        
+                    } catch (error) {
+                        statusEl.innerHTML = '<p class="status" style="color: red;">❌ Erreur WebXR: ' + error.message + '</p>';
+                    }
+                } else {
+                    statusEl.innerHTML = '<p class="status" style="color: red;">❌ WebXR non supporté</p>';
+                }
+            }
+            
+            async checkReferenceSpaces() {
+                // Test des espaces de référence avec une session temporaire
+                try {
+                    const testSession = await navigator.xr.requestSession('inline');
+                    const spaces = [];
+                    
+                    try {
+                        await testSession.requestReferenceSpace('local-floor');
+                        spaces.push('local-floor');
+                    } catch {}
+                    
+                    try {
+                        await testSession.requestReferenceSpace('local');
+                        spaces.push('local');
+                    } catch {}
+                    
+                    try {
+                        await testSession.requestReferenceSpace('viewer');
+                        spaces.push('viewer');
+                    } catch {}
+                    
+                    console.log('Espaces de référence supportés:', spaces);
+                    testSession.end();
+                } catch (error) {
+                    console.log('Impossible de tester les espaces de référence:', error);
+                }
+            }
+            
+            setupEventListeners() {
+                document.getElementById('vr-button').addEventListener('click', () => this.startVRSession());
+                document.getElementById('ar-button').addEventListener('click', () => this.startARSession());
+                
+                this.canvas.addEventListener('click', (event) => this.handleCanvasClick(event));
+                
+                window.addEventListener('resize', () => this.handleResize());
+            }
+            
+            async startVRSession() {
+                try {
+                    this.xrSession = await navigator.xr.requestSession('immersive-vr');
+                    await this.setupXRSession();
+                } catch (error) {
+                    document.getElementById('status').textContent = 'Erreur VR: ' + error.message;
+                }
+            }
+            
+            async startARSession() {
+                try {
+                    this.xrSession = await navigator.xr.requestSession('immersive-ar');
+                    await this.setupXRSession();
+                } catch (error) {
+                    document.getElementById('status').textContent = 'Erreur AR: ' + error.message;
+                }
+            }
+            
+            async setupXRSession() {
+                await this.xrSession.updateRenderState({
+                    baseLayer: new XRWebGLLayer(this.xrSession, this.gl)
+                });
+                
+                // Essayer les espaces de référence dans l'ordre de préférence
+                try {
+                    this.xrReferenceSpace = await this.xrSession.requestReferenceSpace('local-floor');
+                    console.log('✅ Utilisation de local-floor');
+                } catch (error) {
+                    console.log('⚠️ local-floor non supporté, essai de local...');
+                    try {
+                        this.xrReferenceSpace = await this.xrSession.requestReferenceSpace('local');
+                        console.log('✅ Utilisation de local');
+                    } catch (error2) {
+                        console.log('⚠️ local non supporté, utilisation de viewer...');
+                        this.xrReferenceSpace = await this.xrSession.requestReferenceSpace('viewer');
+                        console.log('✅ Utilisation de viewer');
+                    }
+                }
+                
+                this.xrSession.addEventListener('end', () => {
+                    this.xrSession = null;
+                    document.getElementById('ui-overlay').classList.remove('hidden');
+                    document.getElementById('status').textContent = 'Session VR terminée';
+                });
+                
+                // Masquer l'UI pendant la session VR
+                document.getElementById('ui-overlay').classList.add('hidden');
+                
+                this.xrSession.requestAnimationFrame((time, frame) => this.renderXRFrame(time, frame));
+            }
+            
+            renderXRFrame(time, frame) {
+                if (!this.xrSession) return;
+                
+                const session = this.xrSession;
+                const frameData = frame.getViewerPose(this.xrReferenceSpace);
+                
+                if (frameData) {
+                    const layer = session.renderState.baseLayer;
+                    this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, layer.framebuffer);
+                    
+                    for (const view of frameData.views) {
+                        const viewport = layer.getViewport(view);
+                        this.gl.viewport(viewport.x, viewport.y, viewport.width, viewport.height);
+                        
+                        this.renderScene(view.projectionMatrix, view.transform.inverse.matrix, time);
+                    }
+                }
+                
+                session.requestAnimationFrame((time, frame) => this.renderXRFrame(time, frame));
+            }
+            
+            startRender() {
+                const render = (time) => {
+                    this.time = time * 0.001;
+                    
+                    if (!this.xrSession) {
+                        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+                        this.renderScene(this.getPerspectiveMatrix(), this.getViewMatrix(), time);
+                    }
+                    
+                    this.animationId = requestAnimationFrame(render);
+                };
+                
+                render(0);
+            }
+            
+            renderScene(projectionMatrix, viewMatrix, time) {
+                // Rendu simplifié avec WebGL natif
+                this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+                
+                // Simuler le rendu des éléments 3D
+                // Ici on pourrait utiliser THREE.js ou implémenter un rendu WebGL complet
+                // Pour cette démo, on affiche un message
+                this.renderSimpleScene();
+            }
+            
+            renderSimpleScene() {
+                // Rendu basique - dans une vraie implémentation, on utiliserait des shaders WebGL
+                const ctx = this.canvas.getContext('2d');
+                if (ctx) {
+                    // Clear avec dégradé sophistiqué
+                    const gradient = ctx.createRadialGradient(
+                        this.canvas.width/2, this.canvas.height/2, 0,
+                        this.canvas.width/2, this.canvas.height/2, Math.max(this.canvas.width, this.canvas.height)
+                    );
+                    gradient.addColorStop(0, '#E6F0FA');
+                    gradient.addColorStop(0.6, '#D3E2F2');
+                    gradient.addColorStop(1, '#0593FC');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                    
+                    // Effet de particules subtil
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    for (let i = 0; i < 50; i++) {
+                        const x = Math.random() * this.canvas.width;
+                        const y = Math.random() * this.canvas.height;
+                        const radius = Math.random() * 2 + 0.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    // Titre principal avec police moderne
+                    ctx.fillStyle = '#0593FC';
+                    ctx.font = '700 52px Outfit, Arial, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.letterSpacing = '-0.02em';
+                    ctx.fillText('Jean Luc Houédanou', this.canvas.width/2, this.canvas.height/2 - 100);
+                    
+                    // Sous-titre avec meilleure typographie
+                    ctx.fillStyle = '#246CB7';
+                    ctx.font = '500 26px Outfit, Arial, sans-serif';
+                    ctx.letterSpacing = '0.01em';
+                    ctx.fillText('Digital Solutions Director', this.canvas.width/2, this.canvas.height/2 - 55);
+                    
+                    // Projets en cercles
+                    const centerX = this.canvas.width / 2;
+                    const centerY = this.canvas.height / 2 + 50;
+                    const radius = 150;
+                    const projects = Object.keys(this.projects);
+                    
+                    projects.forEach((project, index) => {
+                        const angle = (index / projects.length) * Math.PI * 2;
+                        const x = centerX + Math.cos(angle) * radius;
+                        const y = centerY + Math.sin(angle) * radius;
+                        
+                        const projectData = this.projects[project];
+                        const [r, g, b] = projectData.color;
+                        
+                        // Cercle avec dégradé et ombre
+                        const projectGradient = ctx.createRadialGradient(x-10, y-10, 0, x, y, 45);
+                        projectGradient.addColorStop(0, `rgba(${r*255}, ${g*255}, ${b*255}, 1)`);
+                        projectGradient.addColorStop(1, `rgba(${r*255*0.7}, ${g*255*0.7}, ${b*255*0.7}, 1)`);
+                        
+                        // Ombre
+                        ctx.shadowColor = `rgba(${r*255}, ${g*255}, ${b*255}, 0.4)`;
+                        ctx.shadowBlur = 15;
+                        ctx.shadowOffsetX = 0;
+                        ctx.shadowOffsetY = 3;
+                        
+                        // Cercle principal
+                        ctx.beginPath();
+                        ctx.arc(x, y, 40, 0, Math.PI * 2);
+                        ctx.fillStyle = projectGradient;
+                        ctx.fill();
+                        
+                        // Réinitialiser l'ombre
+                        ctx.shadowColor = 'transparent';
+                        ctx.shadowBlur = 0;
+                        ctx.shadowOffsetX = 0;
+                        ctx.shadowOffsetY = 0;
+                        
+                        // Cercle de bordure
+                        ctx.beginPath();
+                        ctx.arc(x, y, 42, 0, Math.PI * 2);
+                        ctx.strokeStyle = `rgba(255, 255, 255, 0.3)`;
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        
+                        // Animation de rotation
+                        const rotationSpeed = 0.001 + index * 0.0005;
+                        const scale = 1 + Math.sin(this.time * rotationSpeed) * 0.1;
+                        
+                        ctx.save();
+                        ctx.translate(x, y);
+                        ctx.scale(scale, scale);
+                        
+                        // Nom du projet avec meilleure police
+                        ctx.fillStyle = 'white';
+                        ctx.font = '700 13px Outfit, Arial, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.letterSpacing = '0.05em';
+                        ctx.fillText(project.toUpperCase(), 0, 5);
+                        
+                        ctx.restore();
+                        
+                        // Stocker les positions pour les clics
+                        this.projects[project].position = {x, y, radius: 40};
+                    });
+                    
+                    // Instructions avec style moderne
+                    ctx.fillStyle = '#246CB7';
+                    ctx.font = '500 20px Outfit, Arial, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.letterSpacing = '0.01em';
+                    ctx.fillText('Cliquez sur les projets pour les explorer', centerX, this.canvas.height - 50);
+                }
+            }
+            
+            handleCanvasClick(event) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                
+                // Vérifier si on a cliqué sur un projet
+                for (const [projectKey, projectData] of Object.entries(this.projects)) {
+                    if (projectData.position) {
+                        const dx = x - projectData.position.x;
+                        const dy = y - projectData.position.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < projectData.position.radius) {
+                            this.showProjectInfo(projectKey, projectData);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            showProjectInfo(projectKey, projectData) {
+                this.currentProject = {key: projectKey, ...projectData};
+                
+                document.getElementById('project-title').textContent = projectData.name;
+                document.getElementById('project-description').textContent = projectData.description;
+                document.getElementById('project-info').style.display = 'block';
+                
+                document.getElementById('visit-button').onclick = () => {
+                    if (confirm(`Visiter ${projectData.name}?\\n\\nCela ouvrira le site dans un nouvel onglet.`)) {
+                        window.open(projectData.url, '_blank', 'noopener,noreferrer');
+                    }
+                };
+            }
+            
+            handleResize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+            }
+            
+            getPerspectiveMatrix() {
+                // Matrice de perspective simple
+                return [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, -1, 0,
+                    0, 0, 0, 1
+                ];
+            }
+            
+            getViewMatrix() {
+                // Matrice de vue simple
+                return [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ];
+            }
+        }
+        
+        function hideProjectInfo() {
+            document.getElementById('project-info').style.display = 'none';
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            new WebXRPortfolio();
+        });
+    </script>
+</body>
+</html>
