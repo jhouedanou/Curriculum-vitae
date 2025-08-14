@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Palette de Couleurs - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="material-design-theme.css">
+    <style>
+        .palette-demo {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+        }
+        
+        .palette-header {
+            text-align: center;
+            margin-bottom: 48px;
+            background: linear-gradient(135deg, var(--md-primary), var(--md-secondary));
+            color: white;
+            padding: 48px 24px;
+            border-radius: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .palette-header h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .palette-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .color-section {
+            margin: 48px 0;
+        }
+        
+        .color-section h2 {
+            font-size: 2rem;
+            color: var(--md-primary);
+            margin-bottom: 24px;
+            border-bottom: 3px solid var(--md-primary);
+            padding-bottom: 12px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .color-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--md-outline-variant);
+            transition: transform 0.2s ease;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .color-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 2px solid var(--md-outline-variant);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+        }
+        
+        .color-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: var(--md-on-surface);
+        }
+        
+        .color-hex {
+            font-family: monospace;
+            font-size: 1.125rem;
+            color: var(--md-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .color-description {
+            color: var(--md-on-surface-variant);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .usage-examples {
+            background: var(--md-surface-container);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        .usage-examples h3 {
+            color: var(--md-primary);
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .example-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .example-primary { background: var(--md-primary); }
+        .example-secondary { background: var(--md-secondary); }
+        .example-tertiary { background: var(--md-tertiary); }
+        .example-surface { background: var(--md-surface); color: var(--md-on-surface); border: 1px solid var(--md-outline-variant); }
+        .example-container { background: var(--md-surface-container); color: var(--md-on-surface); border: 1px solid var(--md-outline-variant); }
+        
+        .palette-comparison {
+            background: linear-gradient(135deg, var(--md-surface-container), var(--md-surface-container-high));
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--md-outline-variant);
+        }
+        
+        .comparison-table th {
+            background: var(--md-primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: var(--md-surface-container-low);
+        }
+        
+        .color-wheel {
+            display: flex;
+            justify-content: center;
+            margin: 32px 0;
+        }
+        
+        .wheel-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 8px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        
+        .wheel-primary { background: var(--md-primary); }
+        .wheel-secondary { background: var(--md-secondary); }
+        .wheel-tertiary { background: var(--md-tertiary); }
+        .wheel-surface { background: var(--md-surface); color: var(--md-on-surface); border-color: var(--md-outline-variant); }
+        .wheel-container { background: var(--md-surface-container); color: var(--md-on-surface); border-color: var(--md-outline-variant); }
+        
+        @media (max-width: 768px) {
+            .palette-header h1 {
+                font-size: 2rem;
+            }
+            
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="palette-demo">
+        <header class="palette-header">
+            <h1>🎨 Nouvelle Palette de Couleurs</h1>
+            <p>Découvrez la nouvelle palette bleue moderne inspirée de Google Notebook LM</p>
+        </header>
+
+        <!-- Vue d'ensemble de la palette -->
+        <section class="color-section">
+            <h2>🌈 Vue d'ensemble de la Palette</h2>
+            <div class="color-wheel">
+                <div class="wheel-item wheel-primary">Primary<br>#0593FC</div>
+                <div class="wheel-item wheel-secondary">Secondary<br>#27CDFE</div>
+                <div class="wheel-item wheel-tertiary">Tertiary<br>#246CB7</div>
+                <div class="wheel-item wheel-surface">Surface<br>#FFFFFF</div>
+                <div class="wheel-item wheel-container">Container<br>#D3E2F2</div>
+            </div>
+        </section>
+
+        <!-- Couleurs principales -->
+        <section class="color-section">
+            <h2>🔵 Couleurs Principales</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-primary);"></div>
+                    <div class="color-info">
+                        <h3>Primary - Dodger Blue</h3>
+                        <div class="color-hex">#0593FC</div>
+                        <p class="color-description">Couleur principale pour les boutons, liens et éléments d'action. Un bleu moderne et professionnel.</p>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-secondary);"></div>
+                    <div class="color-info">
+                        <h3>Secondary - Vivid Sky Blue</h3>
+                        <div class="color-hex">#27CDFE</div>
+                        <p class="color-description">Couleur secondaire pour les accents et éléments de support. Un bleu ciel vif et énergique.</p>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-tertiary);"></div>
+                    <div class="color-info">
+                        <h3>Tertiary - Azul</h3>
+                        <div class="color-hex">#246CB7</div>
+                        <p class="color-description">Couleur tertiaire pour les éléments de navigation et de structure. Un bleu profond et stable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Couleurs de surface -->
+        <section class="color-section">
+            <h2>⚪ Couleurs de Surface</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-surface); border: 2px solid var(--md-outline-variant);"></div>
+                    <div class="color-info">
+                        <h3>Surface - White</h3>
+                        <div class="color-hex">#FFFFFF</div>
+                        <p class="color-description">Surface principale pour le contenu et les cartes. Blanc pur pour une lisibilité optimale.</p>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-surface-container);"></div>
+                    <div class="color-info">
+                        <h3>Surface Container - Columbia Blue</h3>
+                        <div class="color-hex">#D3E2F2</div>
+                        <p class="color-description">Surface secondaire pour les conteneurs et arrière-plans. Un bleu columbia subtil et élégant.</p>
+                    </div>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-preview" style="background: var(--md-primary-container);"></div>
+                    <div class="color-info">
+                        <h3>Primary Container</h3>
+                        <div class="color-hex">#D3E2F2</div>
+                        <p class="color-description">Conteneur pour les éléments primaires. Utilise la même couleur que Columbia Blue pour la cohérence.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exemples d'utilisation -->
+        <section class="usage-examples">
+            <h3>💡 Exemples d'Utilisation</h3>
+            <div class="example-grid">
+                <div class="example-item example-primary">Boutons Principaux</div>
+                <div class="example-item example-secondary">Accents & Icônes</div>
+                <div class="example-item example-tertiary">Navigation</div>
+                <div class="example-item example-surface">Cartes & Contenu</div>
+                <div class="example-item example-container">Arrière-plans</div>
+            </div>
+        </section>
+
+        <!-- Tableau de comparaison -->
+        <section class="palette-comparison">
+            <h3>📊 Tableau de Comparaison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Couleur</th>
+                        <th>HEX</th>
+                        <th>Usage</th>
+                        <th>Contraste</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Primary</td>
+                        <td>#0593FC</td>
+                        <td>Boutons, liens, actions</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Secondary</td>
+                        <td>#27CDFE</td>
+                        <td>Accents, icônes</td>
+                        <td>Bon</td>
+                    </tr>
+                    <tr>
+                        <td>Tertiary</td>
+                        <td>#246CB7</td>
+                        <td>Navigation, structure</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Surface</td>
+                        <td>#FFFFFF</td>
+                        <td>Contenu, cartes</td>
+                        <td>Parfait</td>
+                    </tr>
+                    <tr>
+                        <td>Container</td>
+                        <td>#D3E2F2</td>
+                        <td>Arrière-plans</td>
+                        <td>Bon</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Avantages de la nouvelle palette -->
+        <section class="color-section">
+            <h2>✨ Avantages de la Nouvelle Palette</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <h3>🎯 Professionnalisme</h3>
+                    <p class="color-description">Les tons de bleu transmettent confiance, stabilité et professionnalisme, parfaits pour un portfolio.</p>
+                </div>
+                
+                <div class="color-card">
+                    <h3>👁️ Lisibilité</h3>
+                    <p class="color-description">Excellent contraste entre les couleurs, garantissant une lisibilité optimale sur tous les écrans.</p>
+                </div>
+                
+                <div class="color-card">
+                    <h3>🎨 Modernité</h3>
+                    <p class="color-description">Palette contemporaine inspirée des meilleures pratiques de design moderne et de Google Notebook LM.</p>
+                </div>
+                
+                <div class="color-card">
+                    <h3>📱 Accessibilité</h3>
+                    <p class="color-description">Respect des standards d'accessibilité avec des ratios de contraste appropriés.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 64px; padding: 32px; color: var(--md-on-surface-variant); border-top: 1px solid var(--md-outline-variant);">
+            <p>🎨 Nouvelle palette bleue moderne - Portfolio Material Design 3</p>
+            <p style="margin-top: 8px; font-size: 0.875rem;">
+                Dodger Blue • Vivid Sky Blue • Azul • White • Columbia Blue
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

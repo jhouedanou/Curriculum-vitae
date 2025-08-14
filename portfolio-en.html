@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Jean Luc Houédanou</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="material-design-theme.css">
     <style>
         :root {
             --vue-green: #41B883;
             --vue-dark: #35495E;
             --nuxt-green: #00DC82;
             --nuxt-dark: #020420;
-            --primary: var(--vue-green);
-            --primary-dark: #369970;
-            --secondary: var(--nuxt-green);
-            --dark: var(--vue-dark);
-            --surface: #FFFFFF;
-            --surface-variant: #F5F5F5;
-            --on-surface: #1C1B1F;
-            --on-primary: #FFFFFF;
-            --outline: #79747E;
-            --shadow: rgba(0, 0, 0, 0.12);
+            --primary: var(--md-primary);
+            --primary-dark: var(--md-primary-container);
+            --secondary: var(--md-secondary);
+            --dark: var(--md-on-surface);
+            --surface: var(--md-surface);
+            --surface-variant: var(--md-surface-container);
+            --on-surface: var(--md-on-surface);
+            --on-primary: var(--md-on-primary);
+            --outline: var(--md-outline);
+            --shadow: var(--md-shadow);
         }
 
         * {
@@ -32,9 +33,9 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Outfit', 'Roboto', sans-serif;
             line-height: 1.6;
-            background: linear-gradient(135deg, var(--vue-green) 0%, var(--nuxt-green) 100%);
+            background: var(--md-surface);
             min-height: 100vh;
             color: var(--on-surface);
         }
@@ -46,12 +47,10 @@
         }
 
         .sidebar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--md-surface-container);
+            border-right: 1px solid var(--md-outline-variant);
             padding: 32px 24px;
-            color: white;
+            color: var(--on-surface);
             position: fixed;
             height: 100vh;
             width: 280px;
@@ -173,14 +172,18 @@
         }
 
         .nav-item.active {
-            background: var(--surface);
-            color: var(--primary);
+            background: var(--md-primary-container);
+            color: var(--md-on-primary-container);
         }
 
         .header {
             text-align: center;
             margin-bottom: 48px;
             color: white;
+            background: linear-gradient(135deg, var(--md-primary), var(--md-secondary));
+            padding: 48px 24px;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px var(--md-shadow);
         }
 
         .header h1 {
@@ -203,18 +206,18 @@
         }
 
         .project-card {
-            background: var(--surface);
+            background: var(--md-surface);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px var(--shadow);
+            box-shadow: 0 1px 3px var(--md-shadow);
             transition: all 0.3s ease;
             cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--md-outline-variant);
         }
 
         .project-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 24px var(--md-shadow);
         }
 
         .project-image {
@@ -281,13 +284,13 @@
         }
 
         .tech-tag {
-            background: var(--surface-variant);
+            background: var(--md-surface-container-high);
             color: var(--on-surface);
             padding: 6px 12px;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--md-outline-variant);
         }
 
         .project-link {
@@ -325,8 +328,8 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
             padding: 24px;
         }
 
@@ -444,37 +447,37 @@
     <div id="app">
         <div class="app-layout">
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar md-sidebar">
                 <div class="profile-section">
                     <img src="https://yt3.googleusercontent.com/ytc/AIdro_nzKOdChzl2V5Y3lBfh9RRzCTBaNUtdLDLq_9fjmjXHrNVg=s900-c-k-c0x00ffffff-no-rj" alt="Jean Luc Houédanou" class="logo">
                     <h2 class="profile-name">Jean Luc Houédanou</h2>
                     <p class="profile-title">Digital Solutions Director</p>
                 </div>
 
-                <a href="portfolio-fr.html" class="language-toggle">
+                <a href="portfolio-fr.html" class="language-toggle md-button tonal md-ripple">
                     <span class="material-icons">translate</span>
                     Version Française
                 </a>
 
                 <div class="stats-sidebar">
-                    <div class="stat-item">
-                        <span class="stat-number">{{ projects.length }}+</span>
-                        <span class="stat-label">Projects</span>
+                    <div class="stat-item md-stat">
+                        <span class="stat-number md-stat-number">{{ projects.length }}+</span>
+                        <span class="stat-label md-stat-label">Projects</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Years</span>
+                    <div class="stat-item md-stat">
+                        <span class="stat-number md-stat-number">5+</span>
+                        <span class="stat-label md-stat-label">Years</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">95%</span>
-                        <span class="stat-label">Satisfaction</span>
+                    <div class="stat-item md-stat">
+                        <span class="stat-number md-stat-number">95%</span>
+                        <span class="stat-label md-stat-label">Satisfaction</span>
                     </div>
                 </div>
 
                 <div class="nav-section">
                     <div class="nav-title">Categories</div>
                     <div 
-                        class="nav-item" 
+                        class="nav-item md-nav-item" 
                         :class="{ active: activeFilter === 'tous' }"
                         @click="setFilter('tous')"
                     >
@@ -482,7 +485,7 @@
                         All
                     </div>
                     <div 
-                        class="nav-item" 
+                        class="nav-item md-nav-item" 
                         :class="{ active: activeFilter === 'frontend' }"
                         @click="setFilter('frontend')"
                     >
@@ -490,7 +493,7 @@
                         Frontend
                     </div>
                     <div 
-                        class="nav-item" 
+                        class="nav-item md-nav-item" 
                         :class="{ active: activeFilter === 'fullstack' }"
                         @click="setFilter('fullstack')"
                     >
@@ -498,7 +501,7 @@
                         Full-stack
                     </div>
                     <div 
-                        class="nav-item" 
+                        class="nav-item md-nav-item" 
                         :class="{ active: activeFilter === 'wordpress' }"
                         @click="setFilter('wordpress')"
                     >
@@ -519,23 +522,23 @@
                     <div 
                         v-for="project in filteredProjects" 
                         :key="project.id"
-                        class="project-card"
+                        class="project-card md-card md-state-hover"
                         @click="openModal(project)"
                     >
                         <div class="project-image">
-                            <img v-if="project.image" :src="project.image" :alt="project.title">
-                            <span v-else class="material-icons">{{ project.icon }}</span>
+                            <img v-if="project.image" :src="project.image" :alt="project.title" :title="project.title">
+                            <span v-else class="material-icons" :aria-label="project.title">{{ project.icon }}</span>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">{{ project.title }}</h3>
-                            <span class="project-role">{{ project.roleEn }}</span>
+                            <span class="project-role md-tag">{{ project.roleEn }}</span>
                             <p class="project-description">{{ project.descriptionEn }}</p>
                             <div class="project-tech">
-                                <span v-for="tech in project.technologies" :key="tech" class="tech-tag">
+                                <span v-for="tech in project.technologies" :key="tech" class="tech-tag md-tag">
                                     {{ tech }}
                                 </span>
                             </div>
-                            <a :href="project.url" class="project-link" target="_blank" @click.stop>
+                            <a :href="project.url" class="project-link md-button tonal md-ripple" target="_blank" rel="noopener" @click.stop>
                                 <span class="material-icons">launch</span>
                                 View Project
                             </a>
@@ -555,7 +558,7 @@
                         <p><strong>Description:</strong> {{ selectedProject.fullDescriptionEn }}</p>
                         <p><strong>Challenges:</strong> {{ selectedProject.challengesEn }}</p>
                         <p><strong>Results:</strong> {{ selectedProject.resultsEn }}</p>
-                        <a :href="selectedProject.url" class="project-link" target="_blank">
+                        <a :href="selectedProject.url" class="project-link" target="_blank" rel="noopener">
                             <span class="material-icons">launch</span>
                             Visit Website
                         </a>

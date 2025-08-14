@@ -6,546 +6,14 @@
     <title>Portfolio - Jean Luc Houédanou</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        :root {
-            --columbia-blue: #D3E2F2;
-            --vivid-sky-blue: #27CDFE;
-            --celtic-blue: #056AC6;
-            --light-sky-blue: #93D2FD;
-            --royal-blue: #1463F5;
-            --royal-blue-rgb: 20, 99, 245;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: #f8f9fa;
-            min-height: 100vh;
-            color: #2d3436;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan); }
-            50% { box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-pink), 0 0 90px var(--neon-pink); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        
-        .is-fullheight {
-            min-height: 100vh;
-        }
-        
-        .columns.is-gapless.is-fullheight {
-            align-items: flex-start;
-        }
-
-#pa5 {
-            padding: 2rem 1.5rem !important
-        }
-        .sidebar {
-            background: #ffffff;
-            box-shadow: 0 0 30px rgba(0,0,0,0.05);
-            padding: 2rem 1.5rem;
-            color: #2d3436;
-            height: 100vh;
-            width: 320px;
-            position: sticky;
-            top: 0;
-            margin: 0 1rem 1rem 1rem;
-            border-radius: 0 0 16px 16px;
-            overflow-y: auto;
-            align-self: flex-start;
-        }
-
-        .main-content {
-            padding: 3rem 2rem;
-            background: #f8f9fa;
-        }
-
-        .profile-avatar {
-            width: 120px !important;
-            height: 120px !important;
-            border: 4px solid #e9ecef;
-            transition: all 0.3s ease;
-            margin: 0 auto 2rem;
-        }
-        
-        .profile-avatar:hover {
-            border-color: var(--royal-blue);
-            box-shadow: 0 10px 30px rgba(20, 99, 245, 0.2);
-        }
-
-        .is-clickable {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-        }
-        
-        .is-clickable:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .modern-button {
-            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
-        }
-        
-        .modern-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(20, 99, 245, 0.4);
-            color: white;
-        }
-        
-        .stats-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-        
-        .stats-card:hover {
-            border-color: var(--royal-blue);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .menu-item {
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .menu-item:hover {
-            background: #f1f3f4;
-        }
-        
-        .menu-item.is-active {
-            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
-            color: white;
-            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
-        }
-
-
-
-
-
-
-
-
-
-        .fade-enter-active, .fade-leave-active {
-            transition: all 0.4s ease;
-        }
-        
-        .fade-enter-from, .fade-leave-to {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-
-
-        .hero-section {
-            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--vivid-sky-blue) 100%);
-            padding: 4rem 2rem;
-            margin: -3rem -2rem 3rem -2rem;
-            color: white;
-            text-align: center;
-            border-radius: 0 0 30px 30px;
-        }
-        
-        .project-card-modern {
-            background: #ffffff;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-        
-        .project-card-modern:hover {
-            border-color: var(--royal-blue);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .hamburger {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: var(--royal-blue);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
-        }
-
-        .hamburger:hover {
-            background: var(--vivid-sky-blue);
-        }
-
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-        }
-
-        .sidebar-overlay.is-active {
-            display: block;
-        }
-
-        .sidebar.mobile-open {
-            display: block !important;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            overflow-y: auto;
-            border-radius: 0;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            .sidebar {
-                display: none;
-            }
-            
-            .main-content {
-                padding: 2rem 1rem;
-                margin-top: 60px;
-            }
-            
-            .hero-section {
-                margin: -2rem -1rem 2rem -1rem;
-                padding: 3rem 1rem;
-            }
-
-            .columns {
-                flex-direction: column;
-            }
-
-            .profile-avatar {
-                width: 80px !important;
-                height: 80px !important;
-            }
-
-            .stats-card {
-                padding: 0.75rem;
-            }
-
-            .project-card-modern {
-                margin-bottom: 1rem;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .sidebar {
-                width: 300px;
-                min-height: auto;
-                padding: 1.5rem;
-                margin: 0 0.5rem 0.5rem 0.5rem;
-                border-radius: 0 0 16px 16px;
-            }
-            
-            .main-content {
-                padding: 2rem 1rem;
-            }
-            
-            .hero-section {
-                margin: -2rem -1rem 2rem -1rem;
-                padding: 3rem 1rem;
-            }
-
-            .column.is-one-third-desktop {
-                width: 50% !important;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .hamburger {
-                display: none;
-            }
-        }
-
-        .timeline {
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 15px;
-            height: 100%;
-            width: 2px;
-            background: var(--royal-blue);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: 6px;
-            top: 8px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--royal-blue);
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px var(--royal-blue);
-        }
-
-        .page-content {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .navigation-menu {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 0;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 8px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
-            border: 2px solid transparent;
-            text-align: center;
-            min-height: 70px;
-            justify-content: center;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
-            color: #6c757d;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 500;
-            color: #495057;
-            line-height: 1.2;
-        }
-
-        .nav-item:hover {
-            background: #e9ecef;
-            border-color: var(--royal-blue);
-            transform: translateY(-2px);
-        }
-
-        .nav-item:hover i {
-            color: var(--royal-blue);
-            transform: scale(1.1);
-        }
-
-        .nav-item:hover span {
-            color: var(--royal-blue);
-        }
-
-        .nav-item.is-active {
-            background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));
-            border-color: var(--royal-blue);
-            box-shadow: 0 4px 15px rgba(20, 99, 245, 0.3);
-        }
-
-        .nav-item.is-active i {
-            color: white;
-        }
-
-        .nav-item.is-active span {
-            color: white;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .navigation-menu {
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-            }
-            
-            .nav-item {
-                min-height: 60px;
-                padding: 8px 6px;
-            }
-            
-            .nav-item i {
-                font-size: 18px;
-            }
-            
-            .nav-item span {
-                font-size: 10px;
-            }
-        }
-
-        .projects-page {
-            position: relative;
-        }
-
-        .filters-overlay {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        .filters-container {
-            display: flex;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 12px 16px;
-            border-radius: 50px;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            pointer-events: all;
-        }
-
-        .filter-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: transparent;
-            min-width: 55px;
-        }
-
-        .filter-item i {
-            font-size: 18px;
-            margin-bottom: 2px;
-            color: #6c757d;
-            transition: all 0.3s ease;
-        }
-
-        .filter-item span {
-            font-size: 9px;
-            font-weight: 500;
-            color: #6c757d;
-            text-align: center;
-            line-height: 1;
-            white-space: nowrap;
-        }
-
-        .filter-item:hover {
-            background: rgba(var(--royal-blue-rgb), 0.1);
-            transform: translateY(-2px);
-        }
-
-        .filter-item:hover i {
-            color: var(--royal-blue);
-            transform: scale(1.1);
-        }
-
-        .filter-item:hover span {
-            color: var(--royal-blue);
-        }
-
-        .filter-item.is-active {
-            background: var(--royal-blue);
-            color: white;
-            box-shadow: 0 4px 12px rgba(20, 99, 245, 0.4);
-        }
-
-        .filter-item.is-active i {
-            color: white;
-        }
-
-        .filter-item.is-active span {
-            color: white;
-            font-weight: 600;
-        }
-
-
-        @media (max-width: 768px) {
-            .filters-overlay {
-                bottom: 15px;
-                left: 15px;
-                right: 15px;
-                transform: none;
-            }
-            
-            .filters-container {
-                justify-content: space-between;
-                padding: 10px 12px;
-                gap: 4px;
-            }
-            
-            .filter-item {
-                padding: 6px 8px;
-                min-width: 45px;
-            }
-            
-            .filter-item i {
-                font-size: 16px;
-            }
-            
-            .filter-item span {
-                font-size: 8px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="material-design-theme.css">
 </head>
 <body>
     <div id="app">
         <!-- Hamburger Menu Button -->
-        <button class="hamburger" @click="toggleSidebar">
+        <button type="button" class="hamburger" @click="toggleSidebar" aria-label="Ouvrir le menu">
             <i class="material-icons">menu</i>
         </button>
 
@@ -585,7 +53,7 @@
                 </div>
 
                 <div class="buttons is-centered mb-4">
-                    <button type="button" @click="toggleLanguage" class="button modern-button is-small mb-2">
+                    <button type="button" @click="toggleLanguage" class="button modern-button is-small mb-2" :aria-label="currentLang === 'fr' ? 'Changer en anglais' : 'Switch to French'">
                         <span class="icon"><i class="material-icons">translate</i></span>
                         <span>{{ currentLang === 'fr' ? 'English' : 'Français' }}</span>
                     </button>
@@ -618,13 +86,13 @@
                 
                 <div class="has-text-centered">
                     <div class="buttons is-centered">
-                        <a href="https://houedanou.com" target="_blank" class="button modern-button is-small">
+                        <a href="https://houedanou.com" target="_blank" rel="noopener" class="button modern-button is-small">
                             <span class="icon is-small">
                                 <i class="material-icons">article</i>
                             </span>
                             <span>Blog</span>
                         </a>
-                        <a href="https://github.com/jhouedanou" target="_blank" class="button modern-button is-small">
+                        <a href="https://github.com/jhouedanou" target="_blank" rel="noopener" class="button modern-button is-small">
                             <span class="icon is-small">
                                 <i class="material-icons">code</i>
                             </span>
@@ -645,7 +113,7 @@
                         <div class="content is-large">
                             <div class="box">
                                 <h2 class="title is-3 has-text-info mb-4">{{ texts.aboutTitle }}</h2>
-                                <p class="is-size-5 mb-5" style="line-height: 1.8;">{{ texts.aboutDescription }}</p>
+                                <p class="is-size-5 mb-5 about-description">{{ texts.aboutDescription }}</p>
                             </div>
                             <div class="columns is-multiline">
                                 <div class="column is-half">
@@ -782,7 +250,7 @@
                                 <div class="project-card-modern is-clickable" @click="openModal(project)">
                                     <div class="card-image">
                                         <figure class="image">
-                                            <div class="is-flex is-align-items-center is-justify-content-center" style="height: 200px; background: linear-gradient(135deg, var(--royal-blue), var(--vivid-sky-blue));">
+                                            <div class="is-flex is-align-items-center is-justify-content-center project-gradient-background">
                                                 <span class="icon is-large has-text-white">
                                                     <i class="material-icons is-size-1">{{ project.icon }}</i>
                                                 </span>
@@ -795,13 +263,13 @@
                                             <div class="mb-3">
                                                 <span class="tag is-info is-light is-medium">{{ currentLang === 'fr' ? project.role : project.roleEn }}</span>
                                             </div>
-                                            <p class="has-text-grey mb-4" style="line-height: 1.6;">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
+                                            <p class="has-text-grey mb-4 project-description-text">{{ currentLang === 'fr' ? project.description : project.descriptionEn }}</p>
                                             <div class="tags mb-4">
                                                 <span v-for="tech in project.technologies" :key="tech" class="tag is-light is-rounded">
                                                     {{ tech }}
                                                 </span>
                                             </div>
-                                            <a :href="project.url" class="button modern-button is-small" target="_blank" @click.stop>
+                                            <a :href="project.url" class="button modern-button is-small" target="_blank" rel="noopener" @click.stop>
                                                 <span class="icon is-small">
                                                     <i class="material-icons">launch</i>
                                                 </span>
@@ -855,25 +323,25 @@
                                         <div class="field">
                                             <label class="label">{{ texts.name }}</label>
                                             <div class="control">
-                                                <input class="input" type="text" name="name" :placeholder="texts.namePlaceholder" required>
+                                                <input class="input" type="text" name="name" :placeholder="texts.namePlaceholder" :title="texts.nameTitle" :aria-label="texts.nameTitle" required>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <label class="label">{{ texts.email }}</label>
                                             <div class="control">
-                                                <input class="input" type="email" name="email" :placeholder="texts.emailPlaceholder" required>
+                                                <input class="input" type="email" name="email" :placeholder="texts.emailPlaceholder" :title="texts.emailTitle" :aria-label="texts.emailTitle" required>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <label class="label">{{ texts.subject }}</label>
                                             <div class="control">
-                                                <input class="input" type="text" name="subject" :placeholder="texts.subjectPlaceholder" required>
+                                                <input class="input" type="text" name="subject" :placeholder="texts.subjectPlaceholder" :title="texts.subjectTitle" :aria-label="texts.subjectTitle" required>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <label class="label">{{ texts.message }}</label>
                                             <div class="control">
-                                                <textarea class="textarea" name="message" rows="6" :placeholder="texts.messagePlaceholder" required></textarea>
+                                                <textarea class="textarea" name="message" rows="6" :placeholder="texts.messagePlaceholder" :title="texts.messageTitle" :aria-label="texts.messageTitle" required></textarea>
                                             </div>
                                         </div>
                                         <div class="field">
@@ -923,7 +391,7 @@
                                             </div>
                                             <div class="media-content">
                                                 <p class="title is-6">Portfolio</p>
-                                                <p><a href="https://jhouedanou.github.io/Curriculum-vitae/" target="_blank">jhouedanou.github.io/Curriculum-vitae</a></p>
+                                                <p><a href="https://jhouedanou.github.io/Curriculum-vitae/" target="_blank" rel="noopener">jhouedanou.github.io/Curriculum-vitae</a></p>
                                             </div>
                                         </div>
                                         <div class="media mb-4">
@@ -934,7 +402,7 @@
                                             </div>
                                             <div class="media-content">
                                                 <p class="title is-6">Blog</p>
-                                                <p><a href="https://houedanou.com" target="_blank">houedanou.com</a></p>
+                                                <p><a href="https://houedanou.com" target="_blank" rel="noopener">houedanou.com</a></p>
                                             </div>
                                         </div>
                                         <div class="media">
@@ -945,7 +413,7 @@
                                             </div>
                                             <div class="media-content">
                                                 <p class="title is-6">GitHub</p>
-                                                <p><a href="https://github.com/jhouedanou" target="_blank">github.com/jhouedanou</a></p>
+                                                <p><a href="https://github.com/jhouedanou" target="_blank" rel="noopener">github.com/jhouedanou</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -961,7 +429,7 @@
                     <div class="modal-card" @click.stop>
                         <header class="modal-card-head">
                             <p class="modal-card-title">{{ selectedProject.title }}</p>
-                            <button class="delete" aria-label="close" @click="closeModal"></button>
+                            <button type="button" class="delete" aria-label="Fermer la modal" @click="closeModal"></button>
                         </header>
                         <section class="modal-card-body p-6">
                             <div class="content">
@@ -977,20 +445,20 @@
                                 </div>
                                 <div class="mb-4">
                                     <h6 class="title is-6 has-text-info mb-2">{{ texts.description }}</h6>
-                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p>
+                                    <p class="has-text-grey modal-description-text">{{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p>
                                 </div>
                                 <div class="mb-4">
                                     <h6 class="title is-6 has-text-info mb-2">{{ texts.challenges }}</h6>
-                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p>
+                                    <p class="has-text-grey modal-description-text">{{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p>
                                 </div>
                                 <div class="mb-4">
                                     <h6 class="title is-6 has-text-info mb-2">{{ texts.results }}</h6>
-                                    <p class="has-text-grey" style="line-height: 1.7;">{{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p>
+                                    <p class="has-text-grey modal-description-text">{{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p>
                                 </div>
                             </div>
                         </section>
                         <footer class="modal-card-foot has-background-light">
-                            <a :href="selectedProject.url" class="button modern-button" target="_blank">
+                            <a :href="selectedProject.url" class="button modern-button" target="_blank" rel="noopener">
                                 <span class="icon">
                                     <i class="material-icons">launch</i>
                                 </span>
@@ -1372,6 +840,10 @@
                             emailPlaceholder: 'votre@email.com',
                             subjectPlaceholder: 'Sujet de votre message',
                             messagePlaceholder: 'Votre message...',
+                            nameTitle: 'Saisissez votre nom complet',
+                            emailTitle: 'Saisissez votre adresse email',
+                            subjectTitle: 'Saisissez le sujet de votre message',
+                            messageTitle: 'Saisissez votre message',
                             sendMessage: 'Envoyer le message',
                             viewProject: 'Voir le projet',
                             visitSite: 'Visiter le site',
@@ -1429,6 +901,10 @@
                             emailPlaceholder: 'your@email.com',
                             subjectPlaceholder: 'Subject of your message',
                             messagePlaceholder: 'Your message...',
+                            nameTitle: 'Enter your full name',
+                            emailTitle: 'Enter your email address',
+                            subjectTitle: 'Enter the subject of your message',
+                            messageTitle: 'Enter your message',
                             sendMessage: 'Send Message',
                             viewProject: 'View Project',
                             visitSite: 'Visit Website',

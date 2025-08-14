@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démo Material Design 3 - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="material-design-theme.css">
+    <style>
+        .demo-section {
+            margin: 40px 0;
+            padding: 32px;
+            background: var(--md-surface-container-low);
+            border-radius: 16px;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        .demo-title {
+            font-size: var(--md-headline-medium);
+            color: var(--md-primary);
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .demo-item {
+            padding: 16px;
+            background: var(--md-surface);
+            border-radius: 12px;
+            border: 1px solid var(--md-outline-variant);
+            text-align: center;
+        }
+        
+        .demo-color {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            border: 2px solid var(--md-outline-variant);
+        }
+        
+        .demo-color-name {
+            font-size: var(--md-label-medium);
+            color: var(--md-on-surface);
+            font-weight: 500;
+        }
+        
+        .demo-color-value {
+            font-size: var(--md-label-small);
+            color: var(--md-on-surface-variant);
+            font-family: monospace;
+        }
+        
+        .demo-typography {
+            margin: 16px 0;
+        }
+        
+        .demo-typography h1 { font-size: var(--md-display-large); }
+        .demo-typography h2 { font-size: var(--md-display-medium); }
+        .demo-typography h3 { font-size: var(--md-display-small); }
+        .demo-typography h4 { font-size: var(--md-headline-large); }
+        .demo-typography h5 { font-size: var(--md-headline-medium); }
+        .demo-typography h6 { font-size: var(--md-headline-small); }
+        
+        .demo-body-large { font-size: var(--md-body-large); }
+        .demo-body-medium { font-size: var(--md-body-medium); }
+        .demo-body-small { font-size: var(--md-body-small); }
+        
+        .demo-label-large { font-size: var(--md-label-large); }
+        .demo-label-medium { font-size: var(--md-label-medium); }
+        .demo-label-small { font-size: var(--md-label-small); }
+        
+        .demo-spacing {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .demo-spacing-item {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            text-align: center;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: var(--md-label-small);
+        }
+        
+        .demo-elevation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .demo-elevation-item {
+            background: var(--md-surface);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            font-size: var(--md-label-small);
+            color: var(--md-on-surface);
+        }
+        
+        .demo-elevation-1 { box-shadow: 0 1px 3px var(--md-shadow); }
+        .demo-elevation-2 { box-shadow: 0 4px 12px var(--md-shadow); }
+        .demo-elevation-3 { box-shadow: 0 8px 24px var(--md-shadow); }
+        .demo-elevation-4 { box-shadow: 0 16px 48px var(--md-shadow); }
+        
+        .demo-interactive {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 400px;
+        }
+        
+        .demo-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            min-height: 400px;
+            margin-top: 16px;
+        }
+        
+        .demo-sidebar {
+            background: var(--md-surface-container);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        .demo-main {
+            background: var(--md-surface);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        .demo-responsive {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .demo-responsive-item {
+            background: var(--md-surface-container);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--md-outline-variant);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-responsive {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 24px;">
+        <header style="text-align: center; margin-bottom: 48px;">
+            <h1 style="font-size: var(--md-display-large); color: var(--md-primary); margin-bottom: 16px;">
+                Material Design 3 Theme
+            </h1>
+            <p style="font-size: var(--md-body-large); color: var(--md-on-surface-variant);">
+                Démonstration complète du nouveau thème inspiré de Google Notebook LM
+            </p>
+        </header>
+
+        <!-- Couleurs -->
+        <section class="demo-section">
+            <h2 class="demo-title">🎨 Système de Couleurs</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-primary);"></div>
+                    <div class="demo-color-name">Primary (Dodger Blue)</div>
+                    <div class="demo-color-value">#0593FC</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-primary-container);"></div>
+                    <div class="demo-color-name">Primary Container (Columbia Blue)</div>
+                    <div class="demo-color-value">#D3E2F2</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-secondary);"></div>
+                    <div class="demo-color-name">Secondary (Vivid Sky Blue)</div>
+                    <div class="demo-color-value">#27CDFE</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-primary-container);"></div>
+                    <div class="demo-color-name">Secondary Container (Columbia Blue)</div>
+                    <div class="demo-color-value">#D3E2F2</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-tertiary);"></div>
+                    <div class="demo-color-name">Tertiary (Azul)</div>
+                    <div class="demo-color-value">#246CB7</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-tertiary-container);"></div>
+                    <div class="demo-color-name">Tertiary Container (Columbia Blue)</div>
+                    <div class="demo-color-value">#D3E2F2</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-surface);"></div>
+                    <div class="demo-color-name">Surface (White)</div>
+                    <div class="demo-color-value">#FFFFFF</div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-color" style="background: var(--md-surface-container);"></div>
+                    <div class="demo-color-name">Surface Container (Columbia Blue)</div>
+                    <div class="demo-color-value">#D3E2F2</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typographie -->
+        <section class="demo-section">
+            <h2 class="demo-title">📝 Système de Typographie</h2>
+            <div class="demo-typography">
+                <h1>Display Large - 3.5rem</h1>
+                <h2>Display Medium - 2.8rem</h2>
+                <h3>Display Small - 2.25rem</h3>
+                <h4>Headline Large - 2rem</h4>
+                <h5>Headline Medium - 1.75rem</h5>
+                <h6>Headline Small - 1.5rem</h6>
+                <p class="demo-body-large">Body Large - 1rem - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p class="demo-body-medium">Body Medium - 0.875rem - Sed do eiusmod tempor incididunt ut labore.</p>
+                <p class="demo-body-small">Body Small - 0.75rem - Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <p class="demo-label-large">Label Large - 0.875rem</p>
+                <p class="demo-label-medium">Label Medium - 0.75rem</p>
+                <p class="demo-label-small">Label Small - 0.6875rem</p>
+            </div>
+        </section>
+
+        <!-- Composants -->
+        <section class="demo-section">
+            <h2 class="demo-title">🧩 Composants</h2>
+            <div class="demo-interactive">
+                <button class="md-button">Bouton Principal</button>
+                <button class="md-button secondary">Bouton Secondaire</button>
+                <button class="md-button tonal">Bouton Tonal</button>
+                <div class="md-tag">Tag</div>
+                <div class="md-badge">99</div>
+            </div>
+        </section>
+
+        <!-- Cartes -->
+        <section class="demo-section">
+            <h2 class="demo-title">🃏 Cartes</h2>
+            <div class="demo-grid">
+                <div class="md-card demo-item">
+                    <h3 style="margin-bottom: 12px;">Carte Simple</h3>
+                    <p style="color: var(--md-on-surface-variant);">Contenu de la carte avec ombre et bordure.</p>
+                </div>
+                <div class="md-card demo-item md-state-hover">
+                    <h3 style="margin-bottom: 12px;">Carte Interactive</h3>
+                    <p style="color: var(--md-on-surface-variant);">Survolez pour voir l'effet de survol.</p>
+                </div>
+                <div class="md-card demo-item">
+                    <h3 style="margin-bottom: 12px;">Carte avec Tag</h3>
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <div class="md-tag">VueJS</div>
+                        <div class="md-tag">Material Design</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="demo-section">
+            <h2 class="demo-title">🧭 Navigation</h2>
+            <div class="demo-sidebar" style="max-width: 300px;">
+                <div class="md-nav-item active">
+                    <span class="material-icons">home</span>
+                    Accueil
+                </div>
+                <div class="md-nav-item">
+                    <span class="material-icons">person</span>
+                    Profil
+                </div>
+                <div class="md-nav-item">
+                    <span class="material-icons">work</span>
+                    Projets
+                </div>
+                <div class="md-nav-item">
+                    <span class="material-icons">contact_support</span>
+                    Contact
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistiques -->
+        <section class="demo-section">
+            <h2 class="demo-title">📊 Statistiques</h2>
+            <div class="demo-grid">
+                <div class="md-stat">
+                    <div class="md-stat-number">25+</div>
+                    <div class="md-stat-label">Projets Réalisés</div>
+                </div>
+                <div class="md-stat">
+                    <div class="md-stat-number">5+</div>
+                    <div class="md-stat-label">Années d'Expérience</div>
+                </div>
+                <div class="md-stat">
+                    <div class="md-stat-number">98%</div>
+                    <div class="md-stat-label">Satisfaction Client</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulaires -->
+        <section class="demo-section">
+            <h2 class="demo-title">📝 Formulaires</h2>
+            <form class="demo-form">
+                <input type="text" class="md-input" placeholder="Nom complet" title="Nom complet">
+                <input type="email" class="md-input" placeholder="Email" title="Email">
+                <textarea class="md-input" placeholder="Message" rows="4" title="Message"></textarea>
+                <button type="submit" class="md-button">Envoyer</button>
+            </form>
+        </section>
+
+        <!-- Layout -->
+        <section class="demo-section">
+            <h2 class="demo-title">🏗️ Layout</h2>
+            <div class="demo-layout">
+                <div class="demo-sidebar">
+                    <h3 style="margin-bottom: 16px; color: var(--md-primary);">Sidebar</h3>
+                    <p style="color: var(--md-on-surface-variant);">Zone de navigation latérale avec Material Design 3.</p>
+                </div>
+                <div class="demo-main">
+                    <h3 style="margin-bottom: 16px; color: var(--md-primary);">Contenu Principal</h3>
+                    <p style="color: var(--md-on-surface-variant);">Zone de contenu principal avec espacement et typographie optimisés.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Élévations -->
+        <section class="demo-section">
+            <h2 class="demo-title">📐 Élévations</h2>
+            <div class="demo-elevation">
+                <div class="demo-elevation-item demo-elevation-1">Niveau 1</div>
+                <div class="demo-elevation-item demo-elevation-2">Niveau 2</div>
+                <div class="demo-elevation-item demo-elevation-3">Niveau 3</div>
+                <div class="demo-elevation-item demo-elevation-4">Niveau 4</div>
+            </div>
+        </section>
+
+        <!-- Responsive -->
+        <section class="demo-section">
+            <h2 class="demo-title">📱 Responsive Design</h2>
+            <div class="demo-responsive">
+                <div class="demo-responsive-item">
+                    <span class="material-icons" style="font-size: 2rem; color: var(--md-primary);">desktop_windows</span>
+                    <p style="margin-top: 8px;">Desktop</p>
+                </div>
+                <div class="demo-responsive-item">
+                    <span class="material-icons" style="font-size: 2rem; color: var(--md-primary);">tablet</span>
+                    <p style="margin-top: 8px;">Tablet</p>
+                </div>
+                <div class="demo-responsive-item">
+                    <span class="material-icons" style="font-size: 2rem; color: var(--md-primary);">smartphone</span>
+                    <p style="margin-top: 8px;">Mobile</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animations -->
+        <section class="demo-section">
+            <h2 class="demo-title">✨ Animations</h2>
+            <div class="demo-interactive">
+                <div class="md-loading"></div>
+                <div class="md-card demo-item md-ripple" style="cursor: pointer;">
+                    <h3 style="margin-bottom: 12px;">Effet Ripple</h3>
+                    <p style="color: var(--md-on-surface-variant);">Cliquez pour voir l'effet ripple</p>
+                </div>
+                <div class="md-card demo-item md-state-hover">
+                    <h3 style="margin-bottom: 12px;">Survol</h3>
+                    <p style="color: var(--md-on-surface-variant);">Survolez pour l'animation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- États -->
+        <section class="demo-section">
+            <h2 class="demo-title">🎯 États et Interactions</h2>
+            <div class="demo-interactive">
+                <button class="md-button" style="opacity: 0.6;">Désactivé</button>
+                <button class="md-button md-focus-visible">Focus Visible</button>
+                <div class="md-tooltip" data-tooltip="Ceci est un tooltip">Tooltip</div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 64px; padding: 32px; color: var(--md-on-surface-variant);">
+            <p>🎨 Thème Material Design 3 - Inspiré de Google Notebook LM</p>
+            <p style="margin-top: 8px; font-size: var(--md-body-small);">
+                Typographie Google Sans, couleurs Material Design 3, composants modernes
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
