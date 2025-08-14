@@ -449,6 +449,32 @@ body {
     font-family: 'Outfit', 'Roboto', sans-serif !important;
 }
 
+/* Exceptions: préserver les polices d'icônes Google dans toute la page */
+.material-icons,
+.material-icons-round,
+.material-icons-sharp,
+.material-icons-two-tone,
+.material-icons-outlined {
+    font-family: 'Material Icons' !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Variante outlined dédiée */
+.material-icons-outlined {
+    font-family: 'Material Icons Outlined' !important;
+}
+
 /* Boutons Columbia Blue modernes */
 .button.modern-button {
     background: var(--md-primary);
