@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio VR - Jean Luc Houédanou</title>
+    <meta name="description" content="Portfolio immersif en réalité virtuelle - Compatible Meta Quest 3">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.1/dist/super-hands.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            margin: 0;
+        }
+        
+        #vr-ui {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        #vr-ui h1 {
+            margin: 0 0 10px 0;
+            color: #0593FC;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        #vr-ui p {
+            margin: 0 0 15px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        #vr-ui button {
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        #vr-ui button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <p>Chargement de l'expérience VR...</p>
+        <div style="animation: spin 1s linear infinite;">🌟</div>
+    </div>
+    
+    <div id="vr-ui">
+        <h1>Portfolio VR</h1>
+        <p>Compatible Meta Quest 3</p>
+        <button onclick="enterVR()">Entrer en VR</button>
+    </div>
+
+    <a-scene 
+        id="vr-scene"
+        vr-mode-ui="enabled: true"
+        device-orientation-permission-ui="enabled: true"
+        background="color: #D3E2F2"
+        physics="driver: ammo; debug: false"
+        renderer="antialias: true; logarithmicDepthBuffer: true"
+        loading-screen="dotsColor: #0593FC; backgroundColor: #D3E2F2"
+    >
+        <!-- Assets -->
+        <a-assets>
+            <!-- Textures et matériaux Material Design -->
+            <a-mixin 
+                id="material-primary" 
+                material="color: #0593FC; metalness: 0.1; roughness: 0.7"
+            ></a-mixin>
+            <a-mixin 
+                id="material-secondary" 
+                material="color: #27CDFE; metalness: 0.1; roughness: 0.7"
+            ></a-mixin>
+            <a-mixin 
+                id="material-surface" 
+                material="color: #FFFFFF; metalness: 0.05; roughness: 0.8"
+            ></a-mixin>
+            <a-mixin 
+                id="material-accent" 
+                material="color: #246CB7; metalness: 0.2; roughness: 0.6"
+            ></a-mixin>
+            
+            <!-- Fonts -->
+            <a-mixin 
+                id="text-title" 
+                text="font: dejavu; color: #0593FC; align: center; width: 20"
+            ></a-mixin>
+            <a-mixin 
+                id="text-body" 
+                text="font: dejavu; color: #666666; align: center; width: 15"
+            ></a-mixin>
+        </a-assets>
+
+        <!-- Éclairage optimal pour l'ambiance Material Design -->
+        <a-light type="ambient" color="#D3E2F2" intensity="0.4"></a-light>
+        <a-light type="directional" position="2 8 4" color="#FFFFFF" intensity="0.8" castShadow="true"></a-light>
+        <a-light type="point" position="0 5 0" color="#27CDFE" intensity="0.3"></a-light>
+
+        <!-- Environnement du portfolio -->
+        <a-sky color="#D3E2F2"></a-sky>
+        
+        <!-- Sol avec style Material Design -->
+        <a-plane 
+            position="0 -0.5 0" 
+            rotation="-90 0 0" 
+            width="50" 
+            height="50" 
+            color="#E6F0FA" 
+            shadow="receive: true"
+            static-body
+        ></a-plane>
+
+        <!-- Centre d'information principal -->
+        <a-entity id="info-center" position="0 2 -3">
+            <!-- Avatar/Logo -->
+            <a-sphere 
+                position="0 0 0" 
+                radius="0.8" 
+                color="#0593FC"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 20000"
+                shadow="cast: true"
+            >
+                <a-text 
+                    value="JL" 
+                    position="0 0 0.81" 
+                    align="center" 
+                    color="#FFFFFF" 
+                    font="dejavu"
+                    geometry="primitive: plane; width: 1; height: 0.5"
+                    material="color: transparent"
+                ></a-text>
+            </a-sphere>
+            
+            <!-- Nom et titre -->
+            <a-text 
+                position="0 -1.5 0" 
+                value="Jean Luc Houédanou"
+                mixin="text-title"
+                geometry="primitive: plane; width: 6; height: 1"
+                material="color: rgba(255,255,255,0.9); opacity: 0.9"
+            ></a-text>
+            <a-text 
+                position="0 -2.2 0" 
+                value="Digital Solutions Director"
+                mixin="text-body"
+                geometry="primitive: plane; width: 5; height: 0.6"
+                material="color: rgba(255,255,255,0.8); opacity: 0.8"
+            ></a-text>
+        </a-entity>
+
+        <!-- Galerie de projets en cercle -->
+        <a-entity id="projects-gallery" position="0 1.5 0">
+            <!-- Projet 1: Vodacom -->
+            <a-entity position="4 0 -2" rotation="0 -30 0">
+                <a-box 
+                    width="2" 
+                    height="2.5" 
+                    depth="0.1" 
+                    mixin="material-surface"
+                    shadow="cast: true"
+                    class="project-card"
+                    data-project="vodacom"
+                    cursor-listener
+                >
+                    <a-text 
+                        value="Landing Page\nVodacom" 
+                        position="0 0.8 0.06" 
+                        align="center"
+                        color="#0593FC" 
+                        width="10"
+                    ></a-text>
+                    <a-text 
+                        value="VueJS • Responsive • CSS3" 
+                        position="0 0.3 0.06" 
+                        align="center"
+                        color="#666666" 
+                        width="8"
+                    ></a-text>
+                    <a-text 
+                        value="Lead Developer" 
+                        position="0 -0.2 0.06" 
+                        align="center"
+                        color="#27CDFE" 
+                        width="6"
+                    ></a-text>
+                    <a-box 
+                        width="1.5" 
+                        height="0.3" 
+                        depth="0.05" 
+                        position="0 -0.8 0.06"
+                        mixin="material-primary"
+                        class="view-button"
+                    >
+                        <a-text 
+                            value="Voir le projet" 
+                            align="center" 
+                            color="#FFFFFF" 
+                            width="15"
+                            position="0 0 0.026"
+                        ></a-text>
+                    </a-box>
+                </a-box>
+            </a-entity>
+
+            <!-- Projet 2: CASTEL -->
+            <a-entity position="2 0 -4.5" rotation="0 0 0">
+                <a-box 
+                    width="2" 
+                    height="2.5" 
+                    depth="0.1" 
+                    mixin="material-surface"
+                    shadow="cast: true"
+                    class="project-card"
+                    data-project="castel"
+                    cursor-listener
+                >
+                    <a-text 
+                        value="CASTEL\nAFRIQUE" 
+                        position="0 0.8 0.06" 
+                        align="center"
+                        color="#0593FC" 
+                        width="10"
+                    ></a-text>
+                    <a-text 
+                        value="HTML5 • CSS3 • JavaScript" 
+                        position="0 0.3 0.06" 
+                        align="center"
+                        color="#666666" 
+                        width="8"
+                    ></a-text>
+                    <a-text 
+                        value="Project Manager" 
+                        position="0 -0.2 0.06" 
+                        align="center"
+                        color="#27CDFE" 
+                        width="6"
+                    ></a-text>
+                    <a-box 
+                        width="1.5" 
+                        height="0.3" 
+                        depth="0.05" 
+                        position="0 -0.8 0.06"
+                        mixin="material-primary"
+                        class="view-button"
+                    >
+                        <a-text 
+                            value="Voir le projet" 
+                            align="center" 
+                            color="#FFFFFF" 
+                            width="15"
+                            position="0 0 0.026"
+                        ></a-text>
+                    </a-box>
+                </a-box>
+            </a-entity>
+
+            <!-- Projet 3: Dinor App -->
+            <a-entity position="-2 0 -4.5" rotation="0 0 0">
+                <a-box 
+                    width="2" 
+                    height="2.5" 
+                    depth="0.1" 
+                    mixin="material-surface"
+                    shadow="cast: true"
+                    class="project-card"
+                    data-project="dinor"
+                    cursor-listener
+                >
+                    <a-text 
+                        value="Dinor App\nMulti-Platform" 
+                        position="0 0.8 0.06" 
+                        align="center"
+                        color="#0593FC" 
+                        width="10"
+                    ></a-text>
+                    <a-text 
+                        value="Filament • VueJS • Flutter" 
+                        position="0 0.3 0.06" 
+                        align="center"
+                        color="#666666" 
+                        width="8"
+                    ></a-text>
+                    <a-text 
+                        value="Full-stack Architect" 
+                        position="0 -0.2 0.06" 
+                        align="center"
+                        color="#27CDFE" 
+                        width="6"
+                    ></a-text>
+                    <a-box 
+                        width="1.5" 
+                        height="0.3" 
+                        depth="0.05" 
+                        position="0 -0.8 0.06"
+                        mixin="material-primary"
+                        class="view-button"
+                    >
+                        <a-text 
+                            value="Voir le projet" 
+                            align="center" 
+                            color="#FFFFFF" 
+                            width="15"
+                            position="0 0 0.026"
+                        ></a-text>
+                    </a-box>
+                </a-box>
+            </a-entity>
+
+            <!-- Projet 4: BigFive Solutions -->
+            <a-entity position="-4 0 -2" rotation="0 30 0">
+                <a-box 
+                    width="2" 
+                    height="2.5" 
+                    depth="0.1" 
+                    mixin="material-surface"
+                    shadow="cast: true"
+                    class="project-card"
+                    data-project="bigfive"
+                    cursor-listener
+                >
+                    <a-text 
+                        value="BigFive\nSolutions" 
+                        position="0 0.8 0.06" 
+                        align="center"
+                        color="#0593FC" 
+                        width="10"
+                    ></a-text>
+                    <a-text 
+                        value="VueJS • Design System" 
+                        position="0 0.3 0.06" 
+                        align="center"
+                        color="#666666" 
+                        width="8"
+                    ></a-text>
+                    <a-text 
+                        value="Front-end Developer" 
+                        position="0 -0.2 0.06" 
+                        align="center"
+                        color="#27CDFE" 
+                        width="6"
+                    ></a-text>
+                    <a-box 
+                        width="1.5" 
+                        height="0.3" 
+                        depth="0.05" 
+                        position="0 -0.8 0.06"
+                        mixin="material-primary"
+                        class="view-button"
+                    >
+                        <a-text 
+                            value="Voir le projet" 
+                            align="center" 
+                            color="#FFFFFF" 
+                            width="15"
+                            position="0 0 0.026"
+                        ></a-text>
+                    </a-box>
+                </a-box>
+            </a-entity>
+        </a-entity>
+
+        <!-- Panneau de compétences flottant -->
+        <a-entity id="skills-panel" position="0 3 -8">
+            <a-box 
+                width="8" 
+                height="3" 
+                depth="0.2" 
+                mixin="material-surface"
+                shadow="cast: true"
+                opacity="0.95"
+            >
+                <a-text 
+                    value="Compétences Techniques" 
+                    position="0 1 0.11" 
+                    align="center"
+                    color="#0593FC" 
+                    width="15"
+                ></a-text>
+                <a-text 
+                    value="VueJS • PHP • Laravel • Figma • UI/UX" 
+                    position="0 0.3 0.11" 
+                    align="center"
+                    color="#666666" 
+                    width="10"
+                ></a-text>
+                <a-text 
+                    value="Leadership • Architecture • Full-stack" 
+                    position="0 -0.3 0.11" 
+                    align="center"
+                    color="#666666" 
+                    width="10"
+                ></a-text>
+            </a-box>
+        </a-entity>
+
+        <!-- Statistiques flottantes -->
+        <a-entity id="stats" position="6 2 -1">
+            <a-cylinder 
+                radius="0.8" 
+                height="0.3" 
+                mixin="material-primary"
+                shadow="cast: true"
+            >
+                <a-text 
+                    value="15+" 
+                    position="0 0 0.16" 
+                    align="center"
+                    color="#FFFFFF" 
+                    width="20"
+                ></a-text>
+                <a-text 
+                    value="PROJETS" 
+                    position="0 -0.5 0" 
+                    align="center"
+                    color="#0593FC" 
+                    width="10"
+                ></a-text>
+            </a-cylinder>
+        </a-entity>
+
+        <a-entity id="stats2" position="-6 2 -1">
+            <a-cylinder 
+                radius="0.8" 
+                height="0.3" 
+                mixin="material-secondary"
+                shadow="cast: true"
+            >
+                <a-text 
+                    value="5+" 
+                    position="0 0 0.16" 
+                    align="center"
+                    color="#FFFFFF" 
+                    width="20"
+                ></a-text>
+                <a-text 
+                    value="ANNÉES" 
+                    position="0 -0.5 0" 
+                    align="center"
+                    color="#27CDFE" 
+                    width="10"
+                ></a-text>
+            </a-cylinder>
+        </a-entity>
+
+        <!-- Camera et contrôles -->
+        <a-entity 
+            id="rig" 
+            movement-controls="fly: false; constrainToNavMesh: false"
+            position="0 1.6 0"
+        >
+            <a-entity 
+                id="camera"
+                camera
+                look-controls="pointerLockEnabled: true"
+                wasd-controls="acceleration: 20"
+                position="0 0 0"
+            >
+                <!-- Curseur pour l'interaction -->
+                <a-cursor 
+                    id="cursor"
+                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+                    animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                    material="color: #0593FC; shader: flat"
+                    raycaster="objects: .project-card, .view-button"
+                ></a-cursor>
+            </a-entity>
+
+            <!-- Contrôleurs Quest -->
+            <a-entity 
+                id="leftHand" 
+                hand-controls="hand: left; handModelStyle: lowPoly; color: #0593FC"
+                super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"
+                laser-controls="hand: left"
+            ></a-entity>
+            
+            <a-entity 
+                id="rightHand" 
+                hand-controls="hand: right; handModelStyle: lowPoly; color: #27CDFE"
+                super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent: raycaster-intersection-cleared; colliderEndEventProperty: clearedEls"
+                laser-controls="hand: right"
+            ></a-entity>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        // Configuration pour Meta Quest 3
+        AFRAME.registerComponent('cursor-listener', {
+            init: function () {
+                var el = this.el;
+                var projectData = {
+                    vodacom: {
+                        name: "Landing Page Vodacom",
+                        role: "Lead Developer",
+                        technologies: "VueJS, Responsive Design, CSS3",
+                        url: "https://vodamedia.co.za/txtengage/"
+                    },
+                    castel: {
+                        name: "CASTEL AFRIQUE",
+                        role: "Project Manager & Developer",
+                        technologies: "HTML5, CSS3, JavaScript",
+                        url: "https://castel-afrique.com"
+                    },
+                    dinor: {
+                        name: "Dinor App Multi-Platform",
+                        role: "Full-stack Architect",
+                        technologies: "Filament, VueJS, NuxtJS, Flutter",
+                        url: "https://new.dinorapp.com/"
+                    },
+                    bigfive: {
+                        name: "BigFive Solutions",
+                        role: "Front-end Developer",
+                        technologies: "VueJS, Design System, Adobe XD",
+                        url: "https://bigfive.solutions/"
+                    }
+                };
+
+                el.addEventListener('click', function (evt) {
+                    var project = el.getAttribute('data-project');
+                    var data = projectData[project];
+                    
+                    if (data) {
+                        // Animation de sélection
+                        el.setAttribute('animation', 'property: scale; to: 1.1 1.1 1.1; dur: 200; easing: easeOutQuad');
+                        setTimeout(() => {
+                            el.setAttribute('animation', 'property: scale; to: 1 1 1; dur: 200; easing: easeOutQuad');
+                        }, 200);
+                        
+                        // Afficher les informations du projet
+                        console.log(`Projet sélectionné: ${data.name}`);
+                        
+                        // Pour une vraie implémentation, on ouvrirait le lien
+                        if (confirm(`Voulez-vous visiter ${data.name} ?\n${data.role}\n${data.technologies}`)) {
+                            window.open(data.url, '_blank');
+                        }
+                    }
+                });
+
+                el.addEventListener('mouseenter', function (evt) {
+                    el.setAttribute('animation', 'property: position; to: 0 0.1 0.1; dur: 200; easing: easeOutQuad');
+                    el.setAttribute('material', 'color: #E6F0FA');
+                });
+
+                el.addEventListener('mouseleave', function (evt) {
+                    el.setAttribute('animation', 'property: position; to: 0 0 0; dur: 200; easing: easeOutQuad');
+                    el.setAttribute('material', 'color: #FFFFFF');
+                });
+            }
+        });
+
+        function enterVR() {
+            const scene = document.querySelector('a-scene');
+            if (scene.is('vr-mode')) {
+                scene.exitVR();
+            } else {
+                scene.enterVR();
+            }
+        }
+
+        // Masquer le loading une fois la scène chargée
+        document.querySelector('a-scene').addEventListener('loaded', function () {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        // Animations automatiques
+        function startAnimations() {
+            // Rotation continue du logo central
+            const logo = document.querySelector('#info-center a-sphere');
+            logo.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 20000');
+
+            // Animation flottante des panneaux
+            const skillsPanel = document.querySelector('#skills-panel');
+            skillsPanel.setAttribute('animation', 'property: position; to: 0 3.2 -8; dir: alternate; loop: true; dur: 3000; easing: easeInOutSine');
+
+            // Animation des statistiques
+            const stats = document.querySelector('#stats');
+            stats.setAttribute('animation', 'property: rotation; to: 0 5 0; dir: alternate; loop: true; dur: 2000; easing: easeInOutSine');
+            
+            const stats2 = document.querySelector('#stats2');
+            stats2.setAttribute('animation', 'property: rotation; to: 0 -5 0; dir: alternate; loop: true; dur: 2500; easing: easeInOutSine');
+        }
+
+        // Démarrer les animations après le chargement
+        setTimeout(startAnimations, 1000);
+    </script>
+</body>
+</html>

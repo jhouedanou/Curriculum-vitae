@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio VR Portal - Jean Luc Houédanou</title>
+    <meta name="description" content="Portfolio immersif avec portails 3D - Meta Quest 3 & Apple Vision Pro">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- A-Frame et plugins -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.1/dist/super-hands.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .vr-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 300px;
+        }
+        
+        .vr-info h3 {
+            margin: 0 0 8px 0;
+            color: #0593FC;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .vr-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .device-tag {
+            background: linear-gradient(135deg, #0593FC, #27CDFE);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="vr-info" id="device-info">
+        <h3>🥽 Mode VR Actif</h3>
+        <p>Appareil: <span id="device-name">Détection...</span></p>
+        <p>Navigation: Pointez et cliquez sur les portails</p>
+        <div id="device-tag" class="device-tag">VR Ready</div>
+    </div>
+
+    <a-scene 
+        id="vr-scene"
+        vr-mode-ui="enabled: true"
+        device-orientation-permission-ui="enabled: true"
+        background="color: #D3E2F2"
+        physics="driver: ammo; debug: false"
+        renderer="antialias: true; logarithmicDepthBuffer: true; colorManagement: true"
+        loading-screen="dotsColor: #0593FC; backgroundColor: #D3E2F2"
+        embedded
+    >
+        <!-- Assets -->
+        <a-assets>
+            <!-- Matériaux Material Design optimisés pour VR -->
+            <a-mixin 
+                id="material-primary" 
+                material="color: #0593FC; metalness: 0.2; roughness: 0.6; emissive: #001122; emissiveIntensity: 0.1"
+            ></a-mixin>
+            <a-mixin 
+                id="material-secondary" 
+                material="color: #27CDFE; metalness: 0.1; roughness: 0.7; emissive: #001a2e; emissiveIntensity: 0.1"
+            ></a-mixin>
+            <a-mixin 
+                id="material-surface" 
+                material="color: #FFFFFF; metalness: 0.05; roughness: 0.8"
+            ></a-mixin>
+            <a-mixin 
+                id="material-accent" 
+                material="color: #246CB7; metalness: 0.3; roughness: 0.5; emissive: #000e1a; emissiveIntensity: 0.1"
+            ></a-mixin>
+            <a-mixin 
+                id="material-columbia" 
+                material="color: #D3E2F2; metalness: 0.1; roughness: 0.9"
+            ></a-mixin>
+            
+            <!-- Fonts et textes -->
+            <a-mixin 
+                id="text-title" 
+                text="font: dejavu; color: #0593FC; align: center; width: 20; shader: sdf"
+            ></a-mixin>
+            <a-mixin 
+                id="text-body" 
+                text="font: dejavu; color: #246CB7; align: center; width: 15; shader: sdf"
+            ></a-mixin>
+            <a-mixin 
+                id="text-white" 
+                text="font: dejavu; color: #FFFFFF; align: center; width: 12; shader: sdf"
+            ></a-mixin>
+            
+            <!-- Sons pour les interactions -->
+            <audio id="portal-sound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBDaGze3QeicEIXDM7OGROQkWV7Pj76hUFAtUq+X1tVkTB0KX2e6+ciMEKWq9+ulMDgwTa8Hj4J5CFAZBn9rotnMTBylQQANNTPOGXrLTkFOdUfNjYBsGZhPt6aXhsCEXg" preload="auto"></audio>
+        </a-assets>
+
+        <!-- Environnement et éclairage -->
+        <a-entity 
+            environment="preset: starry; groundColor: #D3E2F2; grid: none; dressing: none; skyType: gradient; skyColor: #27CDFE; horizonColor: #D3E2F2"
+        ></a-entity>
+        
+        <!-- Éclairage optimisé -->
+        <a-light type="ambient" color="#D3E2F2" intensity="0.5"></a-light>
+        <a-light type="directional" position="5 10 5" color="#FFFFFF" intensity="0.8" castShadow="true"></a-light>
+        <a-light type="point" position="0 4 0" color="#27CDFE" intensity="0.4"></a-light>
+
+        <!-- Sol interactif -->
+        <a-plane 
+            position="0 -0.1 0" 
+            rotation="-90 0 0" 
+            width="100" 
+            height="100" 
+            mixin="material-columbia"
+            shadow="receive: true"
+            static-body
+        ></a-plane>
+
+        <!-- Hub central avec avatar -->
+        <a-entity id="central-hub" position="0 2 0">
+            <!-- Avatar principal avec animation -->
+            <a-entity id="avatar-container" position="0 0 0">
+                <!-- Sphère principale -->
+                <a-sphere 
+                    radius="1" 
+                    mixin="material-primary"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 30000"
+                    shadow="cast: true"
+                >
+                    <!-- Initiales en relief -->
+                    <a-text 
+                        value="JL" 
+                        position="0 0 1.01" 
+                        align="center" 
+                        color="#FFFFFF" 
+                        font="dejavu"
+                        geometry="primitive: plane; width: 1.5; height: 0.8"
+                        material="color: transparent"
+                    ></a-text>
+                </a-sphere>
+                
+                <!-- Anneaux orbitaux -->
+                <a-torus 
+                    radius="1.5" 
+                    radius-tubular="0.05" 
+                    mixin="material-secondary"
+                    animation="property: rotation; to: 360 0 0; loop: true; dur: 20000"
+                ></a-torus>
+                <a-torus 
+                    radius="1.8" 
+                    radius-tubular="0.03" 
+                    mixin="material-accent"
+                    animation="property: rotation; to: 0 360 180; loop: true; dur: 25000"
+                ></a-torus>
+            </a-entity>
+            
+            <!-- Informations flottantes -->
+            <a-text 
+                position="0 -2 0" 
+                value="Jean Luc Houédanou"
+                mixin="text-title"
+                geometry="primitive: plane; width: 8; height: 1.2"
+                material="color: rgba(255,255,255,0.95); opacity: 0.95"
+            ></a-text>
+            <a-text 
+                position="0 -2.8 0" 
+                value="Digital Solutions Director"
+                mixin="text-body"
+                geometry="primitive: plane; width: 6; height: 0.8"
+                material="color: rgba(255,255,255,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 1: À PROPOS (Icône Person) -->
+        <a-entity id="portal-about" position="-6 2 -3" portal-component="target: about">
+            <!-- Base du portail -->
+            <a-cylinder 
+                radius="1.5" 
+                height="0.2" 
+                mixin="material-primary"
+                shadow="cast: true"
+            ></a-cylinder>
+            
+            <!-- Icône Material Design: Person -->
+            <a-entity position="0 1 0">
+                <!-- Tête -->
+                <a-sphere 
+                    radius="0.3" 
+                    position="0 0.6 0" 
+                    mixin="material-surface"
+                ></a-sphere>
+                <!-- Corps -->
+                <a-cylinder 
+                    radius="0.5" 
+                    height="1" 
+                    position="0 0 0" 
+                    mixin="material-surface"
+                ></a-cylinder>
+                <!-- Bras -->
+                <a-cylinder 
+                    radius="0.15" 
+                    height="0.8" 
+                    position="-0.6 0.2 0" 
+                    rotation="0 0 -30"
+                    mixin="material-surface"
+                ></a-cylinder>
+                <a-cylinder 
+                    radius="0.15" 
+                    height="0.8" 
+                    position="0.6 0.2 0" 
+                    rotation="0 0 30"
+                    mixin="material-surface"
+                ></a-cylinder>
+            </a-entity>
+            
+            <!-- Effet de portail -->
+            <a-ring 
+                radius-inner="1.6" 
+                radius-outer="2" 
+                position="0 1 0" 
+                mixin="material-secondary"
+                animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <!-- Titre -->
+            <a-text 
+                position="0 -0.8 0" 
+                value="À PROPOS"
+                mixin="text-white"
+                geometry="primitive: plane; width: 3; height: 0.6"
+                material="color: rgba(5,147,252,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 2: EXPÉRIENCE (Icône Work) -->
+        <a-entity id="portal-experience" position="6 2 -3" portal-component="target: experience">
+            <a-cylinder 
+                radius="1.5" 
+                height="0.2" 
+                mixin="material-secondary"
+                shadow="cast: true"
+            ></a-cylinder>
+            
+            <!-- Icône Material Design: Work (Briefcase) -->
+            <a-entity position="0 1 0">
+                <!-- Corps de la mallette -->
+                <a-box 
+                    width="1.2" 
+                    height="0.8" 
+                    depth="0.4" 
+                    mixin="material-surface"
+                ></a-box>
+                <!-- Poignée -->
+                <a-torus 
+                    radius="0.3" 
+                    radius-tubular="0.05" 
+                    position="0 0.5 0" 
+                    mixin="material-surface"
+                ></a-torus>
+                <!-- Serrure -->
+                <a-box 
+                    width="0.2" 
+                    height="0.3" 
+                    depth="0.45" 
+                    mixin="material-accent"
+                ></a-box>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.6" 
+                radius-outer="2" 
+                position="0 1 0" 
+                mixin="material-primary"
+                animation="property: rotation; to: 0 0 -360; loop: true; dur: 10000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.8 0" 
+                value="EXPÉRIENCE"
+                mixin="text-white"
+                geometry="primitive: plane; width: 3; height: 0.6"
+                material="color: rgba(39,205,254,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 3: PORTFOLIO PROJETS avec Solides des Sites Web -->
+        <a-entity id="portal-projects" position="0 2 -8" portal-component="target: projects">
+            <a-cylinder 
+                radius="2.5" 
+                height="0.2" 
+                mixin="material-accent"
+                shadow="cast: true"
+            ></a-cylinder>
+            
+            <!-- Logo intelligemment placé au centre -->
+            <a-entity id="central-logo" position="0 2.5 0">
+                <a-sphere 
+                    radius="0.4" 
+                    mixin="material-primary"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 15000"
+                >
+                    <a-text 
+                        value="JL" 
+                        position="0 0 0.41" 
+                        align="center" 
+                        color="#FFFFFF" 
+                        font="dejavu"
+                        width="15"
+                    ></a-text>
+                </a-sphere>
+                <a-text 
+                    value="Portfolio Interactif"
+                    position="0 -0.8 0"
+                    align="center"
+                    color="#246CB7"
+                    width="12"
+                ></a-text>
+            </a-entity>
+            
+            <!-- Projets en 3D avec noms et navigation -->
+            <a-entity id="projects-3d" position="0 1.2 0">
+                
+                <!-- Projet 1: Vodacom (Solide Violet) -->
+                <a-entity position="2 0 1" project-navigator="site: vodacom">
+                    <a-dodecahedron 
+                        radius="0.4"
+                        color="#8B5CF6"
+                        shadow="cast: true"
+                        class="project-solid"
+                        animation="property: rotation; to: 360 0 360; loop: true; dur: 20000"
+                    ></a-dodecahedron>
+                    <!-- Nom du site web -->
+                    <a-text 
+                        value="VODACOM\nTXT ENGAGE"
+                        position="0 -0.8 0"
+                        align="center"
+                        color="#8B5CF6"
+                        width="8"
+                        geometry="primitive: plane; width: 2; height: 0.8"
+                        material="color: rgba(255,255,255,0.9); opacity: 0.9"
+                    ></a-text>
+                    <!-- Tooltip interactif -->
+                    <a-entity 
+                        id="tooltip-vodacom"
+                        position="0 0.8 0"
+                        visible="false"
+                        tooltip-component
+                    >
+                        <a-plane 
+                            width="3" 
+                            height="1.5"
+                            color="rgba(139,92,246,0.95)"
+                        >
+                            <a-text 
+                                value="Landing Page Interactive\nVueJS + Responsive\nLead Developer\nClic pour visiter"
+                                align="center"
+                                color="#FFFFFF"
+                                width="12"
+                                position="0 0 0.01"
+                            ></a-text>
+                        </a-plane>
+                    </a-entity>
+                </a-entity>
+
+                <!-- Projet 2: Castel (Solide Orange) -->
+                <a-entity position="-2 0 1" project-navigator="site: castel">
+                    <a-octahedron 
+                        radius="0.4"
+                        color="#F97316"
+                        shadow="cast: true"
+                        class="project-solid"
+                        animation="property: rotation; to: 0 360 0; loop: true; dur: 18000"
+                    ></a-octahedron>
+                    <a-text 
+                        value="CASTEL\nAFRIQUE"
+                        position="0 -0.8 0"
+                        align="center"
+                        color="#F97316"
+                        width="8"
+                        geometry="primitive: plane; width: 2; height: 0.8"
+                        material="color: rgba(255,255,255,0.9); opacity: 0.9"
+                    ></a-text>
+                    <a-entity 
+                        id="tooltip-castel"
+                        position="0 0.8 0"
+                        visible="false"
+                        tooltip-component
+                    >
+                        <a-plane 
+                            width="3" 
+                            height="1.5"
+                            color="rgba(249,115,22,0.95)"
+                        >
+                            <a-text 
+                                value="Site Corporate\nHTML5 + CSS3 + JS\nProject Manager\nClic pour visiter"
+                                align="center"
+                                color="#FFFFFF"
+                                width="12"
+                                position="0 0 0.01"
+                            ></a-text>
+                        </a-plane>
+                    </a-entity>
+                </a-entity>
+
+                <!-- Projet 3: Dinor App (Solide Vert) -->
+                <a-entity position="0 0 -1.5" project-navigator="site: dinor">
+                    <a-icosahedron 
+                        radius="0.4"
+                        color="#10B981"
+                        shadow="cast: true"
+                        class="project-solid"
+                        animation="property: rotation; to: 180 360 180; loop: true; dur: 22000"
+                    ></a-icosahedron>
+                    <a-text 
+                        value="DINOR APP\nMULTI-PLATFORM"
+                        position="0 -0.8 0"
+                        align="center"
+                        color="#10B981"
+                        width="8"
+                        geometry="primitive: plane; width: 2; height: 0.8"
+                        material="color: rgba(255,255,255,0.9); opacity: 0.9"
+                    ></a-text>
+                    <a-entity 
+                        id="tooltip-dinor"
+                        position="0 0.8 0"
+                        visible="false"
+                        tooltip-component
+                    >
+                        <a-plane 
+                            width="3" 
+                            height="1.5"
+                            color="rgba(16,185,129,0.95)"
+                        >
+                            <a-text 
+                                value="App Multi-Platform\nFilament + Vue + Flutter\nFull-stack Architect\nClic pour visiter"
+                                align="center"
+                                color="#FFFFFF"
+                                width="12"
+                                position="0 0 0.01"
+                            ></a-text>
+                        </a-plane>
+                    </a-entity>
+                </a-entity>
+
+                <!-- Projet 4: BigFive (Solide Bleu) -->
+                <a-entity position="2.2 0 -1" project-navigator="site: bigfive">
+                    <a-tetrahedron 
+                        radius="0.4"
+                        color="#3B82F6"
+                        shadow="cast: true"
+                        class="project-solid"
+                        animation="property: rotation; to: 360 180 360; loop: true; dur: 16000"
+                    ></a-tetrahedron>
+                    <a-text 
+                        value="BIGFIVE\nSOLUTIONS"
+                        position="0 -0.8 0"
+                        align="center"
+                        color="#3B82F6"
+                        width="8"
+                        geometry="primitive: plane; width: 2; height: 0.8"
+                        material="color: rgba(255,255,255,0.9); opacity: 0.9"
+                    ></a-text>
+                    <a-entity 
+                        id="tooltip-bigfive"
+                        position="0 0.8 0"
+                        visible="false"
+                        tooltip-component
+                    >
+                        <a-plane 
+                            width="3" 
+                            height="1.5"
+                            color="rgba(59,130,246,0.95)"
+                        >
+                            <a-text 
+                                value="Design System\nVueJS + Adobe XD\nFront-end Developer\nClic pour visiter"
+                                align="center"
+                                color="#FFFFFF"
+                                width="12"
+                                position="0 0 0.01"
+                            ></a-text>
+                        </a-plane>
+                    </a-entity>
+                </a-entity>
+
+                <!-- Projet 5: Portfolio Personnel (Solide Rose) -->
+                <a-entity position="-2.2 0 -1" project-navigator="site: portfolio">
+                    <a-sphere 
+                        radius="0.4"
+                        color="#EC4899"
+                        shadow="cast: true"
+                        class="project-solid"
+                        animation="property: rotation; to: 0 360 180; loop: true; dur: 24000"
+                    ></a-sphere>
+                    <a-text 
+                        value="PORTFOLIO\nPERSONNEL"
+                        position="0 -0.8 0"
+                        align="center"
+                        color="#EC4899"
+                        width="8"
+                        geometry="primitive: plane; width: 2; height: 0.8"
+                        material="color: rgba(255,255,255,0.9); opacity: 0.9"
+                    ></a-text>
+                    <a-entity 
+                        id="tooltip-portfolio"
+                        position="0 0.8 0"
+                        visible="false"
+                        tooltip-component
+                    >
+                        <a-plane 
+                            width="3" 
+                            height="1.5"
+                            color="rgba(236,72,153,0.95)"
+                        >
+                            <a-text 
+                                value="Portfolio VR Immersif\nA-Frame + Material Design\nVR Developer\nExpérience actuelle"
+                                align="center"
+                                color="#FFFFFF"
+                                width="12"
+                                position="0 0 0.01"
+                            ></a-text>
+                        </a-plane>
+                    </a-entity>
+                </a-entity>
+                
+            </a-entity>
+
+            <!-- Navigation entre sites -->
+            <a-entity id="site-navigation" position="0 -0.5 0">
+                <a-text 
+                    value="◀ PREV    NAVIGATION    NEXT ▶"
+                    align="center"
+                    color="#246CB7"
+                    width="10"
+                    geometry="primitive: plane; width: 5; height: 0.5"
+                    material="color: rgba(255,255,255,0.8); opacity: 0.8"
+                    site-navigator
+                ></a-text>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="2.6" 
+                radius-outer="3" 
+                position="0 1 0" 
+                mixin="material-secondary"
+                animation="property: rotation; to: 0 0 360; loop: true; dur: 12000"
+                opacity="0.3"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -1.5 0" 
+                value="PORTFOLIO INTERACTIF"
+                mixin="text-white"
+                geometry="primitive: plane; width: 4; height: 0.6"
+                material="color: rgba(36,108,183,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 4: CONTACT (Icône Contact Mail) -->
+        <a-entity id="portal-contact" position="3 2 3" portal-component="target: contact">
+            <a-cylinder 
+                radius="1.5" 
+                height="0.2" 
+                mixin="material-primary"
+                shadow="cast: true"
+            ></a-cylinder>
+            
+            <!-- Icône Material Design: Email -->
+            <a-entity position="0 1 0">
+                <!-- Enveloppe -->
+                <a-box 
+                    width="1.2" 
+                    height="0.8" 
+                    depth="0.1" 
+                    mixin="material-surface"
+                ></a-box>
+                <!-- Rabat -->
+                <a-triangle 
+                    vertex-a="0 0.4 0.06" 
+                    vertex-b="-0.6 0 0.06" 
+                    vertex-c="0.6 0 0.06"
+                    mixin="material-secondary"
+                ></a-triangle>
+                <!-- @ symbole -->
+                <a-torus 
+                    radius="0.15" 
+                    radius-tubular="0.03" 
+                    position="0 0 0.12" 
+                    mixin="material-accent"
+                ></a-torus>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.6" 
+                radius-outer="2" 
+                position="0 1 0" 
+                mixin="material-accent"
+                animation="property: rotation; to: 0 0 -360; loop: true; dur: 15000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.8 0" 
+                value="CONTACT"
+                mixin="text-white"
+                geometry="primitive: plane; width: 3; height: 0.6"
+                material="color: rgba(5,147,252,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- PORTAIL 5: COMPÉTENCES (Icône Star) -->
+        <a-entity id="portal-skills" position="-3 2 3" portal-component="target: skills">
+            <a-cylinder 
+                radius="1.5" 
+                height="0.2" 
+                mixin="material-secondary"
+                shadow="cast: true"
+            ></a-cylinder>
+            
+            <!-- Icône Material Design: Star -->
+            <a-entity position="0 1 0">
+                <!-- Étoile principale -->
+                <a-entity>
+                    <!-- Pointes de l'étoile -->
+                    <a-triangle 
+                        vertex-a="0 0.5 0" 
+                        vertex-b="-0.15 0 0" 
+                        vertex-c="0.15 0 0"
+                        mixin="material-surface"
+                    ></a-triangle>
+                    <a-triangle 
+                        vertex-a="0 -0.5 0" 
+                        vertex-b="-0.15 0 0" 
+                        vertex-c="0.15 0 0"
+                        mixin="material-surface"
+                        rotation="0 0 180"
+                    ></a-triangle>
+                    <a-triangle 
+                        vertex-a="0.5 0 0" 
+                        vertex-b="0 -0.15 0" 
+                        vertex-c="0 0.15 0"
+                        mixin="material-surface"
+                        rotation="0 0 90"
+                    ></a-triangle>
+                    <a-triangle 
+                        vertex-a="-0.5 0 0" 
+                        vertex-b="0 -0.15 0" 
+                        vertex-c="0 0.15 0"
+                        mixin="material-surface"
+                        rotation="0 0 -90"
+                    ></a-triangle>
+                </a-entity>
+                <!-- Centre lumineux -->
+                <a-sphere 
+                    radius="0.15" 
+                    mixin="material-accent"
+                    animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 2000"
+                ></a-sphere>
+            </a-entity>
+            
+            <a-ring 
+                radius-inner="1.6" 
+                radius-outer="2" 
+                position="0 1 0" 
+                mixin="material-primary"
+                animation="property: rotation; to: 0 0 360; loop: true; dur: 6000"
+                opacity="0.7"
+            ></a-ring>
+            
+            <a-text 
+                position="0 -0.8 0" 
+                value="COMPÉTENCES"
+                mixin="text-white"
+                geometry="primitive: plane; width: 3; height: 0.6"
+                material="color: rgba(39,205,254,0.9); opacity: 0.9"
+            ></a-text>
+        </a-entity>
+
+        <!-- Éléments de navigation flottants -->
+        <a-entity id="nav-helpers" position="0 4 0">
+            <!-- Boussole VR -->
+            <a-torus 
+                radius="0.5" 
+                radius-tubular="0.02" 
+                mixin="material-accent"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 60000"
+            >
+                <a-text 
+                    value="N" 
+                    position="0 0 0.52" 
+                    align="center" 
+                    color="#246CB7" 
+                    width="30"
+                ></a-text>
+            </a-torus>
+            
+            <!-- Indicateur de position -->
+            <a-text 
+                id="position-indicator" 
+                position="0 -1 0" 
+                value="Centre du Portfolio"
+                mixin="text-body"
+                geometry="primitive: plane; width: 4; height: 0.6"
+                material="color: rgba(255,255,255,0.8); opacity: 0.8"
+            ></a-text>
+        </a-entity>
+
+        <!-- Camera et contrôles optimisés pour VR -->
+        <a-entity 
+            id="rig" 
+            movement-controls="fly: false; constrainToNavMesh: false"
+            position="0 1.6 8"
+            rotation="0 0 0"
+        >
+            <a-entity 
+                id="camera"
+                camera="fov: 90"
+                look-controls="pointerLockEnabled: true; reverseMouseDrag: false"
+                wasd-controls="acceleration: 15; fly: false"
+                position="0 0 0"
+            >
+                <!-- Curseur VR amélioré -->
+                <a-cursor 
+                    id="cursor"
+                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150; easing: easeOutQuad"
+                    animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+                    geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+                    material="color: #0593FC; shader: flat; opacity: 0.9"
+                    raycaster="objects: [portal-component], [project-navigator], [site-navigator]; far: 50; interval: 100"
+                    cursor="fuse: true; fuseTimeout: 2000"
+                ></a-cursor>
+                
+                <!-- Réticule central -->
+                <a-ring 
+                    radius-inner="0.005" 
+                    radius-outer="0.008" 
+                    position="0 0 -1" 
+                    material="color: #27CDFE; shader: flat; opacity: 0.6"
+                ></a-ring>
+            </a-entity>
+
+            <!-- Contrôleurs Quest 3 & Vision Pro -->
+            <a-entity 
+                id="leftHand" 
+                hand-controls="hand: left; handModelStyle: lowPoly; color: #0593FC"
+                super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els"
+                laser-controls="hand: left; color: #0593FC"
+                raycaster="objects: [portal-component], [project-navigator], [site-navigator]; far: 10"
+            ></a-entity>
+            
+            <a-entity 
+                id="rightHand" 
+                hand-controls="hand: right; handModelStyle: lowPoly; color: #27CDFE"
+                super-hands="colliderEvent: raycaster-intersection; colliderEventProperty: els"
+                laser-controls="hand: right; color: #27CDFE"
+                raycaster="objects: [portal-component], [project-navigator], [site-navigator]; far: 10"
+            ></a-entity>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        // Composant portal pour les interactions
+        AFRAME.registerComponent('portal-component', {
+            schema: {
+                target: {type: 'string', default: 'about'}
+            },
+
+            init: function () {
+                var el = this.el;
+                var data = this.data;
+                
+                // Configuration des portails
+                var portalConfig = {
+                    about: {
+                        name: "À Propos",
+                        description: "Découvrez mon parcours et mes compétences",
+                        url: "index.html#about"
+                    },
+                    experience: {
+                        name: "Expérience",
+                        description: "Mon parcours professionnel détaillé",
+                        url: "index.html#experience"
+                    },
+                    projects: {
+                        name: "Projets",
+                        description: "Portfolio de mes réalisations",
+                        url: "index.html#projects"
+                    },
+                    contact: {
+                        name: "Contact",
+                        description: "Prenons contact pour vos projets",
+                        url: "index.html#contact"
+                    },
+                    skills: {
+                        name: "Compétences",
+                        description: "Technologies et expertises maîtrisées",
+                        url: "index.html#skills"
+                    }
+                };
+
+                var config = portalConfig[data.target];
+
+                // Événements d'interaction
+                el.addEventListener('click', function (evt) {
+                    console.log(`🚀 Activation du portail: ${config.name}`);
+                    
+                    // Son d'interaction
+                    var sound = document.querySelector('#portal-sound');
+                    if (sound) sound.play();
+                    
+                    // Animation de téléportation
+                    el.setAttribute('animation', {
+                        property: 'scale', 
+                        to: '1.5 1.5 1.5', 
+                        dur: 300, 
+                        easing: 'easeOutQuad'
+                    });
+                    
+                    setTimeout(() => {
+                        el.setAttribute('animation', {
+                            property: 'scale', 
+                            to: '1 1 1', 
+                            dur: 300, 
+                            easing: 'easeOutQuad'
+                        });
+                        
+                        // Transition vers la section correspondante
+                        if (confirm(`Naviguer vers: ${config.name}\n${config.description}`)) {
+                            window.location.href = config.url;
+                        }
+                    }, 300);
+                });
+
+                // Effet hover
+                el.addEventListener('mouseenter', function (evt) {
+                    el.setAttribute('animation', {
+                        property: 'position', 
+                        to: el.getAttribute('position').x + ' ' + (el.getAttribute('position').y + 0.2) + ' ' + el.getAttribute('position').z,
+                        dur: 200, 
+                        easing: 'easeOutQuad'
+                    });
+                    
+                    // Mettre à jour l'indicateur de position
+                    var indicator = document.querySelector('#position-indicator');
+                    if (indicator) {
+                        indicator.setAttribute('text', 'value', `Portail: ${config.name}`);
+                    }
+                });
+
+                el.addEventListener('mouseleave', function (evt) {
+                    var originalPos = el.getAttribute('position');
+                    el.setAttribute('animation', {
+                        property: 'position', 
+                        to: originalPos.x + ' ' + (originalPos.y - 0.2) + ' ' + originalPos.z,
+                        dur: 200, 
+                        easing: 'easeOutQuad'
+                    });
+                    
+                    var indicator = document.querySelector('#position-indicator');
+                    if (indicator) {
+                        indicator.setAttribute('text', 'value', 'Centre du Portfolio');
+                    }
+                });
+            }
+        });
+
+        // Détection et configuration du device
+        function setupDeviceInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deviceType = urlParams.get('device') || 'generic';
+            const capabilities = urlParams.get('capabilities') || 'vr';
+            
+            const deviceNames = {
+                'quest3': 'Meta Quest 3',
+                'visionpro': 'Apple Vision Pro',
+                'generic': 'Appareil VR'
+            };
+            
+            document.getElementById('device-name').textContent = deviceNames[deviceType] || 'VR Device';
+            document.getElementById('device-tag').textContent = capabilities.toUpperCase();
+            
+            console.log(`🥽 Portfolio VR initialisé pour: ${deviceNames[deviceType]}`);
+        }
+
+        // Optimisations spécifiques par device
+        function optimizeForDevice() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deviceType = urlParams.get('device');
+            
+            if (deviceType === 'quest3') {
+                // Optimisations Meta Quest 3
+                document.querySelector('#vr-scene').setAttribute('renderer', 
+                    'antialias: true; logarithmicDepthBuffer: true; colorManagement: true; physicallyCorrectLights: true'
+                );
+                console.log('🎮 Optimisations Meta Quest 3 appliquées');
+                
+            } else if (deviceType === 'visionpro') {
+                // Optimisations Apple Vision Pro
+                document.querySelector('#vr-scene').setAttribute('renderer', 
+                    'antialias: true; logarithmicDepthBuffer: true; colorManagement: true; gammaOutput: true'
+                );
+                console.log('🍎 Optimisations Apple Vision Pro appliquées');
+            }
+        }
+
+        // Animations automatiques
+        function startPortalAnimations() {
+            // Animation des anneaux de portail
+            setTimeout(() => {
+                const portals = document.querySelectorAll('[portal-component]');
+                portals.forEach((portal, index) => {
+                    const ring = portal.querySelector('a-ring');
+                    if (ring) {
+                        ring.setAttribute('animation', {
+                            property: 'rotation',
+                            to: '0 0 360',
+                            loop: true,
+                            dur: 8000 + (index * 2000),
+                            easing: 'linear'
+                        });
+                    }
+                });
+            }, 2000);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDeviceInfo();
+            optimizeForDevice();
+            
+            // Masquer l'info après un délai
+            setTimeout(() => {
+                const info = document.querySelector('.vr-info');
+                if (info) {
+                    info.style.opacity = '0.7';
+                    info.style.transform = 'scale(0.9)';
+                }
+            }, 5000);
+        });
+
+        // Composant pour les tooltips des projets
+        AFRAME.registerComponent('tooltip-component', {
+            init: function () {
+                this.el.setAttribute('visible', false);
+            }
+        });
+
+        // Composant pour la navigation entre projets
+        AFRAME.registerComponent('project-navigator', {
+            schema: {
+                site: {type: 'string'}
+            },
+
+            init: function () {
+                var el = this.el;
+                var data = this.data;
+                
+                // Configuration des sites avec URLs réelles
+                var siteConfig = {
+                    vodacom: {
+                        name: "Vodacom TXT Engage",
+                        url: "https://vodamedia.co.za/txtengage/",
+                        description: "Landing Page Interactive - VueJS + Responsive Design"
+                    },
+                    castel: {
+                        name: "Castel Afrique",
+                        url: "https://castel-afrique.com",
+                        description: "Site Corporate - HTML5 + CSS3 + JavaScript"
+                    },
+                    dinor: {
+                        name: "Dinor App Multi-Platform",
+                        url: "https://new.dinorapp.com/",
+                        description: "Application Multi-Platform - Filament + Vue + Flutter"
+                    },
+                    bigfive: {
+                        name: "BigFive Solutions",
+                        url: "https://bigfive.solutions/",
+                        description: "Design System - VueJS + Adobe XD"
+                    },
+                    portfolio: {
+                        name: "Portfolio VR Personnel",
+                        url: "index.html",
+                        description: "Portfolio VR Immersif - A-Frame + Material Design"
+                    }
+                };
+
+                var config = siteConfig[data.site];
+                var tooltipId = 'tooltip-' + data.site;
+                var tooltip = document.querySelector('#' + tooltipId);
+
+                // Gestion du survol pour les tooltips
+                el.addEventListener('mouseenter', function (evt) {
+                    console.log('🎯 Survol du projet:', config.name);
+                    
+                    // Animation d'élévation
+                    var solid = el.querySelector('.project-solid');
+                    if (solid) {
+                        solid.setAttribute('animation', {
+                            property: 'position',
+                            to: '0 0.3 0',
+                            dur: 200,
+                            easing: 'easeOutQuad'
+                        });
+                        solid.setAttribute('material', 'emissive: #001122; emissiveIntensity: 0.3');
+                    }
+                    
+                    // Afficher le tooltip
+                    if (tooltip) {
+                        tooltip.setAttribute('visible', true);
+                        tooltip.setAttribute('animation', {
+                            property: 'scale',
+                            from: '0 0 0',
+                            to: '1 1 1',
+                            dur: 300,
+                            easing: 'easeOutBack'
+                        });
+                    }
+                });
+
+                el.addEventListener('mouseleave', function (evt) {
+                    // Redescendre le solide
+                    var solid = el.querySelector('.project-solid');
+                    if (solid) {
+                        solid.setAttribute('animation', {
+                            property: 'position',
+                            to: '0 0 0',
+                            dur: 200,
+                            easing: 'easeOutQuad'
+                        });
+                        solid.setAttribute('material', 'emissive: #000000; emissiveIntensity: 0');
+                    }
+                    
+                    // Masquer le tooltip
+                    if (tooltip) {
+                        tooltip.setAttribute('animation', {
+                            property: 'scale',
+                            from: '1 1 1',
+                            to: '0 0 0',
+                            dur: 200,
+                            easing: 'easeInBack'
+                        });
+                        setTimeout(() => {
+                            tooltip.setAttribute('visible', false);
+                        }, 200);
+                    }
+                });
+
+                // Gestion du clic pour ouvrir le site
+                el.addEventListener('click', function (evt) {
+                    console.log('🚀 Clic sur le projet:', config.name);
+                    
+                    // Animation de clic
+                    var solid = el.querySelector('.project-solid');
+                    if (solid) {
+                        solid.setAttribute('animation', {
+                            property: 'scale',
+                            from: '1 1 1',
+                            to: '1.3 1.3 1.3',
+                            dur: 150,
+                            easing: 'easeOutQuad'
+                        });
+                        setTimeout(() => {
+                            solid.setAttribute('animation', {
+                                property: 'scale',
+                                from: '1.3 1.3 1.3',
+                                to: '1 1 1',
+                                dur: 150,
+                                easing: 'easeOutQuad'
+                            });
+                        }, 150);
+                    }
+                    
+                    // Confirmation et ouverture
+                    setTimeout(() => {
+                        if (confirm(`Visiter ${config.name}?\\n\\n${config.description}`)) {
+                            window.open(config.url, '_blank', 'noopener,noreferrer');
+                        }
+                    }, 300);
+                });
+            }
+        });
+
+        // Composant pour la navigation globale entre sites
+        AFRAME.registerComponent('site-navigator', {
+            init: function () {
+                var el = this.el;
+                var currentSiteIndex = 0;
+                var sites = ['vodacom', 'castel', 'dinor', 'bigfive', 'portfolio'];
+                var siteNames = ['Vodacom', 'Castel', 'Dinor', 'BigFive', 'Portfolio'];
+
+                el.addEventListener('click', function (evt) {
+                    // Détecter si clic sur PREV ou NEXT
+                    var clickPosition = evt.detail.intersection.point;
+                    var elPosition = el.getAttribute('position');
+                    
+                    if (clickPosition.x < elPosition.x - 1) {
+                        // Clic sur PREV
+                        currentSiteIndex = (currentSiteIndex - 1 + sites.length) % sites.length;
+                        console.log('⬅️ Navigation vers:', siteNames[currentSiteIndex]);
+                    } else if (clickPosition.x > elPosition.x + 1) {
+                        // Clic sur NEXT  
+                        currentSiteIndex = (currentSiteIndex + 1) % sites.length;
+                        console.log('➡️ Navigation vers:', siteNames[currentSiteIndex]);
+                    }
+                    
+                    // Mise à jour de l'affichage
+                    el.setAttribute('text', 'value', `◀ ${siteNames[(currentSiteIndex - 1 + sites.length) % sites.length]}    ${siteNames[currentSiteIndex]}    ${siteNames[(currentSiteIndex + 1) % sites.length]} ▶`);
+                    
+                    // Focus sur le projet sélectionné
+                    var targetProject = document.querySelector(`[project-navigator="site: ${sites[currentSiteIndex]}"]`);
+                    if (targetProject) {
+                        var solid = targetProject.querySelector('.project-solid');
+                        if (solid) {
+                            // Animation de mise en évidence
+                            solid.setAttribute('animation', {
+                                property: 'scale',
+                                from: '1 1 1',
+                                to: '1.2 1.2 1.2',
+                                dur: 300,
+                                easing: 'easeOutQuad'
+                            });
+                            setTimeout(() => {
+                                solid.setAttribute('animation', {
+                                    property: 'scale',
+                                    from: '1.2 1.2 1.2',
+                                    to: '1 1 1',
+                                    dur: 300,
+                                    easing: 'easeOutQuad'
+                                });
+                            }, 300);
+                        }
+                    }
+                });
+            }
+        });
+
+        // Démarrer les animations après le chargement de la scène
+        document.querySelector('a-scene').addEventListener('loaded', function () {
+            startPortalAnimations();
+            console.log('🌟 Portfolio VR Portal chargé avec succès');
+        });
+    </script>
+</body>
+</html>

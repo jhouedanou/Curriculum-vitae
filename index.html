@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="material-design-theme.css">
+    <!-- VR Detection Script -->
+    <script src="vr-detector.js"></script>
 </head>
 <body>
     <div id="app">
@@ -33,19 +35,19 @@
 
                 <div class="mb-5">
                     <div class="navigation-menu">
-                        <div @click="setPage('about')" :class="{ 'is-active': currentPage === 'about' }" class="nav-item">
+                        <div @click="setPageAndCloseMobileSidebar('about')" :class="{ 'is-active': currentPage === 'about' }" class="nav-item">
                             <i class="material-icons">person</i>
                             <span>{{ texts.whoIAm }}</span>
                         </div>
-                        <div @click="setPage('experience')" :class="{ 'is-active': currentPage === 'experience' }" class="nav-item">
+                        <div @click="setPageAndCloseMobileSidebar('experience')" :class="{ 'is-active': currentPage === 'experience' }" class="nav-item">
                             <i class="material-icons">work</i>
                             <span>{{ texts.experience }}</span>
                         </div>
-                        <div @click="setPage('projects')" :class="{ 'is-active': currentPage === 'projects' }" class="nav-item">
+                        <div @click="setPageAndCloseMobileSidebar('projects')" :class="{ 'is-active': currentPage === 'projects' }" class="nav-item">
                             <i class="material-icons">code</i>
                             <span>{{ texts.projects }}</span>
                         </div>
-                        <div @click="setPage('contact')" :class="{ 'is-active': currentPage === 'contact' }" class="nav-item">
+                        <div @click="setPageAndCloseMobileSidebar('contact')" :class="{ 'is-active': currentPage === 'contact' }" class="nav-item">
                             <i class="material-icons">contact_mail</i>
                             <span>{{ texts.contact }}</span>
                         </div>
@@ -930,6 +932,13 @@
                 },
                 setPage(page) {
                     this.currentPage = page;
+                },
+                setPageAndCloseMobileSidebar(page) {
+                    this.currentPage = page;
+                    // Fermer la sidebar sur mobile après avoir changé de page
+                    if (window.innerWidth <= 768 && this.sidebarOpen) {
+                        this.closeSidebar();
+                    }
                 },
                 toggleLanguage() {
                     this.currentLang = this.currentLang === 'fr' ? 'en' : 'fr';
