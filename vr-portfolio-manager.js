@@ -6,8 +6,9 @@
 AFRAME.registerComponent('portfolio-manager', {
     schema: {
         language: { type: 'string', default: 'fr' },
-        autoRotate: { type: 'boolean', default: true },
-        showStats: { type: 'boolean', default: false }
+        autoRotate: { type: 'boolean', default: false },
+        showStats: { type: 'boolean', default: false },
+        spaceName: { type: 'string', default: 'projects' }
     },
 
     init: function() {
@@ -16,10 +17,13 @@ AFRAME.registerComponent('portfolio-manager', {
         this.isInitialized = false;
         this.rotationSpeed = 0.002;
         
-        // Attendre que les données soient chargées
-        this.waitForData().then(() => {
-            this.initializeVRExperience();
-        });
+        // Seulement initialiser si on est dans l'espace projets
+        if (this.data.spaceName === 'projects') {
+            // Attendre que les données soient chargées
+            this.waitForData().then(() => {
+                this.initializeProjectsSpace();
+            });
+        }
     },
 
     waitForData: function() {
@@ -35,21 +39,19 @@ AFRAME.registerComponent('portfolio-manager', {
         });
     },
 
-    initializeVRExperience: function() {
-        console.log('🥽 Initialisation de l\'expérience VR Portfolio...');
+    initializeProjectsSpace: function() {
+        console.log('🥽 Initialisation de l\'espace Projets...');
         
-        this.createMainPlatforms();
         this.createProjectPlatforms();
-        this.createParticleEffects();
+        this.createCategoryFilters();
         this.setupEventListeners();
-        this.createWelcomeSequence();
         
         if (this.data.autoRotate) {
             this.startAutoRotation();
         }
         
         this.isInitialized = true;
-        console.log('✅ Expérience VR Portfolio initialisée');
+        console.log('✅ Espace Projets initialisé');
     },
 
     getLanguageFromURL: function() {
@@ -196,28 +198,36 @@ AFRAME.registerComponent('portfolio-manager', {
 
     createProjectPlatforms: function() {
         const projects = window.PortfolioData.projects;
-        const container = document.querySelector('#main-platforms');
+        const container = this.el; // Utiliser l'élément actuel (#projects-container)
         
         projects.forEach((project, index) => {
             const platform = this.createProjectPlatform(project, index);
             container.appendChild(platform);
         });
-        
-        // Créer les panneaux de catégories
-        this.createCategoryFilters();
     },
 
     createProjectPlatform: function(project, index) {
+        // Calculer position en grille pour l'espace projets
+        const cols = 5; // 5 colonnes
+        const spacing = 6; // Espacement entre projets
+        const startX = -12; // Position de départ X
+        const startZ = -5; // Position de départ Z
+        
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const x = startX + (col * spacing);
+        const z = startZ - (row * spacing);
+        
         const platform = document.createElement('a-entity');
-        platform.setAttribute('position', project.position.join(' '));
+        platform.setAttribute('position', `${x} 1 ${z}`);
         platform.setAttribute('id', `project-${project.id}`);
         platform.setAttribute('class', `project-platform category-${project.category}`);
         
         // Base hexagonale pour distinction visuelle
         const base = document.createElement('a-box');
-        base.setAttribute('width', '3.5');
-        base.setAttribute('height', '0.4');
-        base.setAttribute('depth', '3.5');
+        base.setAttribute('width', '4');
+        base.setAttribute('height', '0.5');
+        base.setAttribute('depth', '4');
         base.setAttribute('color', project.color || window.PortfolioData.colors.primary);
         base.setAttribute('metalness', '0.2');
         base.setAttribute('roughness', '0.4');
@@ -352,7 +362,7 @@ AFRAME.registerComponent('portfolio-manager', {
         const categories = window.PortfolioData.categories;
         const filterContainer = document.createElement('a-entity');
         filterContainer.setAttribute('id', 'category-filters');
-        filterContainer.setAttribute('position', '0 6 -2');
+        filterContainer.setAttribute('position', '0 6 5'); // Position au-dessus des projets
         
         Object.keys(categories).forEach((key, index) => {
             const category = categories[key];
@@ -367,7 +377,7 @@ AFRAME.registerComponent('portfolio-manager', {
         }, -1);
         filterContainer.appendChild(allButton);
         
-        this.el.sceneEl.appendChild(filterContainer);
+        this.el.appendChild(filterContainer); // Ajouter au conteneur projets
     },
 
     createCategoryFilter: function(key, category, index) {

@@ -341,13 +341,13 @@
     <!-- Curseur personnalisé -->
     <div id="vr-cursor" class="vr-cursor"></div>
 
-    <!-- Scène A-Frame VR -->
+    <!-- Scène A-Frame VR avec architecture de portails -->
     <a-scene 
         id="vr-scene"
         vr-mode-ui="enabled: true"
         device-orientation-permission-ui="enabled: true"
         background="color: #0593fc"
-        portfolio-manager="language: fr; autoRotate: true"
+        portal-manager="currentSpace: hub; language: fr; enableTransitions: true"
         fog="type: exponential; density: 0.005; color: #0593fc"
         renderer="antialias: true; colorManagement: true; sortObjects: true"
         shadow="type: pcfsoft"
@@ -372,71 +372,198 @@
                      text="font: dejavu; color: #666666; align: center; width: 15"></a-mixin>
         </a-assets>
 
-        <!-- Environnement immersif -->
-        <a-entity 
-            environment="preset: starry; groundColor: #0593fc; grid: 1x1; gridColor: #27CDFE; horizon: #0593fc">
-        </a-entity>
-        
-        <!-- Éclairage Material Design -->
-        <a-light type="ambient" color="#404040" intensity="0.4"></a-light>
-        <a-light type="directional" 
-                 position="2 8 4" 
-                 color="#ffffff" 
-                 intensity="0.8" 
-                 castShadow="true"
-                 shadow-map-size="2048 2048"
-                 shadow-camera-near="0.5"
-                 shadow-camera-far="50"
-                 shadow-camera-left="-20"
-                 shadow-camera-right="20"
-                 shadow-camera-top="20"
-                 shadow-camera-bottom="-20">
-        </a-light>
-        <a-light type="point" 
-                 position="0 10 0" 
-                 color="#27CDFE" 
-                 intensity="0.6"
-                 distance="30"
-                 decay="2">
-        </a-light>
-        <a-light type="point" 
-                 position="-10 5 -10" 
-                 color="#0593fc" 
-                 intensity="0.4"
-                 distance="25">
-        </a-light>
-        
-        <!-- Sol avec reflets -->
-        <a-plane 
-            position="0 -0.5 0" 
-            rotation="-90 0 0" 
-            width="100" 
-            height="100" 
-            color="#E6F0FA" 
-            metalness="0.8"
-            roughness="0.2"
-            shadow="receive: true"
-            static-body>
-        </a-plane>
+        <!-- =========================== -->
+        <!-- ESPACE HUB PRINCIPAL         -->
+        <!-- =========================== -->
+        <a-entity id="hub-space" visible="true" space-environment="type: hub">
+            <!-- Environnement hub -->
+            <a-entity 
+                environment="preset: starry; groundColor: #0593fc; grid: 1x1; gridColor: #27CDFE; horizon: #0593fc">
+            </a-entity>
+            
+            <!-- Éclairage hub -->
+            <a-light type="ambient" color="#404040" intensity="0.4"></a-light>
+            <a-light type="directional" position="2 8 4" color="#ffffff" intensity="0.8" castShadow="true"></a-light>
+            <a-light type="point" position="0 10 0" color="#27CDFE" intensity="0.6"></a-light>
+            
+            <!-- Sol hub -->
+            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="50" height="50" 
+                     color="#E6F0FA" metalness="0.8" roughness="0.2" shadow="receive: true"></a-plane>
 
-        <!-- Conteneur principal des plateformes -->
-        <a-entity id="main-platforms" position="0 0 0">
-            <!-- Les plateformes sont générées dynamiquement par le composant -->
+            <!-- Centre d'accueil -->
+            <a-entity position="0 3 -5">
+                <a-sphere radius="1.5" color="#0593fc" 
+                         animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+                    <a-text value="JL" position="0 0 1.51" align="center" color="#ffffff" scale="3 3 3"></a-text>
+                </a-sphere>
+                <a-text value="Portfolio VR - Jean Luc Houédanou" 
+                        position="0 -2.5 0" align="center" color="#ffffff" scale="2 2 2"></a-text>
+                <a-text value="Directeur Solutions Digitales" 
+                        position="0 -3.2 0" align="center" color="#27CDFE" scale="1.5 1.5 1.5"></a-text>
+            </a-entity>
+
+            <!-- Portails vers les autres espaces -->
+            <a-entity portal="target: projects; title: Réalisations; color: #0593fc; size: 2.5" 
+                      position="6 2 -8" rotation="0 -30 0"></a-entity>
+            
+            <a-entity portal="target: experience; title: Expérience; color: #27CDFE; size: 2.5" 
+                      position="8 2 0" rotation="0 -90 0"></a-entity>
+            
+            <a-entity portal="target: about; title: À Propos; color: #246CB7; size: 2.5" 
+                      position="0 2 -12" rotation="0 0 0"></a-entity>
+            
+            <a-entity portal="target: contact; title: Contact; color: #0593fc; size: 2.5" 
+                      position="-8 2 0" rotation="0 90 0"></a-entity>
+
+            <!-- Particules hub -->
+            <a-entity position="0 15 0"
+                      particle-system="preset: dust; particleCount: 100; color: #0593fc,#27CDFE,#ffffff; size: 0.3; maxAge: 10">
+            </a-entity>
         </a-entity>
-        
-        <!-- Système de particules ambiant -->
-        <a-entity id="particle-system" 
-                  position="0 15 0"
-                  particle-system="preset: dust; particleCount: 200; color: #0593fc,#27CDFE,#ffffff; size: 0.3; maxAge: 10; accelerationSpread: 3 0 3; velocitySpread: 1 1 1">
+
+        <!-- =========================== -->
+        <!-- ESPACE RÉALISATIONS          -->
+        <!-- =========================== -->
+        <a-entity id="projects-space" visible="false" space-environment="type: projects">
+            <!-- Environnement projets -->
+            <a-entity environment="preset: forest; groundColor: #246CB7; grid: none"></a-entity>
+            
+            <!-- Éclairage projets -->
+            <a-light type="ambient" color="#404040" intensity="0.5"></a-light>
+            <a-light type="directional" position="4 10 4" color="#ffffff" intensity="1.0" castShadow="true"></a-light>
+            <a-light type="point" position="0 8 0" color="#0593fc" intensity="0.8"></a-light>
+            
+            <!-- Sol projets -->
+            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="80" height="80" 
+                     color="#1a1a2e" metalness="0.5" roughness="0.3" shadow="receive: true"></a-plane>
+
+            <!-- Titre de l'espace -->
+            <a-text value="Mes Réalisations" position="0 8 -10" align="center" 
+                    color="#ffffff" scale="4 4 4" font="dejavu"></a-text>
+
+            <!-- Les projets seront générés ici par le composant -->
+            <a-entity id="projects-container" portfolio-manager="language: fr; autoRotate: false"></a-entity>
+
+            <!-- Portail de retour au hub -->
+            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
+                      position="0 2 15" rotation="0 180 0"></a-entity>
         </a-entity>
-        
-        <!-- Étoiles lointaines -->
-        <a-entity id="stars"
-                  position="0 20 0"
-                  particle-system="preset: snow; particleCount: 500; color: #ffffff; size: 0.1; maxAge: 50; accelerationSpread: 0.1 0 0.1; velocitySpread: 0.1 0.1 0.1">
+
+        <!-- =========================== -->
+        <!-- ESPACE EXPÉRIENCE            -->
+        <!-- =========================== -->
+        <a-entity id="experience-space" visible="false" space-environment="type: experience">
+            <!-- Environnement expérience -->
+            <a-entity environment="preset: egypt; groundColor: #27CDFE; grid: 2x2"></a-entity>
+            
+            <!-- Éclairage expérience -->
+            <a-light type="ambient" color="#fff8dc" intensity="0.6"></a-light>
+            <a-light type="directional" position="-2 8 4" color="#ffeb3b" intensity="0.9" castShadow="true"></a-light>
+            
+            <!-- Sol expérience -->
+            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="60" height="60" 
+                     color="#faf8ef" metalness="0.1" roughness="0.8" shadow="receive: true"></a-plane>
+
+            <!-- Titre -->
+            <a-text value="Expérience Professionnelle" position="0 6 -8" align="center" 
+                    color="#246CB7" scale="3 3 3"></a-text>
+
+            <!-- Timeline expérience -->
+            <a-entity id="experience-timeline" position="0 2 -5">
+                <!-- Les éléments d'expérience seront générés ici -->
+            </a-entity>
+
+            <!-- Portail retour -->
+            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
+                      position="12 2 0" rotation="0 -90 0"></a-entity>
         </a-entity>
-        
-        <!-- Navigation et contrôles caméra -->
+
+        <!-- =========================== -->
+        <!-- ESPACE À PROPOS              -->
+        <!-- =========================== -->
+        <a-entity id="about-space" visible="false" space-environment="type: about">
+            <!-- Environnement à propos -->
+            <a-entity environment="preset: goaland; groundColor: #0593fc; grid: none"></a-entity>
+            
+            <!-- Éclairage à propos -->
+            <a-light type="ambient" color="#87ceeb" intensity="0.7"></a-light>
+            <a-light type="directional" position="0 10 2" color="#ffffff" intensity="0.8"></a-light>
+            
+            <!-- Sol à propos -->
+            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="40" height="40" 
+                     color="#e0f6ff" metalness="0.2" roughness="0.7" shadow="receive: true"></a-plane>
+
+            <!-- Titre -->
+            <a-text value="À Propos de Moi" position="0 5 -6" align="center" 
+                    color="#246CB7" scale="3 3 3"></a-text>
+
+            <!-- Contenu à propos -->
+            <a-entity position="0 2 -8">
+                <a-box width="8" height="4" depth="0.2" color="#ffffff" opacity="0.9">
+                    <a-text value="Directeur Solutions Digitales expérimenté avec plus de 12 ans d'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Angular) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable."
+                            position="0 0 0.11" align="center" color="#333333" wrap-count="60" scale="1.2 1.2 1.2"></a-text>
+                </a-box>
+            </a-entity>
+
+            <!-- Compétences en 3D -->
+            <a-entity id="skills-3d" position="0 3 -2">
+                <!-- Compétences seront générées ici -->
+            </a-entity>
+
+            <!-- Portail retour -->
+            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
+                      position="0 2 8" rotation="0 0 0"></a-entity>
+        </a-entity>
+
+        <!-- =========================== -->
+        <!-- ESPACE CONTACT               -->
+        <!-- =========================== -->
+        <a-entity id="contact-space" visible="false" space-environment="type: contact">
+            <!-- Environnement contact -->
+            <a-entity environment="preset: contact; groundColor: #246CB7; grid: 1x1"></a-entity>
+            
+            <!-- Éclairage contact -->
+            <a-light type="ambient" color="#404040" intensity="0.4"></a-light>
+            <a-light type="directional" position="0 8 0" color="#ffffff" intensity="1.0" castShadow="true"></a-light>
+            <a-light type="point" position="0 5 0" color="#27CDFE" intensity="0.7"></a-light>
+            
+            <!-- Sol contact -->
+            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="30" height="30" 
+                     color="#2c3e50" metalness="0.3" roughness="0.4" shadow="receive: true"></a-plane>
+
+            <!-- Titre -->
+            <a-text value="Contactez-moi" position="0 6 -5" align="center" 
+                    color="#ffffff" scale="3 3 3"></a-text>
+
+            <!-- Informations de contact -->
+            <a-entity position="0 3 -6">
+                <!-- Email -->
+                <a-box width="6" height="1" depth="0.2" position="0 1 0" color="#0593fc">
+                    <a-text value="📧 jeanluc@houedanou.com" position="0 0 0.11" 
+                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
+                </a-box>
+                
+                <!-- Téléphone -->
+                <a-box width="6" height="1" depth="0.2" position="0 -0.5 0" color="#27CDFE">
+                    <a-text value="📱 +225 07 48 34 82 21" position="0 0 0.11" 
+                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
+                </a-box>
+                
+                <!-- Portfolio -->
+                <a-box width="6" height="1" depth="0.2" position="0 -2 0" color="#246CB7">
+                    <a-text value="🌐 Portfolio en ligne" position="0 0 0.11" 
+                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
+                </a-box>
+            </a-entity>
+
+            <!-- Portail retour -->
+            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
+                      position="8 2 0" rotation="0 -90 0"></a-entity>
+        </a-entity>
+
+        <!-- =========================== -->
+        <!-- CAMÉRA ET CONTRÔLES          -->
+        <!-- =========================== -->
         <a-entity id="player" position="0 1.6 8">
             <a-camera 
                 wasd-controls="acceleration: 65; fly: false" 
@@ -451,44 +578,22 @@
                     material="color: #0593fc; shader: flat"
                     geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
                     position="0 0 -1"
-                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-                    animation__fusing="property: material.color; startEvents: fusing; from: #0593fc; to: #27CDFE; dur: 1500"
-                    animation__fusecomplete="property: material.color; startEvents: click; from: #27CDFE; to: #0593fc; dur: 150">
+                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150">
                 </a-cursor>
-                
-                <!-- Interface proche de la caméra -->
-                <a-text id="camera-ui" 
-                        value=""
-                        position="0 0.3 -1.5"
-                        align="center"
-                        color="#ffffff"
-                        scale="0.5 0.5 0.5"
-                        visible="false">
-                </a-text>
             </a-camera>
         </a-entity>
         
-        <!-- Contrôleurs VR (Meta Quest, etc.) -->
+        <!-- Contrôleurs VR -->
         <a-entity id="leftHand" 
                   hand-controls="hand: left; handModelStyle: lowPoly; color: #0593fc"
                   raycaster="objects: .interactive; far: 10"
-                  line="color: #0593fc; opacity: 0.75"
-                  visible="true">
+                  line="color: #0593fc; opacity: 0.75">
         </a-entity>
         
         <a-entity id="rightHand" 
                   hand-controls="hand: right; handModelStyle: lowPoly; color: #27CDFE"
                   raycaster="objects: .interactive; far: 10" 
-                  line="color: #27CDFE; opacity: 0.75"
-                  visible="true">
-        </a-entity>
-        
-        <!-- Zone de téléportation -->
-        <a-entity id="teleport-area"
-                  geometry="primitive: cylinder; radius: 20; height: 0.1"
-                  position="0 -0.45 0"
-                  material="color: #0593fc; opacity: 0.1; transparent: true"
-                  visible="false">
+                  line="color: #27CDFE; opacity: 0.75">
         </a-entity>
     </a-scene>
 
@@ -535,6 +640,9 @@
             
             // Gestion responsive
             setupResponsiveVR();
+            
+            // Gestion des espaces et portails
+            setupSpaceManagement();
             
             console.log('🚀 Portfolio VR prêt!');
         });
@@ -667,6 +775,51 @@
         window.addEventListener('error', function(e) {
             console.warn('⚠️ Erreur VR:', e.error);
         });
+        
+        function setupSpaceManagement() {
+            const spaceNames = {
+                hub: 'Hub Principal',
+                projects: 'Réalisations',
+                experience: 'Expérience',
+                about: 'À Propos',
+                contact: 'Contact'
+            };
+            
+            // Écouter les changements d'espace
+            const scene = document.querySelector('a-scene');
+            scene.addEventListener('space-changed', function(event) {
+                const newSpace = event.detail.currentSpace;
+                updateSpaceIndicator(spaceNames[newSpace] || newSpace);
+                console.log('🌌 Espace changé:', newSpace);
+            });
+            
+            // Navigation directe vers un espace via URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetSpace = urlParams.get('space');
+            if (targetSpace && targetSpace !== 'hub') {
+                setTimeout(() => {
+                    const portalManager = document.querySelector('[portal-manager]');
+                    if (portalManager && portalManager.components['portal-manager']) {
+                        portalManager.components['portal-manager'].navigateToSpace(targetSpace);
+                    }
+                }, 3000);
+            }
+        }
+        
+        function updateSpaceIndicator(spaceName) {
+            const indicator = document.getElementById('current-space-text');
+            if (indicator) {
+                // Animation de changement
+                indicator.style.transform = 'scale(0.8)';
+                indicator.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    indicator.textContent = spaceName;
+                    indicator.style.transform = 'scale(1)';
+                    indicator.style.opacity = '1';
+                }, 200);
+            }
+        }
         
         // Performance monitoring
         if (window.PortfolioData?.vrConfig?.showStats) {

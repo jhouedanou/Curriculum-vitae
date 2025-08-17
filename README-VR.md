@@ -6,10 +6,12 @@ Ce portfolio propose une expérience VR immersive compatible avec les casques VR
 
 ## 🚀 Fonctionnalités
 
-### ✨ Expérience Immersive
-- **Environnement 3D** : Portfolio navigable dans un espace 3D avec étoiles et particules
-- **Projets interactifs** : 17 projets présentés sur des plateformes 3D avec détails complets
-- **Navigation fluide** : Caméra libre avec contrôles souris/clavier et support VR
+### ✨ Expérience Immersive avec Portails
+- **Hub principal** : Espace d'accueil avec portails vers chaque section
+- **Espaces séparés** : Environnements dédiés pour Réalisations, Expérience, À propos, Contact
+- **Portails magiques** : Navigation fluide entre les espaces avec effets visuels
+- **Projets interactifs** : 17 projets en grille organisée dans l'espace dédié
+- **Environnements thématiques** : Chaque espace a son ambiance unique
 - **Material Design 3** : Palette de couleurs cohérente avec le portfolio classique
 
 ### 🎯 Détection Automatique
@@ -18,17 +20,20 @@ Ce portfolio propose une expérience VR immersive compatible avec les casques VR
 - **Fallback intelligent** : Accès manuel depuis n'importe quel appareil
 
 ### 🎮 Contrôles
+- **Portails VR** : Cliquer sur les portails pour naviguer entre espaces
 - **VR** : Contrôleurs naturels pour Meta Quest, Vision Pro, etc.
-- **Desktop** : Souris + clavier (WASD, clic droit + glisser pour rotation)
+- **Desktop** : Souris + clavier (WASD, clic sur portails)
 - **Mobile** : Interface tactile adaptée
+- **Raccourci H** : Retour rapide au hub principal
 
 ## 📁 Architecture
 
 ```
 portfolio-vr/
-├── portfolio-vr.html          # Page principale VR
+├── portfolio-vr.html          # Page principale VR avec architecture portails
 ├── portfolio-data.js          # Données extraites du portfolio 
-├── vr-portfolio-manager.js    # Composant A-Frame principal
+├── vr-portal-manager.js       # Gestionnaire de portails et espaces
+├── vr-portfolio-manager.js    # Composant A-Frame pour l'espace projets
 ├── vr-styles.css             # Styles spécifiques VR
 ├── vr-detector.js            # Détection automatique (modifié)
 └── index.html                # Portfolio classique (modifié)
@@ -100,16 +105,19 @@ Configuration dans `portfolio-vr.html` :
 3. Transition animée vers l'expérience VR
 
 ### Navigation en VR
-- **Projets** : Cliquer sur les plateformes pour voir les détails
-- **Sections** : Plateformes principales (About, Experience, etc.)
-- **Filtres** : Boutons de catégories en haut de l'espace
+- **Hub** : Point de départ avec portails vers chaque section
+- **Portails** : Cliquer pour voyager entre les espaces
+- **Projets** : Espace dédié avec grille de 17 projets interactifs
+- **Filtres** : Boutons de catégories dans l'espace projets
+- **Retour Hub** : Touche `H` ou portails de retour dans chaque espace
 - **Aide** : Appuyer sur `H` ou cliquer sur `?`
 
 ### Contrôles clavier
 - `ESC` : Fermer les modals
-- `H` : Afficher/masquer l'aide
+- `H` : Retour au hub principal / Afficher l'aide
 - `R` : Réinitialiser la position caméra
-- `Clic droit + glisser` : Rotation manuelle
+- `Clic sur portails` : Navigation entre espaces
+- `Clic droit + glisser` : Rotation manuelle de la caméra
 
 ## 🔍 Développement
 
