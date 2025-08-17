@@ -198,6 +198,11 @@ Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
 *Rôle:* Chef de projet & Développeur | *Impact:* Site corporate responsive  
 Intégration complète de maquettes Adobe XD en site web performant
 
+### **Template WordPress pour les Awards du Digital et de la Presse Numérique**
+**https://www.adpnafrica.com/**  
+*Rôle:* Développeur WordPress | *Technologies:* WordPress, PHP, Custom Post Types, ACF  
+Template WordPress professionnel pour site d'awards avec gestion des nominations
+
 ### **Dinor Calorie Counter**
 **https://dinor-calorie-counter-alt.vercel.app/**  
 *Rôle:* Développeur Full-stack | *Technologies:* React, Next.js, TypeScript  

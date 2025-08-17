@@ -9,7 +9,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="material-design-theme.css">
+    <style>
+        /* Style spécifique pour le bouton VR */
+        .vr-button {
+            background: linear-gradient(135deg, var(--md-primary), var(--md-secondary)) !important;
+            border: none !important;
+            box-shadow: 0 2px 8px rgba(5, 147, 252, 0.3) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .vr-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 16px rgba(5, 147, 252, 0.4) !important;
+        }
+        
+        .vr-button .icon {
+            animation: pulse 2s infinite !important;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Style responsive pour mobile */
+        @media (max-width: 768px) {
+            .vr-button {
+                width: 100% !important;
+                margin-bottom: 0.5rem !important;
+            }
+        }
+    </style>
     <!-- VR Detection Script -->
+    <script>
+        // Activer la détection automatique VR
+        window.VR_AUTO_DETECT_ENABLED = true;
+        
+        // Console de débogage pour le développement
+        window.addEventListener('load', () => {
+            console.log('🔍 Portfolio chargé - Détection VR activée');
+            console.log('📱 User Agent:', navigator.userAgent);
+            console.log('🖥️ Résolution:', window.innerWidth + 'x' + window.innerHeight);
+            console.log('📊 Device Pixel Ratio:', window.devicePixelRatio);
+            
+            // Fonction manuelle de test VR
+            window.testVR = () => {
+                if (window.testVRDetection) {
+                    window.testVRDetection();
+                } else {
+                    console.log('❌ VRDetector pas encore chargé');
+                }
+            };
+            
+            console.log('💡 Tapez testVR() dans la console pour tester la détection VR manuellement');
+        });
+    </script>
     <script src="vr-detector.js"></script>
 </head>
 <body>
@@ -88,6 +142,12 @@
                 
                 <div class="has-text-centered">
                     <div class="buttons is-centered">
+                        <button type="button" @click="enterVR" class="button modern-button is-small vr-button" title="Accéder à la version VR">
+                            <span class="icon is-small">
+                                <i class="material-icons">vrpano</i>
+                            </span>
+                            <span>Version VR</span>
+                        </button>
                         <a href="https://houedanou.com" target="_blank" rel="noopener" class="button modern-button is-small">
                             <span class="icon is-small">
                                 <i class="material-icons">article</i>
@@ -788,6 +848,25 @@
                             challengesEn: "Custom editor and advanced features",
                             results: "Template WordPress flexible et performant",
                             resultsEn: "Flexible and high-performance WordPress template"
+                        },
+                        {
+                            id: 16,
+                            title: "Template WordPress pour les Awards du Digital et de la Presse Numérique",
+                            role: "Développeur WordPress",
+                            roleEn: "WordPress Developer",
+                            description: "Template WordPress professionnel pour site d'awards",
+                            descriptionEn: "Professional WordPress template for awards website",
+                            fullDescription: "Développement d'un template WordPress sur-mesure pour les Awards du Digital et de la Presse Numérique avec gestion des nominations, votes et présentation des lauréats.",
+                            fullDescriptionEn: "Development of custom WordPress template for Digital and Digital Press Awards with nomination management, voting system and winners presentation.",
+                            technologies: ["WordPress", "PHP", "Custom Post Types", "ACF"],
+                            url: "https://www.adpnafrica.com/",
+                            category: "wordpress",
+                            icon: "emoji_events",
+                            screenshot: false,
+                            challenges: "Système de gestion des awards et interface utilisateur intuitive",
+                            challengesEn: "Awards management system and intuitive user interface",
+                            results: "Plateforme complète pour la gestion des awards digitaux",
+                            resultsEn: "Complete platform for digital awards management"
                         }
                     ]
                 }
@@ -980,6 +1059,109 @@
                 closeSidebar() {
                     this.sidebarOpen = false;
                     document.body.style.overflow = 'auto';
+                },
+                async enterVR() {
+                    console.log('🥽 Lancement de l\'expérience VR...');
+                    
+                    // Préparer les données du portfolio à transmettre
+                    const portfolioData = {
+                        projects: this.projects,
+                        currentLang: this.currentLang,
+                        currentPage: this.currentPage,
+                        filters: {
+                            selectedCategory: this.selectedCategory,
+                            searchQuery: this.searchQuery
+                        },
+                        timestamp: Date.now(),
+                        source: 'classic-portfolio'
+                    };
+                    
+                    if (window.VRDetector) {
+                        const detector = new window.VRDetector();
+                        
+                        try {
+                            // Détecter les capacités VR de l'appareil
+                            const deviceInfo = await detector.detectVRDevice();
+                            console.log('📱 Détection VR:', deviceInfo);
+                            
+                            // Utiliser la nouvelle méthode avec données
+                            detector.redirectToVRWithData(
+                                portfolioData, 
+                                this.currentLang, 
+                                this.currentPage === 'home' ? null : this.currentPage
+                            );
+                            
+                        } catch (error) {
+                            console.warn('⚠️ Erreur lors de la détection VR:', error);
+                            // Redirection forcée en cas d'erreur
+                            detector.forceVRRedirect(this.currentLang, this.currentPage);
+                        }
+                    } else {
+                        // Fallback si VRDetector n'est pas disponible
+                        console.log('📋 Fallback - VRDetector non disponible');
+                        
+                        // Stocker les données manuellement
+                        sessionStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+                        sessionStorage.setItem('portfolioLang', this.currentLang);
+                        sessionStorage.setItem('portfolioSection', this.currentPage || '');
+                        
+                        // Redirection directe avec paramètres
+                        const vrUrl = new URL('portfolio-vr.html', window.location.href);
+                        vrUrl.searchParams.set('lang', this.currentLang);
+                        vrUrl.searchParams.set('device', 'fallback');
+                        vrUrl.searchParams.set('source', 'manual');
+                        
+                        if (this.currentPage && this.currentPage !== 'home') {
+                            vrUrl.searchParams.set('section', this.currentPage);
+                        }
+                        
+                        // Animation de transition simple
+                        this.showSimpleVRTransition().then(() => {
+                            window.location.href = vrUrl.toString();
+                        });
+                    }
+                },
+                
+                showSimpleVRTransition() {
+                    return new Promise((resolve) => {
+                        // Créer overlay de transition simple
+                        const overlay = document.createElement('div');
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(135deg, var(--md-primary), var(--md-secondary));
+                            color: white;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 10000;
+                            font-family: 'Outfit', sans-serif;
+                            animation: fadeIn 0.5s ease;
+                        `;
+                        
+                        overlay.innerHTML = `
+                            <div style="text-align: center;">
+                                <div style="font-size: 4rem; margin-bottom: 1rem; animation: spin 2s linear infinite;">🥽</div>
+                                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Chargement de l'expérience VR</h2>
+                                <p style="opacity: 0.9;">Préparation de votre portfolio immersif...</p>
+                            </div>
+                            <style>
+                                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                                @keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+                            </style>
+                        `;
+                        
+                        document.body.appendChild(overlay);
+                        
+                        // Résoudre après 1.5 secondes
+                        setTimeout(() => {
+                            resolve();
+                        }, 1500);
+                    });
                 }
             }
         }).mount('#app');
