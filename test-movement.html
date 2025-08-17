@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Système de Déplacement VR</title>
+    
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/supermedium/superframe@master/components/environment/dist/aframe-environment-component.min.js"></script>
+    
+    <!-- Système de déplacement -->
+    <script src="vr-movement-system.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+        }
+        
+        .info-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            z-index: 1000;
+            max-width: 350px;
+        }
+        
+        .info-panel h3 {
+            margin: 0 0 15px 0;
+            color: #0593fc;
+        }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .control-item {
+            background: rgba(5, 147, 252, 0.2);
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        .control-key {
+            font-weight: bold;
+            color: #27CDFE;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-panel">
+        <h3>🎮 Test du Système de Déplacement</h3>
+        <div>Utilisez les contrôles ci-dessous pour tester le déplacement dans l'environnement VR.</div>
+        
+        <div class="controls-grid">
+            <div class="control-item">
+                <div class="control-key">WASD / Flèches</div>
+                <div>Se déplacer</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">F</div>
+                <div>Mode vol</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">Q / Espace</div>
+                <div>Monter</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">E / Shift</div>
+                <div>Descendre</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">R</div>
+                <div>Courir</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">C</div>
+                <div>S'accroupir</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">T</div>
+                <div>Téléportation</div>
+            </div>
+            <div class="control-item">
+                <div class="control-key">Double-clic</div>
+                <div>Téléporter</div>
+            </div>
+        </div>
+    </div>
+
+    <a-scene 
+        background="color: #87CEEB"
+        fog="type: exponential; density: 0.001; color: #87CEEB"
+        movement-bounds="minX: -50; maxX: 50; minY: 0; maxY: 20; minZ: -50; maxZ: 50; showBounds: true">
+        
+        <!-- Environnement de test -->
+        <a-entity environment="preset: forest; grid: 2x2; gridColor: #ffffff; groundColor: #228B22"></a-entity>
+        
+        <!-- Éclairage -->
+        <a-light type="ambient" color="#404040" intensity="0.6"></a-light>
+        <a-light type="directional" position="2 8 4" color="#ffffff" intensity="0.8"></a-light>
+        
+        <!-- Sol visible -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" 
+                 color="#228B22" metalness="0.1" roughness="0.8"></a-plane>
+        
+        <!-- Objets de référence pour tester le déplacement -->
+        
+        <!-- Tour centrale -->
+        <a-cylinder position="0 2.5 0" radius="1" height="5" color="#ff6b6b" 
+                   metalness="0.3" roughness="0.4">
+            <a-text value="CENTRE" position="0 2 1.1" align="center" color="#ffffff" scale="2 2 2"></a-text>
+        </a-cylinder>
+        
+        <!-- Plateformes aux 4 coins -->
+        <a-box position="15 1 15" width="4" height="2" depth="4" color="#4ecdc4" 
+               metalness="0.2" roughness="0.6">
+            <a-text value="NE" position="0 1.5 2.1" align="center" color="#ffffff" scale="3 3 3"></a-text>
+        </a-box>
+        
+        <a-box position="-15 1 15" width="4" height="2" depth="4" color="#45b7d1" 
+               metalness="0.2" roughness="0.6">
+            <a-text value="NW" position="0 1.5 2.1" align="center" color="#ffffff" scale="3 3 3"></a-text>
+        </a-box>
+        
+        <a-box position="15 1 -15" width="4" height="2" depth="4" color="#f9ca24" 
+               metalness="0.2" roughness="0.6">
+            <a-text value="SE" position="0 1.5 2.1" align="center" color="#000000" scale="3 3 3"></a-text>
+        </a-box>
+        
+        <a-box position="-15 1 -15" width="4" height="2" depth="4" color="#6c5ce7" 
+               metalness="0.2" roughness="0.6">
+            <a-text value="SW" position="0 1.5 2.1" align="center" color="#ffffff" scale="3 3 3"></a-text>
+        </a-box>
+        
+        <!-- Objets en hauteur pour tester le mode vol -->
+        <a-sphere position="0 8 20" radius="1.5" color="#e17055" 
+                  metalness="0.4" roughness="0.3">
+            <a-text value="CIEL" position="0 0 1.6" align="center" color="#ffffff" scale="2 2 2"></a-text>
+        </a-sphere>
+        
+        <a-sphere position="20 6 0" radius="1.2" color="#fd79a8" 
+                  metalness="0.4" roughness="0.3">
+            <a-text value="HAUT" position="0 0 1.3" align="center" color="#ffffff" scale="1.8 1.8 1.8"></a-text>
+        </a-sphere>
+        
+        <!-- Chemin de cubes pour tester la navigation -->
+        <a-box position="5 0.5 0" width="2" height="1" depth="2" color="#74b9ff"></a-box>
+        <a-box position="10 0.5 0" width="2" height="1" depth="2" color="#74b9ff"></a-box>
+        <a-box position="0 0.5 5" width="2" height="1" depth="2" color="#55a3ff"></a-box>
+        <a-box position="0 0.5 10" width="2" height="1" depth="2" color="#55a3ff"></a-box>
+        <a-box position="-5 0.5 0" width="2" height="1" depth="2" color="#3742fa"></a-box>
+        <a-box position="-10 0.5 0" width="2" height="1" depth="2" color="#3742fa"></a-box>
+        <a-box position="0 0.5 -5" width="2" height="1" depth="2" color="#2f3542"></a-box>
+        <a-box position="0 0.5 -10" width="2" height="1" depth="2" color="#2f3542"></a-box>
+        
+        <!-- Caméra avec système de déplacement -->
+        <a-entity id="player" position="0 1.6 8">
+            <a-camera 
+                enhanced-movement="speed: 10; flyMode: false; teleportEnabled: true; collisionEnabled: true; smoothMovement: true"
+                look-controls="pointerLockEnabled: false"
+                wasd-controls="enabled: false">
+            </a-camera>
+        </a-entity>
+    </a-scene>
+
+    <script>
+        // Test de fonctionnalité
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Page de test du système de déplacement chargée');
+            
+            setTimeout(() => {
+                const camera = document.querySelector('[enhanced-movement]');
+                if (camera && camera.components['enhanced-movement']) {
+                    console.log('✅ Système de déplacement détecté et fonctionnel');
+                } else {
+                    console.error('❌ Système de déplacement non détecté');
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
