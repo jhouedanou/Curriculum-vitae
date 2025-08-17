@@ -460,25 +460,11 @@ VRDetector.prototype.forceVRRedirect = function(lang = 'fr', section = null) {
 // Export pour utilisation
 window.VRDetector = VRDetector;
 
-// Auto-détection désactivée par défaut - activation manuelle uniquement
-if (window.VR_AUTO_DETECT_ENABLED === true) {
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Attendre un peu que la page se charge
-        setTimeout(async () => {
-            const detector = new VRDetector();
-            const deviceInfo = await detector.detectVRDevice();
-            
-            console.log('🔍 Résultat détection VR:', deviceInfo);
-            
-            if (deviceInfo.shouldRedirect && deviceInfo.type !== 'none') {
-                // Redirection avec délai pour permettre à l'utilisateur de voir
-                detector.redirectToVR(deviceInfo, 2000);
-            } else {
-                console.log('Aucun appareil VR détecté, reste sur la version web');
-            }
-        }, 1000);
-    });
-}
+// Auto-détection VR DÉSACTIVÉE
+// Pour activer la détection automatique, définir window.VR_AUTO_DETECT_ENABLED = true dans la page
+// DÉSACTIVÉ par défaut suite à la demande de l'utilisateur
+
+console.log('🥽 VR Auto-Detection: DÉSACTIVÉE par défaut');
 
 // Fonction manuelle pour tester la VR
 window.testVRDetection = async function() {
