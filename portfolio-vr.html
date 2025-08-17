@@ -17,6 +17,8 @@
     <script src="vr-portal-manager.js"></script>
     <!-- Gestionnaire VR principal -->
     <script src="vr-portfolio-manager.js"></script>
+    <!-- Système de déplacement avancé -->
+    <script src="vr-movement-system.js"></script>
     
     <!-- Styles CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -322,6 +324,8 @@
         <div class="vr-controls">
             <button id="help-toggle" class="vr-control-btn" title="Aide (H)">?</button>
             <button id="reset-camera" class="vr-control-btn" title="Réinitialiser caméra (R)">⌂</button>
+            <button id="toggle-fly-mode" class="vr-control-btn" title="Mode vol (F)">✈️</button>
+            <button id="teleport-mode" class="vr-control-btn" title="Téléportation (T)">🎯</button>
         </div>
         
         <!-- Bouton plein écran -->
@@ -329,7 +333,7 @@
         
         <!-- Informations de navigation -->
         <div id="vr-info" class="vr-info-panel">
-            <span id="nav-text">Utilisez les contrôleurs ou la souris pour naviguer • Cliquez sur les portails pour changer d'espace • H pour retour hub</span>
+            <span id="nav-text">WASD/Flèches: Déplacement • F: Mode vol • T: Téléportation • R: Course • Clic: Interactions • Double-clic: Téléporter</span>
         </div>
         
         <!-- Indicateur d'espace actuel -->
@@ -348,6 +352,7 @@
         device-orientation-permission-ui="enabled: true"
         background="color: #0593fc"
         portal-manager="currentSpace: hub; language: fr; enableTransitions: true"
+        movement-bounds="minX: -30; maxX: 30; minY: 0.5; maxY: 15; minZ: -30; maxZ: 30; showBounds: false"
         fog="type: exponential; density: 0.005; color: #0593fc"
         renderer="antialias: true; colorManagement: true; sortObjects: true"
         shadow="type: pcfsoft"
@@ -566,7 +571,7 @@
         <!-- =========================== -->
         <a-entity id="player" position="0 1.6 8">
             <a-camera 
-                wasd-controls="acceleration: 65; fly: false" 
+                enhanced-movement="speed: 8; flyMode: false; teleportEnabled: true; collisionEnabled: true; smoothMovement: true"
                 look-controls="pointerLockEnabled: false"
                 mouse-cursor=""
                 raycaster="objects: .interactive; far: 30; interval: 100"
@@ -683,6 +688,22 @@
             // Bouton plein écran
             document.getElementById('fullscreen-toggle').addEventListener('click', function() {
                 toggleFullscreen();
+            });
+            
+            // Bouton mode vol
+            document.getElementById('toggle-fly-mode').addEventListener('click', function() {
+                const camera = document.querySelector('[enhanced-movement]');
+                if (camera && camera.components['enhanced-movement']) {
+                    camera.components['enhanced-movement'].toggleFlyMode();
+                }
+            });
+            
+            // Bouton téléportation
+            document.getElementById('teleport-mode').addEventListener('click', function() {
+                const camera = document.querySelector('[enhanced-movement]');
+                if (camera && camera.components['enhanced-movement']) {
+                    camera.components['enhanced-movement'].initiateTeleport();
+                }
             });
         }
         
