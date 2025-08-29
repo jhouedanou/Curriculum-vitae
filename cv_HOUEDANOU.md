@@ -171,7 +171,7 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ## PROFIL PROFESSIONNEL
 
-**Directeur Solutions Digitales** expérimenté avec **plus de 12 ans d'expertise** en développement web full-stack, design UI/UX et gestion de projets digitaux.
+**Développeur web** expérimenté avec **plus de 12 ans d'expertise** en développement web full-stack, design UI/UX et gestion de projets digitaux.
 
 **Spécialiste front-end** (VueJS, Angular) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable.
 

@@ -171,7 +171,7 @@ Jean Mermoz College, Côte d'Ivoire
 
 ## PROFESSIONAL PROFILE
 
-Experienced **Digital Solutions Director** with **over 12 years of expertise** in full-stack web development, UI/UX design, and digital project management.
+Experienced **Web Developper** with **over 12 years of expertise** in full-stack web development, UI/UX design, and digital project management.
 
 **Front-end specialist** (VueJS, Angular) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
 
