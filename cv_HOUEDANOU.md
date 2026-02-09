@@ -16,11 +16,14 @@ table td:last-child {
 </style>
 
 # Jean Luc Houédanou
-<div style="font-size: 12px;">
+<div style="font-size: 12px; display: flex; align-items: center; gap: 16px;">
+<img src="1764523183346.jpg" alt="Jean Luc Houédanou" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+<div>
 <strong>Email:</strong> jeanluc@houedanou.com<br>
 <strong>Téléphone:</strong> +225 07 48 34 82 21<br>
 <strong>Portfolio:</strong> <a href="https://jhouedanou.github.io/Curriculum-vitae/">https://jhouedanou.github.io/Curriculum-vitae/</a>
-</div> 
+</div>
+</div>
 ---
 <table style="width: 100%; table-layout: fixed;">
 <tr>
@@ -188,91 +191,6 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ## Portfolio - Projets Clés
 
-### **Landing Page Vodacom**
-**https://vodamedia.co.za/txtengage/**  
-*Rôle:* Développeur Lead | *Technologies:* VueJS, Responsive Design  
-Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
-
-### **CASTEL AFRIQUE**
-**https://castel-afrique.com**  
-*Rôle:* Chef de projet & Développeur | *Impact:* Site corporate responsive  
-Intégration complète de maquettes Adobe XD en site web performant
-
-### **Template WordPress pour les Awards du Digital et de la Presse Numérique**
-**https://www.adpnafrica.com/**  
-*Rôle:* Développeur WordPress | *Technologies:* WordPress, PHP, Custom Post Types, ACF  
-Template WordPress professionnel pour site d'awards avec gestion des nominations
-
-### **Dinor Calorie Counter**
-**https://dinor-calorie-counter-alt.vercel.app/**  
-*Rôle:* Développeur Full-stack | *Technologies:* React, Next.js, TypeScript  
-Application de suivi des calories avec interface moderne
-
-### **Dinor App**
-**https://new.dinorapp.com/**  
-*Rôle:* Architecte Full-stack | *Technologies:* Filament, VueJS/NuxtJS, Flutter  
-Plateforme complète de recettes et astuces culinaires multi-plateformes
-
-### **CIPREL**
-**https://ciprel.ci**  
-*Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect  
-Site web responsive avec optimisation des performances
-
-### **Quizz CIPREL RH pour le SIREXE**
-**https://ciprelrh.netlify.app/questionnaire**  
-*Rôle:* Développeur Full-stack | *Technologies:* NuxtJS  
-Application quiz interactive avec système de scoring avancé
-
-### **Soboa 95 ans**
-**https://soboa95ans.sn**  
-*Rôle:* Designer & Développeur | *Impact:* Site commémoratif sur-mesure  
-Conception et développement complet avec design unique
-
-### **BigFive360**
-**https://bigfive360.com**  
-*Rôle:* Développeur Front-end | *Technologies:* HTML5, CSS3, JavaScript  
-Site web présentant un service de visite virtuelle 360°
-
-### **BBlome**
-**https://bblome.com**  
-*Rôle:* Intégrateur WordPress | *Technologies:* WordPress, PHP  
-Site web présentant la brasserie BBlome avec design attractif
-
-### **Intégration Adobe XD en VueJS**
-**https://bigfive.solutions/**  
-*Rôle:* Développeur Front-end | *Méthodologie:* Design System  
-Intégration fidèle des maquettes avec composants réutilisables
-
-### **Dashboard Timeo RH**
-**https://timeo-rh.vercel.app/**  
-*Rôle:* UI/UX Designer & Développeur Full-stack | *Technologies:* Figma, VueJS  
-Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH
-
-### **App Mobile TimeoRH**
-**https://tinyurl.com/timeo-mobile-app**  
-*Rôle:* UI/UX Designer | *Technologies:* Figma, Mobile Design  
-Prototype mobile complet sur Figma pour application RH
-
-### **Kekeli Power**
-**https://tinyurl.com/kekeli-power-ui**  
-*Rôle:* UI/UX Designer | *Technologies:* Figma, Energy Tech  
-Interface utilisateur moderne pour application énergétique
-
-### **Fondation Hamadou Hampathé Ba**
-**https://tinyurl.com/fondation-hhb**  
-*Rôle:* UI/UX Designer | *Technologies:* Figma, Cultural Design  
-Site web institutionnel avec design culturel authentique
-
-### **Jeu CIPREL Drag & Drop**
-**https://jeuciprel.vercel.app/**  
-*Rôle:* Développeur Full-stack | *Technologies:* JavaScript, Drag & Drop API  
-Jeu interactif avec fonctionnalités de glisser-déposer pour formation ludique
-
-### **Soeguibe**
-**https://soeguibe.com**
-*Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP
-Template WordPress personnalisé avec éditeur avancé
-
 ### **SoboaFoot - Plateforme de Pronostics CAN 2025**
 **https://soboafoot.com/**
 *Rôle:* Développeur Full-stack | *Technologies:* Tailwind CSS, Alpine.js, Swiper.js, Service Worker
@@ -282,6 +200,86 @@ Plateforme de pronostics sportifs pour la CAN 2025 avec système de classement, 
 **https://eat-is-family.vercel.app/**
 *Rôle:* Développeur Front-end | *Technologies:* NuxtJS, WordPress API, Figma, Vue.js
 Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour entreprise de restauration événementielle
+
+### **Landing Page Vodacom**
+**https://vodamedia.co.za/txtengage/**
+*Rôle:* Développeur Lead | *Technologies:* VueJS, Responsive Design
+Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
+
+### **CASTEL AFRIQUE**
+**https://castel-afrique.com**
+*Rôle:* Chef de projet & Développeur | *Impact:* Site corporate responsive
+Intégration complète de maquettes Adobe XD en site web performant
+
+### **Template WordPress pour les Awards du Digital et de la Presse Numérique**
+**https://www.adpnafrica.com/**
+*Rôle:* Développeur WordPress | *Technologies:* WordPress, PHP, Custom Post Types, ACF
+Template WordPress professionnel pour site d'awards avec gestion des nominations
+
+### **Dinor Calorie Counter**
+**https://dinor-calorie-counter-alt.vercel.app/**
+*Rôle:* Développeur Full-stack | *Technologies:* React, Next.js, TypeScript
+Application de suivi des calories avec interface moderne
+
+### **Dinor App**
+**https://new.dinorapp.com/**
+*Rôle:* Architecte Full-stack | *Technologies:* Filament, VueJS/NuxtJS, Flutter
+Plateforme complète de recettes et astuces culinaires multi-plateformes
+
+### **CIPREL**
+**https://ciprel.ci**
+*Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect
+Site web responsive avec optimisation des performances
+
+### **Quizz CIPREL RH pour le SIREXE**
+**https://ciprelrh.netlify.app/questionnaire**
+*Rôle:* Développeur Full-stack | *Technologies:* NuxtJS
+Application quiz interactive avec système de scoring avancé
+
+### **BigFive360**
+**https://bigfive360.com**
+*Rôle:* Développeur Front-end | *Technologies:* HTML5, CSS3, JavaScript
+Site web présentant un service de visite virtuelle 360°
+
+### **BBlome**
+**https://bblome.com**
+*Rôle:* Intégrateur WordPress | *Technologies:* WordPress, PHP
+Site web présentant la brasserie BBlome avec design attractif
+
+### **Intégration Adobe XD en VueJS**
+**https://bigfive.solutions/**
+*Rôle:* Développeur Front-end | *Méthodologie:* Design System
+Intégration fidèle des maquettes avec composants réutilisables
+
+### **Dashboard Timeo RH**
+**https://timeo-rh.vercel.app/**
+*Rôle:* UI/UX Designer & Développeur Full-stack | *Technologies:* Figma, VueJS
+Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH
+
+### **App Mobile TimeoRH**
+**https://tinyurl.com/timeo-mobile-app**
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Mobile Design
+Prototype mobile complet sur Figma pour application RH
+
+### **Kekeli Power**
+**https://tinyurl.com/kekeli-power-ui**
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Energy Tech
+Interface utilisateur moderne pour application énergétique
+
+### **Fondation Hamadou Hampathé Ba**
+**https://tinyurl.com/fondation-hhb**
+*Rôle:* UI/UX Designer | *Technologies:* Figma, Cultural Design
+Site web institutionnel avec design culturel authentique
+
+### **Jeu CIPREL Drag & Drop**
+**https://jeuciprel.vercel.app/**
+*Rôle:* Développeur Full-stack | *Technologies:* JavaScript, Drag & Drop API
+Jeu interactif avec fonctionnalités de glisser-déposer pour formation ludique
+
+### **Soeguibe**
+**https://soeguibe.com**
+*Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP
+Template WordPress personnalisé avec éditeur avancé
 
 ---
 
