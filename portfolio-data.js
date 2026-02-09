@@ -515,6 +515,66 @@ window.PortfolioData = {
                 fr: "Template WordPress flexible et performant",
                 en: "Flexible and high-performance WordPress template"
             }
+        },
+        {
+            id: 18,
+            title: "SoboaFoot - Pronostics CAN 2025",
+            position: [-16, 1, 0],
+            color: "#0593fc",
+            category: "fullstack",
+            url: "https://soboafoot.com/",
+            icon: "sports_soccer",
+            description: {
+                fr: "Plateforme de pronostics sportifs pour la CAN 2025 avec système de classement et points",
+                en: "Sports prediction gaming platform for CAN 2025 with leaderboard and points system"
+            },
+            fullDescription: {
+                fr: "Développement d'une plateforme de pronostics sportifs pour la Coupe d'Afrique des Nations 2025 avec système de classement, accumulation de points, calendrier des matchs, géolocalisation des partenaires et application mobile dédiée.",
+                en: "Development of a sports prediction gaming platform for the 2025 Africa Cup of Nations with leaderboard system, points accumulation, match calendar, partner location mapping and dedicated mobile app."
+            },
+            technologies: ["Tailwind CSS", "Alpine.js", "Swiper.js", "Service Worker"],
+            role: {
+                fr: "Développeur Full-stack",
+                en: "Full-stack Developer"
+            },
+            challenges: {
+                fr: "Système de scoring en temps réel et gamification avec géolocalisation",
+                en: "Real-time scoring system and gamification with geolocation"
+            },
+            results: {
+                fr: "Plateforme engageante avec des milliers de participants actifs durant la CAN 2025",
+                en: "Engaging platform with thousands of active participants during CAN 2025"
+            }
+        },
+        {
+            id: 19,
+            title: "Eat Is Family",
+            position: [-14, 1, 4],
+            color: "#27CDFE",
+            category: "fullstack",
+            url: "https://eat-is-family.vercel.app/",
+            icon: "restaurant",
+            description: {
+                fr: "Intégration de template Figma sur NuxtJS avec API WordPress headless",
+                en: "Figma template integration on NuxtJS with headless WordPress API"
+            },
+            fullDescription: {
+                fr: "Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour une entreprise de restauration événementielle spécialisée dans les stades, arènes et festivals en France.",
+                en: "Figma template integration into NuxtJS application with headless WordPress CMS for an event catering company specializing in stadiums, arenas and festivals in France."
+            },
+            technologies: ["NuxtJS", "WordPress API", "Figma", "Vue.js"],
+            role: {
+                fr: "Développeur Front-end",
+                en: "Front-end Developer"
+            },
+            challenges: {
+                fr: "Architecture headless CMS et intégration fidèle du design Figma",
+                en: "Headless CMS architecture and faithful Figma design integration"
+            },
+            results: {
+                fr: "Site performant avec gestion de contenu flexible via WordPress",
+                en: "High-performance site with flexible content management via WordPress"
+            }
         }
     ],
     
@@ -543,8 +603,8 @@ window.PortfolioData = {
             title: { fr: "Réalisations", en: "Projects" },
             icon: "💻",
             content: {
-                fr: "17+ projets réalisés dans divers domaines : frontend, fullstack, WordPress et design UI/UX.",
-                en: "17+ projects completed in various fields: frontend, fullstack, WordPress and UI/UX design."
+                fr: "19+ projets réalisés dans divers domaines : frontend, fullstack, WordPress et design UI/UX.",
+                en: "19+ projects completed in various fields: frontend, fullstack, WordPress and UI/UX design."
             }
         },
         contact: {

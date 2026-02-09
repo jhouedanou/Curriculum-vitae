@@ -35,7 +35,7 @@ Big Five Solutions, Abidjan, Côte d'Ivoire
 Leads the development and integration of full-stack web solutions and digital platforms for diverse clientele, combining strategic vision and technical expertise to create measurable value.
 
 **Key Achievements:**
-- Development and launch of 15+ major web projects, including corporate sites for Vodacom, CASTEL Africa and CIPREL, generating an average 40% increase in client traffic
+- Development and launch of 17+ major web projects, including corporate sites for Vodacom, CASTEL Africa and CIPREL, generating an average 40% increase in client traffic
 - Supervision and mentoring of a team of 2 developers and designers with 95% client satisfaction rate and 100% on-time project delivery
 - Management and securing of 8 Linux servers (CentOS, Ubuntu) for high availability hosting, reducing downtime by 90%
 - Implementation of modern technologies (VueJS, Supabase, Filament) for interactive web applications, improving performance by 60%
@@ -264,9 +264,19 @@ Institutional website with authentic cultural design
 Interactive game with drag and drop functionality for educational training
 
 ### **Soeguibe**
-**https://soeguibe.com**  
-*Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP  
+**https://soeguibe.com**
+*Role:* WordPress Integrator | *Technologies:* Gutenberg, PHP
 Custom WordPress template with advanced editor
+
+### **SoboaFoot - CAN 2025 Predictions Platform**
+**https://soboafoot.com/**
+*Role:* Full-stack Developer | *Technologies:* Tailwind CSS, Alpine.js, Swiper.js, Service Worker
+Sports prediction gaming platform for CAN 2025 with leaderboard system, points and partner locations
+
+### **Eat Is Family - Figma to NuxtJS Integration**
+**https://eat-is-family.vercel.app/**
+*Role:* Front-end Developer | *Technologies:* NuxtJS, WordPress API, Figma, Vue.js
+Figma template integration into NuxtJS application with headless WordPress CMS for event catering company
 
 ---
 

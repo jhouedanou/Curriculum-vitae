@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "WebFetch(domain:soboafoot.com)",
+      "WebFetch(domain:eat-is-family.vercel.app)"
+    ]
+  }
+}

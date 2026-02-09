@@ -35,7 +35,7 @@ Big Five Solutions, Abidjan, Côte d'Ivoire
 Dirige le développement et l'intégration de solutions web full-stack et plateformes digitales pour une clientèle diversifiée, alliant vision stratégique et expertise technique pour créer de la valeur mesurable.
 
 **Réalisations clés:**
-- Développement et lancement de 15+ projets web majeurs, dont des sites corporate pour Vodacom, CASTEL Afrique et CIPREL, générant une augmentation moyenne de 40% du trafic client
+- Développement et lancement de 17+ projets web majeurs, dont des sites corporate pour Vodacom, CASTEL Afrique et CIPREL, générant une augmentation moyenne de 40% du trafic client
 - Supervision et mentoring d'une équipe de 2 développeurs et designers avec un taux de satisfaction client de 95% et 100% de projets livrés dans les délais
 - Gestion et sécurisation de 8 serveurs Linux (CentOS, Ubuntu) pour hébergement haute disponibilité, réduisant les temps d'arrêt de 90%
 - Implémentation de technologies modernes (VueJS, Supabase, Filament) pour des applications web interactives, améliorant les performances de 60%
@@ -269,9 +269,19 @@ Site web institutionnel avec design culturel authentique
 Jeu interactif avec fonctionnalités de glisser-déposer pour formation ludique
 
 ### **Soeguibe**
-**https://soeguibe.com**  
-*Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP  
+**https://soeguibe.com**
+*Rôle:* Intégrateur WordPress | *Technologies:* Gutenberg, PHP
 Template WordPress personnalisé avec éditeur avancé
+
+### **SoboaFoot - Plateforme de Pronostics CAN 2025**
+**https://soboafoot.com/**
+*Rôle:* Développeur Full-stack | *Technologies:* Tailwind CSS, Alpine.js, Swiper.js, Service Worker
+Plateforme de pronostics sportifs pour la CAN 2025 avec système de classement, points et géolocalisation des partenaires
+
+### **Eat Is Family - Intégration Figma sur NuxtJS**
+**https://eat-is-family.vercel.app/**
+*Rôle:* Développeur Front-end | *Technologies:* NuxtJS, WordPress API, Figma, Vue.js
+Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour entreprise de restauration événementielle
 
 ---
 
