@@ -197,7 +197,7 @@ Collège Jean Mermoz, Côte d'Ivoire
 Plateforme de pronostics sportifs pour la CAN 2025 avec système de classement, points et géolocalisation des partenaires
 
 ### **Eat Is Family - Intégration Figma sur NuxtJS**
-**https://eat-is-family.vercel.app/**
+**https://www.eatisfamily.fr/**
 *Rôle:* Développeur Front-end | *Technologies:* NuxtJS, WordPress API, Figma, Vue.js
 Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour entreprise de restauration événementielle
 
