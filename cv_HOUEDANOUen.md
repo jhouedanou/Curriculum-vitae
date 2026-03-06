@@ -197,7 +197,7 @@ Experienced **Web Developper** with **over 12 years of expertise** in full-stack
 Sports prediction gaming platform for CAN 2025 with leaderboard system, points and partner locations
 
 ### **Eat Is Family - Figma to NuxtJS Integration**
-**https://eat-is-family.vercel.app/**
+**https://www.eatisfamily.fr/**
 *Role:* Front-end Developer | *Technologies:* NuxtJS, WordPress API, Figma, Vue.js
 Figma template integration into NuxtJS application with headless WordPress CMS for event catering company
 

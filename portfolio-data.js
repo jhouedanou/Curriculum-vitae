@@ -552,7 +552,7 @@ window.PortfolioData = {
             position: [-14, 1, 4],
             color: "#27CDFE",
             category: "fullstack",
-            url: "https://eat-is-family.vercel.app/",
+            url: "https://www.eatisfamily.fr/",
             icon: "restaurant",
             description: {
                 fr: "Intégration de template Figma sur NuxtJS avec API WordPress headless",
