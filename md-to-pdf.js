@@ -1,9 +1,14 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
-(async () => {
-  const markdown = fs.readFileSync('cv_HOUEDANOU.md', 'utf-8');
-  const html = `
+const photoDataUri = 'data:image/jpeg;base64,' + fs.readFileSync('1764523183346.jpg').toString('base64');
+
+const files = [
+  { md: 'cv_HOUEDANOU.md', pdf: 'cv_HOUEDANOU.pdf' },
+  { md: 'cv_HOUEDANOUen.md', pdf: 'cv_HOUEDANOUen.pdf' },
+];
+
+const buildHtml = (markdown) => `
     <html>
       <head>
         <meta charset="utf-8">
@@ -85,9 +90,17 @@ const puppeteer = require('puppeteer');
     </html>
   `;
 
+(async () => {
   const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
-  const page = await browser.newPage();
-  await page.setContent(html, {waitUntil: 'networkidle0'});
-  await page.pdf({path: 'cv_HOUEDANOU.pdf', format: 'A4', printBackground: true, margin: {top: 40, bottom: 40, left: 40, right: 40}});
+  for (const {md, pdf} of files) {
+    // The photo must be inlined as a data URI: with setContent the page has no
+    // base URL, so a relative src never resolves and the image is dropped.
+    const markdown = fs.readFileSync(md, 'utf-8').replace(/src="1764523183346\.jpg"/g, `src="${photoDataUri}"`);
+    const page = await browser.newPage();
+    await page.setContent(buildHtml(markdown), {waitUntil: 'networkidle0'});
+    await page.pdf({path: pdf, format: 'A4', printBackground: true, margin: {top: 40, bottom: 40, left: 40, right: 40}});
+    await page.close();
+    console.log('Generated', pdf);
+  }
   await browser.close();
 })();
