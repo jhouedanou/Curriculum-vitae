@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-7e51ee66-eea0-4c06-88e0-46ee7c952b98/styles.css">
+<script src="./image-slot.js"></script>
+<style>
+:root{--edge:clamp(20px,5vw,64px)}
+html{scroll-behavior:smooth}
+body{margin:0;text-wrap:pretty;overflow-x:clip;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--edge)}
+a{color:var(--color-accent-700);text-underline-offset:3px}
+a:hover{color:var(--color-accent-600)}
+/* nav */
+.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--color-bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--color-divider)}
+.topnav{display:flex;align-items:center;gap:22px;max-width:1080px;margin:0 auto;padding:14px var(--edge)}
+.topnav .brand{font-family:var(--font-heading);font-size:19px;margin-right:auto}
+.topnav a{color:inherit;text-decoration:none;font-size:14px;white-space:nowrap}
+.topnav a:hover{color:var(--color-accent)}
+@media(max-width:760px){.topnav a.nlink{display:none}}
+/* kicker */
+.pk{display:block;font-size:12px;line-height:1;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 16px}
+.disp{font-family:var(--font-heading);font-weight:400;letter-spacing:-.02em;line-height:1.05;margin:0}
+.muted{color:color-mix(in srgb,var(--color-text) 74%,transparent)}
+section{scroll-margin-top:74px}
+/* hero */
+.hero{position:relative;padding:76px 0 64px}
+.hero::before{content:"";position:absolute;right:-160px;top:-140px;width:420px;height:420px;border-radius:50%;background:var(--color-accent-2-200);z-index:0;pointer-events:none}
+@media(max-width:1300px){.hero::before{right:-60px}}
+.hero>*{position:relative;z-index:1}
+.trust{margin-top:44px}
+.trust-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin:0 0 12px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+/* projects */
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:36px}
+@media(max-width:760px){.pgrid{grid-template-columns:1fr}}
+.pcard{display:flex;flex-direction:column;gap:12px;padding:26px;border-radius:calc(var(--radius-lg)*1.1);background:var(--color-surface);box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s}
+.pcard:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.pcard .role{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)}
+.pcard h3{font-family:var(--font-heading);font-size:24px;line-height:1.1;margin:0}
+.pcard p{font-size:14.5px;line-height:1.55;margin:0;color:color-mix(in srgb,var(--color-text) 78%,transparent);flex:1}
+.pcard .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
+.pcard .foot a{font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+/* services */
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 40px;margin-top:36px}
+@media(max-width:760px){.sgrid{grid-template-columns:1fr}}
+.svc{display:flex;gap:18px;padding:20px 0;align-items:flex-start}
+.svc .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--color-accent-100);color:var(--color-accent-700);display:grid;place-content:center}
+.svc h3{font-family:var(--font-heading);font-size:21px;margin:0 0 6px;line-height:1.1}
+.svc p{font-size:14px;line-height:1.55;margin:0;color:color-mix(in srgb,var(--color-text) 76%,transparent)}
+/* timeline */
+.tl{margin-top:36px;position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--color-accent-200)}
+.tlrow{position:relative;padding:0 0 30px}
+.tlrow:last-child{padding-bottom:0}
+.tlrow::before{content:"";position:absolute;left:-34px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--color-accent);border:4px solid var(--color-bg)}
+.tlrow .when{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 4px}
+.tlrow h3{font-family:var(--font-heading);font-size:22px;margin:0 0 6px;line-height:1.15}
+.tlrow p{font-size:14.5px;line-height:1.55;margin:0;color:color-mix(in srgb,var(--color-text) 76%,transparent);max-width:56ch}
+/* skills */
+.kgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px}
+@media(max-width:620px){.kgrid{grid-template-columns:1fr}}
+.kcard{padding:24px;border-radius:calc(var(--radius-lg)*1.1);background:var(--color-surface)}
+.kcard .kt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--color-accent-2-800);margin:0 0 14px}
+/* about */
+.split{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:48px;align-items:center;margin-top:36px}
+@media(max-width:760px){.split{grid-template-columns:1fr;gap:28px}}
+.afig{width:100%;border-radius:calc(2*var(--radius-lg));overflow:hidden;box-shadow:var(--shadow-md)}
+.afig image-slot{width:100%;aspect-ratio:4/5}
+.split p{font-size:16px;line-height:1.65;margin:0 0 16px;color:color-mix(in srgb,var(--color-text) 80%,transparent)}
+/* blog */
+.blogband{margin-top:36px;display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:34px;border-radius:calc(2*var(--radius-lg));background:var(--color-accent-100)}
+.blogband p{margin:0;max-width:48ch;font-size:15.5px;line-height:1.6;color:color-mix(in srgb,var(--color-text) 80%,transparent)}
+/* contact */
+.patch{margin-top:36px;background:var(--color-accent-2-100);border-radius:calc(2*var(--radius-lg));padding:52px clamp(28px,5vw,64px)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:28px;max-width:620px}
+@media(max-width:620px){.cgrid{grid-template-columns:1fr}}
+.cline{display:flex;flex-direction:column;gap:2px}
+.cline .cl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:color-mix(in srgb,var(--color-text) 55%,transparent)}
+.cline a,.cline span.v{font-size:16px;color:var(--color-text);text-decoration:none;font-weight:600}
+.cline a:hover{color:var(--color-accent-700)}
+footer{padding:44px 0 56px}
+.frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)}
+.frow .fsoc{display:flex;gap:16px}
+.frow .fsoc a{color:inherit;text-decoration:none}
+.frow .fsoc a:hover{color:var(--color-accent)}
+.sechead{max-width:32ch}
+.secpad{padding:64px 0}
+</style>
+</helmet>
+
+<div class="topbar">
+  <nav class="topnav">
+    <span class="brand">Jean Luc Houédanou</span>
+    <a class="nlink" href="#projets">Projets</a>
+    <a class="nlink" href="#services">Services</a>
+    <a class="nlink" href="#parcours">Parcours</a>
+    <a class="nlink" href="#apropos">À propos</a>
+    <a href="#contact" class="btn btn-primary" style="text-decoration:none">Travaillons ensemble</a>
+    <span class="tag tag-outline" style="font-size:10px">FR · EN</span>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="pk">Développeur full-stack · Abidjan</span>
+    <h1 class="disp" style="font-size:clamp(42px,6vw,74px)">Je conçois des sites &amp; applis qui vont <span style="color:var(--color-accent)">vite</span>.</h1>
+    <p class="muted" style="font-size:18px;line-height:1.6;max-width:52ch;margin:26px 0 0">Développeur full-stack et directeur solutions digitales. Depuis plus de 12 ans, je crée des produits web rapides et bien pensés — du design front-end jusqu'aux serveurs — pour des marques comme Vodacom, CASTEL et CIPREL.</p>
+    <div class="row" style="margin-top:30px">
+      <a href="#projets" class="btn btn-primary" style="text-decoration:none">Voir mes projets</a>
+      <a href="#contact" class="btn btn-secondary" style="text-decoration:none">Me contacter</a>
+    </div>
+    <div class="trust">
+      <p class="trust-lbl">Ils m'ont fait confiance</p>
+      <div class="chips">
+        <span class="tag tag-neutral">Vodacom</span>
+        <span class="tag tag-neutral">CASTEL</span>
+        <span class="tag tag-neutral">CIPREL</span>
+        <span class="tag tag-neutral">Dinor</span>
+        <span class="tag tag-neutral">Eat Is Family</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section class="secpad" id="projets">
+    <span class="pk">Selected work</span>
+    <h2 class="disp sechead" style="font-size:clamp(32px,4vw,46px)">Des projets qui tournent en production.</h2>
+    <div class="pgrid">
+
+      <article class="pcard">
+        <span class="role">Full-stack · Tailwind, Alpine.js</span>
+        <h3>SoboaFoot</h3>
+        <p>Plateforme de pronostics pour la CAN 2025 : inscriptions, matchs en temps réel et classement des parieurs.</p>
+        <div class="chips"><span class="tag tag-accent">Tailwind</span><span class="tag tag-accent">Alpine.js</span></div>
+        <div class="foot"><a href="https://soboafoot.com" target="_blank" rel="noopener">soboafoot.com →</a></div>
+      </article>
+
+      <article class="pcard">
+        <span class="role">Architecte · Filament, Nuxt, Flutter</span>
+        <h3>Dinor App</h3>
+        <p>Plateforme culinaire multi-support : back-office Filament, front Nuxt et application mobile Flutter, une seule source de vérité.</p>
+        <div class="chips"><span class="tag tag-accent">Filament</span><span class="tag tag-accent">Nuxt</span><span class="tag tag-accent">Flutter</span></div>
+        <div class="foot"><a href="https://new.dinorapp.com" target="_blank" rel="noopener">new.dinorapp.com →</a></div>
+      </article>
+
+      <article class="pcard">
+        <span class="role">Lead dev · VueJS</span>
+        <h3>Vodacom TXT Engage</h3>
+        <p>Landing marketing pour la campagne TXT Engage de Vodacom : rapide, animée et pensée pour la conversion.</p>
+        <div class="chips"><span class="tag tag-accent">VueJS</span><span class="tag tag-accent">Marketing</span></div>
+        <div class="foot"><a href="https://vodamedia.co.za/txtengage" target="_blank" rel="noopener">vodamedia.co.za →</a></div>
+      </article>
+
+      <article class="pcard">
+        <span class="role">Chef de projet &amp; dev</span>
+        <h3>CASTEL Afrique</h3>
+        <p>Site corporate du groupe CASTEL en Afrique : pilotage de projet et développement, du cadrage à la mise en ligne.</p>
+        <div class="chips"><span class="tag tag-accent-2">Corporate</span><span class="tag tag-accent-2">Gestion de projet</span></div>
+        <div class="foot"><a href="https://castel-afrique.com" target="_blank" rel="noopener">castel-afrique.com →</a></div>
+      </article>
+
+      <article class="pcard">
+        <span class="role">Front-end · Nuxt, WordPress API</span>
+        <h3>Eat Is Family</h3>
+        <p>Site food gourmand : front Nuxt alimenté par l'API WordPress, contenu riche et navigation fluide.</p>
+        <div class="chips"><span class="tag tag-accent">Nuxt</span><span class="tag tag-accent">WordPress API</span></div>
+        <div class="foot"><a href="https://eatisfamily.fr" target="_blank" rel="noopener">eatisfamily.fr →</a></div>
+      </article>
+
+      <article class="pcard">
+        <span class="role">Front-end · pixel-perfect</span>
+        <h3>CIPREL</h3>
+        <p>Site du producteur d'énergie CIPREL : intégration pixel-perfect, fidèle à la maquette jusqu'au moindre détail.</p>
+        <div class="chips"><span class="tag tag-accent-2">Énergie</span><span class="tag tag-accent-2">Intégration</span></div>
+        <div class="foot"><a href="https://ciprel.ci" target="_blank" rel="noopener">ciprel.ci →</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="secpad" id="services">
+    <span class="pk">What I do</span>
+    <h2 class="disp sechead" style="font-size:clamp(32px,4vw,46px)">Du premier pixel au dernier serveur.</h2>
+    <div class="sgrid">
+      <div class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div><h3>Développement front-end</h3><p>Interfaces VueJS, NuxtJS et Angular — rapides, accessibles et fidèles à la maquette au pixel près.</p></div>
+      </div>
+      <div class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div><h3>Architecture full-stack</h3><p>APIs et back-office Laravel, Filament et Supabase — des fondations solides qui tiennent la charge.</p></div>
+      </div>
+      <div class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2.5-1.1 2.5-2.5a2.5 2.5 0 0 1 2.5-2.5H19a3 3 0 0 0 3-3 10 10 0 0 0-10-10z"/></svg></div>
+        <div><h3>Design UI/UX</h3><p>Maquettage sur Figma et Adobe XD, prototypes cliquables et systèmes de design cohérents.</p></div>
+      </div>
+      <div class="svc">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+        <div><h3>DevOps &amp; déploiement</h3><p>Conteneurs Docker, pipelines GitLab CI/CD et serveurs Linux — de la mise en prod à la maintenance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section class="secpad" id="parcours">
+    <span class="pk">Experience</span>
+    <h2 class="disp sechead" style="font-size:clamp(32px,4vw,46px)">12 ans à faire pousser des produits web.</h2>
+    <div class="tl">
+      <div class="tlrow">
+        <p class="when">Aujourd'hui</p>
+        <h3>Directeur solutions digitales</h3>
+        <p>Je pilote la stratégie technique et les équipes — de la conception à la livraison — pour des produits web et mobiles à Abidjan et au-delà.</p>
+      </div>
+      <div class="tlrow">
+        <p class="when">Ces dernières années</p>
+        <h3>Architecte &amp; lead développeur</h3>
+        <p>Conception d'architectures full-stack et de plateformes multi-support : Dinor App (Filament / Nuxt / Flutter) et la campagne Vodacom TXT Engage en VueJS.</p>
+      </div>
+      <div class="tlrow">
+        <p class="when">En chemin</p>
+        <h3>Développeur front-end &amp; chef de projet</h3>
+        <p>Sites corporate et éditoriaux menés du cadrage à la mise en ligne : CASTEL Afrique, CIPREL, Eat Is Family — intégration pixel-perfect et coordination.</p>
+      </div>
+      <div class="tlrow">
+        <p class="when">Les débuts</p>
+        <h3>Premiers sites, premières lignes</h3>
+        <p>Il y a plus de douze ans, mes premiers projets web — la curiosité qui ne m'a plus lâché depuis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section class="secpad" id="competences">
+    <span class="pk">Toolkit</span>
+    <h2 class="disp sechead" style="font-size:clamp(32px,4vw,46px)">Ma boîte à outils.</h2>
+    <div class="kgrid">
+      <div class="kcard">
+        <p class="kt">Front</p>
+        <div class="chips"><span class="tag tag-accent">VueJS</span><span class="tag tag-accent">NuxtJS</span><span class="tag tag-accent">Angular</span><span class="tag tag-accent">JavaScript</span></div>
+      </div>
+      <div class="kcard">
+        <p class="kt">Back</p>
+        <div class="chips"><span class="tag tag-accent">PHP</span><span class="tag tag-accent">Laravel</span><span class="tag tag-accent">Filament</span><span class="tag tag-accent">Supabase</span><span class="tag tag-accent">MySQL</span></div>
+      </div>
+      <div class="kcard">
+        <p class="kt">Design</p>
+        <div class="chips"><span class="tag tag-accent-2">Figma</span><span class="tag tag-accent-2">Adobe XD</span><span class="tag tag-accent-2">UI/UX</span></div>
+      </div>
+      <div class="kcard">
+        <p class="kt">DevOps</p>
+        <div class="chips"><span class="tag tag-accent-2">Docker</span><span class="tag tag-accent-2">GitLab CI/CD</span><span class="tag tag-accent-2">Linux</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="secpad" id="apropos">
+    <span class="pk">About</span>
+    <div class="split">
+      <figure class="afig washed">
+        <image-slot id="portrait" shape="rect" placeholder="Dépose ta photo"></image-slot>
+      </figure>
+      <div>
+        <h2 class="disp" style="font-size:clamp(30px,3.6vw,42px);margin-bottom:20px">Un développeur qui pense produit.</h2>
+        <p>Basé à Abidjan, je travaille depuis plus de 12 ans à la croisée du code et du design. J'aime les projets où l'on peut toucher à tout — comprendre le besoin, dessiner l'interface, écrire le back-end et mettre en ligne.</p>
+        <p>Mon obsession : des produits rapides, clairs et durables. Pas de couche superflue, pas de dette cachée — juste ce qu'il faut pour que ça marche et que ça dure.</p>
+        <div class="row" style="margin-top:24px">
+          <a href="#contact" class="btn btn-primary" style="text-decoration:none">Discutons de ton projet</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="secpad" id="blog">
+    <span class="pk">Writing</span>
+    <div class="blogband">
+      <div>
+        <h2 class="disp" style="font-size:clamp(26px,3vw,36px);margin-bottom:12px">J'écris aussi, entre deux commits.</h2>
+        <p>Web, développement et création vus depuis Abidjan. Retrouve mes articles et carnets sur le blog.</p>
+      </div>
+      <a href="https://houedanou.com" target="_blank" rel="noopener" class="btn btn-primary" style="text-decoration:none;flex:none">Lire le blog →</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="secpad" id="contact">
+    <div class="patch">
+      <span class="pk" style="color:var(--color-accent-2-800)">Get in touch</span>
+      <h2 class="disp" style="font-size:clamp(30px,4vw,46px);max-width:20ch">On construit quelque chose ensemble ?</h2>
+      <p class="muted" style="font-size:16px;line-height:1.6;max-width:46ch;margin:18px 0 0">Un projet, une idée, une refonte ? Écris-moi — je réponds vite.</p>
+      <div class="cgrid">
+        <div class="cline"><span class="cl">Email</span><a href="mailto:jeanluc@houedanou.com">jeanluc@houedanou.com</a></div>
+        <div class="cline"><span class="cl">Téléphone</span><a href="tel:+2250748348221">+225 07 48 34 82 21</a></div>
+        <div class="cline"><span class="cl">GitHub</span><a href="https://github.com/jhouedanou" target="_blank" rel="noopener">github.com/jhouedanou</a></div>
+        <div class="cline"><span class="cl">LinkedIn</span><a href="https://www.linkedin.com/in/jlhouedanou/" target="_blank" rel="noopener">in/jlhouedanou</a></div>
+        <div class="cline"><span class="cl">X (Twitter)</span><a href="https://x.com/afrowebdesigner" target="_blank" rel="noopener">@afrowebdesigner</a></div>
+        <div class="cline"><span class="cl">Instagram</span><a href="https://instagram.com/jlhouedanou" target="_blank" rel="noopener">@jlhouedanou</a></div>
+      </div>
+      <div class="row" style="margin-top:32px">
+        <a href="mailto:jeanluc@houedanou.com" class="btn btn-primary" style="text-decoration:none">M'écrire un mail</a>
+        <a href="https://houedanou.com" target="_blank" rel="noopener" class="btn btn-secondary" style="text-decoration:none">Mon blog</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="frow">
+      <span>© 2026 Jean Luc Houédanou · Abidjan, Côte d'Ivoire</span>
+      <span class="fsoc">
+        <a href="https://github.com/jhouedanou" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/jlhouedanou/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/afrowebdesigner" target="_blank" rel="noopener">X</a>
+        <a href="https://houedanou.com" target="_blank" rel="noopener">Blog</a>
+      </span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>
