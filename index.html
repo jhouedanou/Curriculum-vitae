@@ -454,6 +454,7 @@
                         <button type="button" :class="{ 'is-active': activeFilter === 'fullstack' }" @click="setFilter('fullstack')">Full-stack</button>
                         <button type="button" :class="{ 'is-active': activeFilter === 'wordpress' }" @click="setFilter('wordpress')">WordPress</button>
                         <button type="button" :class="{ 'is-active': activeFilter === 'figma' }" @click="setFilter('figma')">Figma</button>
+                        <button type="button" :class="{ 'is-active': activeFilter === 'nuxt' }" @click="setFilter('nuxt')">Nuxt</button>
                     </div>
                     <div class="modern-carousel-toolbar"><span>{{ currentLang === 'fr' ? 'Sélection · glisser pour parcourir' : 'Selected work · swipe to browse' }}</span><div><button type="button" class="modern-carousel-button" @click="moveProjectCarousel(-1)" aria-label="Projet précédent">←</button><button type="button" class="modern-carousel-button" @click="moveProjectCarousel(1)" aria-label="Projet suivant">→</button></div></div>
                     <div class="modern-projects-viewport">
@@ -826,6 +827,10 @@
                             <div class="filter-item" @click="setFilter('figma')" :class="{ 'is-active': activeFilter === 'figma' }">
                                 <i class="material-icons">design_services</i>
                                 <span>Figma</span>
+                            </div>
+                            <div class="filter-item" @click="setFilter('nuxt')" :class="{ 'is-active': activeFilter === 'nuxt' }">
+                                <i class="material-icons">bolt</i>
+                                <span>Nuxt</span>
                             </div>
                         </div>
                     </div>
@@ -1542,6 +1547,9 @@
                 filteredProjects() {
                     if (this.activeFilter === 'all') {
                         return this.projects;
+                    }
+                    if (this.activeFilter === 'nuxt') {
+                        return this.projects.filter(project => (project.technologies || []).some(tech => tech.toLowerCase().includes('nuxt')));
                     }
                     return this.projects.filter(project => project.category === this.activeFilter);
                 },
