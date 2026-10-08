@@ -1,0 +1,168 @@
+# English version of cv.yaml — used for English job offers (e.g. Remotive).
+# Keep the same ids as cv.yaml. Update both files when you add something.
+
+identite:
+  nom: Jean-Luc Houédanou
+  titre: Full-stack web developer · UI/UX designer · Digital project manager
+  email: jeanluc@houedanou.com
+  telephone: "+225 07 48 34 82 21"
+  ville: Abidjan, Côte d'Ivoire
+  portfolio: https://jhouedanou.github.io/Curriculum-vitae/
+  github: https://github.com/jhouedanou
+  blog: https://houedanou.com
+  photo: photo.jpg
+
+infos_perso:
+  afficher: false           # personal details are usually left out of English CVs
+  date_naissance: February 24, 1984
+  situation: Single
+  permis: B
+
+resume: >
+  Web developer with over 12 years of experience in full-stack web development,
+  UI/UX design and digital project management. Front-end specialist (VueJS,
+  Angular). I lead a team of developers and designers and deliver web platforms
+  for clients such as Vodacom, CASTEL Africa and CIPREL.
+
+langues:
+  - { langue: French, niveau: Native }
+  - { langue: English, niveau: Fluent }
+
+experiences:
+  - id: bigfive
+    poste: Digital Solutions Director
+    entreprise: Big Five Solutions
+    lieu: Abidjan, Côte d'Ivoire
+    periode: June 2019 – Present
+    description: >
+      Leads the development and integration of full-stack web solutions and
+      digital platforms for a diverse client base.
+    realisations:
+      - Developed and launched 17+ major web projects, including corporate sites for Vodacom, CASTEL Africa and CIPREL, with an average 40% increase in client traffic
+      - Supervised and mentored a team of 2 developers and designers; 95% client satisfaction and 100% on-time delivery
+      - Managed and secured 8 Linux servers (CentOS, Ubuntu) for high-availability hosting; downtime reduced by 90%
+      - Introduced modern technologies (VueJS, Supabase, Filament) for interactive web applications; performance improved by 60%
+
+  - id: wedev
+    poste: Head of Design
+    entreprise: WeDev Group
+    lieu: Abidjan, Côte d'Ivoire
+    periode: June 2017 – June 2019
+    description: >
+      Led design strategy and supervised user interface design to strengthen
+      brand identity and customer experience.
+    realisations:
+      - Creative direction of 25+ web and mobile projects with a user-centered approach
+      - Created design guidelines and visual systems adopted by the whole team
+      - Visual communication strategy; brand recognition up 35%
+
+  - id: adonai
+    poste: Digital Communications Manager
+    entreprise: Adonai Agri Batis
+    lieu: Abidjan, Côte d'Ivoire
+    periode: February 2017 – June 2017
+    description: >
+      Built and ran the digital communication strategy to strengthen the online presence.
+    realisations:
+      - Full corporate website redesign; conversion +20% and bounce rate -30%
+      - Social media engagement up 150% in 4 months
+      - Digital communication framework; campaign efficiency +45%
+
+  - id: cifide
+    poste: Web Project Manager & Digital Communications
+    entreprise: CIFIDE
+    lieu: Abidjan, Côte d'Ivoire
+    periode: July 2016 – January 2017
+    description: >
+      Supervised web projects and coordinated digital campaigns.
+    realisations:
+      - Content strategy; organic traffic +35% in 6 months
+      - Managed 8 web projects at once, 100% delivered on time
+      - Portfolio of 12 clients; 85% client retention
+
+  - id: cerap
+    poste: Webmaster
+    entreprise: CERAP (former Inades)
+    lieu: Abidjan, Côte d'Ivoire
+    periode: August 2013 – March 2016
+    description: >
+      Technical and editorial management of the institutional website.
+    realisations:
+      - Migration to a modern CMS; publishing time for CERAP activities reduced by 75%
+      - Security measures that eliminated security incidents
+      - Supervised editorial and technical operations; 99% uptime
+
+experiences_anterieures:
+  - Website Manager — Electoral Reform International Services (Jan–Jun 2013)
+  - ICT Trainer Consultant — Internews Europe (May 2012)
+  - Web Designer & Graphic Designer — Chrisalys Group (May–Dec 2012)
+  - Associate Manager, E-commerce Division — Groupe Kamit Communications Inc, Montreal (Sep 2009–Apr 2011)
+
+formation:
+  - { annees: "2008 – 2009", diplome: Certificate in Information and Systems Management, ecole: "University of Sherbrooke, Canada" }
+  - { annees: "2007 – 2008", diplome: Master's in E-Commerce Management, ecole: "University of Sherbrooke, Canada" }
+  - { annees: "2002 – 2006", diplome: Bachelor's in Business Administration, ecole: "Canadian University of Arts, Sciences and Management, Côte d'Ivoire" }
+  - { annees: "1995 – 2002", diplome: Baccalaureate in Economics and Science, ecole: "Collège Jean Mermoz, Côte d'Ivoire" }
+
+competences:
+  - categorie: Frontend development
+    items:
+      - { nom: VueJS, annees: 5, niveau: Expert }
+      - { nom: Angular, annees: 4, niveau: Advanced }
+      - { nom: NuxtJS, annees: 3, niveau: Intermediate+ }
+      - { nom: JavaScript, annees: 8, niveau: Expert }
+      - { nom: HTML5, annees: 12, niveau: Expert }
+      - { nom: CSS3, annees: 12, niveau: Expert }
+      - { nom: Responsive Web Design, annees: 8, niveau: Advanced }
+  - categorie: Backend development
+    items:
+      - { nom: PHP, annees: 10, niveau: Expert }
+      - { nom: Laravel, annees: 5, niveau: Advanced }
+      - { nom: Filament, annees: 2, niveau: Intermediate }
+      - { nom: Supabase, annees: 2, niveau: Intermediate }
+      - { nom: MySQL, annees: 8, niveau: Advanced }
+      - { nom: RESTful APIs, annees: 6, niveau: Advanced }
+      - { nom: Linux server administration, annees: 7, niveau: Advanced }
+  - categorie: Design & tools
+    items:
+      - { nom: Adobe XD, annees: 6, niveau: Expert }
+      - { nom: Figma, annees: 4, niveau: Advanced }
+      - { nom: Affinity Suite, annees: 5, niveau: Advanced }
+      - { nom: UI/UX Design, annees: 8, niveau: Expert }
+      - { nom: Graphic design, annees: 10, niveau: Advanced }
+      - { nom: DaVinci Resolve, annees: 3, niveau: Intermediate+ }
+  - categorie: DevOps & infrastructure
+    items:
+      - { nom: GitLab CI/CD, annees: 3, niveau: Intermediate+ }
+      - { nom: Docker, annees: 3, niveau: Intermediate+ }
+      - { nom: "Database clusters (PostgreSQL BDR, MariaDB Galera)", annees: 4, niveau: Intermediate+ }
+      - { nom: Web security, annees: 7, niveau: Advanced }
+  - categorie: Project management
+    items:
+      - { nom: SCRUM, annees: 6, niveau: Advanced }
+      - { nom: Kanban, annees: 5, niveau: Advanced }
+      - { nom: Agile, annees: 6, niveau: Advanced }
+      - { nom: Jira, annees: 4, niveau: Intermediate+ }
+      - { nom: Team leadership, annees: 5, niveau: Advanced }
+      - { nom: Client relations, annees: 12, niveau: Expert }
+      - { nom: Strategic planning, annees: 5, niveau: Advanced }
+
+projets:
+  - { id: soboafoot, nom: SoboaFoot — AFCON 2025 predictions, url: "https://soboafoot.com/", role: Full-stack developer, technos: [Tailwind CSS, Alpine.js, Swiper.js, Service Worker], description: "Sports predictions platform with rankings, points and partner geolocation" }
+  - { id: eatisfamily, nom: Eat Is Family, url: "https://www.eatisfamily.fr/", role: Front-end developer, technos: [NuxtJS, Vue.js, WordPress API, Figma], description: "Figma design built as a NuxtJS app with headless WordPress" }
+  - { id: vodacom, nom: Vodacom landing page, url: "https://vodamedia.co.za/txtengage/", role: Lead developer, technos: [VueJS, Responsive Design], description: "Landing page for Vodacom South Africa" }
+  - { id: castel, nom: CASTEL Africa, url: "https://castel-afrique.com", role: Project manager & developer, technos: [Adobe XD, Responsive Design], description: "Responsive corporate website built from Adobe XD designs" }
+  - { id: adpn, nom: Digital and Online Press Awards, url: "https://www.adpnafrica.com/", role: WordPress developer, technos: [WordPress, PHP, ACF, Custom Post Types], description: "WordPress theme for an awards website with nomination management" }
+  - { id: dinorapp, nom: Dinor App, url: "https://new.dinorapp.com/", role: Full-stack architect, technos: [Filament, VueJS, NuxtJS, Flutter], description: "Multi-platform recipes and cooking tips platform" }
+  - { id: dinorcalories, nom: Dinor Calorie Counter, url: "https://dinor-calorie-counter-alt.vercel.app/", role: Full-stack developer, technos: [React, Next.js, TypeScript], description: "Calorie tracking application" }
+  - { id: ciprel, nom: CIPREL, url: "https://ciprel.ci", role: Front-end developer, technos: [Responsive Design], description: "Pixel-perfect corporate website optimized for performance" }
+  - { id: ciprelquiz, nom: CIPREL HR quiz (SIREXE), url: "https://ciprelrh.netlify.app/questionnaire", role: Full-stack developer, technos: [NuxtJS], description: "Interactive quiz app with a scoring system" }
+  - { id: cipreljeu, nom: CIPREL drag & drop game, url: "https://jeuciprel.vercel.app/", role: Full-stack developer, technos: [JavaScript, Drag & Drop API], description: "Interactive training game" }
+  - { id: timeorh, nom: Timeo HR dashboard, url: "https://timeo-rh.vercel.app/", role: UI/UX designer & full-stack developer, technos: [Figma, VueJS], description: "Figma design and VueJS frontend for an HR dashboard" }
+  - { id: bigfive360, nom: BigFive360, url: "https://bigfive360.com", role: Front-end developer, technos: [HTML5, CSS3, JavaScript], description: "Website for a 360° virtual tour service" }
+  - { id: bigfivesite, nom: Big Five Solutions website, url: "https://bigfive.solutions/", role: Front-end developer, technos: [VueJS, Adobe XD], description: "Adobe XD designs built in VueJS with reusable components" }
+  - { id: timeomobile, nom: Timeo HR mobile app, url: "https://tinyurl.com/timeo-mobile-app", role: UI/UX designer, technos: [Figma, Mobile Design], description: "Full mobile prototype for an HR app" }
+  - { id: bblome, nom: BBlome, url: "https://bblome.com", role: WordPress integrator, technos: [WordPress, PHP], description: "Website for the BBlome brewery" }
+  - { id: soeguibe, nom: Soeguibe, url: "https://soeguibe.com", role: WordPress integrator, technos: [WordPress, Gutenberg, PHP], description: "Custom WordPress theme with an advanced editor" }
+  - { id: kekeli, nom: Kekeli Power, url: "https://tinyurl.com/kekeli-power-ui", role: UI/UX designer, technos: [Figma], description: "Interface for an energy application" }
+  - { id: hhb, nom: Amadou Hampâté Bâ Foundation, url: "https://tinyurl.com/fondation-hhb", role: UI/UX designer, technos: [Figma], description: "Institutional website" }

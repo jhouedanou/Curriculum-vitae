@@ -1,0 +1,83 @@
+@page {
+  size: A4;
+  margin: 14mm 15mm 14mm 15mm;
+  @bottom-right { content: counter(page) " / " counter(pages); font-size: 8pt; color: #8a94a6; }
+}
+
+:root {
+  --encre: #1c2230;
+  --doux: #5b6576;
+  --trait: #dfe3ea;
+  --accent: #0f5c6e;
+  --accent-fond: #e9f3f5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--encre);
+  font-size: 9.6pt;
+  line-height: 1.42;
+  margin: 0;
+  background: #fff;
+}
+
+a { color: var(--accent); text-decoration: none; }
+
+/* ── En-tête ───────────────────────────── */
+.entete { display: flex; align-items: center; gap: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+.entete img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+.entete h1 { font-size: 20pt; margin: 0; letter-spacing: -0.3px; }
+.entete .titre { font-size: 11pt; color: var(--accent); font-weight: 600; margin-top: 2px; }
+.entete .contacts { font-size: 8.6pt; color: var(--doux); margin-top: 4px; display: flex; flex-wrap: wrap; gap: 1px 14px; }
+.entete .contacts span { white-space: nowrap; }
+
+/* ── Sections ──────────────────────────── */
+h2 {
+  font-size: 9pt; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--accent); margin: 14px 0 6px; padding-bottom: 3px;
+  border-bottom: 1px solid var(--trait);
+}
+p { margin: 0 0 6px; }
+
+.puces { margin: 3px 0 0; padding-left: 14px; }
+.puces li { margin-bottom: 2px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 4px 5px; }
+.chip { background: var(--accent-fond); color: var(--accent); border-radius: 3px; padding: 1px 7px; font-size: 8.6pt; font-weight: 600; }
+
+.exp { margin-bottom: 9px; break-inside: avoid; }
+.exp-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.exp-tete > div:first-child { flex: 1 1 auto; min-width: 0; }
+.exp-poste { font-weight: 700; }
+.exp-lieu { color: var(--doux); }
+.exp-date { flex: 0 0 auto; color: var(--doux); white-space: nowrap; font-size: 8.8pt; }
+
+.sous-titre { font-weight: 700; font-size: 8.8pt; color: var(--doux); margin: 8px 0 2px; }
+.anterieures { margin: 0; padding-left: 14px; color: var(--doux); }
+
+.projet { margin-bottom: 5px; break-inside: avoid; }
+.projet b { color: var(--encre); }
+.projet .meta { color: var(--doux); font-size: 8.6pt; }
+
+.bas { width: 100%; border-collapse: collapse; margin-top: 4px; }
+.bas td { vertical-align: top; padding-right: 14px; }
+.bas td:nth-child(1) { width: 46%; }
+.bas td:nth-child(2) { width: 27%; }
+.bas td:nth-child(3) { width: 27%; padding-right: 0; }
+.bas .ligne { margin-bottom: 4px; }
+.bas .petit { color: var(--doux); font-size: 8.6pt; }
+
+/* ── Lettre ────────────────────────────── */
+.lettre { font-size: 10.5pt; line-height: 1.55; }
+.lettre .exp-bloc { margin-bottom: 18px; }
+.lettre .dest { margin: 18px 0 14px; font-weight: 600; }
+.lettre .date { text-align: right; color: var(--doux); margin-bottom: 8px; }
+.lettre .objet { font-weight: 700; margin-bottom: 14px; }
+.lettre p { margin-bottom: 10px; text-align: justify; }
+.lettre .signature { margin-top: 26px; font-weight: 700; }
+
+@media screen {
+  body { max-width: 210mm; margin: 24px auto; padding: 0 16px; }
+}

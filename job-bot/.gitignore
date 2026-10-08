@@ -1,0 +1,6 @@
+.env
+jobbot.db
+candidatures/
+__pycache__/
+.venv/
+.pytest_cache/
