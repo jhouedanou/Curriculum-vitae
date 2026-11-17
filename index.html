@@ -392,6 +392,91 @@
         @media (max-width: 680px) { #modern-site .modern-hero { grid-template-columns: 1fr; } #modern-site .modern-hero-copy { grid-column: 1; grid-row: 2; } #modern-site .modern-visual { grid-column: 1; grid-row: 1; } #modern-site .modern-projects { grid-auto-columns: minmax(85%, 1fr); } }
         #modern-site .modern-hero { display: grid !important; flex-direction: initial; align-items: center; }
         #modern-site .modern-section { display: flex; flex-direction: column; justify-content: center; }
+
+        /* ── Responsive : menu mobile, tablette, cibles tactiles ───────────── */
+        .modern-menu-toggle { display: none; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--organic-line); border-radius: 4px; background: transparent; color: var(--organic-ink); }
+        .modern-menu-toggle span, .modern-menu-toggle span::before, .modern-menu-toggle span::after { display: block; width: 18px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease, background .2s ease; }
+        .modern-menu-toggle span { position: relative; }
+        .modern-menu-toggle span::before, .modern-menu-toggle span::after { content: ""; position: absolute; left: 0; }
+        .modern-menu-toggle span::before { top: -6px; }
+        .modern-menu-toggle span::after { top: 6px; }
+        .modern-menu-toggle[aria-expanded="true"] span { background: transparent; }
+        .modern-menu-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+        .modern-menu-toggle[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+        .modern-mobile-menu { display: none; }
+        #modern-site > .modern-header { z-index: 50; }
+        .modern-actions .modern-button { white-space: nowrap; }
+        #modern-site .modern-project-footer { flex-wrap: wrap; }
+        #modern-site .modern-contact-line a, #modern-site .modern-contact-line span { overflow-wrap: anywhere; }
+        .modern-modal { max-height: min(700px, 90dvh); }
+
+        /* Le menu latéral garde ses libellés seulement quand la marge est assez large pour eux */
+        @media (max-width: 1420px) {
+            .modern-pager { right: 8px; gap: 4px; }
+            .modern-pager button { padding: 6px; }
+            .modern-pager button span { display: none; }
+        }
+
+        /* Tablette et écrans peu hauts : défilement libre, pas d'arrêt forcé sur chaque section */
+        @media (max-width: 980px), (max-height: 960px) {
+            #modern-site { scroll-snap-type: y proximity; }
+            #modern-site .modern-hero, #modern-site .modern-section { min-height: auto; scroll-snap-stop: normal; }
+            #modern-site .modern-section { padding-top: clamp(56px, 9vw, 96px); padding-bottom: clamp(56px, 9vw, 96px); }
+        }
+
+        @media (max-width: 900px) {
+            #modern-site .modern-contact { grid-template-columns: 1fr; }
+            #modern-site .modern-contact h2 { max-width: none; }
+        }
+
+        @media (max-width: 760px) {
+            .modern-links { display: none; }
+            .modern-menu-toggle { display: grid; }
+            .modern-actions { margin-left: auto; }
+            .modern-mobile-menu { position: absolute; top: 100%; left: 0; right: 0; display: grid; max-height: calc(100dvh - 64px); overflow-y: auto; padding: 4px var(--organic-edge) 14px; border-bottom: 1px solid var(--organic-line); background: var(--organic-bg); box-shadow: 0 24px 40px rgba(2, 6, 18, .35); }
+            .modern-mobile-menu a, .modern-mobile-menu button { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 4px; border: 0; border-top: 1px solid var(--organic-line); background: transparent; color: var(--organic-ink) !important; font: 600 16px/1.2 var(--organic-sans); text-align: left; text-decoration: none; }
+            .modern-mobile-menu a::after, .modern-mobile-menu button::after { content: "→"; color: var(--organic-orange-dark); }
+        }
+
+        /* Écrans tactiles et tablettes : cibles de 44 px et textes d'au moins 11 px */
+        @media (max-width: 1024px), (pointer: coarse) {
+            #modern-site .modern-hero, #modern-site .modern-section { scroll-margin-top: 12px; }
+            #modern-site .modern-button { min-height: 46px; }
+            #modern-site .modern-lang, #modern-site .modern-vr { min-width: 44px; min-height: 44px; }
+            #modern-site .modern-links a { display: inline-flex; align-items: center; min-height: 44px; }
+            #modern-site .modern-brand { min-height: 44px; }
+            #modern-site .modern-filter { gap: 8px; }
+            #modern-site .modern-filter button { min-height: 42px; padding: 0 14px; font-size: 13px; }
+            #modern-site .modern-carousel-button { width: 44px; height: 44px; }
+            #modern-site .modern-projects-more button { min-height: 46px; padding: 0 18px; font-size: 12px; }
+            #modern-site .modern-project-footer button, #modern-site .modern-project-footer a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; }
+            #modern-site .modern-project-role, #modern-site .modern-kicker, #modern-site .modern-trust-label, #modern-site .modern-carousel-toolbar, #modern-site .modern-modal-label, #modern-site .modern-contact-line small, #modern-site .modern-form label, #modern-site .modern-note span, #modern-site .modern-code-card small, #modern-site .modern-study small { font-size: 11px; }
+            #modern-site .modern-tag { font-size: 11px; padding: 7px 10px; }
+            #modern-site .modern-form input, #modern-site .modern-form textarea, #modern-site .modern-form select { font-size: 16px; min-height: 46px; }
+            #modern-site .modern-footer-links { gap: 4px 20px; }
+            #modern-site .modern-footer-links a, #modern-site .modern-contact-line a { display: inline-flex; align-items: center; min-height: 44px; }
+            .modern-modal-close { min-width: 44px; min-height: 44px; }
+            .modern-pager { display: none; }
+        }
+
+        @media (max-width: 680px) {
+            #modern-site .modern-hero { min-height: auto; }
+            #modern-site .modern-project-description { font-size: 15px; }
+            #modern-site .modern-footer { flex-direction: column; padding-bottom: 40px; }
+            #modern-site .modern-footer-links a { font-size: 14px; }
+            .modern-modal-backdrop { padding: 10px; align-items: end; }
+            .modern-modal { width: 100%; max-height: 92dvh; }
+        }
+
+        @media (max-width: 420px) {
+            /* « Parlons-en » passe dans le menu (lien Contact) pour laisser la place au bouton menu */
+            #modern-site .modern-actions .modern-button { display: none; }
+        }
+
+        @media (max-width: 380px) {
+            .modern-brand { font-size: 14px; max-width: 120px; }
+            #modern-site .modern-hero h1 { font-size: clamp(36px, 12vw, 48px); }
+        }
     </style>
 </head>
 <body>
@@ -409,9 +494,18 @@
                     <div class="modern-actions">
                         <button type="button" class="modern-lang" @click="toggleLanguage" :aria-label="currentLang === 'fr' ? 'Passer en anglais' : 'Switch to French'">{{ currentLang === 'fr' ? 'EN' : 'FR' }}</button>
                         <button type="button" class="modern-vr" @click="enterVR">VR / 3D</button>
-                        <a class="modern-button modern-button--primary" href="#contact">{{ currentLang === 'fr' ? 'Parlons-en' : 'Let’s talk' }}</a>
+                        <a class="modern-button modern-button--primary" href="#contact" @click="mobileMenuOpen = false">{{ currentLang === 'fr' ? 'Parlons-en' : 'Let’s talk' }}</a>
+                        <button type="button" class="modern-menu-toggle" :aria-expanded="mobileMenuOpen ? 'true' : 'false'" aria-controls="modern-mobile-menu" :aria-label="mobileMenuOpen ? (currentLang === 'fr' ? 'Fermer le menu' : 'Close menu') : (currentLang === 'fr' ? 'Ouvrir le menu' : 'Open menu')" @click="mobileMenuOpen = !mobileMenuOpen"><span></span></button>
                     </div>
                 </nav>
+                <div v-if="mobileMenuOpen" id="modern-mobile-menu" class="modern-mobile-menu" @click="mobileMenuOpen = false">
+                    <a href="#projets">{{ currentLang === 'fr' ? 'Projets' : 'Work' }}</a>
+                    <a href="#services">Services</a>
+                    <a href="#parcours">{{ currentLang === 'fr' ? 'Parcours' : 'Journey' }}</a>
+                    <a href="#competences">{{ currentLang === 'fr' ? 'Compétences' : 'Skills' }}</a>
+                    <a href="#apropos">{{ currentLang === 'fr' ? 'À propos' : 'About' }}</a>
+                    <a href="#contact">Contact</a>
+                </div>
             </header>
 
             <nav class="modern-pager" aria-label="Navigation entre les sections">
@@ -1015,6 +1109,7 @@
                     parallax: { x: 0, y: 0 },
                     activeSlide: 'accueil',
                     showAllProjects: false,
+                    mobileMenuOpen: false,
                     slideItems: [
                         { id: 'accueil', label: 'Intro' },
                         { id: 'projets', label: 'Work' },
