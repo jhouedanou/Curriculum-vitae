@@ -191,6 +191,16 @@ Experienced **Web Developper** with **over 12 years of expertise** in full-stack
 
 ## Portfolio - Key Projects
 
+### **Laveiye - Library of African marketing campaigns**
+**https://laveiye.com/**
+*Role:* Development | *Technologies:* Next.js, React
+Subscription platform to browse, filter and analyse more than 900 real marketing campaigns in Africa
+
+### **Big Five Academy - E-Masterclass**
+**https://bigfiveacademy.com/**
+*Role:* Development | *Technologies:* NuxtJS, Vue.js
+E-learning platform: one-hour modules, two programmes, cart and learner space
+
 ### **Friesland Bonnet Rouge - Field CRM and mobile app**
 **https://frieslandv3.vercel.app/**
 *Role:* UI design & development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS

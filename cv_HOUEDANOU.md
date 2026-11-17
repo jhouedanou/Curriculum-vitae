@@ -191,6 +191,16 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ## Portfolio - Projets Clés
 
+### **Laveiye - Bibliothèque de campagnes marketing africaines**
+**https://laveiye.com/**
+*Rôle:* Développement | *Technologies:* Next.js, React
+Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campagnes marketing réelles en Afrique
+
+### **Big Five Academy - E-Masterclass**
+**https://bigfiveacademy.com/**
+*Rôle:* Développement | *Technologies:* NuxtJS, Vue.js
+Plateforme de formation en ligne : modules d'une heure, deux programmes, panier et espace apprenant
+
 ### **Friesland Bonnet Rouge - CRM terrain et application mobile**
 **https://frieslandv3.vercel.app/**
 *Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
