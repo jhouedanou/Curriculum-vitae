@@ -339,6 +339,8 @@
         .modern-projects::-webkit-scrollbar-track { background: transparent; }
         .modern-projects::-webkit-scrollbar-thumb { background: var(--organic-sage); border-radius: 4px; }
         .modern-project { scroll-snap-align: start; }
+        .modern-project-thumb { flex: none; height: auto; width: calc(100% + 50px); max-width: none !important; margin: -25px -25px 0; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--organic-line); }
+        .modern-modal-thumb { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border: 1px solid var(--organic-line); border-radius: 4px; margin-bottom: 18px; }
         .modern-heading h2 { max-width: 720px; }
         .modern-filter button { border-radius: 4px; border-color: var(--organic-line); background: transparent; color: var(--organic-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
         .modern-filter button:hover, .modern-filter button.is-active { border-color: var(--organic-sage); background: var(--organic-sage-soft); color: var(--organic-sage-dark); }
@@ -460,6 +462,7 @@
                     <div class="modern-projects-viewport">
                     <div class="modern-projects">
                         <article v-for="(project, index) in deckProjects" :key="project.title" class="modern-project" @click="openModal(project)">
+                            <img v-if="project.thumb" class="modern-project-thumb" :src="project.thumb" :alt="(currentLang === 'fr' ? 'Aperçu du projet ' : 'Preview of ') + project.title" loading="lazy" width="800" height="500">
                             <span class="modern-project-index">{{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}</span>
                             <p class="modern-project-role">{{ currentLang === 'fr' ? project.role : project.roleEn }}</p>
                             <h3>{{ project.title }}</h3>
@@ -523,7 +526,7 @@
             <div v-if="selectedProject" class="modern-modal-backdrop" @click="closeModal">
                 <article class="modern-modal" @click.stop>
                     <header class="modern-modal-head"><div><p class="modern-modal-label">{{ currentLang === 'fr' ? selectedProject.role : selectedProject.roleEn }}</p><h2>{{ selectedProject.title }}</h2></div><button type="button" class="modern-modal-close" aria-label="Fermer" @click="closeModal">×</button></header>
-                    <div class="modern-modal-body"><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.technologies }}</p><div class="modern-tags"><span v-for="tech in selectedProject.technologies" :key="tech" class="modern-tag modern-tag--orange">{{ tech }}</span></div></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.description }}</p><p>{{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.challenges }}</p><p>{{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.results }}</p><p>{{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p></div></div>
+                    <div class="modern-modal-body"><img v-if="selectedProject.thumb" class="modern-modal-thumb" :src="selectedProject.thumb" :alt="selectedProject.title"><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.technologies }}</p><div class="modern-tags"><span v-for="tech in selectedProject.technologies" :key="tech" class="modern-tag modern-tag--orange">{{ tech }}</span></div></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.description }}</p><p>{{ currentLang === 'fr' ? selectedProject.fullDescription : selectedProject.fullDescriptionEn }}</p></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.challenges }}</p><p>{{ currentLang === 'fr' ? selectedProject.challenges : selectedProject.challengesEn }}</p></div><div class="modern-modal-block"><p class="modern-modal-label">{{ texts.results }}</p><p>{{ currentLang === 'fr' ? selectedProject.results : selectedProject.resultsEn }}</p></div></div>
                     <footer class="modern-modal-footer"><a class="modern-button modern-button--primary" :href="selectedProject.url" target="_blank" rel="noopener">{{ texts.visitSite }} ↗</a></footer>
                 </article>
             </div>
@@ -773,7 +776,8 @@
                                 <div class="project-card-modern is-clickable" @click="openModal(project)">
                                     <div class="card-image">
                                         <figure class="image">
-                                            <div class="is-flex is-align-items-center is-justify-content-center project-gradient-background">
+                                            <img v-if="project.thumb" :src="project.thumb" :alt="project.title" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;">
+                                            <div v-else class="is-flex is-align-items-center is-justify-content-center project-gradient-background">
                                                 <span class="icon is-large has-text-white">
                                                     <i class="material-icons is-size-1">{{ project.icon }}</i>
                                                 </span>
@@ -1025,23 +1029,175 @@
                     currentPage: 'about',
                     projects: [
                         {
+                            id: 19,
+                            title: "Eat Is Family",
+                            role: "Développeur Front-end",
+                            roleEn: "Front-end Developer",
+                            description: "Intégration de template Figma sur NuxtJS avec API WordPress headless",
+                            descriptionEn: "Figma template integration on NuxtJS with headless WordPress API",
+                            fullDescription: "Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour une entreprise de restauration événementielle spécialisée dans les stades, arènes et festivals en France.",
+                            fullDescriptionEn: "Figma template integration into NuxtJS application with headless WordPress CMS for an event catering company specializing in stadiums, arenas and festivals in France.",
+                            technologies: ["NuxtJS", "WordPress API", "Figma", "Vue.js"],
+                            url: "https://www.eatisfamily.fr/",
+                            category: "fullstack",
+                            icon: "restaurant",
+                            thumb: "assets/projets/eatisfamily.jpg",
+                            challenges: "Architecture headless CMS et intégration fidèle du design Figma",
+                            challengesEn: "Headless CMS architecture and faithful Figma design integration",
+                            results: "Site performant avec gestion de contenu flexible via WordPress",
+                            resultsEn: "High-performance site with flexible content management via WordPress"
+                        },
+                        {
+                            id: 11,
+                            title: "Dashboard Timeo RH",
+                            role: "UI/UX Designer & Développeur Full-stack",
+                            roleEn: "UI/UX Designer & Full-stack Developer", 
+                            description: "Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH",
+                            descriptionEn: "Figma design conception and VueJS frontend conversion for HR dashboard",
+                            fullDescription: "Conception complète d'un dashboard RH sur Figma puis développement de l'interface utilisateur en VueJS avec fonctionnalités avancées de gestion des ressources humaines.",
+                            fullDescriptionEn: "Complete HR dashboard design on Figma then user interface development in VueJS with advanced human resources management features.",
+                            technologies: ["Figma", "VueJS", "UI/UX Design", "Dashboard"],
+                            url: "https://timeo-rh.vercel.app/",
+                            category: "figma",
+                            icon: "dashboard",
+                            thumb: "assets/projets/timeo-rh.jpg",
+                            challenges: "Conception UX/UI intuitive et développement d'interface complexe",
+                            challengesEn: "Intuitive UX/UI design and complex interface development",
+                            results: "Dashboard moderne et fonctionnel pour la gestion RH",
+                            resultsEn: "Modern and functional dashboard for HR management"
+                        },
+                        {
                             id: 1,
-                            title: "Landing Page Vodacom",
+                            title: "TxtEngage — Landing page Vodacom",
                             role: "Développeur Lead",
                             roleEn: "Lead Developer",
                             description: "Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur",
                             descriptionEn: "Landing page for Vodacom South Africa optimizing user engagement",
                             fullDescription: "Développement d'une landing page interactive pour Vodacom avec focus sur l'engagement utilisateur et les conversions.",
                             fullDescriptionEn: "Development of an interactive landing page for Vodacom with focus on user engagement and conversions.",
-                            technologies: ["VueJS", "Responsive Design", "CSS3"],
-                            url: "https://vodamedia.co.za/txtengage/",
+                            technologies: ["NuxtJS", "Vue.js", "Swiper.js", "GSAP", "Responsive Design"],
+                            url: "https://txtengage.co.za/",
                             category: "frontend",
                             icon: "code",
-                            screenshot: false,
+                            thumb: "assets/projets/txtengage.jpg",
                             challenges: "Optimisation des performances et adaptation multi-device",
                             challengesEn: "Performance optimization and multi-device adaptation",
                             results: "Amélioration de 40% de l'engagement utilisateur",
                             resultsEn: "40% improvement in user engagement"
+                        },
+                        {
+                            id: 20,
+                            title: "Friesland Bonnet Rouge — CRM terrain",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "CRM web et application mobile de collecte de données terrain pour FrieslandCampina Côte d'Ivoire",
+                            descriptionEn: "Web CRM and mobile app for field data collection for FrieslandCampina Côte d'Ivoire",
+                            fullDescription: "Application de collecte de données terrain et de pilotage pour la marque Bonnet Rouge de FrieslandCampina Côte d'Ivoire : un CRM web pour suivre l'activité et une application mobile pour les équipes sur le terrain.",
+                            fullDescriptionEn: "Field data collection and monitoring application for FrieslandCampina Côte d'Ivoire's Bonnet Rouge brand: a web CRM to follow activity and a mobile app for field teams.",
+                            technologies: ["NuxtJS", "Vue.js", "Tailwind CSS", "Application mobile"],
+                            url: "https://frieslandv3.vercel.app/",
+                            category: "fullstack",
+                            icon: "storefront",
+                            thumb: "assets/projets/friesland-crm.jpg",
+                            challenges: "Saisie rapide sur mobile pour les équipes terrain et lecture claire des données côté pilotage",
+                            challengesEn: "Fast mobile data entry for field teams and clear data reading for managers",
+                            results: "CRM web en ligne, relié à une application mobile de collecte",
+                            resultsEn: "Live web CRM connected to a mobile data collection app"
+                        },
+                        {
+                            id: 21,
+                            title: "Parc des Expositions d'Abidjan",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "Site vitrine bilingue du Parc des Expositions d'Abidjan : espaces, services, agenda et demande de devis",
+                            descriptionEn: "Bilingual website for the Abidjan Exhibition Centre: venues, services, agenda and quote requests",
+                            fullDescription: "Site du Parc des Expositions d'Abidjan, en français et en anglais. Il présente le Hall d'exposition, le Dôme et les espaces extérieurs, l'agenda des événements, une photothèque, une visite à 360° et un formulaire de demande de devis.",
+                            fullDescriptionEn: "Website of the Abidjan Exhibition Centre, in French and English. It presents the Exhibition Hall, the Dome and the outdoor areas, the events agenda, a photo library, a 360° tour and a quote request form.",
+                            technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+                            url: "https://pae-orpin.vercel.app/",
+                            category: "frontend",
+                            icon: "stadium",
+                            thumb: "assets/projets/pae.jpg",
+                            challenges: "Présenter trois types d'espaces et un agenda chargé sans perdre le visiteur",
+                            challengesEn: "Presenting three venue types and a busy agenda without losing the visitor",
+                            results: "Site responsive bilingue avec un parcours direct vers la demande de devis",
+                            resultsEn: "Bilingual responsive site with a direct path to the quote request"
+                        },
+                        {
+                            id: 22,
+                            title: "Les défis du stand Azito Energie (SIREXE)",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "Deux mini-jeux de moins d'une minute pour animer le stand Azito Energie au SIREXE",
+                            descriptionEn: "Two mini-games under one minute to animate the Azito Energie booth at SIREXE",
+                            fullDescription: "Jeux pour les visiteurs du stand Azito Energie au SIREXE. Après inscription, le visiteur joue à Turbine Match (retrouver le schéma d'une turbine en 30 secondes) ou à Build Azito (remettre en place les 8 pièces d'une photo de la centrale en 20 secondes). Un classement affiche les meilleurs temps du jour.",
+                            fullDescriptionEn: "Games for visitors of the Azito Energie booth at SIREXE. After signing up, the visitor plays Turbine Match (find a turbine's diagram in 30 seconds) or Build Azito (put the 8 pieces of a plant photo back in place in 20 seconds). A leaderboard shows the best times of the day.",
+                            technologies: ["HTML5", "CSS3", "JavaScript", "Design tokens"],
+                            url: "https://azitoenergie.vercel.app/",
+                            category: "fullstack",
+                            icon: "sports_esports",
+                            thumb: "assets/projets/azito-energie.jpg",
+                            challenges: "Des règles comprises en quelques secondes par un visiteur debout devant un écran",
+                            challengesEn: "Rules a standing visitor understands in a few seconds",
+                            results: "Deux jeux et un classement quotidien, remis à zéro chaque matin",
+                            resultsEn: "Two games and a daily leaderboard, reset every morning"
+                        },
+                        {
+                            id: 23,
+                            title: "Quiz expert énergie — CIPREL (SIREXE)",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "Trois quiz chronométrés sur l'énergie et les centrales à cycle combiné, avec classement et récompenses",
+                            descriptionEn: "Three timed quizzes on energy and combined-cycle plants, with leaderboard and rewards",
+                            fullDescription: "Quiz pour les visiteurs du stand CIPREL au SIREXE : trois niveaux (débutant, intermédiaire, expert), 10 questions en 2 minutes. Chaque quiz réussi met une partie de la centrale sous tension. Le joueur gagne des points selon la justesse et la vitesse, débloque 7 récompenses et apparaît au classement.",
+                            fullDescriptionEn: "Quiz for visitors of the CIPREL booth at SIREXE: three levels (beginner, intermediate, expert), 10 questions in 2 minutes. Each completed quiz powers up a part of the plant. Players score on accuracy and speed, unlock 7 rewards and appear on the leaderboard.",
+                            technologies: ["NuxtJS", "Vue.js", "Gamification"],
+                            url: "https://expertenergie.vercel.app/",
+                            category: "fullstack",
+                            icon: "bolt",
+                            thumb: "assets/projets/expert-energie.jpg",
+                            challenges: "Rendre un sujet technique jouable par des débutants comme par des experts",
+                            challengesEn: "Making a technical subject playable by beginners and experts alike",
+                            results: "Trois quiz, un classement et sept récompenses à débloquer",
+                            resultsEn: "Three quizzes, a leaderboard and seven rewards to unlock"
+                        },
+                        {
+                            id: 24,
+                            title: "Brikelec — La centrale du futur (CIPREL)",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "Jeu de puzzles : le visiteur assemble cinq centrales pour alimenter Abidjan",
+                            descriptionEn: "Puzzle game: the visitor assembles five power plants to power Abidjan",
+                            fullDescription: "Jeu pour le stand CIPREL au SIREXE. Chaque centrale (hydrogène, biomasse, cycle combiné, solaire, éolien) cache un puzzle de 6 pièces. À chaque puzzle terminé, la production augmente et Abidjan s'éclaire. Le jeu compte 11 récompenses, un chronomètre, des coups de pouce et un classement.",
+                            fullDescriptionEn: "Game for the CIPREL booth at SIREXE. Each plant (hydrogen, biomass, combined cycle, solar, wind) hides a 6-piece puzzle. With each finished puzzle, production rises and Abidjan lights up. The game has 11 rewards, a timer, hints and a leaderboard.",
+                            technologies: ["NuxtJS", "Vue.js", "Gamification"],
+                            url: "https://brikelec.vercel.app/",
+                            category: "fullstack",
+                            icon: "extension",
+                            thumb: "assets/projets/brikelec.jpg",
+                            challenges: "Un puzzle tactile lisible sur grand écran comme sur téléphone",
+                            challengesEn: "A touch puzzle that reads well on a large screen and on a phone",
+                            results: "Cinq puzzles, une jauge de production et un classement",
+                            resultsEn: "Five puzzles, a production gauge and a leaderboard"
+                        },
+                        {
+                            id: 25,
+                            title: "Questionnaire d'orientation RH — CIPREL",
+                            role: "Conception UI & développement",
+                            roleEn: "UI design & development",
+                            description: "18 questions oui/non pour découvrir ses soft skills et le département CIPREL qui correspond à son profil",
+                            descriptionEn: "18 yes/no questions to discover your soft skills and the CIPREL department that fits your profile",
+                            fullDescription: "Questionnaire d'orientation des Ressources humaines de CIPREL. Le visiteur répond par oui ou par non à 18 situations de travail, en 3 minutes environ. Il découvre ses soft skills les plus marquées parmi six valeurs (force collective, équité, engagement, respect, innovation, convivialité) et le département qui lui correspond.",
+                            fullDescriptionEn: "Orientation questionnaire for CIPREL's Human Resources. The visitor answers yes or no to 18 work situations, in about 3 minutes. They discover their strongest soft skills among six values (collective strength, fairness, commitment, respect, innovation, friendliness) and the matching department.",
+                            technologies: ["NuxtJS", "Vue.js", "Tailwind CSS"],
+                            url: "https://quiz-rh-sandy.vercel.app/",
+                            category: "fullstack",
+                            icon: "psychology",
+                            thumb: "assets/projets/quiz-rh.jpg",
+                            challenges: "Un parcours court, une question par écran, sans bonne ni mauvaise réponse",
+                            challengesEn: "A short flow, one question per screen, with no right or wrong answer",
+                            results: "Questionnaire terminé en 3 minutes environ, avec un résultat personnalisé",
+                            resultsEn: "Questionnaire completed in about 3 minutes, with a personalised result"
                         },
                         {
                             id: 2,
@@ -1056,7 +1212,7 @@
                             url: "https://castel-afrique.com",
                             category: "wordpress",
                             icon: "business",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Intégration pixel-perfect et optimisation des performances",
                             challengesEn: "Pixel-perfect integration and performance optimization",
                             results: "Site responsive haute performance livré dans les délais",
@@ -1075,7 +1231,7 @@
                             url: "https://dinor-calorie-counter-alt.vercel.app/",
                             category: "fullstack",
                             icon: "restaurant",
-                            screenshot: false,
+                            thumb: "assets/projets/dinor-calories.jpg",
                             challenges: "Interface utilisateur intuitive et gestion des données nutritionnelles",
                             challengesEn: "Intuitive user interface and nutritional data management",
                             results: "Application moderne avec tracking précis des calories",
@@ -1094,7 +1250,7 @@
                             url: "https://new.dinorapp.com/",
                             category: "fullstack",
                             icon: "restaurant_menu",
-                            screenshot: false,
+                            thumb: "assets/projets/dinor-app.jpg",
                             challenges: "Architecture multi-plateforme et synchronisation des données",
                             challengesEn: "Multi-platform architecture and data synchronization",
                             results: "Écosystème complet accessible sur web et mobile",
@@ -1113,14 +1269,14 @@
                             url: "https://ciprel.ci",
                             category: "frontend",
                             icon: "electrical_services",
-                            screenshot: false,
+                            thumb: "assets/projets/ciprel.jpg",
                             challenges: "Intégration pixel-perfect et performances",
                             challengesEn: "Pixel-perfect integration and performance",
                             results: "Amélioration de 60% des performances",
                             resultsEn: "60% performance improvement"
                         },
                         {
-                            id: 5,
+                            id: 17,
                             title: "Quizz CIPREL RH",
                             role: "Développeur Full-stack",
                             roleEn: "Full-stack Developer",
@@ -1132,7 +1288,7 @@
                             url: "https://ciprelrh.netlify.app/questionnaire",
                             category: "fullstack",
                             icon: "quiz",
-                            screenshot: false,
+                            thumb: "assets/projets/ciprel-quiz.jpg",
                             challenges: "Système de scoring complexe et analytics",
                             challengesEn: "Complex scoring system and analytics",
                             results: "Interface intuitive avec reporting détaillé",
@@ -1151,7 +1307,7 @@
                             url: "https://soboa95ans.sn",
                             category: "wordpress",
                             icon: "cake",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Design unique et animations fluides",
                             challengesEn: "Unique design and smooth animations",
                             results: "Site commémoratif remarqué par l'industrie",
@@ -1170,7 +1326,7 @@
                             url: "https://bigfive360.com",
                             category: "frontend",
                             icon: "360",
-                            screenshot: false,
+                            thumb: "assets/projets/bigfive360.jpg",
                             challenges: "Intégration d'éléments interactifs et optimisation visuelle",
                             challengesEn: "Interactive elements integration and visual optimization",
                             results: "Site moderne présentant efficacement les services de visite virtuelle",
@@ -1189,7 +1345,7 @@
                             url: "https://bblome.com",
                             category: "wordpress",
                             icon: "local_bar",
-                            screenshot: false,
+                            thumb: "assets/projets/bblome.jpg",
                             challenges: "Design attractif et présentation optimale des produits",
                             challengesEn: "Attractive design and optimal product presentation",
                             results: "Site web professionnel valorisant l'image de la brasserie",
@@ -1208,30 +1364,11 @@
                             url: "https://bigfive.solutions/",
                             category: "frontend",
                             icon: "design_services",
-                            screenshot: false,
+                            thumb: "assets/projets/bigfive.jpg",
                             challenges: "Design System et composants réutilisables",
                             challengesEn: "Design System and reusable components",
                             results: "Système de design adopté par toute l'équipe",
                             resultsEn: "Design system adopted by entire team"
-                        },
-                        {
-                            id: 11,
-                            title: "Dashboard Timeo RH",
-                            role: "UI/UX Designer & Développeur Full-stack",
-                            roleEn: "UI/UX Designer & Full-stack Developer", 
-                            description: "Conception sur Figma et conversion en frontend VueJS pour tableau de bord RH",
-                            descriptionEn: "Figma design conception and VueJS frontend conversion for HR dashboard",
-                            fullDescription: "Conception complète d'un dashboard RH sur Figma puis développement de l'interface utilisateur en VueJS avec fonctionnalités avancées de gestion des ressources humaines.",
-                            fullDescriptionEn: "Complete HR dashboard design on Figma then user interface development in VueJS with advanced human resources management features.",
-                            technologies: ["Figma", "VueJS", "UI/UX Design", "Dashboard"],
-                            url: "https://timeo-rh.vercel.app/",
-                            category: "figma",
-                            icon: "dashboard",
-                            screenshot: false,
-                            challenges: "Conception UX/UI intuitive et développement d'interface complexe",
-                            challengesEn: "Intuitive UX/UI design and complex interface development",
-                            results: "Dashboard moderne et fonctionnel pour la gestion RH",
-                            resultsEn: "Modern and functional dashboard for HR management"
                         },
                         {
                             id: 12,
@@ -1246,7 +1383,7 @@
                             url: "https://www.figma.com/proto/2020d0oYwqBP5iDNsvSZCx/TimeoRH-v1?node-id=1-123&starting-point-node-id=1%3A73",
                             category: "figma",
                             icon: "phone_android",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Design mobile responsive et expérience utilisateur fluide",
                             challengesEn: "Responsive mobile design and smooth user experience",
                             results: "Prototype mobile interactif prêt pour développement",
@@ -1265,7 +1402,7 @@
                             url: "https://www.figma.com/proto/oDDg1iznhgcetzRrxBLrh1/Kekeli?node-id=1430-2082&t=V7VYhGmearVdFi7x-0",
                             category: "figma",
                             icon: "electric_bolt",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Interface technique accessible et design moderne",
                             challengesEn: "Accessible technical interface and modern design",
                             results: "Design system complet pour application énergétique",
@@ -1284,7 +1421,7 @@
                             url: "https://www.figma.com/proto/RkKr0fIma2HZ1JP9mi6jQu/Untitled?node-id=1-14",
                             category: "figma",
                             icon: "account_balance",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Design culturel respectueux et interface moderne",
                             challengesEn: "Respectful cultural design and modern interface",
                             results: "Site institutionnel alliant tradition et modernité",
@@ -1303,7 +1440,7 @@
                             url: "https://jeuciprel.vercel.app/",
                             category: "fullstack",
                             icon: "games",
-                            screenshot: false,
+                            thumb: "assets/projets/jeu-ciprel.jpg",
                             challenges: "Implémentation des interactions de glisser-déposer fluides",
                             challengesEn: "Implementation of smooth drag and drop interactions",
                             results: "Jeu éducatif interactif pour formation en entreprise",
@@ -1322,7 +1459,7 @@
                             url: "https://soeguibe.com",
                             category: "wordpress",
                             icon: "web",
-                            screenshot: false,
+                            thumb: "assets/projets/soeguibe.jpg",
                             challenges: "Éditeur personnalisé et fonctionnalités avancées",
                             challengesEn: "Custom editor and advanced features",
                             results: "Template WordPress flexible et performant",
@@ -1341,7 +1478,7 @@
                             url: "https://www.adpnafrica.com/",
                             category: "wordpress",
                             icon: "emoji_events",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Système de gestion des awards et interface utilisateur intuitive",
                             challengesEn: "Awards management system and intuitive user interface",
                             results: "Plateforme complète pour la gestion des awards digitaux",
@@ -1360,30 +1497,11 @@
                             url: "https://soboafoot.com/",
                             category: "fullstack",
                             icon: "sports_soccer",
-                            screenshot: false,
+                            thumb: "",
                             challenges: "Système de scoring en temps réel et gamification avec géolocalisation",
                             challengesEn: "Real-time scoring system and gamification with geolocation",
                             results: "Plateforme engageante avec des milliers de participants actifs durant la CAN 2025",
                             resultsEn: "Engaging platform with thousands of active participants during CAN 2025"
-                        },
-                        {
-                            id: 19,
-                            title: "Eat Is Family",
-                            role: "Développeur Front-end",
-                            roleEn: "Front-end Developer",
-                            description: "Intégration de template Figma sur NuxtJS avec API WordPress headless",
-                            descriptionEn: "Figma template integration on NuxtJS with headless WordPress API",
-                            fullDescription: "Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour une entreprise de restauration événementielle spécialisée dans les stades, arènes et festivals en France.",
-                            fullDescriptionEn: "Figma template integration into NuxtJS application with headless WordPress CMS for an event catering company specializing in stadiums, arenas and festivals in France.",
-                            technologies: ["NuxtJS", "WordPress API", "Figma", "Vue.js"],
-                            url: "https://www.eatisfamily.fr/",
-                            category: "fullstack",
-                            icon: "restaurant",
-                            screenshot: false,
-                            challenges: "Architecture headless CMS et intégration fidèle du design Figma",
-                            challengesEn: "Headless CMS architecture and faithful Figma design integration",
-                            results: "Site performant avec gestion de contenu flexible via WordPress",
-                            resultsEn: "High-performance site with flexible content management via WordPress"
                         }
                     ]
                 }

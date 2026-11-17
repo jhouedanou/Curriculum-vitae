@@ -1,0 +1,33 @@
+FORMULAIRE : https://sm-ic.com/carriere/offres/designer-ux-ui-applications-web-et-mobile-h-f
+Date limite : 30 novembre 2026
+
+Prénom      : Jean-Luc
+Nom         : Houédanou
+Email       : jeanluc@houedanou.com
+Téléphone   : +225 07 48 34 82 21
+LinkedIn    : (à compléter)
+Portfolio   : https://jhouedanou.github.io/Curriculum-vitae/
+CV          : Candidature_complete_Jean_Luc_Houedanou.pdf  (lettre + CV, PDF, moins de 10 Mo)
+
+----------------------------------------------------------------
+MESSAGE COURT (si un champ libre ou un e-mail de relance le permet)
+
+Objet : Candidature — Designer UX UI – Applications Web et Mobile (H/F)
+
+Madame, Monsieur,
+
+Je vous envoie ma candidature au poste de Designer UX UI – Applications Web et Mobile.
+
+Je conçois des interfaces web et mobiles depuis 8 ans, dont 2 ans comme Head of Design chez WeDev Group (25+ projets). Je travaille sur Figma depuis 4 ans, et j'intègre moi-même mes maquettes en VueJS et NuxtJS.
+
+Trois réalisations en ligne :
+- Timeo RH (maquettes Figma et développement) : https://timeo-rh.vercel.app/
+- Eat Is Family (maquette Figma intégrée en NuxtJS) : https://www.eatisfamily.fr/
+- TxtEngage, Vodacom Afrique du Sud : https://txtengage.co.za/
+
+Portfolio complet : https://jhouedanou.github.io/Curriculum-vitae/
+
+Je suis à votre disposition pour un entretien.
+
+Jean-Luc Houédanou
++225 07 48 34 82 21
