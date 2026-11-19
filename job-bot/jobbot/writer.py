@@ -20,11 +20,24 @@ RÈGLE ABSOLUE — ZÉRO INVENTION
   Tu peux montrer une compétence proche réellement présente.
 - Les noms de compétences et les ids (expériences, projets) sont copiés tels quels depuis le CV.
 
-ADAPTATION AU POSTE
+ADAPTATION AU POSTE (d'après resumeskills · resume-tailor, resume-ats-optimizer, tech-resume-optimizer, MIT)
 - Reprends les mots-clés de l'offre quand ils décrivent une compétence réelle du CV
-  (les logiciels de tri des recruteurs cherchent ces mots).
-- Mets en premier ce qui répond aux missions de l'offre.
-- Chaque puce : verbe d'action + ce qui a été fait + résultat chiffré si le CV le donne.
+  (les logiciels de tri des recruteurs cherchent ces mots). Utilise le terme exact de l'offre quand
+  le CV décrit la même chose avec un autre mot, sans jamais changer le sens.
+- Un mot-clé essentiel revient 2 à 4 fois (profil, compétences, expériences) ; pas de bourrage,
+  varie les formes (« pilotage d'équipe » / « piloté l'équipe »).
+- Titre et profil reprennent l'intitulé du poste si le CV le justifie, avec 5 à 8 mots-clés de l'offre
+  réellement présents dans le CV.
+- Compétences : en tête, celles qui répondent aux premières exigences de l'offre. Pas de bureautique
+  ni d'OS sauf si l'offre les demande.
+- Mets en premier ce qui répond aux missions de l'offre. La première puce de chaque poste répond
+  à une exigence clé.
+- Chaque puce : verbe d'action + ce qui a été fait + technologie + résultat chiffré si le CV le donne.
+  Une ou deux lignes. Jamais « responsable de », « a participé à », « a aidé à ».
+- Ne change aucun chiffre ni intitulé de poste. « A travaillé avec » ne devient pas « a dirigé ».
+- Techno exigée absente du CV : cite seulement la proche réellement présente (Vue.js pour une offre React).
+- a_completer : pour 2 à 5 puces importantes SANS résultat chiffré dans le CV, pose au candidat la question
+  qui permettrait de le chiffrer (« Combien d'utilisateurs pour X ? »). Ne complète jamais toi-même.
 
 STYLE
 - Direct et concret. Une idée par phrase.
@@ -33,17 +46,28 @@ STYLE
   les superlatifs et les formules creuses.
 - Parle des besoins de l'entreprise avant de parler du candidat.
 
-LETTRE (seulement si demandée), 250 à 350 mots en 4 paragraphes :
-1. Le besoin de l'entreprise tel que l'offre le décrit, et le poste visé.
-2. Deux ou trois preuves du CV qui répondent à ce besoin.
-3. Ce que le candidat fera dans ses premiers mois à ce poste (déduit des missions de l'offre).
-4. Demande d'entretien, en une ou deux phrases.
+LETTRE (seulement si demandée), 250 à 350 mots en 4 paragraphes (d'après resumeskills · cover-letter-generator) :
+1. Le besoin de l'entreprise tel que l'offre le décrit, et le poste visé. N'ouvre pas par « Je »,
+   ni par « Je vous écris pour », « Suite à votre annonce », « Je suis le candidat idéal ».
+2. Leur besoin principal + l'expérience exacte du CV qui y répond + le résultat s'il est dans le CV.
+3. Ce que le candidat fera dans ses premiers mois (déduit des missions), et le manque majeur de l'analyse
+   traité sans s'excuser, par une compétence voisine réelle. Aucune formation « en cours » inventée.
+4. Demande d'échange explicite, liée à un élément précis de l'offre. Pas de « Veuillez trouver ci-joint »,
+   ni de « Je reste à votre disposition ».
+- Surqualifié : explique la motivation (rôle plus opérationnel, impact direct).
+- Destinataire inconnu : « Service Recrutement — Entreprise », jamais « À qui de droit ».
+- Ton plus formel pour une banque, une institution ou une ONG ; plus direct pour une startup ou une agence.
 Pas de formule d'appel ni de signature : le modèle les ajoute.
 
-MESSAGE (email ou message LinkedIn), 80 à 120 mots :
-- Première phrase : le poste et ce que le candidat apporte, sans « je me permets ».
-- Deux preuves chiffrées du CV.
-- Une demande claire (un échange de 15 minutes, un entretien).
+MESSAGE (email ou message LinkedIn), 80 à 120 mots (d'après resumeskills · cold-email-writer) :
+- Ton d'un pair qui fait un constat, pas d'une mini-lettre. Supprime toute phrase qui irait à n'importe quelle entreprise.
+- Première phrase : un élément précis de l'offre et le poste, sans « je me permets »,
+  ni « votre mission me parle ».
+- Le lien en constat : « Vous cherchez X ; c'est ce que je fais chez Y ». Une ou deux preuves du CV
+  (chiffrées si le CV le donne), pas une liste de réalisations.
+- Une demande claire et sans pression (un échange de 15 minutes). Pas de « Dans l'attente »,
+  ni de « J'aimerais avoir l'opportunité ».
+- Objet : respecte les consignes de l'offre ; sinon « Candidature — intitulé du poste — Prénom Nom ».
 - Signature : nom, téléphone, lien du portfolio."""
 
 
@@ -52,6 +76,7 @@ class _Reponse(BaseModel):
     cv: CVAdapte
     lettre: Optional[Lettre]
     message: Message
+    a_completer: list[str]
 
 
 def rediger(llm: LLM, offre: Offre, note: Note, avec_lettre: bool) -> Dossier:
@@ -70,11 +95,16 @@ Consignes de candidature : {note.consignes or "aucune"}
 
 <analyse>
 Points forts : {"; ".join(note.points_forts)}
+Arguments les plus forts : {"; ".join(note.arguments_forts) or "—"}
 Écarts : {"; ".join(note.ecarts)}
+Manques à traiter : {"; ".join(f"{m.intitule} ({m.gravite})" for m in note.manques if m.gravite != "mineur") or "—"}
+Mots-clés de l'offre absents du CV (ne pas les revendiquer) : {", ".join(note.mots_cles_absents) or "—"}
+Surqualification : {"oui" if note.surqualification else "non"}
 </analyse>"""
     rep = llm.demander(config()["modeles"]["redaction"], SYSTEME, cv_texte(note.langue), consigne,
                        _Reponse, max_tokens=6000)
-    dossier = Dossier(cv=rep.cv, lettre=rep.lettre if avec_lettre else None, message=rep.message)
+    dossier = Dossier(cv=rep.cv, lettre=rep.lettre if avec_lettre else None, message=rep.message,
+                      a_completer=rep.a_completer)
     return verifier(dossier, note.langue)
 
 

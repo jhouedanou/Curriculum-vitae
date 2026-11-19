@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titre %}Sur le téléphone · JobBot{% endblock %}
+{% block contenu %}
+<div class="etroit telephone">
+  <h1>Ouvrir sur le téléphone</h1>
+  {% if lien %}
+  <p class="meta-page">Le téléphone doit être sur le même Wi-Fi. Scanne le code avec l'appareil photo.</p>
+  {% if svg %}<div class="qr">{{ svg|safe }}</div>{% endif %}
+  <p><code class="lien-brut">{{ lien }}</code></p>
+  <p class="doux">Ce lien contient ta clé d'accès : ne le partage pas. Une fois ouvert, le téléphone reste connecté 6 mois.</p>
+  {% else %}
+  <p>L'interface a été lancée avec <code>--local</code> : elle n'est accessible que depuis cet ordinateur. Relance <code>python -m jobbot web</code> sans cette option.</p>
+  {% endif %}
+</div>
+{% endblock %}

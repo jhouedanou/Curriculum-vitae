@@ -4,3 +4,4 @@ candidatures/
 __pycache__/
 .venv/
 .pytest_cache/
+.impeccable/review/

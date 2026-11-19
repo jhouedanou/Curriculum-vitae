@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block titre %}Erreur · JobBot{% endblock %}
+{% block contenu %}
+<div class="vide">
+  <h1>{{ 'Introuvable' if code == 404 else 'Impossible pour l\'instant' }}</h1>
+  <p>{{ message }}</p>
+  <a class="btn" href="/">Retour aux offres</a>
+</div>
+{% endblock %}

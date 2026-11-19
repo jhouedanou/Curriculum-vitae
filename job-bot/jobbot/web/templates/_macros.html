@@ -1,0 +1,14 @@
+{% macro score(n, seuil=70, grand=false) -%}
+<span class="score {% if n >= 85 %}score-top{% elif n >= seuil %}score-bon{% elif n >= 50 %}score-moyen{% else %}score-bas{% endif %}{% if grand %} score-grand{% endif %}"
+      aria-label="Score {{ n }} sur 100">{{ n }}</span>
+{%- endmacro %}
+
+{% macro statut_pill(s, STATUTS) -%}
+{% if s and s != 'nouveau' %}<span class="pill pill-{{ s }}">{{ STATUTS[s] }}</span>{% endif %}
+{%- endmacro %}
+
+{% macro echeance(c) -%}
+{% if c.expiree %}<span class="drap drap-gris"><svg class="ic"><use href="#i-clock"/></svg>Expirée</span>
+{% elif c.jours is not none and c.jours <= 5 %}<span class="drap drap-urgent"><svg class="ic"><use href="#i-clock"/></svg>{% if c.jours == 0 %}Dernier jour{% elif c.jours == 1 %}Demain{% else %}{{ c.jours }} jours{% endif %}</span>
+{% elif c.date_limite %}<span class="drap"><svg class="ic"><use href="#i-clock"/></svg>{{ c.date_limite }}</span>{% endif %}
+{%- endmacro %}

@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score, statut_pill %}
+{% block titre %}{{ (n.intitule if n else o.titre) }} · JobBot{% endblock %}
+{% block contenu %}
+<a class="retour" href="/"><svg class="ic"><use href="#i-back"/></svg>Offres</a>
+
+<div class="offre">
+<header class="offre-tete">
+    {% if n %}{{ score(n.score, 70, true) }}{% endif %}
+    <div>
+      <h1>{{ n.intitule if n and n.intitule else o.titre }}</h1>
+      <p class="meta-page">
+        {% set ent = (n.entreprise if n else None) or o.entreprise %}
+        {% if ent %}<span>{{ ent }}</span> · {% endif %}{% if o.lieu %}<span>{{ o.lieu }}</span> · {% endif %}<span class="source">{{ o.source }}</span>
+      </p>
+      {% if n %}<p class="verdict">{{ n.verdict }}</p>{% endif %}
+    </div>
+  </header>
+<div class="offre-principal">
+
+
+  {% if n and n.alerte %}
+  <div class="alerte" role="alert">
+    <svg class="ic"><use href="#i-alert"/></svg>
+    <div><strong>Signe d'arnaque possible</strong><p>{{ n.alerte }}</p><p class="doux">Un vrai recruteur ne demande jamais d'argent pour un dossier, une formation ou une visite médicale.</p></div>
+  </div>
+  {% endif %}
+
+  {% if dossier and dossier.avertissements %}
+  <section class="a-verifier" aria-labelledby="t-verif">
+    <h2 id="t-verif"><svg class="ic"><use href="#i-alert"/></svg>À vérifier avant d'envoyer</h2>
+    <ul>{% for a in dossier.avertissements %}<li>{{ a }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+
+  {% if not n %}
+  <section class="bloc vide-bloc">
+    <h2>Offre pas encore notée</h2>
+    <p>Elle a été collectée mais pas encore comparée à ton CV.</p>
+    <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form>
+      <input type="hidden" name="lettre" value="auto">
+      <button class="btn btn-plein" {% if tache %}disabled{% endif %}>Noter et préparer le dossier</button>
+      <span class="cout">Claude Haiku + Sonnet</span>
+    </form>
+  </section>
+  {% endif %}
+
+  {% if message %}
+  <section class="bloc" id="message" aria-labelledby="t-msg">
+    <div class="bloc-tete">
+      <h2 id="t-msg">Message à envoyer</h2>
+      <div class="bloc-actions">
+        {% if message.mailto %}<a class="btn btn-petit" href="{{ message.mailto }}"><svg class="ic"><use href="#i-mail"/></svg>Ouvrir dans l'email</a>{% endif %}
+        <a class="btn btn-petit" href="https://wa.me/?text={{ message.texte|urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <dl class="champs">
+      <div><dt>À</dt><dd>{% if message.email %}<span id="m-a">{{ message.a }}</span> <button class="btn-copier" type="button" data-copier="#m-a">Copier</button>{% else %}<span class="doux">{{ message.a }}</span>{% endif %}</dd></div>
+      <div><dt>Objet</dt><dd><span id="m-objet">{{ message.objet }}</span> <button class="btn-copier" type="button" data-copier="#m-objet">Copier</button></dd></div>
+    </dl>
+    <div class="texte-copiable">
+      <p id="m-texte" class="message">{{ message.texte }}</p>
+      <button class="btn btn-plein btn-copier-grand" type="button" data-copier="#m-texte"><svg class="ic"><use href="#i-copy"/></svg>Copier le message</button>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if fichiers %}
+  <section class="bloc" aria-labelledby="t-docs">
+    <h2 id="t-docs">Documents</h2>
+    <ul class="docs">
+      {% for nom in ['CV_Jean_Luc_Houedanou', 'Lettre_Jean_Luc_Houedanou'] %}
+        {% set pdf = nom ~ '.pdf' %}{% set html = nom ~ '.html' %}
+        {% if pdf in fichiers or html in fichiers %}
+        <li class="doc">
+          <svg class="ic ic-doc"><use href="#i-file"/></svg>
+          <div class="doc-nom"><strong>{{ 'CV adapté' if nom.startswith('CV') else 'Lettre de motivation' }}</strong><span class="doux">{{ pdf if pdf in fichiers else html }}</span></div>
+          <div class="doc-actions">
+            {% if html in fichiers %}<button class="btn btn-petit" type="button" data-apercu="/fichiers/{{ o.id }}/{{ html }}" data-titre="{{ 'CV adapté' if nom.startswith('CV') else 'Lettre' }}">Aperçu</button>{% endif %}
+            {% if pdf in fichiers %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ pdf }}?telecharger=1"><svg class="ic"><use href="#i-down"/></svg>PDF</a>
+            {% else %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ html }}" target="_blank" rel="noopener">Ouvrir, puis Imprimer en PDF</a>{% endif %}
+          </div>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="apercu" id="apercu" hidden>
+      <div class="apercu-tete"><strong class="apercu-titre"></strong><button class="btn-icone" type="button" data-fermer-apercu aria-label="Fermer l'aperçu"><svg class="ic"><use href="#i-x"/></svg></button></div>
+      <iframe title="Aperçu du document" loading="lazy"></iframe>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if dossier and dossier.a_completer %}
+  <section class="bloc" aria-labelledby="t-compl">
+    <h2 id="t-compl">Pour renforcer ton CV</h2>
+    <p class="doux">Ces réalisations n'ont pas de résultat chiffré dans <code>cv.yaml</code>. Si tu as le chiffre, ajoute-le au CV : le bot le reprendra partout.</p>
+    <ul class="questions">{% for q in dossier.a_completer %}<li>{{ q }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+
+  {% if n %}
+  <section class="bloc" aria-labelledby="t-analyse">
+    <h2 id="t-analyse">Analyse</h2>
+    <div class="deux-col">
+      <div>
+        <h3>Points forts</h3>
+        <ul class="puces puces-plus">{% for p in n.points_forts %}<li>{{ p }}</li>{% endfor %}</ul>
+      </div>
+      <div>
+        <h3>Écarts</h3>
+        {% if n.manques %}
+        <ul class="manques">{% for m in n.manques %}<li><span class="gravite gravite-{{ m.gravite }}">{{ m.gravite }}</span><span><strong>{{ m.intitule }}</strong>{% if m.strategie and m.strategie != '—' %}<br><span class="doux">{{ m.strategie }}</span>{% endif %}</span></li>{% endfor %}</ul>
+        {% else %}
+        <ul class="puces">{% for p in n.ecarts %}<li>{{ p }}</li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if n.exigences %}
+    <h3>Exigences de l'offre</h3>
+    <table class="tableau">
+      <thead><tr><th scope="col">Exigence</th><th scope="col">Dans ton CV</th></tr></thead>
+      <tbody>
+      {% for e in n.exigences %}
+        <tr>
+          <td>{{ e.intitule }}{% if not e.indispensable %} <span class="doux">(un plus)</span>{% endif %}</td>
+          <td><span class="couvert couvert-{{ e.couvert }}">{{ {'oui': 'Oui', 'partiel': 'Proche', 'non': 'Non'}[e.couvert] }}</span>{% if e.preuve_cv %} <span class="doux">{{ e.preuve_cv }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    {% if n.mots_cles_absents %}
+    <h3>Mots-clés absents de ton CV</h3>
+    <p class="doux">Le bot ne les met pas dans ton CV. Ajoute dans <code>cv.yaml</code> seulement ceux que tu maîtrises vraiment.</p>
+    <p class="chips">{% for m in n.mots_cles_absents %}<span class="chip">{{ m }}</span>{% endfor %}</p>
+    {% endif %}
+
+    {% if n.signaux %}
+    <h3>Signaux à creuser</h3>
+    <ul class="puces">{% for s in n.signaux %}<li>{{ s }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    {% if n.consignes %}
+    <h3>Consignes de candidature</h3>
+    <p>{{ n.consignes }}</p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if n %}
+  <section class="bloc" id="entretien" aria-labelledby="t-ent">
+    <div class="bloc-tete">
+      <h2 id="t-ent">Préparation d'entretien</h2>
+      <form method="post" action="/offre/{{ o.id }}/entretien" data-tache-form>
+        <button class="btn btn-petit" {% if tache %}disabled{% endif %}>{% if entretien %}<svg class="ic"><use href="#i-redo"/></svg>Refaire{% else %}Préparer l'entretien{% endif %}</button>
+        <span class="cout">Claude Sonnet</span>
+      </form>
+    </div>
+    {% if entretien %}
+      <h3>Présentez-vous</h3>
+      <p class="pitch">{{ entretien.pitch }}</p>
+      <h3>Questions probables</h3>
+      <div class="questions-entretien">
+      {% for q in entretien.questions %}
+        <details>
+          <summary><span class="q-proba q-{{ q.probabilite }}">{{ q.probabilite }}</span>{{ q.question }}</summary>
+          {% if q.conseil %}<p class="doux">{{ q.conseil }}</p>{% endif %}
+          {% if q.star %}
+          <dl class="star">
+            <div><dt>Situation</dt><dd>{{ q.star.situation }}</dd></div>
+            <div><dt>Tâche</dt><dd>{{ q.star.tache }}</dd></div>
+            <div><dt>Action</dt><dd>{{ q.star.action }}</dd></div>
+            <div><dt>Résultat</dt><dd>{{ q.star.resultat }}</dd></div>
+          </dl>
+          <p class="doux">Exemple tiré de : {{ q.star.experience_source }}</p>
+          {% else %}<p class="doux">Aucune expérience du CV ne colle : prépare une réponse honnête.</p>{% endif %}
+        </details>
+      {% endfor %}
+      </div>
+      {% if entretien.points_faibles %}
+      <h3>Questions pièges</h3>
+      <ul class="manques">{% for f in entretien.points_faibles %}<li><span><strong>« {{ f.question_piege }} »</strong><br>{{ f.reponse }}</span></li>{% endfor %}</ul>
+      {% endif %}
+      <h3>Questions à poser</h3>
+      <ul class="puces">{% for q in entretien.questions_a_poser %}<li>{{ q }}</li>{% endfor %}</ul>
+      <h3>Salaire</h3>
+      <p><strong>Fourchette de l'offre :</strong> {{ entretien.salaire.fourchette_offre or 'non indiquée' }}</p>
+      <p>{{ entretien.salaire.strategie }}</p>
+      <div class="deux-col">
+        {% if entretien.salaire.arguments %}<div><h4>Arguments</h4><ul class="puces">{% for a in entretien.salaire.arguments %}<li>{{ a }}</li>{% endfor %}</ul></div>{% endif %}
+        {% if entretien.salaire.negociable %}<div><h4>Négociable</h4><ul class="puces">{% for a in entretien.salaire.negociable %}<li>{{ a }}</li>{% endfor %}</ul></div>{% endif %}
+      </div>
+      {% if entretien.salaire.phrases %}<h4>À dire</h4><ul class="puces">{% for a in entretien.salaire.phrases %}<li>« {{ a }} »</li>{% endfor %}</ul>{% endif %}
+      {% if entretien.a_verifier %}
+      <h3>À vérifier avant l'entretien</h3>
+      <ul class="questions">{% for a in entretien.a_verifier %}<li>{{ a }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% else %}
+      <p class="doux">Questions probables avec des réponses STAR tirées de ton CV, questions à poser, points faibles, stratégie salaire.</p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if statut in ['envoye', 'entretien'] or relance %}
+  <section class="bloc" id="relance" aria-labelledby="t-rel">
+    <div class="bloc-tete">
+      <h2 id="t-rel">Relance</h2>
+      <form method="post" action="/offre/{{ o.id }}/relance" data-tache-form>
+        <button class="btn btn-petit" {% if tache %}disabled{% endif %}>{% if relance %}<svg class="ic"><use href="#i-redo"/></svg>Refaire{% else %}Rédiger la relance{% endif %}</button>
+        <span class="cout">Claude Sonnet</span>
+      </form>
+    </div>
+    {% if suivi and suivi.envoye_le %}<p class="doux">Candidature envoyée {{ il_y_a(suivi.envoye_le) }}{% if suivi.relance_le %} · relancée {{ il_y_a(suivi.relance_le) }}{% endif %}.</p>{% endif %}
+    {% if relance %}
+      <dl class="champs"><div><dt>Objet</dt><dd><span id="r-objet">{{ relance.objet }}</span> <button class="btn-copier" type="button" data-copier="#r-objet">Copier</button></dd></div></dl>
+      <div class="texte-copiable">
+        <p id="r-texte" class="message">{{ relance.texte }}</p>
+        <div class="rang">
+          <button class="btn btn-plein" type="button" data-copier="#r-texte"><svg class="ic"><use href="#i-copy"/></svg>Copier la relance</button>
+          {% if not suivi or not suivi.relance_le %}
+          <form method="post" action="/offre/{{ o.id }}/relance-faite"><button class="btn">J'ai relancé</button></form>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="bloc">
+    <details class="texte-offre">
+      <summary>Texte complet de l'offre</summary>
+      <div class="offre-brute">{{ o.description }}</div>
+    </details>
+  </section>
+</div>
+
+<aside class="offre-cote" aria-label="Actions">
+  <div class="panneau">
+    <form method="post" action="/offre/{{ o.id }}/statut" class="statut-form" data-statut-form>
+      <label for="statut">Suivi</label>
+      <select id="statut" name="statut" data-auto-submit>
+        <option value="nouveau" {% if statut == 'nouveau' %}selected{% endif %}>Pas encore traitée</option>
+        {% for k, v in STATUTS.items() %}<option value="{{ k }}" {% if statut == k %}selected{% endif %}>{{ v }}</option>{% endfor %}
+      </select>
+      <noscript><button class="btn btn-petit">Enregistrer</button></noscript>
+    </form>
+
+    {% if n %}
+    <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form class="preparer">
+      <fieldset>
+        <legend>Lettre de motivation</legend>
+        <label><input type="radio" name="lettre" value="auto" checked> {{ 'Oui, l\'offre en demande une' if n.lettre_demandee else 'Non, l\'offre n\'en demande pas' }}</label>
+        <label><input type="radio" name="lettre" value="{{ 'non' if n.lettre_demandee else 'oui' }}"> {{ 'Non, sans lettre' if n.lettre_demandee else 'Oui, en ajouter une' }}</label>
+      </fieldset>
+      <button class="btn {{ 'btn-plein' if not fichiers else '' }} btn-large" {% if tache %}disabled{% endif %}>
+        {% if fichiers %}<svg class="ic"><use href="#i-redo"/></svg>Refaire le dossier{% else %}Préparer le dossier{% endif %}
+      </button>
+      <p class="cout">CV, message{{ ' et lettre' if n.lettre_demandee }} · Claude Sonnet</p>
+    </form>
+    {% endif %}
+
+    <dl class="infos">
+      {% if n %}
+      <div><dt>Date limite</dt><dd>{% if n.date_limite %}{{ n.date_limite }}{% if expiree %} <span class="drap drap-gris">Expirée</span>{% elif jours is not none and jours <= 5 %} <span class="drap drap-urgent">{{ 'aujourd\'hui' if jours == 0 else jours ~ ' j' }}</span>{% endif %}{% else %}<span class="doux">non indiquée</span>{% endif %}</dd></div>
+      <div><dt>Envoyer à</dt><dd>{{ n.email_candidature or '—' }}</dd></div>
+      <div><dt>Conseil</dt><dd>{{ {'postuler': 'Postuler', 'postuler avec une lettre forte': 'Postuler avec une lettre forte', 'pari': 'Pari', 'eviter': 'À éviter'}[n.recommandation] }}</dd></div>
+      {% if n.type_contrat %}<div><dt>Contrat</dt><dd>{{ n.type_contrat }}</dd></div>{% endif %}
+      {% if n.mode_travail != 'inconnu' %}<div><dt>Mode</dt><dd>{{ {'sur site': 'Sur site', 'hybride': 'Hybride', 'teletravail': 'Télétravail'}[n.mode_travail] }}</dd></div>{% endif %}
+      {% if n.salaire %}<div><dt>Salaire</dt><dd>{{ n.salaire }}</dd></div>{% endif %}
+      {% endif %}
+      {% if o.url %}<div><dt>Annonce</dt><dd><a href="{{ o.url }}" target="_blank" rel="noopener">{{ 'Voir l\'annonce' if o.source == 'manuel' else 'Voir sur ' ~ o.source|capitalize }} <svg class="ic ic-petit"><use href="#i-ext"/></svg></a></dd></div>{% endif %}
+      <div><dt>N°</dt><dd>#{{ o.id }}</dd></div>
+    </dl>
+  </div>
+</aside>
+</div>
+{% endblock %}

@@ -26,16 +26,26 @@ class Http:
             follow_redirects=True,
         )
 
+    ESSAIS = 3
+
     def get(self, url: str, **kw) -> httpx.Response:
-        attente = self.delai - (time.monotonic() - self._derniere)
-        if attente > 0:
-            time.sleep(attente)
-        try:
-            r = self.client.get(url, **kw)
-            r.raise_for_status()
-            return r
-        finally:
-            self._derniere = time.monotonic()
+        """GET poli. Réessaie 2 fois (attente croissante) si le réseau coupe ou si le site sature."""
+        for essai in range(self.ESSAIS):
+            attente = self.delai * (2 ** essai) - (time.monotonic() - self._derniere)
+            if attente > 0:
+                time.sleep(attente)
+            try:
+                r = self.client.get(url, **kw)
+                if r.status_code in (429, 500, 502, 503, 504) and essai < self.ESSAIS - 1:
+                    continue
+                r.raise_for_status()
+                return r
+            except httpx.TransportError:
+                if essai == self.ESSAIS - 1:
+                    raise
+            finally:
+                self._derniere = time.monotonic()
+        raise RuntimeError("inaccessible")  # jamais atteint
 
 
 def normaliser(texte: str) -> str:

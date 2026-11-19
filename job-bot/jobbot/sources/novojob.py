@@ -16,8 +16,14 @@ class Novojob(Source):
     nom = "novojob"
 
     def offres(self) -> Iterator[Offre]:
-        r = self.http.get(self.conf.get("rss", RSS_DEFAUT))
-        yield from lire_flux(r.content)
+        flux = self.conf.get("rss", RSS_DEFAUT)
+        for url in [flux] if isinstance(flux, str) else flux:  # un flux par pays
+            try:
+                r = self.http.get(url)
+            except Exception as err:
+                print(f"  ! novojob {url} : {err}")
+                continue
+            yield from lire_flux(r.content)
 
     def completer(self, o: Offre) -> Offre:
         if len(o.description) >= 600 or not o.url:
@@ -36,8 +42,11 @@ def lire_flux(contenu: bytes | str) -> Iterator[Offre]:
         m = re.search(r"/(\d+)-[^/]*$", lien)
         ref = m.group(1) if m else (e.get("id") or lien)
         # …/offre-d-emploi/cote-d-ivoire/abidjan/136879-… → « Abidjan »
+        # …/offre-d-emploi/benin/cotonou/1234-… → pays et ville
+        m_pays = re.search(r"novojob\.com/([a-z-]+)/", lien)
+        pays = {"cote-d-ivoire": "Côte d'Ivoire", "benin": "Bénin"}.get(m_pays.group(1) if m_pays else "", "Côte d'Ivoire")
         lieu = ""
-        m_lieu = re.search(r"/offre-d-emploi/cote-d-ivoire/([a-z-]+)/\d+-", lien)
+        m_lieu = re.search(r"/offre-d-emploi/[a-z-]+/([a-z-]+)/\d+-", lien)
         if m_lieu:
             lieu = m_lieu.group(1).replace("-", " ").title()
         yield Offre(
@@ -45,7 +54,7 @@ def lire_flux(contenu: bytes | str) -> Iterator[Offre]:
             ref=str(ref),
             titre=(e.get("title") or "").strip().lstrip(":").strip(),
             url=lien,
-            lieu=lieu or "Côte d'Ivoire",
+            lieu=lieu or pays,
             publie_le=e.get("published", ""),
             description=fragment_vers_texte(e.get("description", "")),
         )

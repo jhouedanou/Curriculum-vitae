@@ -8,7 +8,11 @@ Commandes :
   python -m jobbot preparer 12           préparer le dossier de l'offre n°12
   python -m jobbot preparer 12 --lettre  … en forçant une lettre de motivation
   python -m jobbot coller offre.txt      offre copiée à la main (LinkedIn, email…) ; « - » = coller dans le terminal
-  python -m jobbot statut 12 envoye      noter qu'un dossier est envoyé (ou : ignore, a_relire)
+  python -m jobbot statut 12 envoye      suivre une offre : a_relire, envoye, entretien, refus, ignore, nouveau
+  python -m jobbot relances              candidatures envoyées à relancer
+  python -m jobbot relancer 12           rédiger le message de relance (IA)
+  python -m jobbot entretien 12          préparer l'entretien : questions, réponses STAR, questions à poser (IA)
+  python -m jobbot web                   ouvrir l'interface (ordinateur + téléphone sur le même Wi-Fi)
 """
 from __future__ import annotations
 
@@ -17,7 +21,7 @@ import sys
 
 from . import pipeline
 from .config import config
-from .db import Base, detail_note
+from .db import STATUTS, Base, detail_note
 from .llm import Claude, charger_env
 
 
@@ -41,8 +45,22 @@ def main(argv: list[str] | None = None) -> None:
     c.add_argument("--lettre", action="store_true", default=None)
     s = sub.add_parser("statut")
     s.add_argument("id", type=int)
-    s.add_argument("valeur", choices=["a_relire", "envoye", "ignore"])
+    s.add_argument("valeur", choices=[*STATUTS, "nouveau"])
+    sub.add_parser("relances")
+    rl = sub.add_parser("relancer")
+    rl.add_argument("id", type=int)
+    en = sub.add_parser("entretien")
+    en.add_argument("id", type=int)
+    w = sub.add_parser("web")
+    w.add_argument("--port", type=int, default=8765)
+    w.add_argument("--local", action="store_true", help="accessible depuis cet ordinateur seulement")
     args = p.parse_args(argv)
+
+    if args.cmd == "web":
+        from .web.serveur import lancer
+        charger_env()
+        lancer(port=args.port, local=args.local)
+        return
 
     charger_env()
     db = Base()
@@ -73,14 +91,28 @@ def main(argv: list[str] | None = None) -> None:
             print(f"✓ Dossier prêt : {chemin}")
         elif args.cmd == "statut":
             ok = db.changer_statut(args.id, args.valeur)
-            print("✓ Statut mis à jour." if ok else "Pas de dossier pour cette offre.")
+            print("✓ Statut mis à jour." if ok else "Offre inconnue.")
+        elif args.cmd == "relances":
+            jours = int(config().get("relance_apres_jours", 7))
+            rows = db.relances_dues(jours)
+            if not rows:
+                print(f"Aucune candidature envoyée depuis plus de {jours} jours sans relance.")
+            for r in rows:
+                print(f"{r['id']:>4}  envoyée le {r['envoye_le'][:10]}  {r['titre'][:55]}")
+            if rows:
+                print("\nRédiger une relance : python -m jobbot relancer <n°>")
+        elif args.cmd == "relancer":
+            print(pipeline.relance(db, Claude(), args.id))
+            db.marquer_relance(args.id)
+        elif args.cmd == "entretien":
+            print(pipeline.entretien(db, Claude(), args.id))
     finally:
         db.fermer()
 
 
 def _top(db: Base, score_min: int | None) -> None:
     seuil = config().get("seuil", 70) if score_min is None else score_min
-    rows = db.classement(seuil)
+    rows = db.classement(seuil, expirees=False)
     if not rows:
         print(f"\nAucune offre notée ≥ {seuil}.")
         return
@@ -91,7 +123,7 @@ def _top(db: Base, score_min: int | None) -> None:
         statut = r["statut"] or "—"
         print(f"{r['id']:>4}  {r['score']:>5}  {statut:<9} {r['titre'][:55]}" + (f" · {ent[:25]}" if ent else ""))
         if d.get("alerte"):
-            print(f"{'':>17}⚠️  {d['alerte']}")
+            print(f"{'':>17}⚠  {d['alerte']}")
 
 
 if __name__ == "__main__":

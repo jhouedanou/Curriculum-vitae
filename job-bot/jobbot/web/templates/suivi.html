@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score %}
+{% block titre %}Suivi · JobBot{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div>
+    <h1>Suivi des candidatures</h1>
+    <p class="meta-page">Fais glisser une carte, ou change son statut dans la liste.</p>
+  </div>
+</div>
+
+{% set total = colonnes.values()|map('length')|sum %}
+{% if total == 0 %}
+<div class="vide">
+  <h2>Aucune candidature suivie</h2>
+  <p>Dès qu'un dossier est préparé, il arrive ici dans « À relire ». Marque-le « Envoyée » quand tu l'as envoyé : le bot te rappellera de relancer.</p>
+  <a class="btn btn-plein" href="/">Voir les offres</a>
+</div>
+{% else %}
+<div class="kanban">
+  {% for k, cartes in colonnes.items() %}
+  <section class="colonne colonne-{{ k }}" data-statut="{{ k }}" aria-labelledby="col-{{ k }}">
+    <h2 id="col-{{ k }}">{{ STATUTS[k] }} <span class="compte-col">{{ cartes|length }}</span></h2>
+    <ol class="cartes" data-depot="{{ k }}">
+      {% for c in cartes %}
+      <li class="carte" draggable="true" data-id="{{ c.id }}">
+        <div class="carte-tete">
+          {{ score(c.score) }}
+          <a href="/offre/{{ c.id }}" class="carte-titre">{{ c.titre }}</a>
+        </div>
+        {% if c.entreprise %}<p class="doux carte-ent">{{ c.entreprise }}</p>{% endif %}
+        {% if c.id in dues %}<p class="drap drap-urgent"><svg class="ic"><use href="#i-mail"/></svg>À relancer</p>{% endif %}
+        <label class="sr" for="s-{{ c.id }}">Statut</label>
+        <select id="s-{{ c.id }}" class="carte-statut" data-id="{{ c.id }}">
+          {% for kk, v in STATUTS.items() %}<option value="{{ kk }}" {% if kk == k %}selected{% endif %}>{{ v }}</option>{% endfor %}
+          <option value="nouveau">Retirer du suivi</option>
+        </select>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

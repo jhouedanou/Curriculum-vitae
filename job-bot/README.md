@@ -27,7 +27,27 @@ Clé API : https://platform.claude.com → *API Keys*.
 - Windows : si l'installation bloque, mets `pdf: false` dans `config.yaml`.
   Le bot crée alors le HTML : ouvre-le dans Chrome → Imprimer → Enregistrer en PDF.
 
-## 2. Premier essai : une offre collée à la main
+## 2. L'interface (ordinateur et téléphone)
+
+```bash
+python -m jobbot web
+```
+
+Le terminal affiche un lien et un QR code. Scanne-le avec le téléphone (même Wi-Fi) :
+il reste connecté 6 mois. Le lien contient une clé secrète, ne le partage pas.
+`python -m jobbot web --local` limite l'accès à cet ordinateur.
+
+| Page | Ce que tu y fais |
+|---|---|
+| **Offres** | Les offres à traiter, de la meilleure à la moins bonne. Filtres « À traiter / Proches / Toutes », recherche, source. Les relances dues s'affichent en haut. |
+| **Offre** | Verdict, exigences couvertes ou non, mots-clés absents, écarts classés par gravité. Message à copier (ou à ouvrir dans l'email / WhatsApp), aperçu et PDF du CV et de la lettre, « À vérifier avant d'envoyer », préparation d'entretien, relance. |
+| **Suivi** | Tableau À relire → Envoyée → Entretien → Refus / Ignorée. Glisse les cartes (ou change le statut dans la liste sur téléphone). |
+| **Coller une offre** | Pour LinkedIn, Indeed, email, WhatsApp : colle le texte, le bot note et prépare le dossier. |
+
+Le bouton **Lancer la recherche** fait comme `go` ; le journal s'affiche en direct.
+Une seule tâche tourne à la fois, et chaque bouton qui appelle Claude le dit.
+
+## 3. Premier essai : une offre collée à la main
 
 Copie une offre (LinkedIn, email, WhatsApp…) dans `offre.txt`, puis :
 
@@ -44,7 +64,7 @@ Le dossier arrive dans `candidatures/2026-10-08_1_nom-entreprise/` :
 | `message.txt` | Destinataire, objet et message court |
 | `offre.md` | Score, points forts, écarts, consignes, **points à vérifier** |
 
-## 3. Tous les jours : la recherche automatique
+## 4. Tous les jours : la recherche automatique
 
 ```bash
 python -m jobbot go
@@ -62,10 +82,18 @@ python -m jobbot top               # classement des offres notées
 python -m jobbot top --min 50      # avec un seuil plus bas
 python -m jobbot preparer 12       # dossier de l'offre n°12
 python -m jobbot preparer 12 --lettre
-python -m jobbot statut 12 envoye  # suivre tes candidatures (envoye / ignore / a_relire)
+python -m jobbot statut 12 envoye  # a_relire, envoye, entretien, refus, ignore (dossier ou pas)
+python -m jobbot relances          # candidatures envoyées depuis 7 jours sans relance
+python -m jobbot relancer 12       # message de relance
+python -m jobbot entretien 12      # questions probables + réponses STAR tirées du CV, questions à poser, salaire
 ```
 
-## 4. Les fichiers que tu modifies
+Le bot écarte aussi :
+- les **offres expirées** (date limite passée) ;
+- les **doublons** : la même offre publiée sur deux sites n'est notée qu'une fois ;
+- les offres que tu as marquées **ignorées**.
+
+## 5. Les fichiers que tu modifies
 
 | Fichier | Rôle |
 |---|---|
@@ -74,29 +102,32 @@ python -m jobbot statut 12 envoye  # suivre tes candidatures (envoye / ignore / 
 | `config.yaml` | Seuil, mots-clés, sources, modèles, limites. |
 | `templates/` | Mise en page du CV et de la lettre (HTML + CSS). |
 
-## 5. Les garde-fous contre l'invention
+## 6. Les garde-fous contre l'invention
 
 - Les postes, entreprises, dates et diplômes viennent de `cv.yaml`, jamais de l'IA.
 - Une compétence absente de ton CV est **retirée** du CV adapté.
 - Une expérience oubliée par l'IA est **remise** avec son texte d'origine.
 - Un chiffre absent de ton CV est **signalé** dans `offre.md` → « À vérifier ».
 - Une offre qui demande de l'argent est **signalée** (⚠️) : c'est le signe d'une arnaque.
+- Une réalisation sans résultat chiffré n'est pas complétée : le bot te pose la question
+  (« Pour renforcer ton CV »). Ajoute le chiffre dans `cv.yaml` s'il est vrai.
+- Les mots-clés de l'offre absents de ton CV sont listés, jamais ajoutés.
 
-## 6. Les sources
+## 7. Les sources
 
 | Source | Méthode | Règle respectée |
 |---|---|---|
-| Novojob CI | Flux RSS officiel | Une lecture par lancement |
+| Novojob CI et Bénin | Flux RSS officiels | Une lecture par lancement |
 | Educarrière | Lecture de la page des offres | 1 requête toutes les 2 s, 2 pages max |
 | Remotive | API publique (remote, en anglais) | 1 appel toutes les 6 h max (règle Remotive : 4/jour), lien vers l'offre gardé |
 
-**Pas de LinkedIn ni d'Indeed** : leurs conditions interdisent la collecte automatique,
-et ton compte peut être bloqué. Pour ces offres, utilise `coller`.
+**Pas de LinkedIn, d'Indeed ni d'EmploiBénin** : leurs conditions (ou leur `robots.txt`)
+interdisent la collecte automatique. Pour ces offres, utilise `coller` ou la page « Coller une offre ».
 
 **Ajouter un site** : copie `jobbot/sources/novojob.py`, adapte-le, ajoute la classe
 dans `jobbot/sources/__init__.py` et une entrée dans `config.yaml`.
 
-## 7. Lancer chaque matin
+## 8. Lancer chaque matin
 
 macOS / Linux (`crontab -e`) — tous les jours à 7 h 30 :
 
@@ -108,8 +139,13 @@ Windows : Planificateur de tâches → Créer une tâche de base → Programme :
 `C:\chemin\job-bot\.venv\Scripts\python.exe`, arguments : `-m jobbot go`,
 dossier de départ : `C:\chemin\job-bot`.
 
-## 8. Tests (sans Internet ni clé API)
+## 9. Tests (sans Internet ni clé API)
 
 ```bash
 python -m pytest -q
 ```
+
+## 10. Crédits
+
+Les consignes d'analyse et de rédaction reprennent, adaptées en français, des skills
+[resumeskills](https://github.com/paramchoudhary/resumeskills) (MIT). Voir `NOTICE.md`.

@@ -1,13 +1,16 @@
 """Tests sans Internet ni clé API : python -m pytest -q"""
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 import pytest
 
 from jobbot import pipeline, render
 from jobbot.db import Base
-from jobbot.models import CVAdapte, ExperienceAdaptee, Lettre, Message, Note, Offre
+from jobbot.dates import expiree, lire_date
+from jobbot.models import (CVAdapte, Exigence, ExperienceAdaptee, Lettre, Manque, Message, Note, Offre,
+                           PreparationEntretien, QuestionProbable, Relance, Salaire, TrameSTAR, lire_note)
 from jobbot.sources.base import passe_le_filtre
 from jobbot.sources.educarriere import lire_liste
 from jobbot.sources.novojob import lire_flux
@@ -46,15 +49,38 @@ Profil : 7 ans d'expérience, VueJS, Nuxt, API REST, Figma. Anglais lu.
 Dossier : CV + lettre de motivation à envoyer à recrutement@xyz.ci avant le 30/10/2026."""
 
 
+def note_test(**kw) -> Note:
+    base = dict(score=88, verdict="Très bon profil.", recommandation="postuler", points_forts=["VueJS expert"],
+                ecarts=["Secteur bancaire"],
+                exigences=[Exigence(intitule="VueJS", indispensable=True, couvert="oui", preuve_cv="Big Five")],
+                manques=[Manque(intitule="Secteur bancaire", gravite="mineur", strategie="—")],
+                mots_cles_absents=["Angular"], arguments_forts=["12 ans de web"], signaux=[],
+                surqualification=False, seniorite="senior", type_contrat="CDI", mode_travail="sur site",
+                salaire=None, entreprise="Banque XYZ", intitule="Développeur Front-End Senior", langue="fr",
+                lettre_demandee=True, email_candidature="recrutement@xyz.ci", date_limite="30/10/2099",
+                consignes="CV + lettre", alerte=None)
+    return Note(**{**base, **kw})
+
+
 class FauxClaude:
     """Remplace Claude dans les tests : réponses fixes, avec des erreurs volontaires."""
 
     def demander(self, modele, systeme, cv, consigne, format, max_tokens=4000):
         if format is Note:
-            return Note(score=88, verdict="Très bon profil.", points_forts=["VueJS expert"], ecarts=["Secteur bancaire"],
-                        entreprise="Banque XYZ", intitule="Développeur Front-End Senior", langue="fr",
-                        lettre_demandee=True, email_candidature="recrutement@xyz.ci", date_limite="30/10/2026",
-                        consignes="CV + lettre", alerte=None)
+            return note_test()
+        if format is PreparationEntretien:
+            return PreparationEntretien(
+                competences_evaluees=["VueJS — « maîtrise de VueJS »"], pitch="Je suis…",
+                questions=[QuestionProbable(question="Parlez d'un projet VueJS", categorie="technique",
+                                            probabilite="haute", conseil=None,
+                                            star=TrameSTAR(situation="s", tache="t", action="a", resultat="r",
+                                                           experience_source="Big Five"))],
+                points_faibles=[], questions_a_poser=["Quels défis ?"],
+                salaire=Salaire(fourchette_offre=None, strategie="Demander la fourchette.", arguments=[],
+                                negociable=["télétravail"], phrases=[]),
+                a_eviter=[], a_verifier=[])
+        if format is Relance:
+            return Relance(objet="Re : candidature", texte="Bonjour, …", element_nouveau="portfolio")
         assert format is _Reponse
         return _Reponse(
             cv=CVAdapte(
@@ -70,6 +96,7 @@ class FauxClaude:
                           paragraphes=["Para 1.", "Para 2.", "Para 3.", "Para 4."]),
             message=Message(objet_email="Candidature — Développeur Front-End Senior",
                             texte="Bonjour, … Jean-Luc Houédanou"),
+            a_completer=["Combien d'utilisateurs ?"],
         )
 
 
@@ -157,3 +184,96 @@ def test_dossier_complet(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     assert "recrutement@xyz.ci" in (chemin / "message.txt").read_text(encoding="utf-8")
     assert db.classement(80)[0]["statut"] == "a_relire"
     db.fermer()
+
+
+def test_dates():
+    assert str(lire_date("avant le 30/10/2026")) == "2026-10-30"
+    assert str(lire_date("Date limite : 5 novembre 2026")) == "2026-11-05"
+    assert str(lire_date("October 3, 2026")) == "2026-10-03"
+    assert lire_date("dès que possible") is None
+    assert expiree("01/01/2020") and not expiree("01/01/2099") and not expiree(None)
+
+
+def test_ancienne_note_relue():
+    ancienne = '{"score": 70, "verdict": "x", "points_forts": [], "ecarts": [], "entreprise": null, "intitule": "Dev", "langue": "fr", "lettre_demandee": false, "email_candidature": null, "date_limite": null, "consignes": null, "alerte": null}'
+    n = lire_note(ancienne)
+    assert n.score == 70 and n.exigences == [] and n.recommandation == "pari"
+
+
+def test_doublon_entre_sites(tmp_path: Path):
+    db = Base(tmp_path / "t.db")
+    desc = "Missions : interfaces VueJS, API REST, encadrement. " * 20
+    a = db.ajouter(Offre(source="novojob", ref="1", titre="Développeur Front-End", description=desc))
+    assert db.doublon(Offre(source="educarriere", ref="9", titre="DEVELOPPEUR FRONT END", description=desc)) == a
+    assert db.doublon(Offre(source="educarriere", ref="9", titre="Développeur Front-End", description="Autre chose " * 40)) is None
+    assert db.doublon(Offre(source="novojob", ref="2", titre="Développeur Front-End", description=desc)) is None  # même site
+    db.fermer()
+
+
+def test_suivi_sans_dossier_et_relances(tmp_path: Path):
+    from datetime import date, timedelta
+    db = Base(tmp_path / "t.db")
+    i = db.ajouter(Offre(source="manuel", ref="x", titre="Dev"))
+    db.noter(i, note_test())
+    assert db.changer_statut(i, "ignore")                    # pas besoin de dossier
+    assert db.sans_dossier(0, 10) == []                       # une offre ignorée ne coûte plus rien
+    assert db.changer_statut(i, "envoye")
+    assert db.relances_dues(7) == []
+    assert [r["id"] for r in db.relances_dues(7, date.today() + timedelta(days=8))] == [i]
+    db.marquer_relance(i)
+    assert db.relances_dues(7, date.today() + timedelta(days=8)) == []
+    assert db.changer_statut(i, "nouveau") and db.suivi(i) is None
+    db.fermer()
+
+
+def test_offre_expiree_exclue(tmp_path: Path):
+    db = Base(tmp_path / "t.db")
+    i = db.ajouter(Offre(source="manuel", ref="old", titre="Dev"))
+    db.noter(i, note_test(date_limite="01/01/2020"))
+    assert db.sans_dossier(0, 10) == []
+    assert db.classement(0, expirees=False) == [] and len(db.classement(0)) == 1
+    db.fermer()
+
+
+def test_web(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    from fastapi.testclient import TestClient
+    from jobbot import config as conf, db as dbmod
+    from jobbot.web import serveur
+
+    base = tmp_path / "web.db"
+    monkeypatch.setattr(dbmod.Base.__init__, "__defaults__", (base,))
+    monkeypatch.setattr(render, "SORTIE", tmp_path / "candidatures")
+    monkeypatch.setattr(serveur, "Claude", FauxClaude)
+    serveur.app.state.jeton = "secret"
+    c = TestClient(serveur.app)
+    assert c.get("/").status_code == 401                      # sans jeton : refusé
+    r = c.get("/?t=secret", follow_redirects=False)
+    assert r.status_code == 303 and "jobbot=secret" in r.headers["set-cookie"]
+    c.cookies.set("jobbot", "secret")
+    assert "Rien à traiter" in c.get("/").text
+
+    r = c.post("/coller", data={"texte": OFFRE_TEXTE, "lettre": "auto"}, headers={"Accept": "application/json"})
+    assert r.status_code == 200
+    tid = r.json()["id"]
+    for _ in range(100):
+        t = c.get(f"/api/taches/{tid}").json()
+        if t["etat"] != "en_cours":
+            break
+        time.sleep(0.05)
+    assert t["etat"] == "ok", t["lignes"]
+    oid = int(t["lien"].rsplit("/", 1)[1])
+    page = c.get(f"/offre/{oid}").text
+    assert "Copier le message" in page and "Kubernetes" in page and "Combien d&#39;utilisateurs" in page
+    assert c.get(f"/fichiers/{oid}/CV_Jean_Luc_Houedanou.pdf").status_code == 200
+    assert c.get(f"/fichiers/{oid}/..%2F..%2Fjobbot.db").status_code == 404
+    assert "Développeur Front-End Senior" in c.get("/").text
+    r = c.post(f"/offre/{oid}/statut", data={"statut": "envoye"}, headers={"Accept": "application/json"})
+    assert r.json()["ok"]
+    assert "Envoyée" in c.get("/suivi").text
+    assert "Relance" in c.get(f"/offre/{oid}").text
+    r = c.post(f"/offre/{oid}/entretien", headers={"Accept": "application/json"})
+    for _ in range(100):
+        if c.get(f"/api/taches/{r.json()['id']}").json()["etat"] != "en_cours":
+            break
+        time.sleep(0.05)
+    assert "Parlez d&#39;un projet VueJS" in c.get(f"/offre/{oid}").text
