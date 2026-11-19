@@ -191,6 +191,46 @@ Experienced **Web Developper** with **over 12 years of expertise** in full-stack
 
 ## Portfolio - Key Projects
 
+### **Laveiye - Library of African marketing campaigns**
+**https://laveiye.com/**
+*Role:* Development | *Technologies:* Next.js, React
+Subscription platform to browse, filter and analyse more than 900 real marketing campaigns in Africa
+
+### **Big Five Academy - E-Masterclass**
+**https://bigfiveacademy.com/**
+*Role:* Development | *Technologies:* NuxtJS, Vue.js
+E-learning platform: one-hour modules, two programmes, cart and learner space
+
+### **Friesland Bonnet Rouge - Field CRM and mobile app**
+**https://frieslandv3.vercel.app/**
+*Role:* UI design & development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+Web CRM and mobile app for field data collection and monitoring for FrieslandCampina Côte d'Ivoire
+
+### **Abidjan Exhibition Centre (Parc des Expositions d'Abidjan)**
+**https://pae-orpin.vercel.app/**
+*Role:* UI design & development | *Technologies:* HTML5, CSS3, JavaScript
+Bilingual (FR/EN) website: venues, services, agenda, 360° tour and quote requests
+
+### **Azito Energie booth games (SIREXE)**
+**https://azitoenergie.vercel.app/**
+*Role:* UI design & development | *Technologies:* HTML5, CSS3, JavaScript, design tokens
+Two mini-games under one minute for booth visitors, with a daily leaderboard
+
+### **Energy expert quiz - CIPREL (SIREXE)**
+**https://expertenergie.vercel.app/**
+*Role:* UI design & development | *Technologies:* NuxtJS, Vue.js
+Three timed quizzes on energy with points, rewards and a leaderboard
+
+### **Brikelec, the power plant of the future - CIPREL (SIREXE)**
+**https://brikelec.vercel.app/**
+*Role:* UI design & development | *Technologies:* NuxtJS, Vue.js
+Puzzle game: the visitor assembles five power plants to power Abidjan
+
+### **HR orientation questionnaire - CIPREL**
+**https://quiz-rh-sandy.vercel.app/**
+*Role:* UI design & development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+18 yes/no questions to discover your soft skills and the department that fits your profile
+
 ### **SoboaFoot - CAN 2025 Predictions Platform**
 **https://soboafoot.com/**
 *Role:* Full-stack Developer | *Technologies:* Tailwind CSS, Alpine.js, Swiper.js, Service Worker
@@ -202,7 +242,7 @@ Sports prediction gaming platform for CAN 2025 with leaderboard system, points a
 Figma template integration into NuxtJS application with headless WordPress CMS for event catering company
 
 ### **Vodacom Landing Page**
-**https://vodamedia.co.za/txtengage/**
+**https://txtengage.co.za/**
 *Role:* Lead Developer | *Technologies:* VueJS, Responsive Design
 Landing page for Vodacom South Africa optimizing user engagement
 

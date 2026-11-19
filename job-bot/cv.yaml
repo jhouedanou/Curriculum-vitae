@@ -1,0 +1,183 @@
+# ─────────────────────────────────────────────────────────────
+#  TON CV = LA SEULE SOURCE DE VÉRITÉ DU BOT
+#  Le bot peut reformuler et réordonner ce qui est ici.
+#  Il n'invente rien : ce qui n'est pas dans ce fichier
+#  n'apparaîtra jamais dans un CV ou une lettre.
+#  → Ajoute ici tes projets et réalisations récents.
+# ─────────────────────────────────────────────────────────────
+
+identite:
+  nom: Jean-Luc Houédanou
+  titre: Développeur web full-stack · Designer UI/UX · Chef de projet digital
+  email: jeanluc@houedanou.com
+  telephone: "+225 07 48 34 82 21"
+  ville: Abidjan, Côte d'Ivoire
+  portfolio: https://jhouedanou.github.io/Curriculum-vitae/
+  github: https://github.com/jhouedanou
+  blog: https://houedanou.com
+  photo: photo.jpg          # mets "" pour un CV sans photo
+
+infos_perso:
+  afficher: true            # false = ces lignes n'apparaissent pas sur le CV
+  date_naissance: 24 février 1984
+  situation: Célibataire sans enfants
+  permis: B
+
+resume: >
+  Développeur web expérimenté avec plus de 12 ans d'expertise en développement
+  web full-stack, design UI/UX et gestion de projets digitaux. Spécialiste
+  front-end (VueJS, Angular). Je dirige une équipe de développeurs et designers
+  et je livre des plateformes web pour des clients comme Vodacom, CASTEL Afrique
+  et CIPREL.
+
+langues:
+  - { langue: Français, niveau: Langue maternelle }
+  - { langue: Anglais, niveau: Courant }
+
+experiences:
+  - id: bigfive
+    poste: Directeur solutions digitales
+    entreprise: Big Five Solutions
+    lieu: Abidjan, Côte d'Ivoire
+    periode: Juin 2019 – aujourd'hui
+    description: >
+      Dirige le développement et l'intégration de solutions web full-stack et de
+      plateformes digitales pour une clientèle diversifiée.
+    realisations:
+      - Développement et lancement de 17+ projets web majeurs, dont des sites corporate pour Vodacom, CASTEL Afrique et CIPREL, avec une hausse moyenne de 40 % du trafic client
+      - Supervision et mentoring d'une équipe de 2 développeurs et designers ; 95 % de satisfaction client et 100 % des projets livrés dans les délais
+      - Gestion et sécurisation de 8 serveurs Linux (CentOS, Ubuntu) en haute disponibilité ; temps d'arrêt réduits de 90 %
+      - Mise en place de technologies modernes (VueJS, Supabase, Filament) pour des applications web interactives ; performances améliorées de 60 %
+
+  - id: wedev
+    poste: Head of Design
+    entreprise: WeDev Group
+    lieu: Abidjan, Côte d'Ivoire
+    periode: Juin 2017 – Juin 2019
+    description: >
+      Dirigeait la stratégie design et supervisait la conception d'interfaces
+      utilisateur pour renforcer l'identité de marque et l'expérience client.
+    realisations:
+      - Direction créative de 25+ projets web et mobiles avec une approche centrée utilisateur
+      - Création de guidelines design et de systèmes visuels adoptés par toute l'équipe
+      - Stratégie de communication visuelle ; reconnaissance de marque en hausse de 35 %
+
+  - id: adonai
+    poste: Responsable communication digitale
+    entreprise: Adonai Agri Batis
+    lieu: Abidjan, Côte d'Ivoire
+    periode: Février 2017 – Juin 2017
+    description: >
+      Stratégie et exécution de la communication digitale pour renforcer la
+      présence en ligne.
+    realisations:
+      - Refonte complète du site corporate ; conversion +20 % et taux de rebond -30 %
+      - Engagement sur les réseaux sociaux +150 % en 4 mois
+      - Framework de communication digitale ; efficacité des campagnes +45 %
+
+  - id: cifide
+    poste: Chargé de projet web et communication digitale
+    entreprise: CIFIDE
+    lieu: Abidjan, Côte d'Ivoire
+    periode: Juillet 2016 – Janvier 2017
+    description: >
+      Supervision des projets web et coordination des campagnes digitales.
+    realisations:
+      - Stratégie de contenu ; trafic organique +35 % en 6 mois
+      - Gestion simultanée de 8 projets web, 100 % livrés dans les délais
+      - Portefeuille de 12 clients ; 85 % de rétention client
+
+  - id: cerap
+    poste: Webmaster
+    entreprise: CERAP (ancien Inades)
+    lieu: Abidjan, Côte d'Ivoire
+    periode: Août 2013 – Mars 2016
+    description: >
+      Gestion technique et éditoriale du site web institutionnel.
+    realisations:
+      - Migration vers un CMS moderne ; délai de mise en ligne des activités réduit de 75 %
+      - Mesures de sécurité qui ont éliminé les incidents de sécurité
+      - Supervision des opérations éditoriales et techniques ; 99 % de disponibilité
+
+experiences_anterieures:
+  - Responsable du site web — Electoral Reform International Services (janv.–juin 2013)
+  - Consultant formateur TIC — Internews Europe (mai 2012)
+  - Web designer & infographiste — Chrisalys Group (mai–déc. 2012)
+  - Responsable associé division e-commerce — Groupe Kamit Communications Inc, Montréal (sept. 2009–avr. 2011)
+
+formation:
+  - { annees: "2008 – 2009", diplome: Certificat en gestion de l'information et des systèmes, ecole: "Université de Sherbrooke, Canada" }
+  - { annees: "2007 – 2008", diplome: Master en gestion du commerce électronique, ecole: "Université de Sherbrooke, Canada" }
+  - { annees: "2002 – 2006", diplome: Baccalauréat en administration des affaires, ecole: "Université Canadienne des Arts, Sciences et Management, Côte d'Ivoire" }
+  - { annees: "1995 – 2002", diplome: Baccalauréat en économie et sciences, ecole: "Collège Jean Mermoz, Côte d'Ivoire" }
+
+competences:
+  - categorie: Développement frontend
+    items:
+      - { nom: VueJS, annees: 5, niveau: Expert }
+      - { nom: Angular, annees: 4, niveau: Avancé }
+      - { nom: NuxtJS, annees: 3, niveau: Intermédiaire+ }
+      - { nom: JavaScript, annees: 8, niveau: Expert }
+      - { nom: HTML5, annees: 12, niveau: Expert }
+      - { nom: CSS3, annees: 12, niveau: Expert }
+      - { nom: Responsive Web Design, annees: 8, niveau: Avancé }
+  - categorie: Développement backend
+    items:
+      - { nom: PHP, annees: 10, niveau: Expert }
+      - { nom: Laravel, annees: 5, niveau: Avancé }
+      - { nom: Filament, annees: 2, niveau: Intermédiaire }
+      - { nom: Supabase, annees: 2, niveau: Intermédiaire }
+      - { nom: MySQL, annees: 8, niveau: Avancé }
+      - { nom: APIs RESTful, annees: 6, niveau: Avancé }
+      - { nom: Administration serveur Linux, annees: 7, niveau: Avancé }
+  - categorie: Design & outils
+    items:
+      - { nom: Adobe XD, annees: 6, niveau: Expert }
+      - { nom: Figma, annees: 4, niveau: Avancé }
+      - { nom: Suite Affinity, annees: 5, niveau: Avancé }
+      - { nom: UI/UX Design, annees: 8, niveau: Expert }
+      - { nom: Design graphique, annees: 10, niveau: Avancé }
+      - { nom: DaVinci Resolve, annees: 3, niveau: Intermédiaire+ }
+  - categorie: DevOps & infrastructure
+    items:
+      - { nom: CI/CD GitLab, annees: 3, niveau: Intermédiaire+ }
+      - { nom: Docker, annees: 3, niveau: Intermédiaire+ }
+      - { nom: "Clusters de bases de données (PostgreSQL BDR, MariaDB Galera)", annees: 4, niveau: Intermédiaire+ }
+      - { nom: Sécurité web, annees: 7, niveau: Avancé }
+  - categorie: Gestion de projet
+    items:
+      - { nom: SCRUM, annees: 6, niveau: Avancé }
+      - { nom: Kanban, annees: 5, niveau: Avancé }
+      - { nom: Agile, annees: 6, niveau: Avancé }
+      - { nom: Jira, annees: 4, niveau: Intermédiaire+ }
+      - { nom: Leadership d'équipe, annees: 5, niveau: Avancé }
+      - { nom: Relation client, annees: 12, niveau: Expert }
+      - { nom: Planification stratégique, annees: 5, niveau: Avancé }
+
+projets:
+  - { id: soboafoot, nom: SoboaFoot — pronostics CAN 2025, url: "https://soboafoot.com/", role: Développeur full-stack, technos: [Tailwind CSS, Alpine.js, Swiper.js, Service Worker], description: "Plateforme de pronostics sportifs avec classement, points et géolocalisation des partenaires" }
+  - { id: eatisfamily, nom: Eat Is Family, url: "https://www.eatisfamily.fr/", role: Développeur front-end, technos: [NuxtJS, Vue.js, WordPress API, Figma], description: "Intégration d'une maquette Figma en application NuxtJS avec WordPress headless" }
+  - { id: vodacom, nom: Landing page Vodacom, url: "https://txtengage.co.za/", role: Développeur lead, technos: [VueJS, Responsive Design], description: "Landing page pour Vodacom Afrique du Sud" }
+  - { id: castel, nom: CASTEL Afrique, url: "https://castel-afrique.com", role: Chef de projet & développeur, technos: [Adobe XD, Responsive Design], description: "Site corporate responsive intégré depuis des maquettes Adobe XD" }
+  - { id: adpn, nom: Awards du Digital et de la Presse Numérique, url: "https://www.adpnafrica.com/", role: Développeur WordPress, technos: [WordPress, PHP, ACF, Custom Post Types], description: "Template WordPress pour un site d'awards avec gestion des nominations" }
+  - { id: dinorapp, nom: Dinor App, url: "https://new.dinorapp.com/", role: Architecte full-stack, technos: [Filament, VueJS, NuxtJS, Flutter], description: "Plateforme de recettes et astuces culinaires multi-plateformes" }
+  - { id: dinorcalories, nom: Dinor Calorie Counter, url: "https://dinor-calorie-counter-alt.vercel.app/", role: Développeur full-stack, technos: [React, Next.js, TypeScript], description: "Application de suivi des calories" }
+  - { id: ciprel, nom: CIPREL, url: "https://ciprel.ci", role: Développeur front-end, technos: [Responsive Design], description: "Site corporate intégré au pixel près, optimisé pour la performance" }
+  - { id: ciprelquiz, nom: Quiz CIPREL RH (SIREXE), url: "https://ciprelrh.netlify.app/questionnaire", role: Développeur full-stack, technos: [NuxtJS], description: "Application de quiz interactive avec système de scoring" }
+  - { id: cipreljeu, nom: Jeu CIPREL drag & drop, url: "https://jeuciprel.vercel.app/", role: Développeur full-stack, technos: [JavaScript, Drag & Drop API], description: "Jeu de formation interactif" }
+  - { id: timeorh, nom: Dashboard Timeo RH, url: "https://timeo-rh.vercel.app/", role: Designer UI/UX & développeur full-stack, technos: [Figma, VueJS], description: "Conception Figma et frontend VueJS d'un tableau de bord RH" }
+  - { id: bigfive360, nom: BigFive360, url: "https://bigfive360.com", role: Développeur front-end, technos: [HTML5, CSS3, JavaScript], description: "Site d'un service de visite virtuelle 360°" }
+  - { id: bigfivesite, nom: Site Big Five Solutions, url: "https://bigfive.solutions/", role: Développeur front-end, technos: [VueJS, Adobe XD], description: "Intégration de maquettes Adobe XD en VueJS avec composants réutilisables" }
+  - { id: timeomobile, nom: App mobile Timeo RH, url: "https://tinyurl.com/timeo-mobile-app", role: Designer UI/UX, technos: [Figma, Mobile Design], description: "Prototype mobile complet d'une application RH" }
+  - { id: bblome, nom: BBlome, url: "https://bblome.com", role: Intégrateur WordPress, technos: [WordPress, PHP], description: "Site de la brasserie BBlome" }
+  - { id: soeguibe, nom: Soeguibe, url: "https://soeguibe.com", role: Intégrateur WordPress, technos: [WordPress, Gutenberg, PHP], description: "Template WordPress personnalisé avec éditeur avancé" }
+  - { id: kekeli, nom: Kekeli Power, url: "https://tinyurl.com/kekeli-power-ui", role: Designer UI/UX, technos: [Figma], description: "Interface d'une application énergétique" }
+  - { id: hhb, nom: Fondation Amadou Hampâté Bâ, url: "https://tinyurl.com/fondation-hhb", role: Designer UI/UX, technos: [Figma], description: "Site institutionnel" }
+  - { id: friesland, nom: Friesland Bonnet Rouge — CRM terrain et application mobile, url: "https://frieslandv3.vercel.app/", role: Conception UI & développement, technos: [NuxtJS, Vue.js, Tailwind CSS], description: "CRM web et application mobile de collecte de données terrain et de pilotage pour FrieslandCampina Côte d'Ivoire" }
+  - { id: pae, nom: Parc des Expositions d'Abidjan, url: "https://pae-orpin.vercel.app/", role: Conception UI & développement, technos: [HTML5, CSS3, JavaScript], description: "Site vitrine bilingue (FR/EN) : espaces, services, agenda, visite 360° et demande de devis" }
+  - { id: azito, nom: Jeux du stand Azito Energie (SIREXE), url: "https://azitoenergie.vercel.app/", role: Conception UI & développement, technos: [HTML5, CSS3, JavaScript, Design tokens], description: "Deux mini-jeux de moins d'une minute pour les visiteurs du stand, avec classement du jour" }
+  - { id: expertenergie, nom: Quiz expert énergie — CIPREL (SIREXE), url: "https://expertenergie.vercel.app/", role: Conception UI & développement, technos: [NuxtJS, Vue.js], description: "Trois quiz chronométrés sur l'énergie avec points, récompenses et classement" }
+  - { id: brikelec, nom: "Brikelec, la centrale du futur — CIPREL (SIREXE)", url: "https://brikelec.vercel.app/", role: Conception UI & développement, technos: [NuxtJS, Vue.js], description: "Jeu de puzzles où le visiteur assemble cinq centrales pour alimenter Abidjan" }
+  - { id: quizrh, nom: Questionnaire d'orientation RH — CIPREL, url: "https://quiz-rh-sandy.vercel.app/", role: Conception UI & développement, technos: [NuxtJS, Vue.js, Tailwind CSS], description: "18 questions oui/non pour découvrir ses soft skills et le département qui correspond à son profil" }
+  - { id: laveiye, nom: Laveiye — bibliothèque de campagnes marketing africaines, url: "https://laveiye.com/", role: Développement, technos: [Next.js, React], description: "Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campagnes marketing réelles en Afrique" }
+  - { id: academy, nom: Big Five Academy — E-Masterclass, url: "https://bigfiveacademy.com/", role: Développement, technos: [NuxtJS, Vue.js], description: "Plateforme de formation en ligne avec modules d'une heure, deux programmes, panier et espace apprenant" }

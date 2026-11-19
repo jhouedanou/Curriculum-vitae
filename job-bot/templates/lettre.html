@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ langue }}">
+<head>
+<meta charset="utf-8">
+<title>{{ t.lettre }} — {{ id.nom }}</title>
+<style>{{ css | safe }}</style>
+</head>
+<body class="lettre">
+
+<div class="exp-bloc">
+  <b>{{ id.nom }}</b><br>
+  {{ id.email }} · {{ id.telephone }}<br>
+  {{ id.ville }} · <a href="{{ id.portfolio }}">{{ id.portfolio | replace("https://", "") }}</a>
+</div>
+
+<div class="date">{{ date }}</div>
+
+<div class="dest">{{ l.destinataire }}</div>
+
+<div class="objet">{{ t.objet }} : {{ l.objet }}</div>
+
+<p>{{ t.appel }}</p>
+{% for p in l.paragraphes %}<p>{{ p }}</p>{% endfor %}
+<p>{{ t.formule }}</p>
+
+<div class="signature">{{ id.nom }}</div>
+
+</body>
+</html>

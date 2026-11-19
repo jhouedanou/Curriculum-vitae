@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e51ee66-eea0-4c06-88e0-46ee7c952b98/styles.css">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#efe7d7;font-family:system-ui,sans-serif}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#201e1d;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#201e1d}
+.dv-intro{font:14px/1.6 system-ui,sans-serif;color:rgba(32,30,29,.7);max-width:70ch;margin:0 0 26px}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#201e1d;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 system-ui,sans-serif;color:rgba(32,30,29,.6);max-width:560px}
+.dv-card{max-width:100%;background:var(--color-bg);border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:0 6px 24px rgba(32,30,29,.10);overflow:hidden;font-family:var(--font-body);color:var(--color-text)}
+.dv-opt:target .dv-oid{background:var(--color-accent);color:#fff}
+.dv-next{margin:24px 0 0;font:12px/1.6 system-ui,sans-serif;color:rgba(32,30,29,.55);max-width:70ch}
+.pk{display:block;font-size:12px;line-height:1;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 14px}
+.pdisp{font-family:var(--font-heading);font-weight:400;letter-spacing:-.02em;margin:0}
+.pmuted{color:color-mix(in srgb,var(--color-text) 72%,transparent)}
+.pnav{display:flex;align-items:center;gap:18px;padding:18px 28px}
+.pnav a{color:inherit;text-decoration:none;font-size:13px}
+.pnav a:hover{color:var(--color-accent)}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Trois directions pour ton hero</span></div>
+<p class="dv-intro">Ton site actuel est vide, on repart proprement sur le style Organic (crème, terracotta, sauge, formes rondes). Voici l'entrée du portfolio en trois ambiances — même contenu, trois manières de se présenter. Dis-moi laquelle te parle (ou un mélange) et je déroule la page complète : héro → projets → services → parcours → compétences → à propos → blog → contact.</p>
+<div class="dv-opts">
+
+  <!-- ============ 1a — Chaleureux classique ============ -->
+  <div class="dv-opt" id="1a">
+    <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Chaleureux classique — la landing Organic par le livre : titre net, cercle sauge en fond, appel à l'action franc.</div>
+    <div class="dv-card" style="width:560px">
+      <nav class="pnav">
+        <span style="font-family:var(--font-heading);font-size:17px;margin-right:auto">Jean Luc Houédanou</span>
+        <a href="#">Projets</a><a href="#">Services</a><a href="#">Contact</a>
+        <span class="tag tag-outline" style="font-size:10px">FR · EN</span>
+      </nav>
+      <div style="position:relative;padding:30px 28px 34px;overflow:hidden">
+        <div style="position:absolute;right:-80px;top:-100px;width:250px;height:250px;border-radius:50%;background:var(--color-accent-2-200);z-index:0"></div>
+        <div style="position:relative;z-index:1">
+          <span class="pk">Développeur full-stack · Abidjan</span>
+          <h1 class="pdisp" style="font-size:44px;line-height:1.05;margin-bottom:18px">Je conçois des sites & applis qui vont <span style="color:var(--color-accent)">vite</span>.</h1>
+          <p class="pmuted" style="font-size:15.5px;line-height:1.6;max-width:42ch;margin:0 0 22px">Depuis plus de 12 ans, du design front-end jusqu'aux serveurs, pour des marques comme Vodacom, CASTEL et CIPREL.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button type="button" class="btn btn-primary">Voir mes projets</button>
+            <button type="button" class="btn btn-secondary">Me contacter</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 28px 30px;border-top:1px solid var(--color-divider)">
+        <p style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin:0 0 12px">Ils m'ont fait confiance</p>
+        <div class="chip-row">
+          <span class="tag tag-neutral">Vodacom</span><span class="tag tag-neutral">CASTEL</span><span class="tag tag-neutral">CIPREL</span><span class="tag tag-neutral">Dinor</span><span class="tag tag-neutral">Eat Is Family</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 1b — Le potager de projets ============ -->
+  <div class="dv-opt" id="1b">
+    <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Le potager de chiffres — la signature Organic : des cercles doux qui se chevauchent portent ton parcours en chiffres. Plus joueur.</div>
+    <div class="dv-card" style="width:560px">
+      <nav class="pnav">
+        <span style="font-family:var(--font-heading);font-size:17px;margin-right:auto">JLH</span>
+        <a href="#">Projets</a><a href="#">Parcours</a><a href="#">Contact</a>
+        <button type="button" class="btn btn-primary" style="font-size:12px;padding:7px 14px">Travaillons ensemble</button>
+      </nav>
+      <div style="padding:28px 28px 6px">
+        <span class="pk">Dev full-stack & créatif</span>
+        <h1 class="pdisp" style="font-size:40px;line-height:1.06;margin-bottom:14px">Jean Luc<br>Houédanou.</h1>
+        <p class="pmuted" style="font-size:15px;line-height:1.6;max-width:40ch;margin:0">Directeur solutions digitales à Abidjan. Je fais pousser des produits web du premier pixel au dernier serveur.</p>
+      </div>
+      <div style="position:relative;height:250px;margin:0 8px">
+        <div style="position:absolute;left:26px;top:30px;width:150px;height:150px;border-radius:50%;background:var(--color-accent-100);display:grid;place-content:center;text-align:center;padding:12px">
+          <div style="font-family:var(--font-heading);font-size:42px;line-height:1;color:var(--color-accent-700)">12</div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:color-mix(in srgb,var(--color-text) 70%,transparent);margin-top:6px">ans d'expérience</div>
+        </div>
+        <div style="position:absolute;left:150px;top:118px;width:120px;height:120px;border-radius:50%;background:var(--color-accent-200);display:grid;place-content:center;text-align:center;padding:10px">
+          <div style="font-family:var(--font-heading);font-size:34px;line-height:1;color:var(--color-accent-700)">6+</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:color-mix(in srgb,var(--color-text) 70%,transparent);margin-top:5px">grandes marques</div>
+        </div>
+        <div style="position:absolute;right:20px;top:8px;width:190px;height:190px;border-radius:50%;background:var(--color-accent-2-300);display:grid;place-content:center;text-align:center;padding:16px">
+          <div style="font-family:var(--font-heading);font-size:44px;line-height:1;color:var(--color-accent-2-800)">4</div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:color-mix(in srgb,var(--color-text) 72%,transparent);margin-top:6px">plateformes en prod</div>
+        </div>
+        <div style="position:absolute;right:80px;top:150px;width:110px;height:110px;border-radius:50%;background:var(--color-accent-2-100);display:grid;place-content:center;text-align:center;padding:8px">
+          <div style="font-family:var(--font-heading);font-size:30px;line-height:1;color:var(--color-accent-2-700)">∞</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:color-mix(in srgb,var(--color-text) 70%,transparent);margin-top:5px">cafés</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 1c — Photo-forward punchy ============ -->
+  <div class="dv-opt" id="1c">
+    <div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Photo devant, punchy — grande photo ronde lavée sur un blob terracotta, nom en très grand, tes réseaux en évidence. Le plus « afrowebdesigner ».</div>
+    <div class="dv-card" style="width:560px">
+      <nav class="pnav">
+        <span style="font-family:var(--font-heading);font-size:17px;margin-right:auto">Jean Luc Houédanou</span>
+        <a href="#">Travaux</a><a href="#">Contact</a>
+        <span class="tag tag-accent" style="font-size:10px">Dispo pour missions</span>
+      </nav>
+      <div style="display:flex;gap:22px;align-items:center;padding:24px 28px 34px">
+        <div style="position:relative;flex:none;width:190px;height:190px">
+          <div style="position:absolute;inset:auto auto -12px -16px;width:130px;height:130px;border-radius:50%;background:var(--color-accent-300);z-index:0"></div>
+          <div style="position:absolute;inset:-14px -18px auto auto;width:70px;height:70px;border-radius:50%;background:var(--color-accent-2-300);z-index:0"></div>
+          <div class="washed" style="position:relative;z-index:1;width:190px;height:190px;border-radius:50%;overflow:hidden;box-shadow:var(--shadow-md)">
+            <image-slot id="hero-photo-1c" shape="circle" placeholder="Dépose ta photo"></image-slot>
+          </div>
+        </div>
+        <div style="min-width:0">
+          <h1 class="pdisp" style="font-size:38px;line-height:1;margin-bottom:10px">Salut,<br>c'est Jean&nbsp;Luc.</h1>
+          <p class="pmuted" style="font-size:14.5px;line-height:1.55;margin:0 0 16px">Dev full-stack & créatif à Abidjan — je transforme des idées en produits web rapides et bien finis.</p>
+          <div class="chip-row" style="gap:6px">
+            <span class="tag tag-accent-2">@afrowebdesigner</span>
+            <span class="tag tag-neutral">GitHub</span>
+            <span class="tag tag-neutral">LinkedIn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<p class="dv-next">Étape suivante : dis-moi ta préférence — par ex. « pars sur <a class="dv-oid" href="#1b">1b</a> » · « <a class="dv-oid" href="#1c">1c</a> mais avec les logos de <a class="dv-oid" href="#1a">1a</a> » · « déroule la page complète en <a class="dv-oid" href="#1a">1a</a> ». Je construis ensuite tout le portfolio d'une traite.</p>
+</section>
+</x-dc>
+</body>
+</html>

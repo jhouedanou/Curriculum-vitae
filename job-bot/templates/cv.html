@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="{{ langue }}">
+<head>
+<meta charset="utf-8">
+<title>CV — {{ id.nom }}</title>
+<style>{{ css | safe }}</style>
+</head>
+<body>
+
+<div class="entete">
+  {% if photo %}<img src="{{ photo }}" alt="">{% endif %}
+  <div>
+    <h1>{{ id.nom }}</h1>
+    <div class="titre">{{ a.titre }}</div>
+    <div class="contacts">
+      <span>{{ id.email }}</span><span>{{ id.telephone }}</span><span>{{ id.ville }}</span>
+      <span><a href="{{ id.portfolio }}">{{ id.portfolio | replace("https://", "") }}</a></span>
+      <span><a href="{{ id.github }}">{{ id.github | replace("https://", "") }}</a></span>
+    </div>
+  </div>
+</div>
+
+<h2>{{ t.profil }}</h2>
+<p>{{ a.resume }}</p>
+
+<h2>{{ t.competences }}</h2>
+<div class="chips">{% for c in a.competences %}<span class="chip">{{ c }}</span>{% endfor %}</div>
+
+<h2>{{ t.experience }}</h2>
+{% for e in experiences %}
+<div class="exp">
+  <div class="exp-tete">
+    <div><span class="exp-poste">{{ e.poste }}</span> — {{ e.entreprise }} <span class="exp-lieu">· {{ e.lieu }}</span></div>
+    <div class="exp-date">{{ e.periode }}</div>
+  </div>
+  <ul class="puces">{% for p in e.puces %}<li>{{ p }}</li>{% endfor %}</ul>
+</div>
+{% endfor %}
+{% if anterieures %}
+<div class="sous-titre">{{ t.anterieures }}</div>
+<ul class="anterieures">{% for x in anterieures %}<li>{{ x }}</li>{% endfor %}</ul>
+{% endif %}
+
+{% if projets %}
+<h2>{{ t.projets }}</h2>
+{% for p in projets %}
+<div class="projet">
+  <b>{{ p.nom }}</b> — {{ p.description }}
+  <div class="meta">{{ p.role }} · {{ p.technos | join(", ") }} · <a href="{{ p.url }}">{{ p.url | replace("https://", "") | trim("/") }}</a></div>
+</div>
+{% endfor %}
+{% endif %}
+
+<table class="bas"><tr>
+  <td>
+    <h2>{{ t.formation }}</h2>
+    {% for f in formation %}<div class="ligne"><b>{{ f.diplome }}</b><br><span class="petit">{{ f.ecole }} · {{ f.annees }}</span></div>{% endfor %}
+  </td>
+  <td>
+    <h2>{{ t.langues }}</h2>
+    {% for l in langues %}<div class="ligne"><b>{{ l.langue }}</b> <span class="petit">— {{ l.niveau }}</span></div>{% endfor %}
+  </td>
+  <td>
+    {% if perso %}
+    <h2>{{ t.infos }}</h2>
+    {% for ligne in perso %}<div class="ligne petit">{{ ligne }}</div>{% endfor %}
+    {% endif %}
+  </td>
+</tr></table>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+# ─────────────────────────────────────────────
+#  Réglages du bot
+# ─────────────────────────────────────────────
+
+# Modèles Claude utilisés
+modeles:
+  tri: claude-haiku-5-5        # rapide et peu cher : note chaque offre
+  redaction: claude-sonnet-5-5 # meilleure plume : CV, lettre, message
+
+# Une offre doit avoir au moins ce score (0-100) pour qu'on prépare un dossier
+seuil: 70
+
+# Limites par lancement (pour garder la facture API sous contrôle)
+max_offres_a_noter: 40
+max_dossiers: 5
+
+# Pré-filtre GRATUIT (avant l'IA), sur le titre + la description.
+# Une offre passe si elle contient AU MOINS UN mot de "inclure"
+# et AUCUN mot de "exclure". Majuscules et accents ignorés.
+filtre:
+  inclure:
+    - developpeur
+    - developer
+    - developpement web
+    - full stack
+    - full-stack
+    - fullstack
+    - front-end
+    - frontend
+    - back-end
+    - backend
+    - web
+    - digital
+    - numerique
+    - ui/ux
+    - designer ui
+    - product designer
+    - chef de projet
+    - project manager
+    - product owner
+    - scrum
+    - lead tech
+    - tech lead
+    - cto
+    - responsable informatique
+    - vuejs
+    - vue.js
+    - nuxt
+    - laravel
+    - php
+    - javascript
+    - wordpress
+    - devops
+    - webmaster
+  exclure:
+    - stage
+    - stagiaire
+    - internship
+    - alternance
+    - comptable
+    - commercial terrain
+
+# Sources d'offres
+sources:
+  novojob:
+    actif: true
+    rss: https://www.novojob.com/cote-d-ivoire/rss
+  educarriere:
+    actif: true
+    pages: 2            # nombre de pages de liste à lire (polies : 1 requête / 2 s)
+  remotive:
+    actif: true         # offres 100 % remote, en anglais
+    categorie: software-dev
+    # Garde seulement les offres ouvertes à ces zones (texte libre de Remotive)
+    lieux_acceptes: [worldwide, anywhere, africa, emea, "côte d'ivoire", "ivory coast", francophone]
+
+# Réseau
+http:
+  delai_entre_requetes: 2   # secondes
+  user_agent: "JobBot personnel de Jean-Luc Houedanou (jeanluc@houedanou.com)"
+
+# Rendu
+pdf: true   # nécessite WeasyPrint ; sinon le bot garde le HTML

@@ -191,6 +191,46 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ## Portfolio - Projets Clés
 
+### **Laveiye - Bibliothèque de campagnes marketing africaines**
+**https://laveiye.com/**
+*Rôle:* Développement | *Technologies:* Next.js, React
+Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campagnes marketing réelles en Afrique
+
+### **Big Five Academy - E-Masterclass**
+**https://bigfiveacademy.com/**
+*Rôle:* Développement | *Technologies:* NuxtJS, Vue.js
+Plateforme de formation en ligne : modules d'une heure, deux programmes, panier et espace apprenant
+
+### **Friesland Bonnet Rouge - CRM terrain et application mobile**
+**https://frieslandv3.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+CRM web et application mobile de collecte de données terrain et de pilotage pour FrieslandCampina Côte d'Ivoire
+
+### **Parc des Expositions d'Abidjan**
+**https://pae-orpin.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* HTML5, CSS3, JavaScript
+Site vitrine bilingue (FR/EN) : espaces, services, agenda, visite 360° et demande de devis
+
+### **Jeux du stand Azito Energie (SIREXE)**
+**https://azitoenergie.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* HTML5, CSS3, JavaScript, design tokens
+Deux mini-jeux de moins d'une minute pour les visiteurs du stand, avec classement du jour
+
+### **Quiz expert énergie - CIPREL (SIREXE)**
+**https://expertenergie.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js
+Trois quiz chronométrés sur l'énergie avec points, récompenses et classement
+
+### **Brikelec, la centrale du futur - CIPREL (SIREXE)**
+**https://brikelec.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js
+Jeu de puzzles : le visiteur assemble cinq centrales pour alimenter Abidjan
+
+### **Questionnaire d'orientation RH - CIPREL**
+**https://quiz-rh-sandy.vercel.app/**
+*Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+18 questions oui/non pour découvrir ses soft skills et le département qui correspond à son profil
+
 ### **SoboaFoot - Plateforme de Pronostics CAN 2025**
 **https://soboafoot.com/**
 *Rôle:* Développeur Full-stack | *Technologies:* Tailwind CSS, Alpine.js, Swiper.js, Service Worker
@@ -202,7 +242,7 @@ Plateforme de pronostics sportifs pour la CAN 2025 avec système de classement, 
 Intégration d'un template Figma en application NuxtJS avec CMS headless WordPress pour entreprise de restauration événementielle
 
 ### **Landing Page Vodacom**
-**https://vodamedia.co.za/txtengage/**
+**https://txtengage.co.za/**
 *Rôle:* Développeur Lead | *Technologies:* VueJS, Responsive Design
 Landing page pour Vodacom Afrique du Sud optimisant l'engagement utilisateur
 
