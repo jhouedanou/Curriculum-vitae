@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titre %}{{ t.titre }} · JobBot{% endblock %}
+{% block contenu %}
+<div class="etroit">
+  <h1>{{ t.titre }}</h1>
+  <p class="meta-page" data-tache-page="{{ t.id }}">{% if t.etat == 'en_cours' %}En cours…{% elif t.etat == 'ok' %}Terminé.{% else %}Échec.{% endif %}</p>
+  <pre class="journal-page" id="journal-page">{{ t.lignes|join('\n') }}</pre>
+  <p><a class="btn btn-plein" href="{{ t.lien or '/' }}" {% if t.etat == 'en_cours' %}hidden{% endif %} id="lien-page">Voir le résultat</a></p>
+</div>
+{% endblock %}

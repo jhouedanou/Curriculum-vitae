@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titre %}Coller une offre · JobBot{% endblock %}
+{% block contenu %}
+<div class="etroit">
+  <h1>Coller une offre</h1>
+  <p class="meta-page">Pour une offre vue sur LinkedIn, Indeed, par email ou WhatsApp. Le bot la note puis prépare le dossier.</p>
+
+  <form method="post" action="/coller" class="formulaire" data-tache-form>
+    {% if erreur %}<p class="erreur-champ" role="alert" id="err-texte">{{ erreur }}</p>{% endif %}
+    <label for="texte">Texte de l'offre</label>
+    <textarea id="texte" name="texte" rows="14" required minlength="100"
+      placeholder="Colle ici toute l'annonce : intitulé, entreprise, missions, profil, comment postuler…"
+      {% if erreur %}aria-invalid="true" aria-describedby="err-texte"{% endif %}>{{ texte or '' }}</textarea>
+    <p class="aide"><span data-compteur="#texte">0</span> caractères · au moins 100</p>
+
+    <label for="url">Lien de l'annonce <span class="doux">(facultatif)</span></label>
+    <input id="url" name="url" type="url" inputmode="url" value="{{ url or '' }}" placeholder="https://…">
+
+    <fieldset>
+      <legend>Lettre de motivation</legend>
+      <label><input type="radio" name="lettre" value="auto" checked> Seulement si l'offre en demande une</label>
+      <label><input type="radio" name="lettre" value="oui"> Toujours</label>
+      <label><input type="radio" name="lettre" value="non"> Jamais</label>
+    </fieldset>
+
+    <div class="rang">
+      <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %}>Analyser et préparer le dossier</button>
+      <span class="cout">Claude Haiku + Sonnet · environ 1 minute</span>
+    </div>
+  </form>
+</div>
+{% endblock %}

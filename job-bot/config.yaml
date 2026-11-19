@@ -14,6 +14,12 @@ seuil: 70
 max_offres_a_noter: 40
 max_dossiers: 5
 
+# Nombre d'offres notées en même temps (plus = plus rapide, même prix)
+parallele: 4
+
+# Relancer une candidature envoyée restée sans réponse après N jours
+relance_apres_jours: 7
+
 # Pré-filtre GRATUIT (avant l'IA), sur le titre + la description.
 # Une offre passe si elle contient AU MOINS UN mot de "inclure"
 # et AUCUN mot de "exclure". Majuscules et accents ignorés.
@@ -64,7 +70,9 @@ filtre:
 sources:
   novojob:
     actif: true
-    rss: https://www.novojob.com/cote-d-ivoire/rss
+    rss:
+      - https://www.novojob.com/cote-d-ivoire/rss
+      - https://www.novojob.com/benin/rss      # Cotonou
   educarriere:
     actif: true
     pages: 2            # nombre de pages de liste à lire (polies : 1 requête / 2 s)

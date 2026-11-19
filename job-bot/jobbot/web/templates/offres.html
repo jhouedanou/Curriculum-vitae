@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% from "_macros.html" import score, statut_pill, echeance %}
+{% block titre %}Offres · JobBot{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div>
+    <h1>{% if vue == 'toutes' %}Toutes les offres notées{% elif vue == 'proches' %}Offres proches{% else %}Offres à traiter{% endif %}</h1>
+    <p class="meta-page">
+      Dernière collecte {{ il_y_a(derniere) }}
+      {% if a_noter %} · <form method="post" action="/lancer" data-tache-form class="inline"><input type="hidden" name="quoi" value="noter"><button class="lien" type="submit" {% if tache %}disabled{% endif %}>{{ a_noter }} offre{{ 's' if a_noter > 1 }} en attente de note</button></form>{% endif %}
+    </p>
+  </div>
+</div>
+
+{% if relances %}
+<section class="bandeau" aria-labelledby="t-relances">
+  <h2 id="t-relances"><svg class="ic"><use href="#i-mail"/></svg>{{ relances|length }} candidature{{ 's' if relances|length > 1 }} à relancer</h2>
+  <p class="doux">Envoyées il y a plus de {{ jours_relance }} jours, sans réponse notée.</p>
+  <ul class="relances">
+    {% for r in relances %}
+    <li><a href="/offre/{{ r.id }}#relance">{{ r.titre }}{% if r.entreprise %} · {{ r.entreprise }}{% endif %}</a> <span class="doux">envoyée {{ il_y_a(r.envoye_le) }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<form class="filtres" method="get" action="/" role="search">
+  <div class="segments" role="group" aria-label="Quelles offres">
+    <a href="/?vue=a_traiter" {% if vue == 'a_traiter' %}aria-current="true"{% endif %} title="Score ≥ {{ seuil }}, pas encore traitées, pas expirées">À traiter</a>
+    <a href="/?vue=proches" {% if vue == 'proches' %}aria-current="true"{% endif %} title="Score de 50 à {{ seuil - 1 }}">Proches</a>
+    <a href="/?vue=toutes" {% if vue == 'toutes' %}aria-current="true"{% endif %}>Toutes</a>
+  </div>
+  <input type="hidden" name="vue" value="{{ vue }}">
+  <label class="champ-recherche">
+    <svg class="ic"><use href="#i-search"/></svg>
+    <span class="sr">Rechercher</span>
+    <input type="search" name="q" value="{{ q }}" placeholder="Poste, entreprise, ville…" autocomplete="off">
+  </label>
+  <label class="sr" for="f-source">Source</label>
+  <select id="f-source" name="source" data-auto-submit>
+    <option value="">Toutes les sources</option>
+    {% for s in sources %}<option value="{{ s }}" {% if s == source %}selected{% endif %}>{{ s|capitalize }}</option>{% endfor %}
+  </select>
+</form>
+
+{% if cartes %}
+<p class="compte">{{ cartes|length }} offre{{ 's' if cartes|length > 1 }}</p>
+<ol class="liste">
+  {% for c in cartes %}
+  <li class="ligne{% if c.expiree %} ligne-passee{% endif %}">
+    {{ score(c.score, seuil) }}
+    <div class="ligne-corps">
+      <a class="ligne-titre" href="/offre/{{ c.id }}">{{ c.titre }}</a>
+      <div class="ligne-meta">
+        {% if c.entreprise %}<span>{{ c.entreprise }}</span>{% endif %}
+        {% if c.lieu %}<span>{{ c.lieu }}</span>{% endif %}
+        <span class="source">{{ c.source }}</span>
+      </div>
+      {% if c.verdict %}<p class="ligne-verdict">{{ c.verdict }}</p>{% endif %}
+    </div>
+    <div class="ligne-drapeaux">
+      {% if c.alerte %}<span class="drap drap-alerte" title="{{ c.alerte }}"><svg class="ic"><use href="#i-alert"/></svg>Arnaque ?</span>{% endif %}
+      {{ echeance(c) }}
+      {% if c.lettre %}<span class="drap">Lettre demandée</span>{% endif %}
+      {% if c.dossier %}<span class="drap drap-pret"><svg class="ic"><use href="#i-check"/></svg>Dossier prêt</span>{% endif %}
+      {{ statut_pill(c.statut, STATUTS) }}
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<div class="vide">
+  {% if q or source %}
+    <h2>Aucune offre ne correspond</h2>
+    <p>Rien pour « {{ q or source }} » dans cette vue. <a href="/?vue=toutes">Voir toutes les offres notées</a>.</p>
+  {% elif vue == 'a_traiter' %}
+    <h2>Rien à traiter pour l'instant</h2>
+    <p>Aucune nouvelle offre n'atteint {{ seuil }}/100. Lance la recherche du jour, regarde les <a href="/?vue=proches">offres proches</a>, ou colle une offre vue sur LinkedIn ou par email.</p>
+    <div class="vide-actions">
+      <form method="post" action="/lancer" data-tache-form><input type="hidden" name="quoi" value="go"><button class="btn btn-plein" {% if tache %}disabled{% endif %}><svg class="ic"><use href="#i-play"/></svg>Lancer la recherche</button></form>
+      <a class="btn" href="/coller"><svg class="ic"><use href="#i-paste"/></svg>Coller une offre</a>
+    </div>
+  {% else %}
+    <h2>Aucune offre ici</h2>
+    <p>Les offres apparaissent après la collecte et la notation.</p>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

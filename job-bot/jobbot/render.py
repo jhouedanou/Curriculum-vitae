@@ -96,6 +96,8 @@ def generer(offre: Offre, note: Note, dossier: Dossier) -> Path:
 
     # ── Fiche de l'offre (pour relire avant d'envoyer) ─
     (dossier_sortie / "offre.md").write_text(_fiche(offre, note, dossier), encoding="utf-8")
+    # Pour l'interface web : le dossier tel que rédigé et vérifié
+    (dossier_sortie / "dossier.json").write_text(dossier.model_dump_json(indent=2), encoding="utf-8")
     return dossier_sortie
 
 
