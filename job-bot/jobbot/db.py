@@ -159,6 +159,17 @@ class Base:
         ).fetchall()
         return [_vers_offre(r) for r in rows]
 
+    def non_notees(self, limite: int = 300, hors_filtre: bool = False) -> list[sqlite3.Row]:
+        """Offres collectées mais pas notées (consultables sans clé API)."""
+        filtre = "" if hors_filtre else "AND o.filtre_ok = 1"
+        return self.cx.execute(
+            f"""SELECT o.*, s.statut FROM offres o
+                LEFT JOIN notes n ON n.offre_id = o.id LEFT JOIN suivi s ON s.offre_id = o.id
+                WHERE n.offre_id IS NULL AND o.doublon_de IS NULL {filtre}
+                ORDER BY o.id DESC LIMIT ?""",
+            (limite,),
+        ).fetchall()
+
     def nb_a_noter(self) -> int:
         return self.cx.execute(
             """SELECT COUNT(*) FROM offres o LEFT JOIN notes n ON n.offre_id = o.id

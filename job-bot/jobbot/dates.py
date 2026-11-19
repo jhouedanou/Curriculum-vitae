@@ -50,3 +50,24 @@ def lire_date(texte: Optional[str]) -> Optional[date]:
 def expiree(date_limite: Optional[str], aujourdhui: Optional[date] = None) -> bool:
     d = lire_date(date_limite)
     return bool(d and d < (aujourdhui or date.today()))
+
+
+def date_publication(publie_le: Optional[str], vue_le: Optional[str] = None) -> Optional[date]:
+    """Date de publication (RSS, ISO), sinon date où le bot a vu l'offre."""
+    from datetime import datetime
+    from email.utils import parsedate_to_datetime
+
+    for texte in (publie_le, vue_le):
+        if not texte:
+            continue
+        try:
+            return parsedate_to_datetime(texte).date()
+        except (TypeError, ValueError, IndexError):
+            pass
+        try:
+            return datetime.fromisoformat(texte.replace("Z", "+00:00")).date()
+        except ValueError:
+            pass
+        if d := lire_date(texte):
+            return d
+    return None
