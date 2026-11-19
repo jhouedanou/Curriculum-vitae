@@ -130,7 +130,6 @@ Jean Mermoz College, Côte d'Ivoire
 
 ### **Frontend Development**
 - VueJS (5 years experience, Expert)
-- Angular (4 years experience, Advanced)
 - NuxtJS (3 years experience, Intermediate+)
 - JavaScript (8 years experience, Expert)
 - HTML5 (12 years experience, Expert)
@@ -176,7 +175,7 @@ Jean Mermoz College, Côte d'Ivoire
 
 Experienced **Web Developper** with **over 12 years of expertise** in full-stack web development, UI/UX design, and digital project management.
 
-**Front-end specialist** (VueJS, Angular) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
+**Front-end specialist** (VueJS, Nuxt) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
 
 **Passionate about technological innovation** and team leadership, I thrive in dynamic environments where I can transform complex challenges into growth opportunities.
 
