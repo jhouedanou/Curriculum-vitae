@@ -6,6 +6,7 @@ Ouverte sur le Wi-Fi pour le téléphone, protégée par un jeton secret
 from __future__ import annotations
 
 import json
+import os
 import secrets
 import socket
 import threading
@@ -25,7 +26,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import pipeline
 from ..config import config
-from ..dates import expiree, lire_date
+from ..dates import date_publication, expiree, lire_date
 from ..db import STATUTS, Base
 from ..llm import Claude
 from ..sources import SOURCES
@@ -123,6 +124,12 @@ def lancer_tache(titre: str, lien: str, travail: Callable[[Base, Callable[[str],
     return t
 
 
+def exiger_cle() -> None:
+    if not cle_api():
+        raise HTTPException(412, "Cette action utilise Claude : ajoute ANTHROPIC_API_KEY=sk-ant-… dans le fichier .env "
+                                 "du dossier job-bot, puis relance python -m jobbot web.")
+
+
 def reponse_tache(request: Request, t: Tache) -> Response:
     if request.headers.get("accept", "").startswith("application/json"):
         return JSONResponse(t.vue())
@@ -163,9 +170,25 @@ def _carte(r) -> dict:
     }
 
 
+def cle_api() -> bool:
+    return bool(os.environ.get("ANTHROPIC_API_KEY"))
+
+
 def _commun(request: Request, db: Base, actif: str) -> dict:
     return {"request": request, "actif": actif, "STATUTS": STATUTS, "tache": tache_en_cours(),
-            "nb_relire": db.compter_statuts().get("a_relire", 0)}
+            "nb_relire": db.compter_statuts().get("a_relire", 0), "cle_api": cle_api()}
+
+
+def _brute(r) -> dict:
+    """Offre pas encore notée."""
+    pub = date_publication(r["publie_le"], r["vue_le"])
+    return {
+        "id": r["id"], "titre": r["titre"], "entreprise": r["entreprise"] or "", "lieu": r["lieu"] or "",
+        "source": r["source"], "url": r["url"] or "", "statut": r["statut"] or "nouveau",
+        "filtre_ok": bool(r["filtre_ok"]), "publie": pub,
+        "age": (datetime.now().date() - pub).days if pub else None,
+        "extrait": " ".join((r["description"] or "").split())[:220],
+    }
 
 
 vues.env.globals.update(il_y_a=_il_y_a)
@@ -173,22 +196,33 @@ vues.env.globals.update(il_y_a=_il_y_a)
 
 # ── Pages ───────────────────────────────────────────────────
 @app.get("/", response_class=HTMLResponse)
-def accueil(request: Request, vue: str = "a_traiter", source: str = "", q: str = ""):
+def accueil(request: Request, vue: str = "", source: str = "", q: str = "", periode: str = "21",
+            tout: bool = False):
+    from ..sources.base import normaliser
+
     db = Base()
     try:
         seuil = int(config().get("seuil", 70))
-        if vue == "toutes":
-            rows = db.classement(0, 500)
-        elif vue == "a_traiter":
-            rows = db.classement(seuil, 200, expirees=False, statuts=["nouveau", "a_relire"])
-        else:  # « proches » : sous le seuil mais pas hors sujet
-            rows = [r for r in db.classement(50, 300, expirees=False, statuts=["nouveau", "a_relire"])
-                    if r["score"] < seuil]
-        cartes = [_carte(r) for r in rows]
+        # Sans clé API, rien n'est noté : on montre d'abord les offres collectées.
+        vue = vue or ("a_traiter" if cle_api() else "a_noter")
+        if vue == "a_noter":
+            cartes = [_brute(r) for r in db.non_notees(500, hors_filtre=tout)]
+            if periode.isdigit():
+                cartes = [c for c in cartes if c["age"] is None or c["age"] <= int(periode)]
+            cartes.sort(key=lambda c: c["publie"] or datetime.min.date(), reverse=True)
+        else:
+            if vue == "toutes":
+                rows = db.classement(0, 500)
+            elif vue == "proches":  # sous le seuil mais pas hors sujet
+                rows = [r for r in db.classement(50, 300, expirees=False, statuts=["nouveau", "a_relire"])
+                        if r["score"] < seuil]
+            else:
+                vue = "a_traiter"
+                rows = db.classement(seuil, 200, expirees=False, statuts=["nouveau", "a_relire"])
+            cartes = [_carte(r) for r in rows]
         if source:
             cartes = [c for c in cartes if c["source"] == source]
         if q:
-            from ..sources.base import normaliser
             k = normaliser(q)
             cartes = [c for c in cartes if k in normaliser(f"{c['titre']} {c['entreprise']} {c['lieu']}")]
         jours = int(config().get("relance_apres_jours", 7))
@@ -198,6 +232,7 @@ def accueil(request: Request, vue: str = "a_traiter", source: str = "", q: str =
         derniere = max(visites.values() or [0])
         return vues.TemplateResponse(request, "offres.html", {
             **_commun(request, db, "offres"), "cartes": cartes, "vue": vue, "source": source, "q": q,
+            "periode": periode, "tout": tout,
             "seuil": seuil, "relances": relances, "jours_relance": jours, "a_noter": db.nb_a_noter(),
             "derniere": datetime.fromtimestamp(derniere).isoformat() if derniere else None,
             "sources": list(SOURCES) + ["manuel"],
@@ -278,6 +313,15 @@ def page_coller(request: Request):
 
 @app.post("/coller")
 def action_coller(request: Request, texte: str = Form(...), url: str = Form(""), lettre: str = Form("auto")):
+    if not cle_api():
+        db = Base()
+        try:
+            return vues.TemplateResponse(request, "coller.html", {
+                **_commun(request, db, "coller"), "texte": texte, "url": url,
+                "erreur": "Sans clé API, le bot ne peut pas analyser l'offre. Ajoute ANTHROPIC_API_KEY dans job-bot/.env.",
+            }, status_code=412)
+        finally:
+            db.fermer()
     if len(texte.strip()) < 100:
         db = Base()
         try:
@@ -318,6 +362,8 @@ def page_tache(request: Request, tid: str):
 # ── Actions ─────────────────────────────────────────────────
 @app.post("/lancer")
 def action_lancer(request: Request, quoi: str = Form("go")):
+    if quoi != "collecter":
+        exiger_cle()
     if quoi == "collecter":
         def travail(db, log):
             n = pipeline.collecter(db, log=log)
@@ -337,6 +383,7 @@ def action_lancer(request: Request, quoi: str = Form("go")):
 
 @app.post("/offre/{offre_id}/preparer")
 def action_preparer(request: Request, offre_id: int, lettre: str = Form("auto")):
+    exiger_cle()
     avec = {"oui": True, "non": False}.get(lettre)
 
     def travail(db, log):
@@ -348,6 +395,7 @@ def action_preparer(request: Request, offre_id: int, lettre: str = Form("auto"))
 
 @app.post("/offre/{offre_id}/entretien")
 def action_entretien(request: Request, offre_id: int):
+    exiger_cle()
     def travail(db, log):
         log("Questions probables, réponses STAR, questions à poser (Claude Sonnet)…")
         pipeline.entretien(db, Claude(), offre_id)
@@ -358,6 +406,7 @@ def action_entretien(request: Request, offre_id: int):
 
 @app.post("/offre/{offre_id}/relance")
 def action_relance(request: Request, offre_id: int):
+    exiger_cle()
     def travail(db, log):
         log("Rédaction de la relance (Claude Sonnet)…")
         pipeline.relance(db, Claude(), offre_id)
