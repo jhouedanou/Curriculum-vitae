@@ -16,6 +16,7 @@ from .base import Source, html_vers_texte
 
 BASE_URL = "https://emploi.educarriere.ci/"
 LIEN_OFFRE = re.compile(r"offre-(\d+)-([a-z0-9-]+)\.html", re.I)
+LIMITE = re.compile(r"\s*Limite\s*:\s*(\d{1,2}/\d{1,2}/\d{4})\b.*$", re.I)
 
 
 class Educarriere(Source):
@@ -41,7 +42,8 @@ class Educarriere(Source):
 
     def completer(self, o: Offre) -> Offre:
         page = self.http.get(o.url)
-        o.description = html_vers_texte(page.text)
+        texte = html_vers_texte(page.text)
+        o.description = f"{texte}\n\n{o.description}".strip() if o.description else texte
         return o
 
 
@@ -58,10 +60,16 @@ def lire_liste(html: str) -> Iterator[Offre]:
         if not titre or titre.lower() in {"postuler", "voir l'offre", "lire la suite", "voir plus"}:
             titre = slug.replace("-", " ").upper()
         deja.add(ref)
+        # La liste colle la date limite au titre : on la retire et on la garde dans la description.
+        limite = ""
+        if m_lim := LIMITE.search(titre):
+            limite = m_lim.group(1)
+            titre = titre[:m_lim.start()].strip() or slug.replace("-", " ").upper()
         yield Offre(
             source="educarriere",
             ref=ref,
             titre=titre,
             url=urljoin(BASE_URL, a["href"]),
             lieu="Côte d'Ivoire",
+            description=f"Date limite : {limite}" if limite else "",
         )

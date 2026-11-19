@@ -37,11 +37,15 @@
   <section class="bloc vide-bloc">
     <h2>Offre pas encore notée</h2>
     <p>Elle a été collectée mais pas encore comparée à ton CV.</p>
+    {% if not cle_api %}
+    <p class="doux">Pour la noter et préparer le dossier, ajoute <code>ANTHROPIC_API_KEY</code> dans <code>job-bot/.env</code>. En attendant, lis le texte ci-dessous{% if o.url %} ou ouvre <a href="{{ o.url }}" target="_blank" rel="noopener">l'annonce</a>{% endif %}, et note-la dans « Suivi » si elle t'intéresse.</p>
+    {% else %}
     <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form>
       <input type="hidden" name="lettre" value="auto">
       <button class="btn btn-plein" {% if tache %}disabled{% endif %}>Noter et préparer le dossier</button>
       <span class="cout">Claude Haiku + Sonnet</span>
     </form>
+    {% endif %}
   </section>
   {% endif %}
 
@@ -230,7 +234,7 @@
   {% endif %}
 
   <section class="bloc">
-    <details class="texte-offre">
+    <details class="texte-offre" {% if not n %}open{% endif %}>
       <summary>Texte complet de l'offre</summary>
       <div class="offre-brute">{{ o.description }}</div>
     </details>

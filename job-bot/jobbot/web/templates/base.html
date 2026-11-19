@@ -46,10 +46,17 @@
   <div class="barre-fin">
     <a class="btn btn-fantome cache-mobile" href="/telephone" title="Ouvrir sur le téléphone"><svg class="ic"><use href="#i-phone"/></svg><span class="sr">Téléphone</span></a>
     <form method="post" action="/lancer" data-tache-form>
+      {% if cle_api %}
       <input type="hidden" name="quoi" value="go">
       <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %} title="Collecter, noter (Claude Haiku), puis préparer les meilleurs dossiers (Claude Sonnet)">
         <svg class="ic"><use href="#i-play"/></svg><span>Lancer la recherche</span>
       </button>
+      {% else %}
+      <input type="hidden" name="quoi" value="collecter">
+      <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %} title="Récupérer les nouvelles offres (gratuit, sans IA)">
+        <svg class="ic"><use href="#i-play"/></svg><span>Collecter les offres</span>
+      </button>
+      {% endif %}
     </form>
   </div>
 </header>

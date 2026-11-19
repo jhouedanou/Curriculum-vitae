@@ -33,6 +33,7 @@ EDUCARRIERE = """<html><body>
 <a href="offre-156700-chef-de-projet-digital.html"><img src="logo.png"></a>
 <a href="offre-156700-chef-de-projet-digital.html">CHEF DE PROJET DIGITAL</a>
 <a href="https://emploi.educarriere.ci/offre-156701-assistant-e-comptable.html">ASSISTANT(E) COMPTABLE</a>
+<a href="offre-156702-developpeur-web.html">Développeur Web Vue.js ACME SA Limite : 27/11/2026 emploi</a>
 <a href="/page/all">Toutes les offres</a>
 </body></html>"""
 
@@ -111,7 +112,9 @@ def test_rss_novojob():
 
 def test_liste_educarriere():
     offres = list(lire_liste(EDUCARRIERE))
-    assert [o.ref for o in offres] == ["156700", "156701"]
+    assert [o.ref for o in offres] == ["156700", "156701", "156702"]
+    assert offres[2].titre == "Développeur Web Vue.js ACME SA"
+    assert offres[2].description == "Date limite : 27/11/2026"
     assert offres[0].titre == "CHEF DE PROJET DIGITAL"
     assert offres[0].url == "https://emploi.educarriere.ci/offre-156700-chef-de-projet-digital.html"
     assert passe_le_filtre(offres[0]) and not passe_le_filtre(offres[1])
@@ -154,12 +157,14 @@ class FauxHttp:
 
 def test_collecte(tmp_path: Path):
     db = Base(tmp_path / "test.db")
-    assert pipeline.collecter(db, FauxHttp()) == 3      # 1 Novojob + 1 Educarrière + 1 Remotive
+    assert pipeline.collecter(db, FauxHttp()) == 4      # 1 Novojob + 2 Educarrière + 1 Remotive
     assert pipeline.collecter(db, FauxHttp()) == 0      # rien de nouveau au 2e passage
     a_noter = db.a_noter(10)
-    assert len(a_noter) == 3
-    edu = next(o for o in a_noter if o.source == "educarriere")
+    assert len(a_noter) == 4
+    edu = next(o for o in a_noter if o.ref == "156700")
     assert "VueJS" in edu.description                    # page de détail lue
+    dev = next(o for o in a_noter if o.ref == "156702")
+    assert "Date limite : 27/11/2026" in dev.description  # gardée après lecture du détail
     db.fermer()
 
 
@@ -244,6 +249,7 @@ def test_web(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(dbmod.Base.__init__, "__defaults__", (base,))
     monkeypatch.setattr(render, "SORTIE", tmp_path / "candidatures")
     monkeypatch.setattr(serveur, "Claude", FauxClaude)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test")
     serveur.app.state.jeton = "secret"
     c = TestClient(serveur.app)
     assert c.get("/").status_code == 401                      # sans jeton : refusé
@@ -277,3 +283,33 @@ def test_web(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
             break
         time.sleep(0.05)
     assert "Parlez d&#39;un projet VueJS" in c.get(f"/offre/{oid}").text
+
+
+def test_web_sans_cle(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    from fastapi.testclient import TestClient
+    from jobbot import db as dbmod
+    from jobbot.dates import date_publication
+    from jobbot.web import serveur
+
+    monkeypatch.setattr(dbmod.Base.__init__, "__defaults__", (tmp_path / "web.db",))
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    db = Base()
+    db.ajouter(Offre(source="novojob", ref="1", titre="Développeur Frontend Vue", lieu="Abidjan",
+                     publie_le="Mon, 16 Nov 2026 21:31:46 +0100", description="React, Vue"))
+    db.ajouter(Offre(source="novojob", ref="2", titre="Comptable", publie_le="Mon, 16 Nov 2026 10:00:00 +0100"),
+               filtre_ok=False)
+    db.fermer()
+    assert str(date_publication("Mon, 16 Nov 2026 21:31:46 +0100")) == "2026-11-16"
+    assert str(date_publication("", "2026-11-02T10:00:00")) == "2026-11-02"
+
+    serveur.app.state.jeton = "secret"
+    c = TestClient(serveur.app)
+    c.cookies.set("jobbot", "secret")
+    page = c.get("/?periode=tout").text                     # sans clé : vue « Non notées » par défaut
+    assert "Offres collectées" in page and "Développeur Frontend Vue" in page and "Comptable" not in page
+    assert "Collecter les offres" in page and "Mode sans clé API" in page
+    assert "Comptable" in c.get("/?vue=a_noter&periode=tout&tout=1").text
+    r = c.post("/lancer", data={"quoi": "go"}, headers={"Accept": "application/json"})
+    assert r.status_code == 412 and "ANTHROPIC_API_KEY" in r.json()["erreur"]
+    assert c.post("/coller", data={"texte": OFFRE_TEXTE}).status_code == 412
+    assert "Pour la noter" in c.get("/offre/1").text

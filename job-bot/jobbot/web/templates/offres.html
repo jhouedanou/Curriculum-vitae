@@ -4,13 +4,20 @@
 {% block contenu %}
 <div class="entete-page">
   <div>
-    <h1>{% if vue == 'toutes' %}Toutes les offres notées{% elif vue == 'proches' %}Offres proches{% else %}Offres à traiter{% endif %}</h1>
+    <h1>{% if vue == 'toutes' %}Toutes les offres notées{% elif vue == 'proches' %}Offres proches{% elif vue == 'a_noter' %}Offres collectées{% else %}Offres à traiter{% endif %}</h1>
     <p class="meta-page">
       Dernière collecte {{ il_y_a(derniere) }}
-      {% if a_noter %} · <form method="post" action="/lancer" data-tache-form class="inline"><input type="hidden" name="quoi" value="noter"><button class="lien" type="submit" {% if tache %}disabled{% endif %}>{{ a_noter }} offre{{ 's' if a_noter > 1 }} en attente de note</button></form>{% endif %}
+      {% if a_noter and cle_api and vue != 'a_noter' %} · <form method="post" action="/lancer" data-tache-form class="inline"><input type="hidden" name="quoi" value="noter"><button class="lien" type="submit" {% if tache %}disabled{% endif %}>Noter les {{ a_noter }} offre{{ 's' if a_noter > 1 }} en attente</button></form>{% endif %}
     </p>
   </div>
 </div>
+
+{% if not cle_api %}
+<section class="info-cle" aria-labelledby="t-cle">
+  <h2 id="t-cle">Mode sans clé API</h2>
+  <p>Tu peux collecter et parcourir les offres gratuitement. Pour le score, le CV adapté et le message, ajoute <code>ANTHROPIC_API_KEY=sk-ant-…</code> dans <code>job-bot/.env</code>, puis relance <code>python -m jobbot web</code>.</p>
+</section>
+{% endif %}
 
 {% if relances %}
 <section class="bandeau" aria-labelledby="t-relances">
@@ -26,6 +33,7 @@
 
 <form class="filtres" method="get" action="/" role="search">
   <div class="segments" role="group" aria-label="Quelles offres">
+    <a href="/?vue=a_noter" {% if vue == 'a_noter' %}aria-current="true"{% endif %} title="Collectées, pas encore comparées à ton CV">Non notées{% if a_noter %} <span class="seg-compte">{{ a_noter }}</span>{% endif %}</a>
     <a href="/?vue=a_traiter" {% if vue == 'a_traiter' %}aria-current="true"{% endif %} title="Score ≥ {{ seuil }}, pas encore traitées, pas expirées">À traiter</a>
     <a href="/?vue=proches" {% if vue == 'proches' %}aria-current="true"{% endif %} title="Score de 50 à {{ seuil - 1 }}">Proches</a>
     <a href="/?vue=toutes" {% if vue == 'toutes' %}aria-current="true"{% endif %}>Toutes</a>
@@ -41,9 +49,41 @@
     <option value="">Toutes les sources</option>
     {% for s in sources %}<option value="{{ s }}" {% if s == source %}selected{% endif %}>{{ s|capitalize }}</option>{% endfor %}
   </select>
+  {% if vue == 'a_noter' %}
+  <label class="sr" for="f-periode">Publiées depuis</label>
+  <select id="f-periode" name="periode" data-auto-submit>
+    {% for v, t in [('7', '7 derniers jours'), ('21', '3 dernières semaines'), ('60', '2 derniers mois'), ('tout', 'Toutes les dates')] %}
+    <option value="{{ v }}" {% if v == periode %}selected{% endif %}>{{ t }}</option>{% endfor %}
+  </select>
+  <label class="case"><input type="checkbox" name="tout" value="1" data-auto-submit {% if tout %}checked{% endif %}> Hors mots-clés aussi</label>
+  {% endif %}
 </form>
 
-{% if cartes %}
+{% if cartes and vue == 'a_noter' %}
+<p class="compte">{{ cartes|length }} offre{{ 's' if cartes|length > 1 }}, les plus récentes d'abord</p>
+<ol class="liste">
+  {% for c in cartes %}
+  <li class="ligne">
+    <span class="score score-vide" aria-label="Pas encore notée">—</span>
+    <div class="ligne-corps">
+      <a class="ligne-titre" href="/offre/{{ c.id }}">{{ c.titre }}</a>
+      <div class="ligne-meta">
+        {% if c.entreprise %}<span>{{ c.entreprise }}</span>{% endif %}
+        {% if c.lieu %}<span>{{ c.lieu }}</span>{% endif %}
+        <span class="source">{{ c.source }}</span>
+      </div>
+      {% if c.extrait %}<p class="ligne-verdict">{{ c.extrait }}{% if c.extrait|length >= 220 %}…{% endif %}</p>{% endif %}
+    </div>
+    <div class="ligne-drapeaux">
+      {% if c.age is not none %}<span class="drap"><svg class="ic"><use href="#i-clock"/></svg>{% if c.age <= 0 %}Aujourd'hui{% elif c.age == 1 %}Hier{% else %}Il y a {{ c.age }} j{% endif %}</span>{% endif %}
+      {% if not c.filtre_ok %}<span class="drap drap-gris" title="Ne contient aucun mot-clé de config.yaml">Hors mots-clés</span>{% endif %}
+      {% if c.url %}<a class="drap drap-lien" href="{{ c.url }}" target="_blank" rel="noopener">Annonce <svg class="ic"><use href="#i-ext"/></svg></a>{% endif %}
+      {{ statut_pill(c.statut, STATUTS) }}
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+{% elif cartes %}
 <p class="compte">{{ cartes|length }} offre{{ 's' if cartes|length > 1 }}</p>
 <ol class="liste">
   {% for c in cartes %}
@@ -73,6 +113,12 @@
   {% if q or source %}
     <h2>Aucune offre ne correspond</h2>
     <p>Rien pour « {{ q or source }} » dans cette vue. <a href="/?vue=toutes">Voir toutes les offres notées</a>.</p>
+  {% elif vue == 'a_noter' %}
+    <h2>Aucune offre collectée sur cette période</h2>
+    <p>Lance une collecte (gratuite), élargis la période, ou coche « Hors mots-clés aussi ».</p>
+    <div class="vide-actions">
+      <form method="post" action="/lancer" data-tache-form><input type="hidden" name="quoi" value="collecter"><button class="btn btn-plein" {% if tache %}disabled{% endif %}><svg class="ic"><use href="#i-play"/></svg>Collecter les offres</button></form>
+    </div>
   {% elif vue == 'a_traiter' %}
     <h2>Rien à traiter pour l'instant</h2>
     <p>Aucune nouvelle offre n'atteint {{ seuil }}/100. Lance la recherche du jour, regarde les <a href="/?vue=proches">offres proches</a>, ou colle une offre vue sur LinkedIn ou par email.</p>
