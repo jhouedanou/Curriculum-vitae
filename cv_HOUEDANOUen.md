@@ -202,7 +202,7 @@ E-learning platform: one-hour modules, two programmes, cart and learner space
 
 ### **Bracongo Stages - Internship management platform**
 **https://bracongostages.bigfive.dev/**
-*Role:* Full-stack development | *Technologies:* Laravel, Livewire, Tailwind CSS
+*Role:* Full-stack development | *Technologies:* Laravel, PHP, Livewire, Tailwind CSS
 Online applications, code-based application tracking, HR admin and digital internship certificates
 
 ### **Friesland Bonnet Rouge - Field CRM and mobile app**
@@ -269,11 +269,6 @@ Complete multi-platform cooking recipes and tips platform
 **https://ciprel.ci**
 *Role:* Front-end Developer | *Challenge:* Pixel-perfect integration
 Responsive website with performance optimization
-
-### **CIPREL HR Quiz for SIREXE**
-**https://ciprelrh.netlify.app/questionnaire**
-*Role:* Full-stack Developer | *Technologies:* NuxtJS
-Interactive quiz application with advanced scoring system
 
 ### **BigFive360**
 **https://bigfive360.com**
