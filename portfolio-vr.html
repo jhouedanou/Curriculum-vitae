@@ -3,857 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio VR - Jean Luc Houédanou</title>
-    <meta name="description" content="Portfolio immersif en réalité virtuelle - Compatible Meta Quest 3, Apple Vision Pro et navigateurs WebXR">
-    
-    <!-- A-Frame et extensions -->
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/supermedium/superframe@master/components/environment/dist/aframe-environment-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    
-    <!-- Données du portfolio -->
-    <script src="portfolio-data.js"></script>
-    <!-- Gestionnaire de portails VR -->
-    <script src="vr-portal-manager.js"></script>
-    <!-- Gestionnaire VR principal -->
-    <script src="vr-portfolio-manager.js"></script>
-    <!-- Système de déplacement avancé -->
-    <script src="vr-movement-system.js"></script>
-    
-    <!-- Styles CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="material-design-theme.css">
+    <title>Jean Luc Houédanou — Galerie VR</title>
+    <meta name="description" content="Galerie 3D et VR des projets de Jean Luc Houédanou.">
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="projects-data.js"></script>
+    <script src="portfolio-vr.js"></script>
     <style>
-        /* Styles VR spécifiques */
-        body {
-            margin: 0;
-            font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #0593fc, #27CDFE);
-            overflow: hidden;
+        /* Même charte que index.html : bleu nuit, cuivre, lavande, Figtree + chasse fixe pour les libellés. */
+        :root {
+            --organic-bg: #111522;
+            --organic-surface: #192236;
+            --organic-paper: #202b43;
+            --organic-ink: #f3eee5;
+            --organic-muted: #a8adbb;
+            --organic-orange: #c27a5b;
+            --organic-orange-dark: #e0a083;
+            --organic-orange-soft: rgba(194, 122, 91, .18);
+            --organic-sage: #8994e4;
+            --organic-sage-dark: #b8beff;
+            --organic-sage-soft: rgba(137, 148, 228, .16);
+            --organic-line: rgba(243, 238, 229, .16);
+            --organic-sans: "Figtree", system-ui, sans-serif;
+            --organic-serif: "Caprasimo", Georgia, serif;
+            --organic-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
         }
-        
-        /* Interface overlay VR */
-        .vr-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-            font-family: 'Outfit', sans-serif;
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; overflow: hidden; background: var(--organic-bg); color: var(--organic-ink); font-family: var(--organic-sans); }
+        button { font: inherit; cursor: pointer; }
+        a-scene { position: fixed; inset: 0; }
+        .a-canvas.is-pointing { cursor: pointer; }
+
+        /* Habillage 2D par-dessus la scène */
+        .vr-hud { position: fixed; z-index: 20; display: flex; align-items: center; gap: 10px; pointer-events: none; }
+        .vr-hud > * { pointer-events: auto; }
+        .vr-hud--top { top: 0; left: 0; right: 0; justify-content: space-between; padding: 14px clamp(14px, 3vw, 34px); background: linear-gradient(rgba(17, 21, 34, .92), rgba(17, 21, 34, 0)); }
+        .vr-hud--bottom { left: 0; right: 0; bottom: 0; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px clamp(14px, 3vw, 34px); background: linear-gradient(rgba(17, 21, 34, 0), rgba(17, 21, 34, .92)); }
+        .vr-brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--organic-ink); font-family: var(--organic-serif); font-size: 17px; text-decoration: none; }
+        .vr-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 4px; background: var(--organic-orange); color: #1b1420; font: 700 10px/1 var(--organic-sans); letter-spacing: .04em; }
+        .vr-actions { display: flex; align-items: center; gap: 8px; }
+        .vr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--organic-line); border-radius: 4px; background: rgba(17, 21, 34, .6); color: var(--organic-ink); font-size: 13px; font-weight: 700; letter-spacing: .01em; text-decoration: none; backdrop-filter: blur(10px); }
+        .vr-btn:hover { background: var(--organic-paper); }
+        .vr-btn--primary { border-color: transparent; background: var(--organic-orange); color: #1b1420; box-shadow: 0 8px 24px rgba(194, 122, 91, .2); }
+        .vr-btn--primary:hover { background: var(--organic-orange-dark); }
+        .vr-btn--lang { min-width: 44px; padding: 0 12px; font-size: 11px; letter-spacing: .08em; }
+        .vr-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+        .vr-filter button { min-height: 40px; padding: 0 14px; border: 1px solid var(--organic-line); border-radius: 4px; background: rgba(17, 21, 34, .6); color: var(--organic-muted); font-size: 13px; backdrop-filter: blur(10px); }
+        .vr-filter button:hover, .vr-filter button.is-active { border-color: var(--organic-sage); background: var(--organic-sage-soft); color: var(--organic-sage-dark); }
+        .vr-hint { margin: 0; color: var(--organic-muted); font: 600 11px/1.5 var(--organic-mono); letter-spacing: .08em; text-transform: uppercase; }
+
+        /* Fiche projet (hors casque) */
+        .vr-sheet { position: fixed; z-index: 30; right: clamp(14px, 3vw, 34px); bottom: 84px; width: min(420px, calc(100% - 28px)); max-height: calc(100dvh - 170px); overflow: auto; padding: 22px; border: 1px solid var(--organic-line); border-radius: 4px; background: linear-gradient(135deg, rgba(32, 43, 67, .97), rgba(25, 34, 54, .97)); box-shadow: 0 22px 60px rgba(2, 6, 18, .5); }
+        .vr-sheet[hidden] { display: none; }
+        .vr-sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+        .vr-label { margin: 0 0 6px; color: var(--organic-sage-dark); font: 600 11px/1.3 var(--organic-mono); letter-spacing: .1em; text-transform: uppercase; }
+        .vr-sheet h2 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.05em; line-height: 1.1; }
+        .vr-sheet p { margin: 0; color: var(--organic-muted); font-size: 14px; line-height: 1.6; }
+        .vr-sheet-block { margin-top: 16px; }
+        .vr-close { flex: none; width: 44px; height: 44px; border: 1px solid var(--organic-line); border-radius: 4px; background: transparent; color: var(--organic-ink); font-size: 18px; }
+        .vr-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .vr-tag { padding: 6px 10px; border: 1px solid transparent; border-radius: 4px; font: 600 11px/1 var(--organic-mono); }
+        .vr-tag--orange { border-color: rgba(194, 122, 91, .45); background: var(--organic-orange-soft); color: var(--organic-orange-dark); }
+        .vr-tag--sage { border-color: rgba(137, 148, 228, .45); background: var(--organic-sage-soft); color: var(--organic-sage-dark); }
+        .vr-sheet .vr-btn { margin-top: 18px; }
+
+        /* Écran de chargement et message d'erreur */
+        .vr-loader { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 24px; background-color: var(--organic-bg); background-image: linear-gradient(rgba(137, 148, 228, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(137, 148, 228, .06) 1px, transparent 1px); background-size: 72px 72px; text-align: center; transition: opacity .4s ease; }
+        .vr-loader.is-done { opacity: 0; pointer-events: none; }
+        .vr-loader h1 { margin: 0 0 10px; font-size: clamp(30px, 6vw, 52px); font-weight: 600; letter-spacing: -.06em; line-height: 1.05; }
+        .vr-loader h1 span { color: var(--organic-orange-dark); }
+        .vr-loader p { max-width: 46ch; margin: 0 auto; color: var(--organic-muted); font-size: 15px; line-height: 1.6; }
+        .vr-loader .vr-btn { margin-top: 22px; }
+
+        @media (max-width: 680px) {
+            .vr-brand span:last-child { display: none; }
+            .vr-hint { display: none; }
+            .vr-sheet { left: 10px; right: 10px; bottom: 10px; width: auto; max-height: 58dvh; }
+            .vr-hud--bottom { padding-bottom: 12px; }
         }
-        
-        /* Bouton de retour */
-        .exit-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(5, 147, 252, 0.95);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            pointer-events: all;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(5, 147, 252, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .exit-button:hover {
-            background: rgba(5, 147, 252, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(5, 147, 252, 0.4);
-        }
-        
-        .exit-button::before {
-            content: '←';
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        
-        /* Panel d'informations */
-        .vr-info-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            pointer-events: all;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 80%;
-            text-align: center;
-        }
-        
-        /* Indicateur de chargement */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0593fc, #27CDFE);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            color: white;
-            font-family: 'Outfit', sans-serif;
-            transition: opacity 1s ease;
-        }
-        
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        
-        .loading-subtitle {
-            font-size: 1rem;
-            opacity: 0.8;
-            text-align: center;
-            max-width: 400px;
-        }
-        
-        /* Contrôles VR */
-        .vr-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: all;
-        }
-        
-        .vr-control-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        
-        .vr-control-btn:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: scale(1.1);
-        }
-        
-        /* Mode plein écran */
-        .fullscreen-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(5, 147, 252, 0.9);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            pointer-events: all;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .fullscreen-toggle:hover {
-            background: rgba(5, 147, 252, 1);
-            transform: scale(1.1);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .exit-button {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-            }
-            
-            .vr-info-panel {
-                font-size: 0.8rem;
-                padding: 10px 16px;
-                bottom: 10px;
-            }
-            
-            .vr-controls {
-                top: 10px;
-                right: 10px;
-            }
-            
-            .vr-control-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-        
-        /* Animations d'entrée */
-        @keyframes slideInFromBottom {
-            from {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        a-scene {
-            animation: slideInFromBottom 1.5s ease-out;
-        }
-        
-        .vr-overlay {
-            animation: fadeIn 1s ease-out 0.5s both;
-        }
-        
-        /* Curseur personnalisé */
-        .vr-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #0593fc;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1001;
-            transition: transform 0.1s ease;
-            transform: translate(-50%, -50%);
-        }
-        
-        .vr-cursor.clicking {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: rgba(5, 147, 252, 0.3);
-        }
-        
-        /* Indicateur d'espace actuel */
-        .space-indicator {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            pointer-events: all;
-            z-index: 1001;
-            animation: slideInFromTop 1s ease 1s both;
-        }
-        
-        @keyframes slideInFromTop {
-            from {
-                transform: translateX(-50%) translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-        }
+        @media (prefers-reduced-motion: reduce) { .vr-loader { transition: none; } }
     </style>
 </head>
 <body>
-    <!-- Overlay de chargement -->
-    <div id="loading-overlay" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Chargement de l'expérience VR</div>
-        <div class="loading-subtitle">Préparation de votre portfolio immersif...</div>
-    </div>
-    
-    <!-- Interface utilisateur VR -->
-    <div id="vr-ui" class="vr-overlay">
-        <!-- Bouton de retour -->
-        <button id="exit-vr" class="exit-button" title="Retour au portfolio classique">
-            Retour au portfolio classique
-        </button>
-        
-        <!-- Contrôles VR -->
-        <div class="vr-controls">
-            <button id="help-toggle" class="vr-control-btn" title="Aide (H)">?</button>
-            <button id="reset-camera" class="vr-control-btn" title="Réinitialiser caméra (R)">⌂</button>
-            <button id="toggle-fly-mode" class="vr-control-btn" title="Mode vol (F)">✈️</button>
-            <button id="teleport-mode" class="vr-control-btn" title="Téléportation (T)">🎯</button>
-        </div>
-        
-        <!-- Bouton plein écran -->
-        <button id="fullscreen-toggle" class="fullscreen-toggle" title="Plein écran">⛶</button>
-        
-        <!-- Informations de navigation -->
-        <div id="vr-info" class="vr-info-panel">
-            <span id="nav-text">WASD/Flèches: Déplacement • F: Mode vol • T: Téléportation • R: Course • Clic: Interactions • Double-clic: Téléporter</span>
-        </div>
-        
-        <!-- Indicateur d'espace actuel -->
-        <div id="space-indicator" class="space-indicator">
-            <span id="current-space-text">Hub Principal</span>
+    <div id="loader" class="vr-loader" role="status">
+        <div>
+            <p class="vr-label" id="loader-kicker">Galerie VR</p>
+            <h1 id="loader-title">Des projets <span>à parcourir.</span></h1>
+            <p id="loader-text">Chargement de la galerie…</p>
+            <a id="loader-back" class="vr-btn" href="index.html#projets" hidden>← Retour au portfolio</a>
         </div>
     </div>
-    
-    <!-- Curseur personnalisé -->
-    <div id="vr-cursor" class="vr-cursor"></div>
 
-    <!-- Scène A-Frame VR avec architecture de portails -->
-    <a-scene 
-        id="vr-scene"
-        vr-mode-ui="enabled: true"
-        device-orientation-permission-ui="enabled: true"
-        background="color: #0593fc"
-        portal-manager="currentSpace: hub; language: fr; enableTransitions: true"
-        movement-bounds="minX: -30; maxX: 30; minY: 0.5; maxY: 15; minZ: -30; maxZ: 30; showBounds: false"
-        fog="type: exponential; density: 0.005; color: #0593fc"
-        renderer="antialias: true; colorManagement: true; sortObjects: true"
-        shadow="type: pcfsoft"
-        loading-screen="dotsColor: white; backgroundColor: #0593fc">
-        
-        <!-- Assets et ressources -->
-        <a-assets>
-            <!-- Matériaux Material Design -->
-            <a-mixin id="platform-material" 
-                     material="color: #ffffff; metalness: 0.1; roughness: 0.3; side: double"></a-mixin>
-            <a-mixin id="accent-material" 
-                     material="color: #0593fc; emissive: #0593fc; emissiveIntensity: 0.2; metalness: 0.2"></a-mixin>
-            <a-mixin id="secondary-material"
-                     material="color: #27CDFE; metalness: 0.1; roughness: 0.4"></a-mixin>
-            <a-mixin id="surface-material"
-                     material="color: #ffffff; metalness: 0.05; roughness: 0.8"></a-mixin>
-            
-            <!-- Textes avec police Outfit -->
-            <a-mixin id="title-text" 
-                     text="font: dejavu; color: #ffffff; align: center; width: 20"></a-mixin>
-            <a-mixin id="body-text" 
-                     text="font: dejavu; color: #666666; align: center; width: 15"></a-mixin>
-        </a-assets>
+    <header class="vr-hud vr-hud--top">
+        <a class="vr-brand" href="index.html"><span class="vr-mark">JLH</span><span>Jean Luc Houédanou</span></a>
+        <div class="vr-actions">
+            <button type="button" id="lang" class="vr-btn vr-btn--lang" aria-label="Passer en anglais">EN</button>
+            <a id="back" class="vr-btn vr-btn--primary" href="index.html#projets">← Portfolio</a>
+        </div>
+    </header>
 
-        <!-- =========================== -->
-        <!-- ESPACE HUB PRINCIPAL         -->
-        <!-- =========================== -->
-        <a-entity id="hub-space" visible="true" space-environment="type: hub">
-            <!-- Environnement hub -->
-            <a-entity 
-                environment="preset: starry; groundColor: #0593fc; grid: 1x1; gridColor: #27CDFE; horizon: #0593fc">
-            </a-entity>
-            
-            <!-- Éclairage hub -->
-            <a-light type="ambient" color="#404040" intensity="0.4"></a-light>
-            <a-light type="directional" position="2 8 4" color="#ffffff" intensity="0.8" castShadow="true"></a-light>
-            <a-light type="point" position="0 10 0" color="#27CDFE" intensity="0.6"></a-light>
-            
-            <!-- Sol hub -->
-            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="50" height="50" 
-                     color="#E6F0FA" metalness="0.8" roughness="0.2" shadow="receive: true"></a-plane>
+    <div class="vr-hud vr-hud--bottom">
+        <p id="hint" class="vr-hint"></p>
+        <div id="filters" class="vr-filter" role="group" aria-label="Filtrer les projets"></div>
+    </div>
 
-            <!-- Centre d'accueil -->
-            <a-entity position="0 3 -5">
-                <a-sphere radius="1.5" color="#0593fc" 
-                         animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
-                    <a-text value="JL" position="0 0 1.51" align="center" color="#ffffff" scale="3 3 3"></a-text>
-                </a-sphere>
-                <a-text value="Portfolio VR - Jean Luc Houédanou" 
-                        position="0 -2.5 0" align="center" color="#ffffff" scale="2 2 2"></a-text>
-                <a-text value="Directeur Solutions Digitales" 
-                        position="0 -3.2 0" align="center" color="#27CDFE" scale="1.5 1.5 1.5"></a-text>
-            </a-entity>
+    <aside id="sheet" class="vr-sheet" hidden aria-live="polite">
+        <div class="vr-sheet-head">
+            <div><p id="sheet-role" class="vr-label"></p><h2 id="sheet-title"></h2></div>
+            <button type="button" id="sheet-close" class="vr-close" aria-label="Fermer">×</button>
+        </div>
+        <div class="vr-sheet-block"><div id="sheet-tags" class="vr-tags"></div></div>
+        <div class="vr-sheet-block"><p id="sheet-l1" class="vr-label"></p><p id="sheet-desc"></p></div>
+        <div class="vr-sheet-block"><p id="sheet-l2" class="vr-label"></p><p id="sheet-challenges"></p></div>
+        <div class="vr-sheet-block"><p id="sheet-l3" class="vr-label"></p><p id="sheet-results"></p></div>
+        <a id="sheet-link" class="vr-btn vr-btn--primary" target="_blank" rel="noopener"></a>
+    </aside>
 
-            <!-- Portails vers les autres espaces -->
-            <a-entity portal="target: projects; title: Réalisations; color: #0593fc; size: 2.5" 
-                      position="6 2 -8" rotation="0 -30 0"></a-entity>
-            
-            <a-entity portal="target: experience; title: Expérience; color: #27CDFE; size: 2.5" 
-                      position="8 2 0" rotation="0 -90 0"></a-entity>
-            
-            <a-entity portal="target: about; title: À Propos; color: #246CB7; size: 2.5" 
-                      position="0 2 -12" rotation="0 0 0"></a-entity>
-            
-            <a-entity portal="target: contact; title: Contact; color: #0593fc; size: 2.5" 
-                      position="-8 2 0" rotation="0 90 0"></a-entity>
-
-            <!-- Particules hub -->
-            <a-entity position="0 15 0"
-                      particle-system="preset: dust; particleCount: 100; color: #0593fc,#27CDFE,#ffffff; size: 0.3; maxAge: 10">
-            </a-entity>
+    <a-scene id="scene"
+             background="color: #111522"
+             fog="type: exponential; color: #111522; density: 0.022"
+             renderer="antialias: true; colorManagement: true"
+             cursor="rayOrigin: mouse; fuse: false"
+             raycaster="objects: .clickable; far: 30"
+             loading-screen="enabled: false"
+             device-orientation-permission-ui="enabled: false">
+        <a-entity id="rig">
+            <a-entity id="camera" camera="fov: 70" position="0 1.6 0" look-controls="pointerLockEnabled: false" wasd-controls="acceleration: 22" stay-inside="radius: 2.4"></a-entity>
+            <a-entity laser-controls="hand: right" raycaster="objects: .clickable; far: 30; lineColor: #e0a083; lineOpacity: .8"></a-entity>
+            <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 30; lineColor: #b8beff; lineOpacity: .8"></a-entity>
         </a-entity>
-
-        <!-- =========================== -->
-        <!-- ESPACE RÉALISATIONS          -->
-        <!-- =========================== -->
-        <a-entity id="projects-space" visible="false" space-environment="type: projects">
-            <!-- Environnement projets -->
-            <a-entity environment="preset: forest; groundColor: #246CB7; grid: none"></a-entity>
-            
-            <!-- Éclairage projets -->
-            <a-light type="ambient" color="#404040" intensity="0.5"></a-light>
-            <a-light type="directional" position="4 10 4" color="#ffffff" intensity="1.0" castShadow="true"></a-light>
-            <a-light type="point" position="0 8 0" color="#0593fc" intensity="0.8"></a-light>
-            
-            <!-- Sol projets -->
-            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="80" height="80" 
-                     color="#1a1a2e" metalness="0.5" roughness="0.3" shadow="receive: true"></a-plane>
-
-            <!-- Titre de l'espace -->
-            <a-text value="Mes Réalisations" position="0 8 -10" align="center" 
-                    color="#ffffff" scale="4 4 4" font="dejavu"></a-text>
-
-            <!-- Les projets seront générés ici par le composant -->
-            <a-entity id="projects-container" portfolio-manager="language: fr; autoRotate: false"></a-entity>
-
-            <!-- Portail de retour au hub -->
-            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
-                      position="0 2 15" rotation="0 180 0"></a-entity>
-        </a-entity>
-
-        <!-- =========================== -->
-        <!-- ESPACE EXPÉRIENCE            -->
-        <!-- =========================== -->
-        <a-entity id="experience-space" visible="false" space-environment="type: experience">
-            <!-- Environnement expérience -->
-            <a-entity environment="preset: egypt; groundColor: #27CDFE; grid: 2x2"></a-entity>
-            
-            <!-- Éclairage expérience -->
-            <a-light type="ambient" color="#fff8dc" intensity="0.6"></a-light>
-            <a-light type="directional" position="-2 8 4" color="#ffeb3b" intensity="0.9" castShadow="true"></a-light>
-            
-            <!-- Sol expérience -->
-            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="60" height="60" 
-                     color="#faf8ef" metalness="0.1" roughness="0.8" shadow="receive: true"></a-plane>
-
-            <!-- Titre -->
-            <a-text value="Expérience Professionnelle" position="0 6 -8" align="center" 
-                    color="#246CB7" scale="3 3 3"></a-text>
-
-            <!-- Timeline expérience -->
-            <a-entity id="experience-timeline" position="0 2 -5">
-                <!-- Les éléments d'expérience seront générés ici -->
-            </a-entity>
-
-            <!-- Portail retour -->
-            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
-                      position="12 2 0" rotation="0 -90 0"></a-entity>
-        </a-entity>
-
-        <!-- =========================== -->
-        <!-- ESPACE À PROPOS              -->
-        <!-- =========================== -->
-        <a-entity id="about-space" visible="false" space-environment="type: about">
-            <!-- Environnement à propos -->
-            <a-entity environment="preset: goaland; groundColor: #0593fc; grid: none"></a-entity>
-            
-            <!-- Éclairage à propos -->
-            <a-light type="ambient" color="#87ceeb" intensity="0.7"></a-light>
-            <a-light type="directional" position="0 10 2" color="#ffffff" intensity="0.8"></a-light>
-            
-            <!-- Sol à propos -->
-            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="40" height="40" 
-                     color="#e0f6ff" metalness="0.2" roughness="0.7" shadow="receive: true"></a-plane>
-
-            <!-- Titre -->
-            <a-text value="À Propos de Moi" position="0 5 -6" align="center" 
-                    color="#246CB7" scale="3 3 3"></a-text>
-
-            <!-- Contenu à propos -->
-            <a-entity position="0 2 -8">
-                <a-box width="8" height="4" depth="0.2" color="#ffffff" opacity="0.9">
-                    <a-text value="Directeur Solutions Digitales expérimenté avec plus de 12 ans d'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Nuxt) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable."
-                            position="0 0 0.11" align="center" color="#333333" wrap-count="60" scale="1.2 1.2 1.2"></a-text>
-                </a-box>
-            </a-entity>
-
-            <!-- Compétences en 3D -->
-            <a-entity id="skills-3d" position="0 3 -2">
-                <!-- Compétences seront générées ici -->
-            </a-entity>
-
-            <!-- Portail retour -->
-            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
-                      position="0 2 8" rotation="0 0 0"></a-entity>
-        </a-entity>
-
-        <!-- =========================== -->
-        <!-- ESPACE CONTACT               -->
-        <!-- =========================== -->
-        <a-entity id="contact-space" visible="false" space-environment="type: contact">
-            <!-- Environnement contact -->
-            <a-entity environment="preset: contact; groundColor: #246CB7; grid: 1x1"></a-entity>
-            
-            <!-- Éclairage contact -->
-            <a-light type="ambient" color="#404040" intensity="0.4"></a-light>
-            <a-light type="directional" position="0 8 0" color="#ffffff" intensity="1.0" castShadow="true"></a-light>
-            <a-light type="point" position="0 5 0" color="#27CDFE" intensity="0.7"></a-light>
-            
-            <!-- Sol contact -->
-            <a-plane position="0 -0.5 0" rotation="-90 0 0" width="30" height="30" 
-                     color="#2c3e50" metalness="0.3" roughness="0.4" shadow="receive: true"></a-plane>
-
-            <!-- Titre -->
-            <a-text value="Contactez-moi" position="0 6 -5" align="center" 
-                    color="#ffffff" scale="3 3 3"></a-text>
-
-            <!-- Informations de contact -->
-            <a-entity position="0 3 -6">
-                <!-- Email -->
-                <a-box width="6" height="1" depth="0.2" position="0 1 0" color="#0593fc">
-                    <a-text value="📧 jeanluc@houedanou.com" position="0 0 0.11" 
-                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
-                </a-box>
-                
-                <!-- Téléphone -->
-                <a-box width="6" height="1" depth="0.2" position="0 -0.5 0" color="#27CDFE">
-                    <a-text value="📱 +225 07 48 34 82 21" position="0 0 0.11" 
-                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
-                </a-box>
-                
-                <!-- Portfolio -->
-                <a-box width="6" height="1" depth="0.2" position="0 -2 0" color="#246CB7">
-                    <a-text value="🌐 Portfolio en ligne" position="0 0 0.11" 
-                            align="center" color="#ffffff" scale="1.5 1.5 1.5"></a-text>
-                </a-box>
-            </a-entity>
-
-            <!-- Portail retour -->
-            <a-entity portal="target: hub; title: Retour Hub; color: #ffffff; size: 2" 
-                      position="8 2 0" rotation="0 -90 0"></a-entity>
-        </a-entity>
-
-        <!-- =========================== -->
-        <!-- CAMÉRA ET CONTRÔLES          -->
-        <!-- =========================== -->
-        <a-entity id="player" position="0 1.6 8">
-            <a-camera 
-                enhanced-movement="speed: 8; flyMode: false; teleportEnabled: true; collisionEnabled: true; smoothMovement: true"
-                look-controls="pointerLockEnabled: false"
-                mouse-cursor=""
-                raycaster="objects: .interactive; far: 30; interval: 100"
-                cursor="fuse: false; rayOrigin: mouse">
-                
-                <!-- Curseur VR -->
-                <a-cursor 
-                    raycaster="objects: .interactive; far: 30"
-                    material="color: #0593fc; shader: flat"
-                    geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
-                    position="0 0 -1"
-                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150">
-                </a-cursor>
-            </a-camera>
-        </a-entity>
-        
-        <!-- Contrôleurs VR -->
-        <a-entity id="leftHand" 
-                  hand-controls="hand: left; handModelStyle: lowPoly; color: #0593fc"
-                  raycaster="objects: .interactive; far: 10"
-                  line="color: #0593fc; opacity: 0.75">
-        </a-entity>
-        
-        <a-entity id="rightHand" 
-                  hand-controls="hand: right; handModelStyle: lowPoly; color: #27CDFE"
-                  raycaster="objects: .interactive; far: 10" 
-                  line="color: #27CDFE; opacity: 0.75">
-        </a-entity>
+        <a-entity id="floor"></a-entity>
+        <a-entity id="intro"></a-entity>
+        <a-entity id="controls"></a-entity>
+        <a-entity id="gallery"></a-entity>
+        <a-entity id="detail" visible="false"></a-entity>
     </a-scene>
 
-    <script>
-        // Configuration et initialisation VR
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🥽 Portfolio VR - Initialisation...');
-            
-            // Gestion du chargement
-            const loadingOverlay = document.getElementById('loading-overlay');
-            const scene = document.querySelector('a-scene');
-            
-            // Masquer le chargement une fois la scène prête
-            scene.addEventListener('loaded', function() {
-                console.log('✅ Scène VR chargée');
-                setTimeout(() => {
-                    loadingOverlay.classList.add('hidden');
-                }, 1000);
-            });
-            
-            // Configuration de la langue selon l'URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const lang = urlParams.get('lang') || 'fr';
-            const section = urlParams.get('section');
-            
-            // Mise à jour des textes selon la langue
-            updateUITexts(lang);
-            
-            // Navigation automatique vers une section si spécifiée
-            if (section) {
-                setTimeout(() => {
-                    const portfolioManager = document.querySelector('[portfolio-manager]');
-                    if (portfolioManager && portfolioManager.components['portfolio-manager']) {
-                        portfolioManager.components['portfolio-manager'].navigateToSection(section);
-                    }
-                }, 2000);
-            }
-            
-            // Gestion des contrôles UI
-            setupUIControls();
-            
-            // Gestion du curseur personnalisé
-            setupCustomCursor();
-            
-            // Gestion responsive
-            setupResponsiveVR();
-            
-            // Gestion des espaces et portails
-            setupSpaceManagement();
-            
-            console.log('🚀 Portfolio VR prêt!');
-        });
-        
-        function updateUITexts(lang) {
-            const texts = window.PortfolioData?.texts[lang] || window.PortfolioData?.texts['fr'];
-            
-            if (texts) {
-                document.getElementById('exit-vr').textContent = texts.exitVR;
-                document.getElementById('nav-text').textContent = texts.navigation;
-                document.title = texts.title + ' - Jean Luc Houédanou';
-            }
-        }
-        
-        function setupUIControls() {
-            // Bouton de retour
-            document.getElementById('exit-vr').addEventListener('click', function() {
-                console.log('🔙 Retour vers portfolio classique');
-                exitToClassicPortfolio();
-            });
-            
-            // Bouton d'aide
-            document.getElementById('help-toggle').addEventListener('click', function() {
-                const portfolioManager = document.querySelector('[portfolio-manager]');
-                if (portfolioManager?.components['portfolio-manager']) {
-                    portfolioManager.components['portfolio-manager'].toggleHelp();
-                }
-            });
-            
-            // Bouton reset caméra
-            document.getElementById('reset-camera').addEventListener('click', function() {
-                const portfolioManager = document.querySelector('[portfolio-manager]');
-                if (portfolioManager?.components['portfolio-manager']) {
-                    portfolioManager.components['portfolio-manager'].resetCameraPosition();
-                }
-            });
-            
-            // Bouton plein écran
-            document.getElementById('fullscreen-toggle').addEventListener('click', function() {
-                toggleFullscreen();
-            });
-            
-            // Bouton mode vol
-            document.getElementById('toggle-fly-mode').addEventListener('click', function() {
-                const camera = document.querySelector('[enhanced-movement]');
-                if (camera && camera.components['enhanced-movement']) {
-                    camera.components['enhanced-movement'].toggleFlyMode();
-                }
-            });
-            
-            // Bouton téléportation
-            document.getElementById('teleport-mode').addEventListener('click', function() {
-                const camera = document.querySelector('[enhanced-movement]');
-                if (camera && camera.components['enhanced-movement']) {
-                    camera.components['enhanced-movement'].initiateTeleport();
-                }
-            });
-        }
-        
-        function setupCustomCursor() {
-            const cursor = document.getElementById('vr-cursor');
-            
-            document.addEventListener('mousemove', function(e) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            
-            document.addEventListener('mousedown', function() {
-                cursor.classList.add('clicking');
-            });
-            
-            document.addEventListener('mouseup', function() {
-                cursor.classList.remove('clicking');
-            });
-        }
-        
-        function setupResponsiveVR() {
-            // Adaptation selon la taille d'écran
-            function updateVRLayout() {
-                const isMobile = window.innerWidth <= 768;
-                const scene = document.querySelector('a-scene');
-                
-                if (isMobile) {
-                    // Ajustements pour mobile
-                    scene.setAttribute('vr-mode-ui', 'enabled: true');
-                } else {
-                    // Configuration desktop
-                    scene.setAttribute('vr-mode-ui', 'enabled: true');
-                }
-            }
-            
-            window.addEventListener('resize', updateVRLayout);
-            updateVRLayout();
-        }
-        
-        function exitToClassicPortfolio() {
-            // Animation de sortie fluide
-            const scene = document.querySelector('a-scene');
-            scene.setAttribute('animation__exit', {
-                property: 'scale',
-                to: '0.1 0.1 0.1',
-                dur: 1000,
-                easing: 'easeInBack'
-            });
-            
-            // Overlay de transition
-            const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, #0593fc, #27CDFE);
-                z-index: 3000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-family: 'Outfit', sans-serif;
-                font-size: 1.5rem;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-            `;
-            overlay.textContent = 'Retour au portfolio...';
-            document.body.appendChild(overlay);
-            
-            setTimeout(() => overlay.style.opacity = '1', 100);
-            
-            setTimeout(() => {
-                const url = new URL(window.location);
-                url.pathname = url.pathname.replace('portfolio-vr.html', 'index.html');
-                window.location.href = url.toString();
-            }, 1500);
-        }
-        
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        }
-        
-        // Gestion des erreurs WebXR/VR
-        window.addEventListener('error', function(e) {
-            console.warn('⚠️ Erreur VR:', e.error);
-        });
-        
-        function setupSpaceManagement() {
-            const spaceNames = {
-                hub: 'Hub Principal',
-                projects: 'Réalisations',
-                experience: 'Expérience',
-                about: 'À Propos',
-                contact: 'Contact'
-            };
-            
-            // Écouter les changements d'espace
-            const scene = document.querySelector('a-scene');
-            scene.addEventListener('space-changed', function(event) {
-                const newSpace = event.detail.currentSpace;
-                updateSpaceIndicator(spaceNames[newSpace] || newSpace);
-                console.log('🌌 Espace changé:', newSpace);
-            });
-            
-            // Navigation directe vers un espace via URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetSpace = urlParams.get('space');
-            if (targetSpace && targetSpace !== 'hub') {
-                setTimeout(() => {
-                    const portalManager = document.querySelector('[portal-manager]');
-                    if (portalManager && portalManager.components['portal-manager']) {
-                        portalManager.components['portal-manager'].navigateToSpace(targetSpace);
-                    }
-                }, 3000);
-            }
-        }
-        
-        function updateSpaceIndicator(spaceName) {
-            const indicator = document.getElementById('current-space-text');
-            if (indicator) {
-                // Animation de changement
-                indicator.style.transform = 'scale(0.8)';
-                indicator.style.opacity = '0.5';
-                
-                setTimeout(() => {
-                    indicator.textContent = spaceName;
-                    indicator.style.transform = 'scale(1)';
-                    indicator.style.opacity = '1';
-                }, 200);
-            }
-        }
-        
-        // Performance monitoring
-        if (window.PortfolioData?.vrConfig?.showStats) {
-            const stats = new Stats();
-            document.body.appendChild(stats.dom);
-            
-            function animate() {
-                stats.begin();
-                stats.end();
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
-    </script>
 </body>
 </html>
