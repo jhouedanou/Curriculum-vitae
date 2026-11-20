@@ -21,7 +21,7 @@ infos_perso:
 resume: >
   Web developer with over 12 years of experience in full-stack web development,
   UI/UX design and digital project management. Front-end specialist (VueJS,
-  Angular). I lead a team of developers and designers and deliver web platforms
+  Nuxt). I lead a team of developers and designers and deliver web platforms
   for clients such as Vodacom, CASTEL Africa and CIPREL.
 
 langues:
@@ -108,7 +108,6 @@ competences:
   - categorie: Frontend development
     items:
       - { nom: VueJS, annees: 5, niveau: Expert }
-      - { nom: Angular, annees: 4, niveau: Advanced }
       - { nom: NuxtJS, annees: 3, niveau: Intermediate+ }
       - { nom: JavaScript, annees: 8, niveau: Expert }
       - { nom: HTML5, annees: 12, niveau: Expert }

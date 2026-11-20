@@ -14,12 +14,12 @@ AFRAME.registerComponent('portfolio-info-panel', {
                 fr: {
                     title: 'À Propos',
                     subtitle: 'Directeur Solutions Digitales',
-                    content: 'Directeur Solutions Digitales expérimenté avec plus de 12 ans d\'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Angular) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable.'
+                    content: 'Directeur Solutions Digitales expérimenté avec plus de 12 ans d\'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Spécialiste front-end (VueJS, Nuxt) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable.'
                 },
                 en: {
                     title: 'About Me',
                     subtitle: 'Digital Solutions Director',
-                    content: 'Experienced Digital Solutions Director with over 12 years of expertise in full-stack web development, UI/UX design and digital project management. Frontend specialist (VueJS, Angular) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.'
+                    content: 'Experienced Digital Solutions Director with over 12 years of expertise in full-stack web development, UI/UX design and digital project management. Frontend specialist (VueJS, Nuxt) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.'
                 }
             },
             experience: {
@@ -38,12 +38,12 @@ AFRAME.registerComponent('portfolio-info-panel', {
                 fr: {
                     title: 'Mes Réalisations',
                     subtitle: '17+ projets réalisés',
-                    content: 'Portfolio de projets diversifiés :\n\n• Frontend : VueJS, Angular, React\n• Full-stack : Laravel, NuxtJS, Node.js\n• WordPress : Thèmes custom, Gutenberg\n• UI/UX : Figma, Adobe XD, Design System\n\nProjets phares : Vodacom, CASTEL Afrique, CIPREL, Dinor App, BigFive Solutions...'
+                    content: 'Portfolio de projets diversifiés :\n\n• Frontend : VueJS, React\n• Full-stack : Laravel, NuxtJS, Node.js\n• WordPress : Thèmes custom, Gutenberg\n• UI/UX : Figma, Adobe XD, Design System\n\nProjets phares : Vodacom, CASTEL Afrique, CIPREL, Dinor App, BigFive Solutions...'
                 },
                 en: {
                     title: 'My Projects',
                     subtitle: '17+ completed projects',
-                    content: 'Diverse project portfolio:\n\n• Frontend: VueJS, Angular, React\n• Full-stack: Laravel, NuxtJS, Node.js\n• WordPress: Custom themes, Gutenberg\n• UI/UX: Figma, Adobe XD, Design System\n\nFeatured projects: Vodacom, CASTEL Africa, CIPREL, Dinor App, BigFive Solutions...'
+                    content: 'Diverse project portfolio:\n\n• Frontend: VueJS, React\n• Full-stack: Laravel, NuxtJS, Node.js\n• WordPress: Custom themes, Gutenberg\n• UI/UX: Figma, Adobe XD, Design System\n\nFeatured projects: Vodacom, CASTEL Africa, CIPREL, Dinor App, BigFive Solutions...'
                 }
             },
             contact: {
