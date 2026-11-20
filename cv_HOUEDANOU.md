@@ -200,6 +200,11 @@ Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campag
 *Rôle:* Développement | *Technologies:* NuxtJS, Vue.js
 Plateforme de formation en ligne : modules d'une heure, deux programmes, panier et espace apprenant
 
+### **Bracongo Stages - Plateforme de gestion des stages**
+**https://bracongostages.bigfive.dev/**
+*Rôle:* Développement full-stack | *Technologies:* Laravel, PHP, Livewire, Tailwind CSS
+Candidature en ligne, suivi du dossier par code, administration RH et délivrance d'attestations de stage numériques
+
 ### **Friesland Bonnet Rouge - CRM terrain et application mobile**
 **https://frieslandv3.vercel.app/**
 *Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
@@ -269,11 +274,6 @@ Plateforme complète de recettes et astuces culinaires multi-plateformes
 **https://ciprel.ci**
 *Rôle:* Développeur Front-end | *Challenge:* Intégration pixel-perfect
 Site web responsive avec optimisation des performances
-
-### **Quizz CIPREL RH pour le SIREXE**
-**https://ciprelrh.netlify.app/questionnaire**
-*Rôle:* Développeur Full-stack | *Technologies:* NuxtJS
-Application quiz interactive avec système de scoring avancé
 
 ### **BigFive360**
 **https://bigfive360.com**
