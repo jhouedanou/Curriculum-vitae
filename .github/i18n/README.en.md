@@ -77,7 +77,7 @@ _Group(e) Kamit Communications Inc_, Montreal, Canada
 
 ## 🛠 **Technical Skills**
 
-- **Languages**: PHP, JavaScript (VueJS, Angular)
+- **Languages**: PHP, JavaScript (VueJS, Nuxt)
 - **Design**: Web Design, Graphics
 - **Tools**: Adobe XD, Affinity Designer, Affinity Photo, DaVinci Resolve
 - **Administration**: Linux Server
