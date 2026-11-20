@@ -201,6 +201,11 @@ Subscription platform to browse, filter and analyse more than 900 real marketing
 *Role:* Development | *Technologies:* NuxtJS, Vue.js
 E-learning platform: one-hour modules, two programmes, cart and learner space
 
+### **Bracongo Stages - Internship management platform**
+**https://bracongostages.bigfive.dev/**
+*Role:* Full-stack development | *Technologies:* Laravel, Livewire, Tailwind CSS
+Online applications, code-based application tracking, HR admin and digital internship certificates
+
 ### **Friesland Bonnet Rouge - Field CRM and mobile app**
 **https://frieslandv3.vercel.app/**
 *Role:* UI design & development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS

@@ -201,6 +201,11 @@ Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campag
 *Rôle:* Développement | *Technologies:* NuxtJS, Vue.js
 Plateforme de formation en ligne : modules d'une heure, deux programmes, panier et espace apprenant
 
+### **Bracongo Stages - Plateforme de gestion des stages**
+**https://bracongostages.bigfive.dev/**
+*Rôle:* Développement full-stack | *Technologies:* Laravel, Livewire, Tailwind CSS
+Candidature en ligne, suivi du dossier par code, administration RH et délivrance d'attestations de stage numériques
+
 ### **Friesland Bonnet Rouge - CRM terrain et application mobile**
 **https://frieslandv3.vercel.app/**
 *Rôle:* Conception UI & développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
