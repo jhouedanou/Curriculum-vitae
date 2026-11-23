@@ -13,7 +13,7 @@
     <h1>{{ id.nom }}</h1>
     <div class="titre">{{ a.titre }}</div>
     <div class="contacts">
-      <span>{{ id.email }}</span><span>{{ id.telephone }}</span><span>{{ id.ville }}</span>
+      <span>{{ id.email }}</span>{% if id.email2 %}<span>{{ id.email2 }}</span>{% endif %}<span>{{ id.telephone }}</span><span>{{ id.ville }}</span>
       <span><a href="{{ id.portfolio }}">{{ id.portfolio | replace("https://", "") }}</a></span>
       <span><a href="{{ id.github }}">{{ id.github | replace("https://", "") }}</a></span>
     </div>

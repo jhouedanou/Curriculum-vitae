@@ -4,7 +4,8 @@
 
 **Front End Developer (Javascript+VueJS), PHP & Designer experienced in web project management**
 
-[![Email](https://img.shields.io/badge/Email-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
+[![Email](https://img.shields.io/badge/Email-jhouedanou%40gmail.com-blue)](mailto:jhouedanou@gmail.com)
+[![Email 2](https://img.shields.io/badge/Email%202-jeanluc%40houedanou.com-blue)](mailto:jeanluc@houedanou.com)
 [![Phone](https://img.shields.io/badge/Phone-%2B225%2007%2048%2034%2082%2021-green)](tel:+22507483482021)
 [![Website](https://img.shields.io/badge/Website-houedanou.com-orange)](https://houedanou.com)
 [![Twitter](https://img.shields.io/badge/Twitter-%40afrowebdesigner-1DA1F2)](https://twitter.com/afrowebdesigner)
