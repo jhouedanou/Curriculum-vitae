@@ -7,6 +7,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from . import ats
 from .config import RACINE, SORTIE, config, cv
 from .models import Dossier, Note, Offre
 from .sources.base import normaliser
@@ -79,6 +80,17 @@ def generer(offre: Offre, note: Note, dossier: Dossier) -> Path:
     )
     _ecrire(dossier_sortie / f"CV_{nom_fichier}", html_cv)
 
+    # ── CV pour les logiciels de tri (ATS) : même contenu, une colonne, sans photo ni tableau ──
+    contenu = dict(langue=langue, ident=ident, titre=dossier.cv.titre, resume=dossier.cv.resume,
+                   competences=dossier.cv.competences, experiences=experiences,
+                   anterieures=data.get("experiences_anterieures", []), projets=projets,
+                   formation=data.get("formation", []), langues=data.get("langues", []))
+    (dossier_sortie / f"CV_ATS_{nom_fichier}.md").write_text(ats.cv_markdown(**contenu), encoding="utf-8")
+    html_ats = env.get_template("cv_ats.html").render(
+        t=ats.TITRES[langue], id=ident, coordonnees=ats.coordonnees(ident, langue),
+        **{k: v for k, v in contenu.items() if k != "ident"})
+    _ecrire(dossier_sortie / f"CV_ATS_{nom_fichier}", html_ats)
+
     # ── Lettre ────────────────────────────────────────
     if dossier.lettre:
         html_lettre = env.get_template("lettre.html").render(
@@ -86,6 +98,12 @@ def generer(offre: Offre, note: Note, dossier: Dossier) -> Path:
             date=_date_lettre(langue, ident.get("ville", "Abidjan")),
         )
         _ecrire(dossier_sortie / f"Lettre_{nom_fichier}", html_lettre)
+        (dossier_sortie / f"Lettre_{nom_fichier}.md").write_text(ats.lettre_markdown(
+            langue, ident, dossier.lettre.objet, dossier.lettre.destinataire, dossier.lettre.paragraphes,
+            _date_lettre(langue, ident.get("ville", "Abidjan"))), encoding="utf-8")
+    else:  # dossier refait sans lettre : on retire l'ancienne
+        for ext in (".md", ".html", ".pdf"):
+            (dossier_sortie / f"Lettre_{nom_fichier}{ext}").unlink(missing_ok=True)
 
     # ── Message ───────────────────────────────────────
     a_qui = note.email_candidature or "(adresse non trouvée : voir l'offre)"
@@ -93,6 +111,8 @@ def generer(offre: Offre, note: Note, dossier: Dossier) -> Path:
         f"À : {a_qui}\nObjet : {dossier.message.objet_email}\n\n{dossier.message.texte}\n",
         encoding="utf-8",
     )
+    (dossier_sortie / f"Email_{nom_fichier}.md").write_text(ats.email_markdown(
+        langue, note.email_candidature, dossier.message.objet_email, dossier.message.texte), encoding="utf-8")
 
     # ── Fiche de l'offre (pour relire avant d'envoyer) ─
     (dossier_sortie / "offre.md").write_text(_fiche(offre, note, dossier), encoding="utf-8")

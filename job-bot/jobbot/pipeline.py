@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Callable, Optional
 
-from . import coach, matcher, render, writer
+from . import coach, lien, matcher, render, writer
 from .config import config
 from .db import Base
 from .llm import LLM
@@ -118,15 +118,23 @@ def tout(db: Base, llm: LLM, log: Log = print) -> list[Path]:
     return chemins
 
 
-def ajouter_a_la_main(db: Base, texte: str, url: str = "") -> int:
+def ajouter_a_la_main(db: Base, texte: str, url: str = "", titre: str = "") -> int:
     """Offre collée à la main (LinkedIn, email, WhatsApp…)."""
     premiere = next((l.strip() for l in texte.splitlines() if l.strip()), "Offre collée")
     ref = hashlib.sha1(texte.encode("utf-8")).hexdigest()[:12]
-    o = Offre(source="manuel", ref=ref, titre=premiere[:120], url=url, description=texte)
+    o = Offre(source="manuel", ref=ref, titre=(titre or premiere)[:120], url=url, description=texte)
     offre_id = db.ajouter(o)
     if offre_id is None:
         offre_id = db.cx.execute("SELECT id FROM offres WHERE source='manuel' AND ref=?", (ref,)).fetchone()[0]
     return offre_id
+
+
+def ajouter_par_lien(db: Base, url: str, http: Optional[Http] = None, log: Log = print) -> int:
+    """Offre donnée par son adresse : le bot lit la page, puis la traite comme une offre collée."""
+    log(f"Lecture de la page : {url}")
+    titre, texte = lien.lire_offre(url, http)
+    log(f"  ✓ « {titre[:70]} » — {len(texte)} caractères")
+    return ajouter_a_la_main(db, texte, url.strip(), titre)
 
 
 def _offre_et_note(db: Base, llm: LLM, offre_id: int):

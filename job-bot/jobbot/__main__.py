@@ -7,6 +7,14 @@ Commandes :
   python -m jobbot top [--min 60]        voir le classement
   python -m jobbot preparer 12           préparer le dossier de l'offre n°12
   python -m jobbot preparer 12 --lettre  … en forçant une lettre de motivation
+Sans clé API (la rédaction se fait dans Claude Code, avec /candidature) :
+  python -m jobbot lien https://…         lire l'annonce à cette adresse et l'enregistrer (aucune IA)
+  python -m jobbot montrer 12            afficher le texte de l'offre n°12
+  python -m jobbot schema                format du fichier attendu par « importer »
+  python -m jobbot importer d.json --offre 12   vérifier et mettre en page un dossier rédigé dans Claude Code
+
+Avec une clé API (ANTHROPIC_API_KEY dans .env) :
+  python -m jobbot lien https://… --rediger   lire l'annonce, puis noter et rédiger le dossier avec l'API
   python -m jobbot coller offre.txt      offre copiée à la main (LinkedIn, email…) ; « - » = coller dans le terminal
   python -m jobbot statut 12 envoye      suivre une offre : a_relire, envoye, entretien, refus, ignore, nouveau
   python -m jobbot relances              candidatures envoyées à relancer
@@ -43,6 +51,16 @@ def main(argv: list[str] | None = None) -> None:
     c.add_argument("fichier", help="fichier texte de l'offre, ou - pour coller dans le terminal")
     c.add_argument("--url", default="")
     c.add_argument("--lettre", action="store_true", default=None)
+    li = sub.add_parser("lien")
+    li.add_argument("url")
+    li.add_argument("--rediger", action="store_true", help="noter et rédiger avec l'API Claude (clé requise)")
+    li.add_argument("--sans-lettre", dest="lettre", action="store_false", default=True)
+    mo = sub.add_parser("montrer")
+    mo.add_argument("id", type=int)
+    sub.add_parser("schema")
+    im = sub.add_parser("importer")
+    im.add_argument("fichier", help="fichier JSON rédigé dans Claude Code")
+    im.add_argument("--offre", type=int, default=None, help="numéro de l'offre déjà enregistrée")
     s = sub.add_parser("statut")
     s.add_argument("id", type=int)
     s.add_argument("valeur", choices=[*STATUTS, "nouveau"])
@@ -89,6 +107,36 @@ def main(argv: list[str] | None = None) -> None:
             note = db.note(offre_id)
             print(f"Offre #{offre_id} — score {note.score}/100 — {note.verdict}")
             print(f"✓ Dossier prêt : {chemin}")
+        elif args.cmd == "lien":
+            from .lien import LienIllisible
+            try:
+                offre_id = pipeline.ajouter_par_lien(db, args.url)
+            except LienIllisible as err:
+                raise SystemExit(f"{err}\nSinon : python -m jobbot coller offre.txt --url {args.url}")
+            if not args.rediger:
+                print(f"✓ Offre #{offre_id} enregistrée. Dans Claude Code : /candidature {offre_id}")
+            else:
+                chemin = pipeline.preparer(db, Claude(), offre_id, args.lettre)
+                note = db.note(offre_id)
+                print(f"Offre #{offre_id} — score {note.score}/100 — {note.verdict}")
+                print(f"✓ Dossier prêt : {chemin}")
+        elif args.cmd == "montrer":
+            o = db.offre(args.id)
+            if not o:
+                raise SystemExit(f"Offre #{args.id} inconnue.")
+            print(f"Offre #{o.id}\nTitre : {o.titre}\nEntreprise : {o.entreprise or '?'}\nLieu : {o.lieu or '?'}\n"
+                  f"Lien : {o.url or '?'}\nSource : {o.source}\n\n{o.description}")
+        elif args.cmd == "schema":
+            from .importer import schema
+            print(schema())
+        elif args.cmd == "importer":
+            from .importer import importer
+            offre_id, chemin, dossier = importer(db, args.fichier, args.offre)
+            note = db.note(offre_id)
+            print(f"Offre #{offre_id} — score {note.score}/100 — {note.verdict}")
+            print(f"✓ Dossier prêt : {chemin}")
+            for a in dossier.avertissements:
+                print(f"  À vérifier : {a}")
         elif args.cmd == "statut":
             ok = db.changer_statut(args.id, args.valeur)
             print("✓ Statut mis à jour." if ok else "Offre inconnue.")

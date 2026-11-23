@@ -1,31 +1,43 @@
 {% extends "base.html" %}
-{% block titre %}Coller une offre · JobBot{% endblock %}
+{% block titre %}Nouvelle offre · JobBot{% endblock %}
 {% block contenu %}
 <div class="etroit">
-  <h1>Coller une offre</h1>
-  <p class="meta-page">Pour une offre vue sur LinkedIn, Indeed, par email ou WhatsApp. Le bot la note puis prépare le dossier.</p>
+  <h1>Nouvelle offre</h1>
+  {% if cle_api %}
+  <p class="meta-page">Donne le lien de l'annonce : le bot lit la page, note l'offre, puis prépare le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email.</p>
+  {% else %}
+  <p class="meta-page">Donne le lien de l'annonce : le bot lit la page et enregistre l'offre, sans IA. Ensuite, dans Claude Code, tape <code>/candidature</code> suivi du numéro de l'offre : Claude rédige le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email.</p>
+  {% endif %}
 
   <form method="post" action="/coller" class="formulaire" data-tache-form>
-    {% if erreur %}<p class="erreur-champ" role="alert" id="err-texte">{{ erreur }}</p>{% endif %}
-    <label for="texte">Texte de l'offre</label>
-    <textarea id="texte" name="texte" rows="14" required minlength="100"
-      placeholder="Colle ici toute l'annonce : intitulé, entreprise, missions, profil, comment postuler…"
-      {% if erreur %}aria-invalid="true" aria-describedby="err-texte"{% endif %}>{{ texte or '' }}</textarea>
-    <p class="aide"><span data-compteur="#texte">0</span> caractères · au moins 100</p>
+    {% if erreur %}<p class="erreur-champ" role="alert" id="err-offre">{{ erreur }}</p>{% endif %}
+    <label for="url">Lien de l'annonce</label>
+    <input id="url" name="url" type="url" inputmode="url" value="{{ url or '' }}" placeholder="https://…" autofocus
+      {% if erreur %}aria-invalid="true" aria-describedby="err-offre"{% endif %}>
+    <p class="aide">LinkedIn, Indeed et les annonces reçues par email ou WhatsApp ne se lisent pas par lien : colle leur texte ci-dessous.</p>
 
-    <label for="url">Lien de l'annonce <span class="doux">(facultatif)</span></label>
-    <input id="url" name="url" type="url" inputmode="url" value="{{ url or '' }}" placeholder="https://…">
+    <label for="texte">Texte de l'offre <span class="doux">(seulement si le lien ne suffit pas)</span></label>
+    <textarea id="texte" name="texte" rows="8"
+      placeholder="Colle ici toute l'annonce : intitulé, entreprise, missions, profil, comment postuler…">{{ texte or '' }}</textarea>
+    <p class="aide"><span data-compteur="#texte">0</span> caractères · au moins 100 si tu colles le texte</p>
 
+    {% if cle_api %}
     <fieldset>
       <legend>Lettre de motivation</legend>
-      <label><input type="radio" name="lettre" value="auto" checked> Seulement si l'offre en demande une</label>
-      <label><input type="radio" name="lettre" value="oui"> Toujours</label>
+      <label><input type="radio" name="lettre" value="oui" checked> Toujours</label>
+      <label><input type="radio" name="lettre" value="auto"> Seulement si l'offre en demande une</label>
       <label><input type="radio" name="lettre" value="non"> Jamais</label>
     </fieldset>
+    {% endif %}
 
     <div class="rang">
-      <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %}>Analyser et préparer le dossier</button>
+      {% if cle_api %}
+      <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %}>Lire l'offre et préparer le dossier</button>
       <span class="cout">Claude Haiku + Sonnet · environ 1 minute</span>
+      {% else %}
+      <button class="btn btn-plein" type="submit" {% if tache %}disabled{% endif %}>Lire et enregistrer l'offre</button>
+      <span class="cout">Aucune IA · quelques secondes</span>
+      {% endif %}
     </div>
   </form>
 </div>

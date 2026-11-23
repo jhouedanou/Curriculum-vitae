@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="{{ langue }}">
+<head>
+<meta charset="utf-8">
+<title>CV — {{ id.nom }}</title>
+<style>
+/* CV pour les logiciels de tri (ATS) : une colonne, pas d'image, pas de tableau, police standard. */
+@page { size: A4; margin: 14mm 16mm 13mm 16mm; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff; color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; line-height: 1.33; }
+h1 { margin: 0 0 2pt; font-size: 18pt; }
+.titre { margin: 0 0 6pt; font-size: 11.5pt; font-weight: bold; }
+.coord { margin: 0; }
+h2 { margin: 10pt 0 4pt; padding-bottom: 2pt; border-bottom: 1px solid #000; font-size: 11.5pt; text-transform: uppercase; }
+h3 { margin: 6pt 0 0; font-size: 10pt; }
+p { margin: 0 0 2pt; }
+ul { margin: 3pt 0 0; padding-left: 16pt; }
+li { margin-bottom: 1pt; }
+a { color: #000; text-decoration: none; }
+h3, h3 + p { break-after: avoid; }
+@media screen { body { max-width: 210mm; margin: 24px auto; padding: 0 16px; } }
+</style>
+</head>
+<body>
+
+<h1>{{ id.nom }}</h1>
+<p class="titre">{{ titre }}</p>
+{% for ligne in coordonnees %}<p class="coord">{{ ligne }}</p>
+{% endfor %}
+
+<h2>{{ t.profil }}</h2>
+<p>{{ resume }}</p>
+
+<h2>{{ t.competences }}</h2>
+<p>{{ competences | join(", ") }}</p>
+
+<h2>{{ t.experience }}</h2>
+{% for e in experiences %}
+<h3>{{ e.poste }}</h3>
+<p>{{ e.entreprise }} — {{ e.lieu }}<br>{{ e.periode }}</p>
+<ul>{% for p in e.puces %}<li>{{ p }}</li>{% endfor %}</ul>
+{% endfor %}
+{% if anterieures %}
+<h3>{{ t.anterieures }}</h3>
+<ul>{% for x in anterieures %}<li>{{ x }}</li>{% endfor %}</ul>
+{% endif %}
+
+{% if projets %}
+<h2>{{ t.projets }}</h2>
+{% for p in projets %}
+<h3>{{ p.nom }}</h3>
+<p>{{ p.role }} — {{ p.technos | join(", ") }}<br>{{ p.description }}<br>{{ p.url }}</p>
+{% endfor %}
+{% endif %}
+
+<h2>{{ t.formation }}</h2>
+{% for f in formation %}
+<h3>{{ f.diplome }}</h3>
+<p>{{ f.ecole }} — {{ f.annees }}</p>
+{% endfor %}
+
+<h2>{{ t.langues }}</h2>
+<ul>{% for l in langues %}<li>{{ l.langue }} : {{ l.niveau }}</li>{% endfor %}</ul>
+
+</body>
+</html>

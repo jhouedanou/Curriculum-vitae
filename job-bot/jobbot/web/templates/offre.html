@@ -38,7 +38,8 @@
     <h2>Offre pas encore notée</h2>
     <p>Elle a été collectée mais pas encore comparée à ton CV.</p>
     {% if not cle_api %}
-    <p class="doux">Pour la noter et préparer le dossier, ajoute <code>ANTHROPIC_API_KEY</code> dans <code>job-bot/.env</code>. En attendant, lis le texte ci-dessous{% if o.url %} ou ouvre <a href="{{ o.url }}" target="_blank" rel="noopener">l'annonce</a>{% endif %}, et note-la dans « Suivi » si elle t'intéresse.</p>
+    <p>Pour la noter et préparer le dossier, tape dans Claude Code : <code>/candidature {{ o.id }}</code></p>
+    <p class="doux">Claude rédige le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email ; le bot les vérifie et les met en page, sans clé API. En attendant, lis le texte ci-dessous{% if o.url %} ou ouvre <a href="{{ o.url }}" target="_blank" rel="noopener">l'annonce</a>{% endif %}, et note-la dans « Suivi » si elle t'intéresse.</p>
     {% else %}
     <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form>
       <input type="hidden" name="lettre" value="auto">
@@ -73,16 +74,21 @@
   <section class="bloc" aria-labelledby="t-docs">
     <h2 id="t-docs">Documents</h2>
     <ul class="docs">
-      {% for nom in ['CV_Jean_Luc_Houedanou', 'Lettre_Jean_Luc_Houedanou'] %}
-        {% set pdf = nom ~ '.pdf' %}{% set html = nom ~ '.html' %}
-        {% if pdf in fichiers or html in fichiers %}
+      {% for nom, libelle, aide in [
+          ('CV_ATS_Jean_Luc_Houedanou', 'CV pour logiciels de tri (ATS)', 'Une colonne, sans photo ni tableau : à envoyer sur les sites de recrutement'),
+          ('CV_Jean_Luc_Houedanou', 'CV mis en page', 'Avec photo : à envoyer par email à une personne'),
+          ('Lettre_Jean_Luc_Houedanou', 'Lettre de motivation', ''),
+          ('Email_Jean_Luc_Houedanou', 'Email', '')] %}
+        {% set pdf = nom ~ '.pdf' %}{% set html = nom ~ '.html' %}{% set md = nom ~ '.md' %}
+        {% if pdf in fichiers or html in fichiers or md in fichiers %}
         <li class="doc">
           <svg class="ic ic-doc"><use href="#i-file"/></svg>
-          <div class="doc-nom"><strong>{{ 'CV adapté' if nom.startswith('CV') else 'Lettre de motivation' }}</strong><span class="doux">{{ pdf if pdf in fichiers else html }}</span></div>
+          <div class="doc-nom"><strong>{{ libelle }}</strong><span class="doux">{{ aide or (pdf if pdf in fichiers else (html if html in fichiers else md)) }}</span></div>
           <div class="doc-actions">
-            {% if html in fichiers %}<button class="btn btn-petit" type="button" data-apercu="/fichiers/{{ o.id }}/{{ html }}" data-titre="{{ 'CV adapté' if nom.startswith('CV') else 'Lettre' }}">Aperçu</button>{% endif %}
+            {% if html in fichiers %}<button class="btn btn-petit" type="button" data-apercu="/fichiers/{{ o.id }}/{{ html }}" data-titre="{{ libelle }}">Aperçu</button>{% endif %}
             {% if pdf in fichiers %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ pdf }}?telecharger=1"><svg class="ic"><use href="#i-down"/></svg>PDF</a>
-            {% else %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ html }}" target="_blank" rel="noopener">Ouvrir, puis Imprimer en PDF</a>{% endif %}
+            {% elif html in fichiers %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ html }}" target="_blank" rel="noopener">Ouvrir, puis Imprimer en PDF</a>{% endif %}
+            {% if md in fichiers %}<a class="btn btn-petit" href="/fichiers/{{ o.id }}/{{ md }}?telecharger=1"><svg class="ic"><use href="#i-down"/></svg>Markdown</a>{% endif %}
           </div>
         </li>
         {% endif %}
@@ -252,7 +258,12 @@
       <noscript><button class="btn btn-petit">Enregistrer</button></noscript>
     </form>
 
-    {% if n %}
+    {% if n and not cle_api %}
+    <div class="preparer">
+      <p><strong>{{ 'Refaire le dossier' if fichiers else 'Préparer le dossier' }}</strong></p>
+      <p class="cout">Dans Claude Code : <code>/candidature {{ o.id }}</code></p>
+    </div>
+    {% elif n %}
     <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form class="preparer">
       <fieldset>
         <legend>Lettre de motivation</legend>
