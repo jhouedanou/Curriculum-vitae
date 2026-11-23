@@ -3,7 +3,8 @@ Date limite : 30 novembre 2026
 
 Prénom      : Jean-Luc
 Nom         : Houédanou
-Email       : jeanluc@houedanou.com
+Email       : jhouedanou@gmail.com
+Email 2     : jeanluc@houedanou.com
 Téléphone   : +225 07 48 34 82 21
 LinkedIn    : (à compléter)
 Portfolio   : https://jhouedanou.github.io/Curriculum-vitae/

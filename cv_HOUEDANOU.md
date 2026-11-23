@@ -19,7 +19,8 @@ table td:last-child {
 <div style="font-size: 12px; display: flex; align-items: center; gap: 16px;">
 <img src="1764523183346.jpg" alt="Jean Luc Houédanou" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
 <div>
-<strong>Email:</strong> jeanluc@houedanou.com<br>
+<strong>Email:</strong> jhouedanou@gmail.com<br>
+<strong>Email 2:</strong> jeanluc@houedanou.com<br>
 <strong>Téléphone:</strong> +225 07 48 34 82 21<br>
 <strong>Portfolio:</strong> <a href="https://jhouedanou.github.io/Curriculum-vitae/">https://jhouedanou.github.io/Curriculum-vitae/</a>
 </div>

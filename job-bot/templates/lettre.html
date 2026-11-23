@@ -9,7 +9,7 @@
 
 <div class="exp-bloc">
   <b>{{ id.nom }}</b><br>
-  {{ id.email }} · {{ id.telephone }}<br>
+  {{ id.email }}{% if id.email2 %} · {{ id.email2 }}{% endif %} · {{ id.telephone }}<br>
   {{ id.ville }} · <a href="{{ id.portfolio }}">{{ id.portfolio | replace("https://", "") }}</a>
 </div>
 
