@@ -16,6 +16,9 @@ table td:last-child {
 </style>
 
 # Jean Luc Houédanou
+
+**Développeur web full stack**
+
 <div style="font-size: 12px; display: flex; align-items: center; gap: 16px;">
 <img src="1764523183346.jpg" alt="Jean Luc Houédanou" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
 <div>
