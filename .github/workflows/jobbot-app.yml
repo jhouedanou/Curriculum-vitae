@@ -53,7 +53,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Dépendances Python (sans WeasyPrint : l'application crée les PDF elle-même)
+      - name: Dépendances Python, sans WeasyPrint
         run: |
           grep -v -i -E '^(weasyprint|pytest)' ../requirements.txt > "$RUNNER_TEMP/requirements-app.txt"
           pip install -r "$RUNNER_TEMP/requirements-app.txt" pyinstaller
