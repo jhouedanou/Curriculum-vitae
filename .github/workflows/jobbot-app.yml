@@ -64,24 +64,32 @@ jobs:
       - name: Dépendances de l'application
         run: npm install --no-audit --no-fund
 
-      - name: Fabriquer JobBot.app et le .dmg
-        run: npx electron-builder --mac dmg --publish never
-        env:
-          # Signature locale (ad hoc, sans certificat ni secret) : à faire aussi sur une pull request.
-          CSC_FOR_PULL_REQUEST: 'true'
+      - name: Fabriquer JobBot.app
+        run: npx electron-builder --mac dir --publish never
+
+      - name: Signer l'application (signature locale, sans certificat)
+        run: |
+          APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
+          codesign --force --deep --sign - "$APP"
+          codesign --display --verbose=2 "$APP" 2>&1 | head -12
+          codesign --verify --deep --strict --verbose=2 "$APP"
 
       - name: Essai de l'application (démarrage, interface, PDF)
         run: |
           APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
-          echo "Application : $APP"
           JOBBOT_SMOKE=1 JOBBOT_HOME="$RUNNER_TEMP/jobbot-essai" "$APP/Contents/MacOS/JobBot" | tee "$RUNNER_TEMP/essai.log"
           grep -q "ESSAI RÉUSSI" "$RUNNER_TEMP/essai.log"
 
-      - name: Vérifier la signature locale
+      - name: Créer le .dmg
         run: |
           APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
-          codesign --display --verbose=2 "$APP" 2>&1 | head -12
-          codesign --verify --deep --strict --verbose=2 "$APP"
+          DMG="$RUNNER_TEMP/dmg"
+          mkdir -p "$DMG"
+          ditto "$APP" "$DMG/JobBot.app"
+          ln -s /Applications "$DMG/Applications"
+          codesign --verify --deep --strict "$DMG/JobBot.app"
+          hdiutil create -volname "JobBot" -srcfolder "$DMG" -ov -format UDZO sortie/JobBot-arm64.dmg
+          ls -lh sortie/JobBot-arm64.dmg
 
       - name: Garder le .dmg avec cette exécution
         uses: actions/upload-artifact@v4
