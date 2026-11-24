@@ -10,7 +10,7 @@
   "scripts": {
     "start": "electron .",
     "serveur": "node construire-serveur.js",
-    "dmg": "electron-builder --mac dmg --publish never",
+    "dmg": "electron-builder --mac dir --publish never",
     "dossier": "electron-builder --dir --publish never"
   },
   "devDependencies": {
@@ -41,15 +41,11 @@
     },
     "mac": {
       "category": "public.app-category.productivity",
-      "target": "dmg",
-      "identity": "-",
+      "target": "dir",
+      "identity": null,
       "hardenedRuntime": false,
       "gatekeeperAssess": false,
-      "icon": "icone.png",
-      "artifactName": "JobBot-${arch}.${ext}"
-    },
-    "dmg": {
-      "title": "JobBot"
+      "icon": "icone.png"
     },
     "linux": {
       "target": "dir",
