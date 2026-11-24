@@ -9,12 +9,37 @@ Le bot trouve les offres d'emploi qui collent à ton CV, puis prépare pour chac
 
 ---
 
+## 0. L'application pour Mac (sans ligne de commande)
+
+Pour un Mac à puce Apple (M1 ou plus récent). Python n'a pas besoin d'être installé.
+
+1. Ouvre la page [Releases du dépôt](https://github.com/jhouedanou/Curriculum-vitae/releases/latest) et télécharge `JobBot-arm64.dmg`.
+2. Ouvre le fichier, puis glisse **JobBot** dans **Applications**.
+3. Ouvre JobBot. Au premier lancement, macOS le bloque, car l'application n'est pas signée par Apple :
+   ouvre **Réglages Système → Confidentialité et sécurité**, descends jusqu'à « JobBot a été bloqué », clique **Ouvrir quand même**.
+
+Ce que fait l'application :
+
+- Elle démarre le bot en arrière-plan, sur cet ordinateur seulement, et affiche son interface.
+- Elle crée les PDF elle-même : pas de WeasyPrint ni de Pango à installer.
+- Tes données sont dans `Documents/JobBot` : `cv.yaml`, `cv_en.yaml`, `config.yaml`, la base et le dossier `candidatures/`.
+- Menu **Fichier** : ouvrir le dossier des candidatures, modifier le CV ou les réglages, changer de dossier de données.
+
+Pour partager les mêmes données avec Claude Code (`/candidature`), choisis le dossier `job-bot` du dépôt avec
+**Fichier → Changer de dossier de données…**.
+
+L'application est fabriquée par GitHub à chaque changement du dossier `job-bot/` sur `main`
+(`.github/workflows/jobbot-app.yml`). Son code est dans `job-bot/app/`.
+
 ## 1. Installer
+
+Il faut **Python 3.10 ou plus récent**. Le Python livré avec macOS (3.9) est trop ancien :
+installe-en un récent depuis https://www.python.org/downloads/ ou avec `brew install python@3.12`.
 
 ```bash
 cd job-bot
-python -m venv .venv
-source .venv/bin/activate          # Windows : .venv\Scripts\activate
+python3.12 -m venv .venv
+source .venv/bin/activate          # fish : source .venv/bin/activate.fish — Windows : .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 

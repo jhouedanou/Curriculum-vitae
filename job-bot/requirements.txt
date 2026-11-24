@@ -1,4 +1,3 @@
-anthropic>=1.12
 httpx>=0.27
 pydantic>=2.7
 pyyaml>=6.0
@@ -13,3 +12,5 @@ fastapi>=0.115
 uvicorn>=0.30
 python-multipart>=0.0.9
 markdown>=3.5        # Markdown → HTML pour la page « Adapter »
+# Facultatif, seulement pour le mode avec clé API (Python 3.10 ou plus) :
+#   pip install "anthropic>=1.12"

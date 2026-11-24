@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<title>JobBot</title>
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { display: grid; place-items: center; background: #f6f7f9; color: #1c2230; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { text-align: center; }
+  h1 { margin: 0 0 6px; font-size: 22px; }
+  p { margin: 0; color: #5b6576; }
+  .barre { width: 180px; height: 4px; margin: 22px auto 0; border-radius: 4px; background: #dfe3ea; overflow: hidden; }
+  .barre::after { content: ""; display: block; width: 40%; height: 100%; background: #0f5c6e; animation: va 1.2s ease-in-out infinite alternate; }
+  @keyframes va { from { transform: translateX(-20%); } to { transform: translateX(170%); } }
+  @media (prefers-reduced-motion: reduce) { .barre::after { animation: none; width: 100%; } }
+</style>
+</head>
+<body>
+<main role="status">
+  <h1>JobBot</h1>
+  <p>Démarrage…</p>
+  <div class="barre" aria-hidden="true"></div>
+</main>
+</body>
+</html>

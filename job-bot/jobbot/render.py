@@ -1,6 +1,7 @@
 """Mise en page : CV et lettre en HTML (+ PDF), message et fiche de l'offre."""
 from __future__ import annotations
 
+import os
 import re
 from datetime import date
 from pathlib import Path
@@ -124,6 +125,17 @@ def generer(offre: Offre, note: Note, dossier: Dossier) -> Path:
 def _ecrire(base: Path, html: str) -> None:
     base.with_suffix(".html").write_text(html, encoding="utf-8")
     if not config().get("pdf", True):
+        return
+    crochet = os.environ.get("JOBBOT_PDF_URL")
+    if crochet:  # application de bureau : c'est elle qui imprime le HTML en PDF (pas besoin de WeasyPrint)
+        import httpx
+
+        try:
+            r = httpx.post(crochet, json={"html": str(base.with_suffix(".html")), "pdf": str(base.with_suffix(".pdf"))},
+                           headers={"X-Jeton": os.environ.get("JOBBOT_PDF_JETON", "")}, timeout=60)
+            r.raise_for_status()
+        except Exception as err:
+            print(f"  (PDF non créé par l'application : {err} — le HTML reste disponible)")
         return
     try:
         from weasyprint import HTML

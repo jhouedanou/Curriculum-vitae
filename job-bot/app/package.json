@@ -1,0 +1,59 @@
+{
+  "name": "jobbot-app",
+  "productName": "JobBot",
+  "version": "1.0.0",
+  "description": "JobBot : préparer et suivre ses candidatures, sans ligne de commande",
+  "author": "Jean-Luc Houédanou",
+  "license": "MIT",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "serveur": "node construire-serveur.js",
+    "dmg": "electron-builder --mac dmg --publish never",
+    "dossier": "electron-builder --dir --publish never"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.houedanou.jobbot",
+    "productName": "JobBot",
+    "files": [
+      "main.js",
+      "attente.html",
+      "package.json",
+      "icone.png"
+    ],
+    "extraResources": [
+      {
+        "from": "construit/jobbot-serveur",
+        "to": "serveur"
+      },
+      {
+        "from": "construit/modele",
+        "to": "modele"
+      }
+    ],
+    "directories": {
+      "output": "sortie"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "icon": "icone.png",
+      "artifactName": "JobBot-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "JobBot"
+    },
+    "linux": {
+      "target": "dir",
+      "icon": "icone.png"
+    }
+  }
+}

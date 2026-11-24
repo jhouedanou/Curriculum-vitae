@@ -1,0 +1,108 @@
+name: Application JobBot (macOS)
+
+# Fabrique JobBot.app sur une machine macOS, l'essaie, puis publie le .dmg.
+# Sur une pull request : fabrication et essai seulement. Sur main : publication dans les « Releases ».
+on:
+  pull_request:
+    paths:
+      - 'job-bot/**'
+      - '.github/workflows/jobbot-app.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'job-bot/**'
+      - '.github/workflows/jobbot-app.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jobbot-app-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Tests du bot
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: job-bot
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bibliothèques pour les PDF
+        run: sudo apt-get update && sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+
+  mac:
+    name: JobBot.app (Apple Silicon)
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: job-bot/app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Dépendances Python (sans WeasyPrint : l'application crée les PDF elle-même)
+        run: |
+          grep -v -i -E '^(weasyprint|pytest)' ../requirements.txt > "$RUNNER_TEMP/requirements-app.txt"
+          pip install -r "$RUNNER_TEMP/requirements-app.txt" pyinstaller
+
+      - name: Bot autonome (PyInstaller)
+        run: node construire-serveur.js
+
+      - name: Dépendances de l'application
+        run: npm install --no-audit --no-fund
+
+      - name: Fabriquer JobBot.app et le .dmg
+        run: npx electron-builder --mac dmg --publish never
+
+      - name: Essai de l'application (démarrage, interface, PDF)
+        run: |
+          APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
+          echo "Application : $APP"
+          JOBBOT_SMOKE=1 JOBBOT_HOME="$RUNNER_TEMP/jobbot-essai" "$APP/Contents/MacOS/JobBot" | tee "$RUNNER_TEMP/essai.log"
+          grep -q "ESSAI RÉUSSI" "$RUNNER_TEMP/essai.log"
+
+      - name: Signature (information)
+        continue-on-error: true
+        run: |
+          APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
+          codesign --display --verbose=2 "$APP" 2>&1 | head -12
+          codesign --verify --deep "$APP" && echo "Signature locale valide"
+
+      - name: Garder le .dmg avec cette exécution
+        uses: actions/upload-artifact@v4
+        with:
+          name: JobBot-macOS
+          path: job-bot/app/sortie/*.dmg
+          if-no-files-found: error
+
+      - name: Publier dans les Releases
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: jobbot-app
+          name: JobBot pour macOS
+          make_latest: 'true'
+          files: job-bot/app/sortie/*.dmg
+          body: |
+            Application JobBot pour Mac à puce Apple (M1, M2, M3, M4).
+
+            **Installer**
+            1. Télécharge `JobBot-arm64.dmg` ci-dessous et ouvre-le.
+            2. Glisse **JobBot** dans **Applications**.
+            3. Ouvre JobBot. macOS refuse le premier lancement, car l'application n'est pas signée par Apple :
+               ouvre **Réglages Système → Confidentialité et sécurité**, descends jusqu'à « JobBot a été bloqué », puis clique **Ouvrir quand même**.
+
+            Tes données (CV, candidatures) sont dans `Documents/JobBot`.
