@@ -6,7 +6,7 @@
   {% if cle_api %}
   <p class="meta-page">Donne le lien de l'annonce : le bot lit la page, note l'offre, puis prépare le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email.</p>
   {% else %}
-  <p class="meta-page">Donne le lien de l'annonce : le bot lit la page et enregistre l'offre, sans IA. Ensuite, dans Claude Code, tape <code>/candidature</code> suivi du numéro de l'offre : Claude rédige le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email.</p>
+  <p class="meta-page">Donne le lien de l'annonce, ou colle son texte. Le bot enregistre l'offre sans IA, puis ouvre la page où tu adaptes ton CV et ta lettre en Markdown. Tu peux aussi laisser Claude Code les rédiger : <code>/candidature</code> suivi du numéro de l'offre.</p>
   {% endif %}
 
   <form method="post" action="/coller" class="formulaire" data-tache-form>
@@ -16,10 +16,22 @@
       {% if erreur %}aria-invalid="true" aria-describedby="err-offre"{% endif %}>
     <p class="aide">LinkedIn, Indeed et les annonces reçues par email ou WhatsApp ne se lisent pas par lien : colle leur texte ci-dessous.</p>
 
-    <label for="texte">Texte de l'offre <span class="doux">(seulement si le lien ne suffit pas)</span></label>
+    <label for="texte">Texte de l'offre <span class="doux">(à la place du lien, ou si le lien ne se lit pas)</span></label>
     <textarea id="texte" name="texte" rows="8"
       placeholder="Colle ici toute l'annonce : intitulé, entreprise, missions, profil, comment postuler…">{{ texte or '' }}</textarea>
     <p class="aide"><span data-compteur="#texte">0</span> caractères · au moins 100 si tu colles le texte</p>
+
+    <div class="deux-champs">
+      <div>
+        <label for="titre">Intitulé du poste <span class="doux">(facultatif)</span></label>
+        <input id="titre" name="titre" type="text" maxlength="120" value="{{ titre_poste or '' }}" placeholder="Développeur front-end senior">
+      </div>
+      <div>
+        <label for="entreprise">Entreprise <span class="doux">(facultatif)</span></label>
+        <input id="entreprise" name="entreprise" type="text" maxlength="120" value="{{ entreprise or '' }}" placeholder="Nom de l'entreprise">
+      </div>
+    </div>
+    <p class="aide">Ils servent de titre au CV et d'objet à la lettre. Sans eux, le bot prend le titre de la page ou la première ligne du texte.</p>
 
     {% if cle_api %}
     <fieldset>

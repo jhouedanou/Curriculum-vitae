@@ -5,3 +5,6 @@ __pycache__/
 .venv/
 .pytest_cache/
 .impeccable/review/
+app/node_modules/
+app/construit/
+app/sortie/

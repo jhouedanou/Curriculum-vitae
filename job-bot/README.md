@@ -9,12 +9,37 @@ Le bot trouve les offres d'emploi qui collent à ton CV, puis prépare pour chac
 
 ---
 
+## 0. L'application pour Mac (sans ligne de commande)
+
+Pour un Mac à puce Apple (M1 ou plus récent). Python n'a pas besoin d'être installé.
+
+1. Ouvre la page [Releases du dépôt](https://github.com/jhouedanou/Curriculum-vitae/releases/latest) et télécharge `JobBot-arm64.dmg`.
+2. Ouvre le fichier, puis glisse **JobBot** dans **Applications**.
+3. Ouvre JobBot. Au premier lancement, macOS le bloque, car l'application n'est pas signée par Apple :
+   ouvre **Réglages Système → Confidentialité et sécurité**, descends jusqu'à « JobBot a été bloqué », clique **Ouvrir quand même**.
+
+Ce que fait l'application :
+
+- Elle démarre le bot en arrière-plan, sur cet ordinateur seulement, et affiche son interface.
+- Elle crée les PDF elle-même : pas de WeasyPrint ni de Pango à installer.
+- Tes données sont dans `Documents/JobBot` : `cv.yaml`, `cv_en.yaml`, `config.yaml`, la base et le dossier `candidatures/`.
+- Menu **Fichier** : ouvrir le dossier des candidatures, modifier le CV ou les réglages, changer de dossier de données.
+
+Pour partager les mêmes données avec Claude Code (`/candidature`), choisis le dossier `job-bot` du dépôt avec
+**Fichier → Changer de dossier de données…**.
+
+L'application est fabriquée par GitHub à chaque changement du dossier `job-bot/` sur `main`
+(`.github/workflows/jobbot-app.yml`). Son code est dans `job-bot/app/`.
+
 ## 1. Installer
+
+Il faut **Python 3.10 ou plus récent**. Le Python livré avec macOS (3.9) est trop ancien :
+installe-en un récent depuis https://www.python.org/downloads/ ou avec `brew install python@3.12`.
 
 ```bash
 cd job-bot
-python -m venv .venv
-source .venv/bin/activate          # Windows : .venv\Scripts\activate
+python3.12 -m venv .venv
+source .venv/bin/activate          # fish : source .venv/bin/activate.fish — Windows : .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -82,7 +107,8 @@ il reste connecté 6 mois. Le lien contient une clé secrète, ne le partage pas
 | **Offres** | Les offres à traiter, de la meilleure à la moins bonne. Filtres « À traiter / Proches / Toutes », recherche, source. Les relances dues s'affichent en haut. |
 | **Offre** | Verdict, exigences couvertes ou non, mots-clés absents, écarts classés par gravité. Message à copier (ou à ouvrir dans l'email / WhatsApp), aperçu et PDF du CV et de la lettre, « À vérifier avant d'envoyer », préparation d'entretien, relance. |
 | **Suivi** | Tableau À relire → Envoyée → Entretien → Refus / Ignorée. Glisse les cartes (ou change le statut dans la liste sur téléphone). |
-| **Nouvelle offre** | Donne le lien d'une annonce : le bot lit la page. Sans clé API, il l'enregistre et t'indique la commande `/candidature` à taper dans Claude Code. Pour LinkedIn, Indeed, email ou WhatsApp, colle le texte. |
+| **Nouvelle offre** | Donne le lien d'une annonce, ou colle son texte (LinkedIn, Indeed, email, WhatsApp). Sans clé API, le bot enregistre l'offre et ouvre la page « Adapter ». |
+| **Adapter** | L'offre à gauche, avec les mots-clés présents ou absents de ton CV. À droite, le CV, la lettre et l'email en Markdown, préremplis d'après l'offre (sans IA) et modifiables. « Enregistrer » crée les PDF. |
 
 Le bouton **Lancer la recherche** fait comme `go` ; le journal s'affiche en direct.
 Une seule tâche tourne à la fois, et chaque bouton qui appelle Claude le dit.

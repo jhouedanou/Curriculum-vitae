@@ -24,7 +24,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Redirect
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from .. import pipeline
+from .. import adapter, pipeline
 from ..config import config
 from ..dates import date_publication, expiree, lire_date
 from ..db import STATUTS, Base
@@ -313,8 +313,9 @@ def page_coller(request: Request):
 
 
 @app.post("/coller")
-def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), lettre: str = Form("oui")):
-    texte, url = texte.strip(), url.strip()
+def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), lettre: str = Form("oui"),
+                  titre: str = Form(""), entreprise: str = Form("")):
+    texte, url, titre, entreprise = texte.strip(), url.strip(), titre.strip(), entreprise.strip()
     avec = {"oui": True, "non": False}.get(lettre)
     erreur = None
     if not texte and not url:
@@ -333,22 +334,24 @@ def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), 
         try:
             return vues.TemplateResponse(request, "coller.html", {
                 **_commun(request, db, "coller"), "texte": texte, "url": url, "erreur": erreur,
+                "titre_poste": titre, "entreprise": entreprise,
             }, status_code=422)
         finally:
             db.fermer()
 
     if not cle_api():  # sans clé : on enregistre l'offre, la rédaction se fait dans Claude Code
         def travail_sans_ia(db, log):
-            offre_id = (pipeline.ajouter_par_lien(db, url, log=log) if not texte
-                        else pipeline.ajouter_a_la_main(db, texte, url))
-            log(f"Offre #{offre_id} enregistrée. Dans Claude Code : /candidature {offre_id}")
-            return f"/offre/{offre_id}"
+            offre_id = (pipeline.ajouter_par_lien(db, url, log=log, titre=titre, entreprise=entreprise) if not texte
+                        else pipeline.ajouter_a_la_main(db, texte, url, titre, entreprise))
+            log(f"Offre #{offre_id} enregistrée. Tu peux adapter le CV et la lettre à la main, "
+                f"ou taper dans Claude Code : /candidature {offre_id}")
+            return f"/offre/{offre_id}/adapter"
 
         return reponse_tache(request, lancer_tache("Nouvelle offre : enregistrement", "/coller", travail_sans_ia))
 
     if not texte:  # lien seul : la page est lue dans la tâche, le journal montre l'avancement
         def travail_lien(db, log):
-            offre_id = pipeline.ajouter_par_lien(db, url, log=log)
+            offre_id = pipeline.ajouter_par_lien(db, url, log=log, titre=titre, entreprise=entreprise)
             log("Analyse de l'offre et rédaction du dossier (Claude)…")
             pipeline.preparer(db, Claude(), offre_id, avec)
             n = db.note(offre_id)
@@ -359,7 +362,7 @@ def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), 
 
     db = Base()
     try:
-        offre_id = pipeline.ajouter_a_la_main(db, texte, url)
+        offre_id = pipeline.ajouter_a_la_main(db, texte, url, titre, entreprise)
     finally:
         db.fermer()
 
@@ -370,6 +373,53 @@ def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), 
         log(f"Score {n.score}/100 — {n.verdict}")
 
     return reponse_tache(request, lancer_tache("Offre collée : dossier", f"/offre/{offre_id}", travail))
+
+
+# ── Adapter le CV et la lettre à une offre, à la main (aucune IA) ──
+@app.get("/offre/{offre_id}/adapter", response_class=HTMLResponse)
+def page_adapter(request: Request, offre_id: int, brouillon: int = 0):
+    db = Base()
+    try:
+        o = db.offre(offre_id)
+        if not o:
+            raise HTTPException(404, "Offre inconnue")
+        chemin = db.dossier(offre_id)
+        b = adapter.brouillons(o)
+        nom = "Jean_Luc_Houedanou"
+        deja = None if brouillon else adapter.lire(chemin, f"CV_ATS_{nom}.md")
+        if deja is None:
+            cv_md, lettre_md, email_md = b["cv"], b["lettre"], b["email"]
+        else:
+            cv_md = deja
+            lettre_md = adapter.lire(chemin, f"Lettre_{nom}.md") or ""
+            email_md = adapter.lire(chemin, f"Email_{nom}.md") or b["email"]
+        mots = b["mots"]
+        return vues.TemplateResponse(request, "adapter.html", {
+            **_commun(request, db, "offres"), "o": o, "titre": b["titre"], "mots": mots,
+            "offre_html": adapter.surligner(o.description, mots["presents"] + mots["technos"] + mots["absents"]),
+            "cv_md": cv_md, "lettre_md": lettre_md, "email_md": email_md, "enregistre": deja is not None,
+        })
+    finally:
+        db.fermer()
+
+
+@app.post("/offre/{offre_id}/adapter")
+def action_adapter(request: Request, offre_id: int, cv_md: str = Form(...), lettre_md: str = Form(""),
+                   email_md: str = Form(...)):
+    db = Base()
+    try:
+        o = db.offre(offre_id)
+        if not o:
+            raise HTTPException(404, "Offre inconnue")
+        if len(cv_md.strip()) < 200:
+            raise HTTPException(422, "Le CV est presque vide : garde au moins le profil et les expériences.")
+        existant = db.dossier(offre_id)
+        chemin = adapter.enregistrer(o, cv_md, lettre_md, email_md, existant)
+        if not existant:  # nouveau dossier : il entre dans le suivi, « à relire »
+            db.enregistrer_dossier(offre_id, chemin)
+    finally:
+        db.fermer()
+    return RedirectResponse(f"/offre/{offre_id}#t-docs", status_code=303)
 
 
 @app.get("/taches/{tid}", response_class=HTMLResponse)
