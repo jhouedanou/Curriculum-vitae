@@ -12,3 +12,4 @@ segno>=1.6
 fastapi>=0.115
 uvicorn>=0.30
 python-multipart>=0.0.9
+markdown>=3.5        # Markdown → HTML pour la page « Adapter »

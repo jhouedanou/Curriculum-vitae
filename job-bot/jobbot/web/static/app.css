@@ -468,3 +468,34 @@ textarea[aria-invalid="true"] { border-color: var(--alerte); }
 
 /* Barres de défilement aux couleurs de l'interface */
 * { scrollbar-color: var(--trait-fort) transparent; scrollbar-width: thin; }
+
+/* ── Page « Adapter le CV et la lettre » ───────────────────── */
+.adapter-tete { margin-bottom: 1rem; }
+.adapter-etat { margin: 0.5rem 0 0; padding: 0.6rem 0.8rem; border-radius: var(--rayon-petit); background: var(--accent-fond); color: var(--encre); font-size: 0.9rem; max-width: 75ch; }
+.adapter { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 1rem; align-items: start; }
+.adapter-offre { margin-bottom: 0; position: sticky; top: calc(var(--barre-h) + 0.75rem); max-height: calc(100dvh - var(--barre-h) - 1.5rem); overflow: auto; }
+.adapter-offre h3 { margin: 1rem 0 0.4rem; font-size: 0.9rem; }
+.puces-mots { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.mot { padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+.mot-ok { background: var(--ok-fond); color: var(--ok); }
+.mot-absent { background: var(--urgent-fond); color: var(--urgent); }
+.offre-texte { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.88rem; line-height: 1.55; color: var(--encre); }
+.offre-texte mark { background: var(--urgent-fond); color: inherit; padding: 0 0.15em; border-radius: 3px; }
+.adapter-form { display: grid; gap: 0.6rem; min-width: 0; }
+.adapter-form label { display: block; font-weight: 650; font-size: 0.9rem; margin-bottom: 0.35rem; }
+.adapter-form textarea { width: 100%; min-height: 60dvh; resize: vertical; font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; tab-size: 2; }
+.onglets { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--trait); }
+.onglets button { min-height: 44px; padding: 0 1rem; border: 0; border-bottom: 3px solid transparent; background: none; color: var(--doux); font: inherit; font-weight: 650; cursor: pointer; }
+.onglets button:hover { color: var(--encre); }
+.onglets button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.adapter-actions { position: sticky; bottom: 0; padding: 0.7rem 0; background: var(--fond); }
+.docs-suite { margin: 0.8rem 0 0; }
+@media (max-width: 900px) {
+  .adapter { grid-template-columns: 1fr; }
+  .adapter-offre { position: static; max-height: 45dvh; }
+  .adapter-actions { bottom: var(--onglets-h); }
+}
+.deux-champs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.7rem; }
+.deux-champs label { display: block; font-weight: 650; font-size: 0.9rem; margin-bottom: 0.35rem; }
+.deux-champs input { width: 100%; }
+@media (max-width: 600px) { .deux-champs { grid-template-columns: 1fr; } }

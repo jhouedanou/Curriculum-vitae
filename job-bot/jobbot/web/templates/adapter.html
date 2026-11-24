@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block titre %}Adapter · {{ titre }} · JobBot{% endblock %}
+{% block contenu %}
+<a class="retour" href="/offre/{{ o.id }}"><svg class="ic"><use href="#i-back"/></svg>Offre n°{{ o.id }}</a>
+
+<header class="adapter-tete">
+  <h1>Adapter le CV et la lettre</h1>
+  <p class="meta-page">{{ titre }}{% if o.entreprise %} · {{ o.entreprise }}{% endif %}</p>
+  {% if enregistre %}
+  <p class="adapter-etat" role="status">Tu modifies les fichiers déjà enregistrés pour cette offre. <a href="/offre/{{ o.id }}/adapter?brouillon=1">Repartir du brouillon automatique</a></p>
+  {% else %}
+  <p class="adapter-etat" role="status">Brouillon tiré de <code>cv.yaml</code>, sans IA : le bot a seulement choisi et réordonné d'après les mots de l'offre. Relis, modifie, puis enregistre.</p>
+  {% endif %}
+</header>
+
+<div class="adapter">
+  <section class="bloc adapter-offre" aria-labelledby="t-offre">
+    <h2 id="t-offre">L'offre</h2>
+
+    <h3>Dans l'offre et dans ton CV <span class="doux">({{ mots.presents | length + mots.technos | length }})</span></h3>
+    {% if mots.presents or mots.technos %}
+    <ul class="puces-mots">{% for m in mots.presents + mots.technos %}<li class="mot mot-ok">{{ m }}</li>{% endfor %}</ul>
+    {% else %}<p class="doux">Aucune compétence de ton CV n'est citée telle quelle dans l'offre.</p>{% endif %}
+
+    <h3>Dans l'offre, absent de ton CV <span class="doux">({{ mots.absents | length }})</span></h3>
+    {% if mots.absents %}
+    <ul class="puces-mots">{% for m in mots.absents %}<li class="mot mot-absent">{{ m }}</li>{% endfor %}</ul>
+    <p class="aide">Ne les ajoute que si tu as vraiment cette compétence. Mets-la alors aussi dans <code>cv.yaml</code>.</p>
+    {% else %}<p class="doux">Aucun mot-clé courant repéré.</p>{% endif %}
+
+    <h3>Texte de l'annonce</h3>
+    <div class="offre-texte">{{ offre_html | safe }}</div>
+  </section>
+
+  <form method="post" action="/offre/{{ o.id }}/adapter" class="adapter-form">
+    <div class="onglets" role="tablist" aria-label="Documents">
+      <button type="button" role="tab" id="o-cv" aria-controls="p-cv" aria-selected="true" data-onglet="cv">CV</button>
+      <button type="button" role="tab" id="o-lettre" aria-controls="p-lettre" aria-selected="false" data-onglet="lettre">Lettre</button>
+      <button type="button" role="tab" id="o-email" aria-controls="p-email" aria-selected="false" data-onglet="email">Email</button>
+    </div>
+
+    <div role="tabpanel" id="p-cv" aria-labelledby="o-cv" data-panneau="cv">
+      <label for="cv_md">CV en Markdown <span class="doux">(une colonne, lisible par les logiciels de tri)</span></label>
+      <textarea id="cv_md" name="cv_md" rows="30" spellcheck="true" required>{{ cv_md }}</textarea>
+    </div>
+    <div role="tabpanel" id="p-lettre" aria-labelledby="o-lettre" data-panneau="lettre" hidden>
+      <label for="lettre_md">Lettre de motivation en Markdown <span class="doux">(vide-la pour un dossier sans lettre)</span></label>
+      <textarea id="lettre_md" name="lettre_md" rows="30" spellcheck="true">{{ lettre_md }}</textarea>
+    </div>
+    <div role="tabpanel" id="p-email" aria-labelledby="o-email" data-panneau="email" hidden>
+      <label for="email_md">Email en Markdown <span class="doux">(lignes « À » et « Objet », puis le texte)</span></label>
+      <textarea id="email_md" name="email_md" rows="18" spellcheck="true" required>{{ email_md }}</textarea>
+    </div>
+
+    <div class="rang adapter-actions">
+      <button class="btn btn-plein" type="submit">Enregistrer et créer les PDF</button>
+      <span class="cout">Aucune IA · le CV avec photo n'est pas modifié</span>
+    </div>
+  </form>
+</div>
+{% endblock %}

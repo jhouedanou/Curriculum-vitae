@@ -409,7 +409,8 @@ def test_web_sans_cle(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         time.sleep(0.05)
     assert t["etat"] == "ok" and t["lien"].startswith("/offre/"), t["lignes"]
     assert any("/candidature" in l for l in t["lignes"])
-    assert "Offre pas encore notée" in c.get(t["lien"]).text
+    assert t["lien"].endswith("/adapter") and "Adapter le CV et la lettre" in c.get(t["lien"]).text
+    assert "Offre pas encore notée" in c.get(t["lien"].removesuffix("/adapter")).text
 
 
 def test_importer_dossier_claude_code(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys):
@@ -459,3 +460,100 @@ def test_importer_dossier_claude_code(tmp_path: Path, monkeypatch: pytest.Monkey
     main(["montrer", str(offre_id)])
     sortie = capsys.readouterr().out
     assert f"Offre #{offre_id}" in sortie and "Banque XYZ" in sortie
+
+
+OFFRE_REACT = """Lead Front-End React — ACME Fintech, Abidjan
+Nous cherchons un développeur pour notre application bancaire. Vous encadrez l'équipe front et travaillez
+avec les designers sur Figma. Stack : React, TypeScript, Docker, API REST. VueJS et Laravel sont un plus.
+Méthode Scrum. Envoyez CV et lettre de motivation à talents@acme.ci."""
+
+
+def test_adapter_sans_ia(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    """Brouillons tirés de cv.yaml : rien n'est inventé, tout est réordonné d'après l'offre."""
+    from jobbot import adapter
+
+    monkeypatch.setattr(render, "SORTIE", tmp_path / "candidatures")
+    o = Offre(source="manuel", ref="x", titre="LEAD FRONT-END REACT (H/F) | ACME Fintech", entreprise="ACME Fintech",
+              url="https://acme.ci/1", description=OFFRE_REACT, id=7)
+    assert adapter.titre_poste(o) == "Lead front-end react (H/F)"
+    assert adapter.langue_offre(OFFRE_REACT) == "fr"
+    assert adapter.langue_offre("We are looking for a developer to join our team. You will work with the designers.") == "en"
+
+    b = adapter.brouillons(o)
+    mots = b["mots"]
+    assert {"VueJS", "Laravel", "Figma", "SCRUM"} <= set(mots["presents"])
+    assert "Docker" not in mots["absents"] and "React" not in mots["absents"]   # déjà dans le CV
+    comp = b["cv"].split("## Compétences")[1].split("##")[0]
+    assert comp.strip().startswith("VueJS")                     # compétences citées par l'offre en tête
+    assert "Kubernetes" not in b["cv"] and "<" not in b["cv"]
+    assert "## Objet : Candidature au poste de Lead front-end react (H/F)" in b["lettre"]
+    assert "chez ACME Fintech" in b["lettre"] and "VueJS (" in b["lettre"]
+    assert "**Objet :** Candidature — Lead front-end react (H/F) — Jean-Luc Houédanou" in b["email"]
+
+    absent = adapter.mots_cles("Stack : Kubernetes, Terraform et Python. Figma apprécié.")
+    assert set(absent["absents"]) == {"Python", "Kubernetes", "Terraform"} and absent["presents"] == ["Figma"]
+    sur = adapter.surligner("Figma & <script>alert(1)</script> Kubernetes", ["Figma", "Kubernetes"])
+    assert "<mark>Figma</mark>" in sur and "<mark>Kubernetes</mark>" in sur and "<script>" not in sur
+
+    # Enregistrement : Markdown, HTML et PDF ; le HTML brut saisi est retiré
+    chemin = adapter.enregistrer(o, b["cv"] + "\n<img src=x>", b["lettre"], b["email"])
+    noms = {p.name for p in chemin.iterdir()}
+    assert {"CV_ATS_Jean_Luc_Houedanou.md", "CV_ATS_Jean_Luc_Houedanou.html", "CV_ATS_Jean_Luc_Houedanou.pdf",
+            "Lettre_Jean_Luc_Houedanou.md", "Lettre_Jean_Luc_Houedanou.pdf", "Email_Jean_Luc_Houedanou.md",
+            "message.txt", "offre.md"} <= noms
+    page = (chemin / "CV_ATS_Jean_Luc_Houedanou.html").read_text(encoding="utf-8")
+    assert "<h2>Expérience professionnelle</h2>" in page and "<img" not in page and "<table" not in page
+    message = (chemin / "message.txt").read_text(encoding="utf-8")
+    assert message.startswith("À : ") and "Objet : Candidature — Lead front-end react" in message
+    adapter.enregistrer(o, b["cv"], "", b["email"], chemin)     # lettre vidée : fichiers retirés
+    assert not (chemin / "Lettre_Jean_Luc_Houedanou.md").exists()
+
+
+def test_web_adapter(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    from fastapi.testclient import TestClient
+    from jobbot import db as dbmod
+    from jobbot.web import serveur
+
+    monkeypatch.setattr(dbmod.Base.__init__, "__defaults__", (tmp_path / "web.db",))
+    monkeypatch.setattr(render, "SORTIE", tmp_path / "candidatures")
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    serveur.app.state.jeton = "secret"
+    c = TestClient(serveur.app)
+    c.cookies.set("jobbot", "secret")
+
+    # Coller le texte d'une offre : enregistrée sans IA, puis page « Adapter »
+    assert 'name="titre"' in c.get("/coller").text and 'name="entreprise"' in c.get("/coller").text
+    r = c.post("/coller", data={"texte": "2 postes à pourvoir\n" + OFFRE_REACT, "titre": "Lead Front-End React",
+                                "entreprise": "ACME Fintech"}, headers={"Accept": "application/json"})
+    for _ in range(100):
+        t = c.get(f"/api/taches/{r.json()['id']}").json()
+        if t["etat"] != "en_cours":
+            break
+        time.sleep(0.05)
+    assert t["etat"] == "ok" and t["lien"].endswith("/adapter"), t["lignes"]
+    oid = int(t["lien"].split("/")[2])
+    page = c.get(t["lien"]).text
+    assert "Adapter le CV et la lettre" in page and "Brouillon tiré de" in page
+    assert "**Lead Front-End React**" in page and "2 postes à pourvoir**" not in page    # intitulé saisi, pas la 1re ligne
+    assert "chez ACME Fintech" in page and "Service Recrutement — ACME Fintech" in page
+    assert "<mark>Figma</mark>" in page and 'class="mot mot-ok">VueJS' in page
+    assert "# Jean-Luc Houédanou" in page and 'name="lettre_md"' in page
+    assert "Adapter le CV et la lettre à la main" in c.get(f"/offre/{oid}").text
+
+    r = c.post(f"/offre/{oid}/adapter", data={"cv_md": "trop court", "email_md": "x"}, headers={"Accept": "application/json"})
+    assert r.status_code == 422
+
+    cv_md = "# Jean-Luc Houédanou\n\n**Lead Front-End**\n\n## Profil professionnel\n\n" + "Texte modifié à la main. " * 12
+    r = c.post(f"/offre/{oid}/adapter", data={"cv_md": cv_md, "lettre_md": "# Lettre\n\nBonjour.",
+                                              "email_md": "**À :** talents@acme.ci  \n**Objet :** Candidature\n\n---\n\nBonjour,"},
+               follow_redirects=False)
+    assert r.status_code == 303 and r.headers["location"] == f"/offre/{oid}#t-docs"
+    page = c.get(f"/offre/{oid}").text
+    assert "CV pour logiciels de tri (ATS)" in page and "Modifier le CV et la lettre (Markdown)" in page
+    assert "talents@acme.ci" in page                                    # email relu depuis message.txt
+    assert c.get(f"/fichiers/{oid}/CV_ATS_Jean_Luc_Houedanou.pdf").status_code == 200
+    assert "À relire" in c.get("/suivi").text
+    page = c.get(f"/offre/{oid}/adapter").text
+    assert "Texte modifié à la main." in page and "Tu modifies les fichiers déjà enregistrés" in page
+    assert "Texte modifié à la main." not in c.get(f"/offre/{oid}/adapter?brouillon=1").text
+    assert c.get("/offre/999/adapter").status_code == 404

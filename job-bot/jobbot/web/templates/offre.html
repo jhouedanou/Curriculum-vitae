@@ -38,7 +38,8 @@
     <h2>Offre pas encore notée</h2>
     <p>Elle a été collectée mais pas encore comparée à ton CV.</p>
     {% if not cle_api %}
-    <p>Pour la noter et préparer le dossier, tape dans Claude Code : <code>/candidature {{ o.id }}</code></p>
+    <p><a class="btn btn-plein" href="/offre/{{ o.id }}/adapter">Adapter le CV et la lettre à la main</a></p>
+    <p>Pour la noter et faire rédiger le dossier, tape dans Claude Code : <code>/candidature {{ o.id }}</code></p>
     <p class="doux">Claude rédige le CV, le CV pour les logiciels de tri (ATS), la lettre et l'email ; le bot les vérifie et les met en page, sans clé API. En attendant, lis le texte ci-dessous{% if o.url %} ou ouvre <a href="{{ o.url }}" target="_blank" rel="noopener">l'annonce</a>{% endif %}, et note-la dans « Suivi » si elle t'intéresse.</p>
     {% else %}
     <form method="post" action="/offre/{{ o.id }}/preparer" data-tache-form>
@@ -94,6 +95,7 @@
         {% endif %}
       {% endfor %}
     </ul>
+    <p class="docs-suite"><a class="btn btn-petit" href="/offre/{{ o.id }}/adapter">Modifier le CV et la lettre (Markdown)</a></p>
     <div class="apercu" id="apercu" hidden>
       <div class="apercu-tete"><strong class="apercu-titre"></strong><button class="btn-icone" type="button" data-fermer-apercu aria-label="Fermer l'aperçu"><svg class="ic"><use href="#i-x"/></svg></button></div>
       <iframe title="Aperçu du document" loading="lazy"></iframe>

@@ -82,7 +82,8 @@ il reste connecté 6 mois. Le lien contient une clé secrète, ne le partage pas
 | **Offres** | Les offres à traiter, de la meilleure à la moins bonne. Filtres « À traiter / Proches / Toutes », recherche, source. Les relances dues s'affichent en haut. |
 | **Offre** | Verdict, exigences couvertes ou non, mots-clés absents, écarts classés par gravité. Message à copier (ou à ouvrir dans l'email / WhatsApp), aperçu et PDF du CV et de la lettre, « À vérifier avant d'envoyer », préparation d'entretien, relance. |
 | **Suivi** | Tableau À relire → Envoyée → Entretien → Refus / Ignorée. Glisse les cartes (ou change le statut dans la liste sur téléphone). |
-| **Nouvelle offre** | Donne le lien d'une annonce : le bot lit la page. Sans clé API, il l'enregistre et t'indique la commande `/candidature` à taper dans Claude Code. Pour LinkedIn, Indeed, email ou WhatsApp, colle le texte. |
+| **Nouvelle offre** | Donne le lien d'une annonce, ou colle son texte (LinkedIn, Indeed, email, WhatsApp). Sans clé API, le bot enregistre l'offre et ouvre la page « Adapter ». |
+| **Adapter** | L'offre à gauche, avec les mots-clés présents ou absents de ton CV. À droite, le CV, la lettre et l'email en Markdown, préremplis d'après l'offre (sans IA) et modifiables. « Enregistrer » crée les PDF. |
 
 Le bouton **Lancer la recherche** fait comme `go` ; le journal s'affiche en direct.
 Une seule tâche tourne à la fois, et chaque bouton qui appelle Claude le dit.

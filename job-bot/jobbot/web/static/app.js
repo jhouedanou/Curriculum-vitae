@@ -137,6 +137,9 @@
             sessionStorage.setItem("jobbot-fini", t.titre);
             location.href = cible.href;
             if (cible.hash) location.reload();
+          } else if ($("#journal-page") && cible.pathname.endsWith("/adapter")) {
+            // Offre enregistrée sans IA : on ouvre tout de suite la page où l'on adapte le CV.
+            location.href = cible.href;
           }
         }
         break;
@@ -217,6 +220,14 @@
       else $(`.colonne[data-statut="${s.value}"] .cartes`)?.prepend(carte);
       compter();
       toast(`Suivi : ${s.selectedOptions[0].text}`);
+    })
+  );
+
+  // Onglets de la page « Adapter » : CV, lettre, email
+  $$("[data-onglet]").forEach((bouton) =>
+    bouton.addEventListener("click", () => {
+      $$("[data-onglet]").forEach((b) => b.setAttribute("aria-selected", String(b === bouton)));
+      $$("[data-panneau]").forEach((p) => (p.hidden = p.dataset.panneau !== bouton.dataset.onglet));
     })
   );
 })();
