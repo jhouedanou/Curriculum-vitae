@@ -66,6 +66,9 @@ jobs:
 
       - name: Fabriquer JobBot.app et le .dmg
         run: npx electron-builder --mac dmg --publish never
+        env:
+          # Signature locale (ad hoc, sans certificat ni secret) : à faire aussi sur une pull request.
+          CSC_FOR_PULL_REQUEST: 'true'
 
       - name: Essai de l'application (démarrage, interface, PDF)
         run: |
@@ -74,12 +77,11 @@ jobs:
           JOBBOT_SMOKE=1 JOBBOT_HOME="$RUNNER_TEMP/jobbot-essai" "$APP/Contents/MacOS/JobBot" | tee "$RUNNER_TEMP/essai.log"
           grep -q "ESSAI RÉUSSI" "$RUNNER_TEMP/essai.log"
 
-      - name: Signature (information)
-        continue-on-error: true
+      - name: Vérifier la signature locale
         run: |
           APP="$(ls -d sortie/mac*/JobBot.app | head -1)"
           codesign --display --verbose=2 "$APP" 2>&1 | head -12
-          codesign --verify --deep "$APP" && echo "Signature locale valide"
+          codesign --verify --deep --strict --verbose=2 "$APP"
 
       - name: Garder le .dmg avec cette exécution
         uses: actions/upload-artifact@v4
