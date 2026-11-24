@@ -41,7 +41,7 @@
   <nav class="nav" aria-label="Sections">
     <a href="/" {% if actif == 'offres' %}aria-current="page"{% endif %}><svg class="ic"><use href="#i-list"/></svg><span>Offres</span></a>
     <a href="/suivi" {% if actif == 'suivi' %}aria-current="page"{% endif %}><svg class="ic"><use href="#i-board"/></svg><span>Suivi</span>{% if nb_relire %}<b class="pastille" title="{{ nb_relire }} dossier(s) à relire">{{ nb_relire }}</b>{% endif %}</a>
-    <a href="/coller" {% if actif == 'coller' %}aria-current="page"{% endif %}><svg class="ic"><use href="#i-paste"/></svg><span>Coller une offre</span></a>
+    <a href="/coller" {% if actif == 'coller' %}aria-current="page"{% endif %}><svg class="ic"><use href="#i-paste"/></svg><span>Nouvelle offre</span></a>
   </nav>
   <div class="barre-fin">
     <a class="btn btn-fantome cache-mobile" href="/telephone" title="Ouvrir sur le téléphone"><svg class="ic"><use href="#i-phone"/></svg><span class="sr">Téléphone</span></a>

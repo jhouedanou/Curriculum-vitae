@@ -15,7 +15,7 @@
 {% if not cle_api %}
 <section class="info-cle" aria-labelledby="t-cle">
   <h2 id="t-cle">Mode sans clé API</h2>
-  <p>Tu peux collecter et parcourir les offres gratuitement. Pour le score, le CV adapté et le message, ajoute <code>ANTHROPIC_API_KEY=sk-ant-…</code> dans <code>job-bot/.env</code>, puis relance <code>python -m jobbot web</code>.</p>
+  <p>Tu peux collecter et parcourir les offres gratuitement. Pour le score, le CV adapté, la lettre et l'email, ouvre Claude Code dans ce dépôt et tape <code>/candidature</code> suivi du lien ou du numéro de l'offre : aucune clé n'est nécessaire.</p>
 </section>
 {% endif %}
 
@@ -124,7 +124,7 @@
     <p>Aucune nouvelle offre n'atteint {{ seuil }}/100. Lance la recherche du jour, regarde les <a href="/?vue=proches">offres proches</a>, ou colle une offre vue sur LinkedIn ou par email.</p>
     <div class="vide-actions">
       <form method="post" action="/lancer" data-tache-form><input type="hidden" name="quoi" value="go"><button class="btn btn-plein" {% if tache %}disabled{% endif %}><svg class="ic"><use href="#i-play"/></svg>Lancer la recherche</button></form>
-      <a class="btn" href="/coller"><svg class="ic"><use href="#i-paste"/></svg>Coller une offre</a>
+      <a class="btn" href="/coller"><svg class="ic"><use href="#i-paste"/></svg>Ajouter une offre par son lien</a>
     </div>
   {% else %}
     <h2>Aucune offre ici</h2>

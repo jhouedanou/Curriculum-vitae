@@ -188,7 +188,70 @@ def test_dossier_complet(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     assert "Kubernetes" in fiche and "« 73 »" in fiche   # signalés dans « À vérifier »
     assert "recrutement@xyz.ci" in (chemin / "message.txt").read_text(encoding="utf-8")
     assert db.classement(80)[0]["statut"] == "a_relire"
+
+    # Sorties pour les logiciels de tri (ATS) : Markdown + PDF, une colonne, sans image ni tableau
+    assert {"CV_ATS_Jean_Luc_Houedanou.md", "CV_ATS_Jean_Luc_Houedanou.html", "CV_ATS_Jean_Luc_Houedanou.pdf",
+            "Lettre_Jean_Luc_Houedanou.md", "Email_Jean_Luc_Houedanou.md"} <= fichiers
+    ats_html = (chemin / "CV_ATS_Jean_Luc_Houedanou.html").read_text(encoding="utf-8")
+    assert "<img" not in ats_html and "<table" not in ats_html
+    ats_md = (chemin / "CV_ATS_Jean_Luc_Houedanou.md").read_text(encoding="utf-8")
+    assert ats_md.startswith("# Jean-Luc Houédanou") and "<" not in ats_md and "|---" not in ats_md
+    for titre in ("## Profil professionnel", "## Compétences", "## Expérience professionnelle", "## Formation"):
+        assert titre in ats_md
+    assert "WeDev Group" in ats_md and "Kubernetes" not in ats_md      # mêmes garde-fous que le CV mis en page
+    assert "Email : " in ats_md and "Téléphone : " in ats_md
+    lettre_md = (chemin / "Lettre_Jean_Luc_Houedanou.md").read_text(encoding="utf-8")
+    assert "## Objet : Développeur Front-End Senior" in lettre_md and "Para 4." in lettre_md
+    email_md = (chemin / "Email_Jean_Luc_Houedanou.md").read_text(encoding="utf-8")
+    assert "recrutement@xyz.ci" in email_md and "Candidature — Développeur Front-End Senior" in email_md
+
+    # Dossier refait sans lettre : l'ancienne lettre disparaît
+    chemin = pipeline.preparer(db, FauxClaude(), offre_id, lettre=False)
+    assert not (chemin / "Lettre_Jean_Luc_Houedanou.md").exists()
+    assert not (chemin / "Lettre_Jean_Luc_Houedanou.pdf").exists()
     db.fermer()
+
+
+PAGE_OFFRE = """<html><head><title>Emploi | ACME</title><meta property="og:title" content="Développeur Front-End Senior — ACME">
+</head><body><nav>Accueil Offres Contact</nav><main><h1>Développeur Front-End Senior</h1>
+<p>""" + " ".join(["ACME recrute un développeur VueJS pour concevoir les interfaces de sa banque en ligne."] * 8) + """</p>
+<ul><li>7 ans d'expérience</li><li>VueJS, Nuxt, API REST</li></ul></main><footer>Mentions légales</footer></body></html>"""
+
+
+class FauxPage:
+    def __init__(self, html: str):
+        self.html, self.appels = html, []
+
+    def get(self, url, **kw):
+        self.appels.append(url)
+        return type("R", (), {"text": self.html})()
+
+
+def test_offre_par_lien(tmp_path: Path):
+    from jobbot.lien import LienIllisible, lire_offre, verifier_lien
+
+    titre, texte = lire_offre("https://acme.ci/emploi/42", FauxPage(PAGE_OFFRE))
+    assert titre == "Développeur Front-End Senior — ACME"
+    assert "banque en ligne" in texte and "Mentions légales" not in texte
+
+    db = Base(tmp_path / "test.db")
+    http = FauxPage(PAGE_OFFRE)
+    offre_id = pipeline.ajouter_par_lien(db, "https://acme.ci/emploi/42", http, log=lambda _: None)
+    o = db.offre(offre_id)
+    assert o.source == "manuel" and o.url == "https://acme.ci/emploi/42" and o.titre.startswith("Développeur")
+    assert pipeline.ajouter_par_lien(db, "https://acme.ci/emploi/42", http, log=lambda _: None) == offre_id
+    db.fermer()
+
+    for mauvais in ("acme.ci/emploi", "ftp://acme.ci/x", "http://localhost:8000/x", "http://192.168.1.10/x",
+                    "https://www.linkedin.com/jobs/view/1", "https://fr.indeed.com/viewjob?jk=1"):
+        with pytest.raises(LienIllisible):
+            verifier_lien(mauvais)
+    with pytest.raises(LienIllisible):                       # page presque vide (annonce chargée en JavaScript)
+        lire_offre("https://acme.ci/emploi/43", FauxPage("<html><body><div id='app'></div></body></html>"))
+    aucun_appel = FauxPage(PAGE_OFFRE)
+    with pytest.raises(LienIllisible):                       # site refusé : aucune requête ne part
+        lire_offre("https://www.linkedin.com/jobs/view/1", aucun_appel)
+    assert aucun_appel.appels == []
 
 
 def test_dates():
@@ -284,6 +347,26 @@ def test_web(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         time.sleep(0.05)
     assert "Parlez d&#39;un projet VueJS" in c.get(f"/offre/{oid}").text
 
+    # Documents du dossier : CV ATS en premier, téléchargements Markdown
+    assert "CV pour logiciels de tri (ATS)" in page and "CV_ATS_Jean_Luc_Houedanou.md" in page
+    assert c.get(f"/fichiers/{oid}/CV_ATS_Jean_Luc_Houedanou.pdf").status_code == 200
+
+    # Nouvelle offre par son lien seul : la page est lue, puis le dossier est préparé
+    monkeypatch.setattr(serveur.pipeline.lien, "Http", lambda: FauxPage(PAGE_OFFRE))
+    assert "Lien de l'annonce" in c.get("/coller").text
+    r = c.post("/coller", data={"url": "https://acme.ci/emploi/42"}, headers={"Accept": "application/json"})
+    assert r.status_code == 200
+    for _ in range(100):
+        t = c.get(f"/api/taches/{r.json()['id']}").json()
+        if t["etat"] != "en_cours":
+            break
+        time.sleep(0.05)
+    assert t["etat"] == "ok" and t["lien"].startswith("/offre/"), t["lignes"]
+    assert "Lettre de motivation" in c.get(t["lien"]).text            # lettre par défaut sur cette page
+    r = c.post("/coller", data={"url": "https://www.linkedin.com/jobs/view/1"}, headers={"Accept": "application/json"})
+    assert r.status_code == 422 and "colle-le" in r.json()["erreur"]
+    assert c.post("/coller", data={}, headers={"Accept": "application/json"}).status_code == 422
+
 
 def test_web_sans_cle(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     from fastapi.testclient import TestClient
@@ -311,5 +394,68 @@ def test_web_sans_cle(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     assert "Comptable" in c.get("/?vue=a_noter&periode=tout&tout=1").text
     r = c.post("/lancer", data={"quoi": "go"}, headers={"Accept": "application/json"})
     assert r.status_code == 412 and "ANTHROPIC_API_KEY" in r.json()["erreur"]
-    assert c.post("/coller", data={"texte": OFFRE_TEXTE}).status_code == 412
-    assert "Pour la noter" in c.get("/offre/1").text
+    page1 = c.get("/offre/1").text
+    assert "Pour la noter" in page1 and "/candidature 1" in page1
+
+    # Sans clé : « Nouvelle offre » enregistre l'offre (aucune IA) et renvoie vers Claude Code
+    page = c.get("/coller").text
+    assert "Lire et enregistrer l'offre" in page and "Aucune IA" in page and "/candidature" in page
+    r = c.post("/coller", data={"texte": OFFRE_TEXTE}, headers={"Accept": "application/json"})
+    assert r.status_code == 200
+    for _ in range(100):
+        t = c.get(f"/api/taches/{r.json()['id']}").json()
+        if t["etat"] != "en_cours":
+            break
+        time.sleep(0.05)
+    assert t["etat"] == "ok" and t["lien"].startswith("/offre/"), t["lignes"]
+    assert any("/candidature" in l for l in t["lignes"])
+    assert "Offre pas encore notée" in c.get(t["lien"]).text
+
+
+def test_importer_dossier_claude_code(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys):
+    """Dossier rédigé dans Claude Code : aucune clé API, mêmes garde-fous."""
+    import json
+
+    from jobbot import importer
+    from jobbot.__main__ import main
+
+    monkeypatch.setattr(render, "SORTIE", tmp_path / "candidatures")
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    rep = FauxClaude().demander("", "", "", "", _Reponse)
+    entree = {"offre": None, "note": note_test().model_dump(), "cv": rep.cv.model_dump(),
+              "lettre": rep.lettre.model_dump(), "message": rep.message.model_dump(), "a_completer": rep.a_completer}
+    fichier = tmp_path / "offre-1.json"
+    fichier.write_text(json.dumps(entree, ensure_ascii=False), encoding="utf-8")
+
+    db = Base(tmp_path / "test.db")
+    offre_id = pipeline.ajouter_a_la_main(db, OFFRE_TEXTE)
+    oid, chemin, dossier = importer.importer(db, fichier, offre_id)
+    assert oid == offre_id and db.note(offre_id).score == 88
+    assert any("Kubernetes" in a for a in dossier.avertissements)       # compétence inventée signalée
+    assert any("« 73 »" in a for a in dossier.avertissements)           # chiffre inventé signalé
+    ats_md = (chemin / "CV_ATS_Jean_Luc_Houedanou.md").read_text(encoding="utf-8")
+    assert "Kubernetes" not in ats_md and "WeDev Group" in ats_md
+    assert (chemin / "Lettre_Jean_Luc_Houedanou.md").exists() and (chemin / "Email_Jean_Luc_Houedanou.md").exists()
+    assert db.classement(80)[0]["statut"] == "a_relire"
+
+    # Offre absente de la base : le bloc « offre » du fichier suffit
+    entree["offre"] = {"titre": "Lead Front-End", "texte": OFFRE_TEXTE + " Autre annonce.", "url": "https://acme.ci/2"}
+    fichier.write_text(json.dumps(entree, ensure_ascii=False), encoding="utf-8")
+    oid2, _, _ = importer.importer(db, fichier)
+    assert oid2 != offre_id and db.offre(oid2).titre == "Lead Front-End"
+    db.fermer()
+
+    # Fichier incomplet : message lisible, pas de trace Python
+    entree.pop("message")
+    fichier.write_text(json.dumps(entree, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(SystemExit) as err:
+        importer.lire(fichier)
+    assert "message" in str(err.value) and "python -m jobbot schema" in str(err.value)
+    assert '"cv"' in importer.schema() and '"note"' in importer.schema()
+
+    # Ligne de commande : schema et montrer fonctionnent sans clé
+    from jobbot import db as dbmod
+    monkeypatch.setattr(dbmod.Base.__init__, "__defaults__", (tmp_path / "test.db",))
+    main(["montrer", str(offre_id)])
+    sortie = capsys.readouterr().out
+    assert f"Offre #{offre_id}" in sortie and "Banque XYZ" in sortie

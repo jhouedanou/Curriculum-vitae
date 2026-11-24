@@ -28,6 +28,7 @@ from .. import pipeline
 from ..config import config
 from ..dates import date_publication, expiree, lire_date
 from ..db import STATUTS, Base
+from ..lien import LienIllisible, verifier_lien
 from ..llm import Claude
 from ..sources import SOURCES
 
@@ -312,31 +313,55 @@ def page_coller(request: Request):
 
 
 @app.post("/coller")
-def action_coller(request: Request, texte: str = Form(...), url: str = Form(""), lettre: str = Form("auto")):
-    if not cle_api():
+def action_coller(request: Request, texte: str = Form(""), url: str = Form(""), lettre: str = Form("oui")):
+    texte, url = texte.strip(), url.strip()
+    avec = {"oui": True, "non": False}.get(lettre)
+    erreur = None
+    if not texte and not url:
+        erreur = "Donne le lien de l'annonce, ou colle son texte."
+    elif not texte:
+        try:
+            url = verifier_lien(url)
+        except LienIllisible as err:
+            erreur = str(err)
+    elif len(texte) < 100:
+        erreur = "Le texte est trop court : colle l'offre complète (missions, profil, comment postuler)."
+    if erreur:
+        if request.headers.get("accept", "").startswith("application/json"):
+            return JSONResponse({"erreur": erreur}, status_code=422)
         db = Base()
         try:
             return vues.TemplateResponse(request, "coller.html", {
-                **_commun(request, db, "coller"), "texte": texte, "url": url,
-                "erreur": "Sans clé API, le bot ne peut pas analyser l'offre. Ajoute ANTHROPIC_API_KEY dans job-bot/.env.",
-            }, status_code=412)
-        finally:
-            db.fermer()
-    if len(texte.strip()) < 100:
-        db = Base()
-        try:
-            return vues.TemplateResponse(request, "coller.html", {
-                **_commun(request, db, "coller"), "texte": texte, "url": url,
-                "erreur": "Le texte est trop court : colle l'offre complète (missions, profil, comment postuler).",
+                **_commun(request, db, "coller"), "texte": texte, "url": url, "erreur": erreur,
             }, status_code=422)
         finally:
             db.fermer()
+
+    if not cle_api():  # sans clé : on enregistre l'offre, la rédaction se fait dans Claude Code
+        def travail_sans_ia(db, log):
+            offre_id = (pipeline.ajouter_par_lien(db, url, log=log) if not texte
+                        else pipeline.ajouter_a_la_main(db, texte, url))
+            log(f"Offre #{offre_id} enregistrée. Dans Claude Code : /candidature {offre_id}")
+            return f"/offre/{offre_id}"
+
+        return reponse_tache(request, lancer_tache("Nouvelle offre : enregistrement", "/coller", travail_sans_ia))
+
+    if not texte:  # lien seul : la page est lue dans la tâche, le journal montre l'avancement
+        def travail_lien(db, log):
+            offre_id = pipeline.ajouter_par_lien(db, url, log=log)
+            log("Analyse de l'offre et rédaction du dossier (Claude)…")
+            pipeline.preparer(db, Claude(), offre_id, avec)
+            n = db.note(offre_id)
+            log(f"Score {n.score}/100 — {n.verdict}")
+            return f"/offre/{offre_id}"
+
+        return reponse_tache(request, lancer_tache("Offre par lien : dossier", "/coller", travail_lien))
+
     db = Base()
     try:
-        offre_id = pipeline.ajouter_a_la_main(db, texte, url.strip())
+        offre_id = pipeline.ajouter_a_la_main(db, texte, url)
     finally:
         db.fermer()
-    avec = {"oui": True, "non": False}.get(lettre)
 
     def travail(db, log):
         log("Analyse de l'offre et rédaction du dossier (Claude)…")
