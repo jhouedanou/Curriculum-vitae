@@ -237,6 +237,8 @@ async function essai(url) {
 }
 
 // ── Cycle de vie ───────────────────────────────────────────────────────────
+// Linux : fenêtre Wayland native quand la session en propose une (Hyprland, Omarchy…), sinon X11.
+if (process.platform === 'linux') app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 if (!app.requestSingleInstanceLock()) {
   app.quit();
 } else {
