@@ -204,6 +204,11 @@ Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campag
 *Rôle:* Développement | *Technologies:* NuxtJS, Vue.js
 Plateforme de formation en ligne : modules d'une heure, deux programmes, panier et espace apprenant
 
+### **Radar by FeexPay - Diagnostic du dirigeant et de son entreprise**
+**https://radar.feexpay.me/**
+*Rôle:* Développement | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+Diagnostic en ligne : profil du dirigeant, rayonnement de l'entreprise, lecture croisée et rapport PDF
+
 ### **Bracongo Stages - Plateforme de gestion des stages**
 **https://bracongostages.bigfive.dev/**
 *Rôle:* Développement full-stack | *Technologies:* Laravel, PHP, Livewire, Tailwind CSS

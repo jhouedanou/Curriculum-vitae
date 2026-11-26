@@ -204,6 +204,11 @@ Subscription platform to browse, filter and analyse more than 900 real marketing
 *Role:* Development | *Technologies:* NuxtJS, Vue.js
 E-learning platform: one-hour modules, two programmes, cart and learner space
 
+### **Radar by FeexPay - Diagnostic for business leaders**
+**https://radar.feexpay.me/**
+*Role:* Development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+Online diagnostic: leader profile, company reach, cross reading and PDF report
+
 ### **Bracongo Stages - Internship management platform**
 **https://bracongostages.bigfive.dev/**
 *Role:* Full-stack development | *Technologies:* Laravel, PHP, Livewire, Tailwind CSS

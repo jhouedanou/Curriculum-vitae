@@ -100,6 +100,25 @@ window.PORTFOLIO_PROJECTS = [
         resultsEn: "Live platform with two programmes, a cart and a learner space"
     },
     {
+        id: 29,
+        title: "Radar by FeexPay",
+        role: "Développement",
+        roleEn: "Development",
+        description: "Diagnostic gratuit du dirigeant et de son entreprise : profil de direction, rayonnement et lecture croisée",
+        descriptionEn: "Free diagnostic for business leaders: leadership profile, company reach and cross reading",
+        fullDescription: "Radar est le diagnostic en ligne de FeexPay pour les dirigeants. Deux questionnaires indépendants : le profil du dirigeant (14 questions, 8 profils) et le rayonnement de l'entreprise (7 questions, score sur 100 et 5 niveaux). Une question par écran, résultat affiché dès la dernière réponse, rapport en ligne et en PDF. Quand les deux diagnostics sont terminés, une lecture croisée indique la zone à traiter en premier.",
+        fullDescriptionEn: "Radar is FeexPay's online diagnostic for business leaders. Two independent questionnaires: the leader profile (14 questions, 8 profiles) and the company's reach (7 questions, score out of 100 and 5 levels). One question per screen, result shown after the last answer, online and PDF report. When both are completed, a cross reading shows which area to address first.",
+        technologies: ["NuxtJS", "Vue.js", "Tailwind CSS", "Rapport PDF"],
+        url: "https://radar.feexpay.me/",
+        category: "fullstack",
+        icon: "radar",
+        thumb: "assets/projets/radar-feexpay.jpg",
+        challenges: "Un parcours de 21 questions court et clair, un résultat immédiat et un rapport téléchargeable",
+        challengesEn: "A short, clear 21-question flow, an immediate result and a downloadable report",
+        results: "Diagnostic en ligne en moins de dix minutes, avec rapport en ligne et en PDF",
+        resultsEn: "Online diagnostic in under ten minutes, with an online and PDF report"
+    },
+    {
         id: 28,
         title: "Bracongo Stages",
         role: "Développement full-stack",
