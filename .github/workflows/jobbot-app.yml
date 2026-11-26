@@ -1,6 +1,6 @@
-name: Application JobBot (macOS)
+name: Application JobBot (macOS et Linux)
 
-# Fabrique JobBot.app sur une machine macOS, l'essaie, puis publie le .dmg.
+# Fabrique l'application pour macOS (.dmg) et pour Linux (AppImage, .tar.gz), l'essaie, puis la publie.
 # Sur une pull request : fabrication et essai seulement. Sur main : publication dans les « Releases ».
 on:
   pull_request:
@@ -98,21 +98,85 @@ jobs:
           path: job-bot/app/sortie/*.dmg
           if-no-files-found: error
 
-      - name: Publier dans les Releases
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
+  linux:
+    name: JobBot pour Linux (x86_64)
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: job-bot/app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Dépendances Python, sans WeasyPrint
+        run: |
+          grep -v -i -E '^(weasyprint|pytest)' ../requirements.txt > "$RUNNER_TEMP/requirements-app.txt"
+          pip install -r "$RUNNER_TEMP/requirements-app.txt" pyinstaller
+
+      - name: Bot autonome (PyInstaller)
+        run: node construire-serveur.js
+
+      - name: Dépendances de l'application
+        run: npm install --no-audit --no-fund
+
+      - name: Fabriquer l'AppImage et l'archive
+        run: npx electron-builder --linux AppImage tar.gz --publish never
+
+      - name: Essai de l'AppImage (démarrage, interface, PDF)
+        run: |
+          sudo apt-get update && sudo apt-get install -y xvfb
+          chmod +x sortie/JobBot-x86_64.AppImage
+          JOBBOT_SMOKE=1 JOBBOT_HOME="$RUNNER_TEMP/jobbot-essai" xvfb-run -a ./sortie/JobBot-x86_64.AppImage --appimage-extract-and-run --no-sandbox | tee "$RUNNER_TEMP/essai.log"
+          grep -q "ESSAI RÉUSSI" "$RUNNER_TEMP/essai.log"
+
+      - name: Garder les fichiers avec cette exécution
+        uses: actions/upload-artifact@v4
+        with:
+          name: JobBot-Linux
+          path: |
+            job-bot/app/sortie/JobBot-x86_64.AppImage
+            job-bot/app/sortie/JobBot-x64.tar.gz
+          if-no-files-found: error
+
+  publier:
+    name: Publier dans les Releases
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [tests, mac, linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: fichiers
+          merge-multiple: true
+      - run: ls -lh fichiers
+      - uses: softprops/action-gh-release@v2
         with:
           tag_name: jobbot-app
-          name: JobBot pour macOS
+          name: JobBot pour macOS et Linux
           make_latest: 'true'
-          files: job-bot/app/sortie/*.dmg
+          files: fichiers/*
           body: |
-            Application JobBot pour Mac à puce Apple (M1, M2, M3, M4).
+            ## macOS (puce Apple : M1, M2, M3, M4)
 
-            **Installer**
-            1. Télécharge `JobBot-arm64.dmg` ci-dessous et ouvre-le.
+            1. Télécharge `JobBot-arm64.dmg` et ouvre-le.
             2. Glisse **JobBot** dans **Applications**.
-            3. Ouvre JobBot. macOS refuse le premier lancement, car l'application n'est pas signée par Apple :
+            3. Ouvre JobBot. macOS bloque le premier lancement, car l'application n'est pas signée par Apple :
                ouvre **Réglages Système → Confidentialité et sécurité**, descends jusqu'à « JobBot a été bloqué », puis clique **Ouvrir quand même**.
 
-            Tes données (CV, candidatures) sont dans `Documents/JobBot`.
+            ## Linux (x86_64 : Omarchy, Arch, Ubuntu, Fedora…)
+
+            1. Télécharge `JobBot-x86_64.AppImage`.
+            2. Rends le fichier exécutable : clic droit → Propriétés → Autoriser l'exécution, ou `chmod +x JobBot-x86_64.AppImage`.
+            3. Lance-le.
+
+            Sur Arch et Omarchy, l'AppImage a besoin du paquet `fuse2` (`sudo pacman -S fuse2`).
+            Sans lui, utilise `JobBot-x64.tar.gz` : décompresse l'archive, puis lance `jobbot` dans le dossier.
+
+            ## Données
+
+            Ton CV, tes réglages et tes candidatures sont dans `Documents/JobBot`.

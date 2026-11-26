@@ -8,7 +8,7 @@
 
 identite:
   nom: Jean-Luc Houédanou
-  titre: Développeur web full-stack · Designer UI/UX · Chef de projet digital
+  titre: Développeur web full stack
   email: jhouedanou@gmail.com
   email2: jeanluc@houedanou.com
   telephone: "+225 07 48 34 82 21"
@@ -181,4 +181,5 @@ projets:
   - { id: quizrh, nom: Questionnaire d'orientation RH — CIPREL, url: "https://quiz-rh-sandy.vercel.app/", role: Conception UI & développement, technos: [NuxtJS, Vue.js, Tailwind CSS], description: "18 questions oui/non pour découvrir ses soft skills et le département qui correspond à son profil" }
   - { id: laveiye, nom: Laveiye — bibliothèque de campagnes marketing africaines, url: "https://laveiye.com/", role: Développement, technos: [Next.js, React], description: "Plateforme par abonnement pour consulter, filtrer et analyser plus de 900 campagnes marketing réelles en Afrique" }
   - { id: academy, nom: Big Five Academy — E-Masterclass, url: "https://bigfiveacademy.com/", role: Développement, technos: [NuxtJS, Vue.js], description: "Plateforme de formation en ligne avec modules d'une heure, deux programmes, panier et espace apprenant" }
+  - { id: radar, nom: Radar by FeexPay — diagnostic du dirigeant, url: "https://radar.feexpay.me/", role: Développement, technos: [NuxtJS, Vue.js, Tailwind CSS], description: "Diagnostic en ligne pour dirigeants : profil de direction, rayonnement de l'entreprise, lecture croisée et rapport PDF" }
   - { id: bracongo, nom: Bracongo Stages — gestion des stages, url: "https://bracongostages.bigfive.dev/", role: Développement full-stack, technos: [Laravel, PHP, Livewire, Tailwind CSS], description: "Plateforme de candidature et de suivi des stages pour BRACONGO, avec délivrance d'attestations de stage numériques" }

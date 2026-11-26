@@ -9,7 +9,7 @@ Le bot trouve les offres d'emploi qui collent à ton CV, puis prépare pour chac
 
 ---
 
-## 0. L'application pour Mac (sans ligne de commande)
+## 0. L'application de bureau (Mac et Linux)
 
 Pour un Mac à puce Apple (M1 ou plus récent). Python n'a pas besoin d'être installé.
 
@@ -27,6 +27,16 @@ Ce que fait l'application :
 
 Pour partager les mêmes données avec Claude Code (`/candidature`), choisis le dossier `job-bot` du dépôt avec
 **Fichier → Changer de dossier de données…**.
+
+### Linux (Omarchy, Arch, Ubuntu, Fedora… en x86_64)
+
+1. Sur la même page Releases, télécharge `JobBot-x86_64.AppImage`.
+2. Rends le fichier exécutable : clic droit → Propriétés → Autoriser l'exécution, ou `chmod +x JobBot-x86_64.AppImage`.
+3. Lance-le.
+
+Sur Arch et Omarchy, l'AppImage a besoin du paquet `fuse2` (`sudo pacman -S fuse2`). Sans lui, prends
+`JobBot-x64.tar.gz` : décompresse l'archive, puis lance `jobbot` dans le dossier.
+Sous Wayland (Hyprland), l'application ouvre une fenêtre Wayland native.
 
 L'application est fabriquée par GitHub à chaque changement du dossier `job-bot/` sur `main`
 (`.github/workflows/jobbot-app.yml`). Son code est dans `job-bot/app/`.

@@ -16,6 +16,9 @@ table td:last-child {
 </style>
 
 # Jean Luc Houédanou
+
+**Full-stack web developer**
+
 <div style="font-size: 12px; display: flex; align-items: center; gap: 16px;">
 <img src="1764523183346.jpg" alt="Jean Luc Houédanou" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
 <div>
@@ -200,6 +203,11 @@ Subscription platform to browse, filter and analyse more than 900 real marketing
 **https://bigfiveacademy.com/**
 *Role:* Development | *Technologies:* NuxtJS, Vue.js
 E-learning platform: one-hour modules, two programmes, cart and learner space
+
+### **Radar by FeexPay - Diagnostic for business leaders**
+**https://radar.feexpay.me/**
+*Role:* Development | *Technologies:* NuxtJS, Vue.js, Tailwind CSS
+Online diagnostic: leader profile, company reach, cross reading and PDF report
 
 ### **Bracongo Stages - Internship management platform**
 **https://bracongostages.bigfive.dev/**

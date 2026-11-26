@@ -11,7 +11,8 @@
     "start": "electron .",
     "serveur": "node construire-serveur.js",
     "dmg": "electron-builder --mac dir --publish never",
-    "dossier": "electron-builder --dir --publish never"
+    "dossier": "electron-builder --dir --publish never",
+    "linux": "electron-builder --linux AppImage tar.gz --publish never"
   },
   "devDependencies": {
     "electron": "^33.2.0",
@@ -48,8 +49,22 @@
       "icon": "icone.png"
     },
     "linux": {
-      "target": "dir",
-      "icon": "icone.png"
-    }
-  }
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "icon": "icone.png",
+      "category": "Office",
+      "executableName": "jobbot",
+      "artifactName": "JobBot-${arch}.${ext}",
+      "synopsis": "Préparer et suivre ses candidatures",
+      "desktop": {
+        "Name": "JobBot",
+        "Comment": "Préparer et suivre ses candidatures",
+        "StartupWMClass": "JobBot"
+      }
+    },
+    "publish": null
+  },
+  "homepage": "https://github.com/jhouedanou/Curriculum-vitae"
 }
