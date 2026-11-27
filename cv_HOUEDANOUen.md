@@ -133,51 +133,51 @@ Jean Mermoz College, Côte d'Ivoire
 ## Skills & Software
 
 ### **Frontend Development**
-- VueJS (5 years experience, Expert)
-- NuxtJS (3 years experience, Intermediate+)
-- JavaScript (8 years experience, Expert)
-- HTML5 (12 years experience, Expert)
-- CSS3 (12 years experience, Expert)
-- Responsive Web Design (8 years experience, Advanced)
+- VueJS (6 years experience, Expert)
+- NuxtJS (4 years experience, Intermediate+)
+- JavaScript (9 years experience, Expert)
+- HTML5 (13 years experience, Expert)
+- CSS3 (13 years experience, Expert)
+- Responsive Web Design (9 years experience, Advanced)
 
 ### **Backend Development**
-- PHP (10 years experience, Expert)
-- Laravel (5 years experience, Advanced)
-- Filament (2 years experience, Intermediate)
-- Supabase (2 years experience, Intermediate)
-- MySQL (8 years experience, Advanced)
-- RESTful APIs (6 years experience, Advanced)
-- Linux Server Administration (7 years experience, Advanced)
+- PHP (11 years experience, Expert)
+- Laravel (6 years experience, Advanced)
+- Filament (3 years experience, Intermediate)
+- Supabase (3 years experience, Intermediate)
+- MySQL (9 years experience, Advanced)
+- RESTful APIs (7 years experience, Advanced)
+- Linux Server Administration (8 years experience, Advanced)
 
 ### **Design & Tools**
-- Adobe XD (6 years experience, Expert)
-- Figma (4 years experience, Advanced)
-- Affinity Suite (5 years experience, Advanced)
-- UI/UX Design (8 years experience, Expert)
-- Graphic Design (10 years experience, Advanced)
-- DaVinci Resolve (3 years experience, Intermediate+)
+- Adobe XD (7 years experience, Expert)
+- Figma (5 years experience, Advanced)
+- Affinity Suite (6 years experience, Advanced)
+- UI/UX Design (9 years experience, Expert)
+- Graphic Design (11 years experience, Advanced)
+- DaVinci Resolve (4 years experience, Intermediate+)
 
 ### **DevOps & Infrastructure**
-- CI/CD Pipelines with GitLab (3 years experience, Intermediate+)
-- Containerization (Docker) (3 years experience, Intermediate+)
-- Database cluster management (PostgreSQL BDR, MariaDB Galera) (4 years experience, Intermediate+)
-- Web Security (7 years experience, Advanced)
+- CI/CD Pipelines with GitLab (4 years experience, Intermediate+)
+- Containerization (Docker) (4 years experience, Intermediate+)
+- Database cluster management (PostgreSQL BDR, MariaDB Galera) (5 years experience, Intermediate+)
+- Web Security (8 years experience, Advanced)
 
 ### **Project Management**
-- SCRUM (6 years experience, Advanced)
-- Kanban (5 years experience, Advanced)
-- Agile (6 years experience, Advanced)
-- Jira (4 years experience, Intermediate+)
-- Team Leadership (5 years experience, Advanced)
-- Client Relations (12 years experience, Expert)
-- Strategic Planning (5 years experience, Advanced)
+- SCRUM (7 years experience, Advanced)
+- Kanban (6 years experience, Advanced)
+- Agile (7 years experience, Advanced)
+- Jira (5 years experience, Intermediate+)
+- Team Leadership (6 years experience, Advanced)
+- Client Relations (13 years experience, Expert)
+- Strategic Planning (6 years experience, Advanced)
 
 </td>
 <td width="25%" style="width: 25%; vertical-align: top;">
 
 ## PROFESSIONAL PROFILE
 
-Experienced **Web Developper** with **over 12 years of expertise** in full-stack web development, UI/UX design, and digital project management.
+Experienced **Web Developper** with **over 15 years of expertise** in full-stack web development, UI/UX design, and digital project management.
 
 **Front-end specialist** (VueJS, Nuxt) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
 

@@ -1,7 +1,7 @@
 """Tri : Claude note chaque offre par rapport au CV."""
 from __future__ import annotations
 
-from .config import config, cv_texte
+from .config import config, cv, cv_texte
 from .llm import LLM
 from .models import Note, Offre
 
@@ -31,7 +31,7 @@ Méthode (d'après resumeskills · job-description-analyzer, MIT) :
 - salaire : recopie l'offre ; n'estime jamais une rémunération.
 
 Règles :
-- Le candidat est senior (12+ ans, poste actuel de direction). Un poste junior,
+- Le candidat est senior ({annees}+ ans, poste actuel de direction). Un poste junior,
   d'assistant ou de stagiaire est sous-qualifié pour lui : score de 40 maximum.
 - Un poste sans lien avec le web, le digital, le design ou la gestion de projet tech : 20 maximum.
 - Points forts et écarts : uniquement des faits présents dans le CV ou dans l'offre.
@@ -54,4 +54,4 @@ Lien : {offre.url}
 
 {offre.description[:12000] or "(pas de description : juge sur le titre et sois prudent)"}
 </offre>"""
-    return llm.demander(config()["modeles"]["tri"], SYSTEME, cv_texte(), consigne, Note, max_tokens=4000)
+    return llm.demander(config()["modeles"]["tri"], SYSTEME.replace("{annees}", str(cv()["annees_experience"])), cv_texte(), consigne, Note, max_tokens=4000)

@@ -6,6 +6,7 @@
     <title>Jean Luc Houédanou — Solutions digitales</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="projects-data.js"></script>
+    <script src="experience-data.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -505,7 +506,7 @@
                         <div class="modern-stage" :style="{ '--px': parallax.x + 'px', '--py': parallax.y + 'px' }">
                             <div class="modern-portrait-frame">
                                 <img class="modern-portrait" src="1764523183346.jpg" alt="Jean Luc Houédanou, développeur et directeur solutions digitales">
-                                <div class="modern-note"><strong>12+</strong><span>{{ currentLang === 'fr' ? 'ans à construire' : 'years building' }}</span></div>
+                                <div class="modern-note"><strong>{{ anneesExperience }}+</strong><span>{{ currentLang === 'fr' ? 'ans à construire' : 'years building' }}</span></div>
                                 <div class="modern-stamp">Code<br>design<br>impact</div>
                             </div>
                             <div class="modern-code-card modern-code-card--top"><small>01 / live system</small><code><span>const</span> impact = <b>∞</b></code></div>
@@ -579,7 +580,7 @@
                 </section>
 
                 <section id="apropos" class="modern-section">
-                    <div class="modern-about"><div class="modern-about-image-wrap"><img class="modern-about-image" src="1764523183346.jpg" alt="Jean Luc Houédanou au travail"></div><div class="modern-about-copy"><span class="modern-kicker">{{ currentLang === 'fr' ? 'À propos' : 'About' }}</span><h2>{{ currentLang === 'fr' ? 'Un développeur qui pense produit.' : 'A developer who thinks product.' }}</h2><p>{{ texts.aboutDescription }}</p><p>{{ currentLang === 'fr' ? 'J’aime les projets où l’on peut toucher à tout : comprendre le besoin, dessiner l’interface, écrire le back-end et mettre en ligne. Mon obsession reste simple : des produits rapides, clairs et durables.' : 'I like projects where I can touch everything: understand the need, shape the interface, write the back-end and ship it. The obsession is simple: fast, clear and durable products.' }}</p><div class="modern-buttons"><a class="modern-button modern-button--primary" href="#contact">{{ currentLang === 'fr' ? 'Discutons de ton projet' : 'Let’s discuss your project' }}</a><a class="modern-button modern-button--secondary" :href="currentLang === 'fr' ? 'CV JeanLucHouedanouFr.pdf' : 'CV Jean Luc HouedanouEN.pdf'" download>{{ texts.downloadCV }} ↓</a></div></div></div>
+                    <div class="modern-about"><div class="modern-about-image-wrap"><img class="modern-about-image" src="1764523183346.jpg" alt="Jean Luc Houédanou au travail"></div><div class="modern-about-copy"><span class="modern-kicker">{{ currentLang === 'fr' ? 'À propos' : 'About' }}</span><h2>{{ currentLang === 'fr' ? 'Un développeur qui pense produit.' : 'A developer who thinks product.' }}</h2><p>{{ texts.aboutDescription }}</p><p>{{ currentLang === 'fr' ? 'J’aime les projets où l’on peut toucher à tout : comprendre le besoin, dessiner l’interface, écrire le back-end et mettre en ligne. Mon obsession reste simple : des produits rapides, clairs et durables.' : 'I like projects where I can touch everything: understand the need, shape the interface, write the back-end and ship it. The obsession is simple: fast, clear and durable products.' }}</p><div class="modern-buttons"><a class="modern-button modern-button--primary" href="#contact">{{ currentLang === 'fr' ? 'Discutons de ton projet' : 'Let’s discuss your project' }}</a><a class="modern-button modern-button--secondary" :href="currentLang === 'fr' ? 'CV_Jean_Luc_Houedanou_FR.pdf' : 'CV_Jean_Luc_Houedanou_EN.pdf'" download>{{ texts.downloadCV }} ↓</a></div></div></div>
                 </section>
 
                 <section id="blog" class="modern-section"><div class="modern-blog"><div><span class="modern-kicker">{{ currentLang === 'fr' ? 'Carnet de bord' : 'Writing' }}</span><h2>{{ currentLang === 'fr' ? 'J’écris aussi, entre deux commits.' : 'I write between commits too.' }}</h2><p>{{ currentLang === 'fr' ? 'Web, développement et création vus depuis Abidjan. Quelques notes et retours d’expérience sur le blog.' : 'Web, development and making things from Abidjan. Notes and field reports on the blog.' }}</p></div><a class="modern-button modern-button--primary" href="https://houedanou.com" target="_blank" rel="noopener">{{ currentLang === 'fr' ? 'Lire le blog' : 'Read the blog' }} ↗</a></div></section>
@@ -1081,6 +1082,7 @@
         createApp({
             data() {
                 return {
+                    anneesExperience: window.ANNEES_EXPERIENCE,
                     activeFilter: 'all',
                     selectedProject: null,
                     currentLang: 'fr',
@@ -1148,7 +1150,7 @@
                             projects: 'Réalisations',
                             contact: 'Contact',
                             aboutTitle: 'Directeur Solutions Digitales',
-                            aboutDescription: 'Passionné par l\'innovation technologique avec plus de 12 ans d\'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Je transforme des défis complexes en opportunités de croissance en alliant expertise technique et vision stratégique.',
+                            aboutDescription: 'Passionné par l\'innovation technologique avec plus de ' + window.ANNEES_EXPERIENCE + ' ans d\'expertise en développement web full-stack, design UI/UX et gestion de projets digitaux. Je transforme des défis complexes en opportunités de croissance en alliant expertise technique et vision stratégique.',
                             capability1Title: 'Développement Web',
                             capability1Desc: 'Expert en VueJS, PHP, Laravel avec une approche full-stack moderne et performante.',
                             capability2Title: 'Design UI/UX',
@@ -1209,7 +1211,7 @@
                             projects: 'Projects',
                             contact: 'Contact',
                             aboutTitle: 'Digital Solutions Director',
-                            aboutDescription: 'Passionate about technological innovation with over 12 years of expertise in full-stack web development, UI/UX design, and digital project management. I transform complex challenges into growth opportunities by combining technical expertise with strategic vision.',
+                            aboutDescription: 'Passionate about technological innovation with over ' + window.ANNEES_EXPERIENCE + ' years of expertise in full-stack web development, UI/UX design, and digital project management. I transform complex challenges into growth opportunities by combining technical expertise with strategic vision.',
                             capability1Title: 'Web Development',
                             capability1Desc: 'Expert in VueJS, PHP, Laravel with a modern and performant full-stack approach.',
                             capability2Title: 'UI/UX Design',

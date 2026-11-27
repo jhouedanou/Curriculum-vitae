@@ -232,10 +232,10 @@
         roundRect(ctx, px, py, pw, ph, [8, 96, 8, 96]); ctx.strokeStyle = C.line; ctx.lineWidth = 2; ctx.stroke();
         ctx.strokeStyle = 'rgba(137, 148, 228, .38)'; ctx.strokeRect(px + 26, py + 26, pw, ph);
 
-        // Étiquette « 12+ »
+        // Étiquette « N+ » : années calculées par experience-data.js
         ctx.fillStyle = '#192236'; roundRect(ctx, px - 30, py + ph - 70, 300, 130, 4); ctx.fill();
         ctx.strokeStyle = C.line; ctx.stroke();
-        ctx.fillStyle = C.orangeDark; ctx.font = '500 64px ' + MONO; spacing(ctx, -2); ctx.fillText('12+', px - 4, py + ph + 2);
+        ctx.fillStyle = C.orangeDark; ctx.font = '500 64px ' + MONO; spacing(ctx, -2); ctx.fillText(window.ANNEES_EXPERIENCE + '+', px - 4, py + ph + 2);
         ctx.fillStyle = C.muted; ctx.font = '600 18px ' + MONO; spacing(ctx, 2); ctx.fillText(t().years.toUpperCase(), px - 4, py + ph + 36);
 
         const x = 590, maxW = 780;
