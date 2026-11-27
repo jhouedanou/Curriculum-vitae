@@ -20,7 +20,7 @@ infos_perso:
   permis: B
 
 resume: >
-  Web developer with over 12 years of experience in full-stack web development,
+  Web developer with over {annees_experience} years of experience in full-stack web development,
   UI/UX design and digital project management. Front-end specialist (VueJS,
   Nuxt). I lead a team of developers and designers and deliver web platforms
   for clients such as Vodacom, CASTEL Africa and CIPREL.
@@ -35,6 +35,8 @@ experiences:
     entreprise: Big Five Solutions
     lieu: Abidjan, Côte d'Ivoire
     periode: June 2019 – Present
+    debut: 2019-06
+    fin: null            # null = poste actuel
     description: >
       Leads the development and integration of full-stack web solutions and
       digital platforms for a diverse client base.
@@ -49,6 +51,8 @@ experiences:
     entreprise: WeDev Group
     lieu: Abidjan, Côte d'Ivoire
     periode: June 2017 – June 2019
+    debut: 2017-06
+    fin: 2019-06            # null = poste actuel
     description: >
       Led design strategy and supervised user interface design to strengthen
       brand identity and customer experience.
@@ -62,6 +66,8 @@ experiences:
     entreprise: Adonai Agri Batis
     lieu: Abidjan, Côte d'Ivoire
     periode: February 2017 – June 2017
+    debut: 2017-02
+    fin: 2017-06            # null = poste actuel
     description: >
       Built and ran the digital communication strategy to strengthen the online presence.
     realisations:
@@ -74,6 +80,8 @@ experiences:
     entreprise: CIFIDE
     lieu: Abidjan, Côte d'Ivoire
     periode: July 2016 – January 2017
+    debut: 2016-07
+    fin: 2017-01            # null = poste actuel
     description: >
       Supervised web projects and coordinated digital campaigns.
     realisations:
@@ -86,6 +94,8 @@ experiences:
     entreprise: CERAP (former Inades)
     lieu: Abidjan, Côte d'Ivoire
     periode: August 2013 – March 2016
+    debut: 2013-08
+    fin: 2016-03            # null = poste actuel
     description: >
       Technical and editorial management of the institutional website.
     realisations:
@@ -94,58 +104,57 @@ experiences:
       - Supervised editorial and technical operations; 99% uptime
 
 experiences_anterieures:
-  - Website Manager — Electoral Reform International Services (Jan–Jun 2013)
-  - ICT Trainer Consultant — Internews Europe (May 2012)
-  - Web Designer & Graphic Designer — Chrisalys Group (May–Dec 2012)
-  - Associate Manager, E-commerce Division — Groupe Kamit Communications Inc, Montreal (Sep 2009–Apr 2011)
-
+  - { texte: "Website Manager — Electoral Reform International Services (Jan–Jun 2013)", debut: 2013-01, fin: 2013-06 }
+  - { texte: "ICT Trainer Consultant — Internews Europe (May 2012)", debut: 2012-05, fin: 2012-05 }
+  - { texte: "Web Designer & Graphic Designer — Chrisalys Group (May–Dec 2012)", debut: 2012-05, fin: 2012-12 }
+  - { texte: "Associate Manager, E-commerce Division — Groupe Kamit Communications Inc, Montreal (Sep 2009–Apr 2011)", debut: 2009-09, fin: 2011-04 }
 formation:
   - { annees: "2008 – 2009", diplome: Certificate in Information and Systems Management, ecole: "University of Sherbrooke, Canada" }
   - { annees: "2007 – 2008", diplome: Master's in E-Commerce Management, ecole: "University of Sherbrooke, Canada" }
   - { annees: "2002 – 2006", diplome: Bachelor's in Business Administration, ecole: "Canadian University of Arts, Sciences and Management, Côte d'Ivoire" }
   - { annees: "1995 – 2002", diplome: Baccalaureate in Economics and Science, ecole: "Collège Jean Mermoz, Côte d'Ivoire" }
 
-competences:
+competences:   # depuis = année de début ; le nombre d'années est calculé (jobbot/experience.py)
   - categorie: Frontend development
     items:
-      - { nom: VueJS, annees: 5, niveau: Expert }
-      - { nom: NuxtJS, annees: 3, niveau: Intermediate+ }
-      - { nom: JavaScript, annees: 8, niveau: Expert }
-      - { nom: HTML5, annees: 12, niveau: Expert }
-      - { nom: CSS3, annees: 12, niveau: Expert }
-      - { nom: Responsive Web Design, annees: 8, niveau: Advanced }
+      - { nom: VueJS, depuis: 2020, niveau: Expert }
+      - { nom: NuxtJS, depuis: 2022, niveau: Intermediate+ }
+      - { nom: JavaScript, depuis: 2017, niveau: Expert }
+      - { nom: HTML5, depuis: 2013, niveau: Expert }
+      - { nom: CSS3, depuis: 2013, niveau: Expert }
+      - { nom: Responsive Web Design, depuis: 2017, niveau: Advanced }
   - categorie: Backend development
     items:
-      - { nom: PHP, annees: 10, niveau: Expert }
-      - { nom: Laravel, annees: 5, niveau: Advanced }
-      - { nom: Filament, annees: 2, niveau: Intermediate }
-      - { nom: Supabase, annees: 2, niveau: Intermediate }
-      - { nom: MySQL, annees: 8, niveau: Advanced }
-      - { nom: RESTful APIs, annees: 6, niveau: Advanced }
-      - { nom: Linux server administration, annees: 7, niveau: Advanced }
+      - { nom: PHP, depuis: 2015, niveau: Expert }
+      - { nom: Laravel, depuis: 2020, niveau: Advanced }
+      - { nom: Filament, depuis: 2023, niveau: Intermediate }
+      - { nom: Supabase, depuis: 2023, niveau: Intermediate }
+      - { nom: MySQL, depuis: 2017, niveau: Advanced }
+      - { nom: RESTful APIs, depuis: 2019, niveau: Advanced }
+      - { nom: Linux server administration, depuis: 2018, niveau: Advanced }
   - categorie: Design & tools
     items:
-      - { nom: Adobe XD, annees: 6, niveau: Expert }
-      - { nom: Figma, annees: 4, niveau: Advanced }
-      - { nom: Affinity Suite, annees: 5, niveau: Advanced }
-      - { nom: UI/UX Design, annees: 8, niveau: Expert }
-      - { nom: Graphic design, annees: 10, niveau: Advanced }
-      - { nom: DaVinci Resolve, annees: 3, niveau: Intermediate+ }
+      - { nom: Adobe XD, depuis: 2019, niveau: Expert }
+      - { nom: Figma, depuis: 2021, niveau: Advanced }
+      - { nom: Affinity Suite, depuis: 2020, niveau: Advanced }
+      - { nom: UI/UX Design, depuis: 2017, niveau: Expert }
+      - { nom: Graphic design, depuis: 2015, niveau: Advanced }
+      - { nom: DaVinci Resolve, depuis: 2022, niveau: Intermediate+ }
   - categorie: DevOps & infrastructure
     items:
-      - { nom: GitLab CI/CD, annees: 3, niveau: Intermediate+ }
-      - { nom: Docker, annees: 3, niveau: Intermediate+ }
-      - { nom: "Database clusters (PostgreSQL BDR, MariaDB Galera)", annees: 4, niveau: Intermediate+ }
-      - { nom: Web security, annees: 7, niveau: Advanced }
+      - { nom: GitLab CI/CD, depuis: 2022, niveau: Intermediate+ }
+      - { nom: Docker, depuis: 2022, niveau: Intermediate+ }
+      - { nom: "Database clusters (PostgreSQL BDR, MariaDB Galera)", depuis: 2021, niveau: Intermediate+ }
+      - { nom: Web security, depuis: 2018, niveau: Advanced }
   - categorie: Project management
     items:
-      - { nom: SCRUM, annees: 6, niveau: Advanced }
-      - { nom: Kanban, annees: 5, niveau: Advanced }
-      - { nom: Agile, annees: 6, niveau: Advanced }
-      - { nom: Jira, annees: 4, niveau: Intermediate+ }
-      - { nom: Team leadership, annees: 5, niveau: Advanced }
-      - { nom: Client relations, annees: 12, niveau: Expert }
-      - { nom: Strategic planning, annees: 5, niveau: Advanced }
+      - { nom: SCRUM, depuis: 2019, niveau: Advanced }
+      - { nom: Kanban, depuis: 2020, niveau: Advanced }
+      - { nom: Agile, depuis: 2019, niveau: Advanced }
+      - { nom: Jira, depuis: 2021, niveau: Intermediate+ }
+      - { nom: Team leadership, depuis: 2020, niveau: Advanced }
+      - { nom: Client relations, depuis: 2013, niveau: Expert }
+      - { nom: Strategic planning, depuis: 2020, niveau: Advanced }
 
 projets:
   - { id: soboafoot, nom: SoboaFoot — AFCON 2025 predictions, url: "https://soboafoot.com/", role: Full-stack developer, technos: [Tailwind CSS, Alpine.js, Swiper.js, Service Worker], description: "Sports predictions platform with rankings, points and partner geolocation" }

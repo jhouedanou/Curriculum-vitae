@@ -7,6 +7,8 @@ from pathlib import Path
 
 import yaml
 
+from . import experience
+
 # Dossier du projet (celui qui contient cv.yaml). Modifiable avec JOBBOT_HOME.
 RACINE = Path(os.environ.get("JOBBOT_HOME", Path(__file__).resolve().parent.parent))
 SORTIE = RACINE / "candidatures"
@@ -35,9 +37,13 @@ def _fichier_cv(langue: str) -> str:
 
 @lru_cache
 def cv(langue: str = "fr") -> dict:
-    return _lire_yaml(_fichier_cv(langue))
+    """Le CV avec les années d'expérience calculées (voir experience.py)."""
+    return experience.completer(_lire_yaml(_fichier_cv(langue)))
 
 
 def cv_texte(langue: str = "fr") -> str:
-    """Le CV en YAML brut : c'est ce que Claude lit."""
-    return (RACINE / _fichier_cv(langue)).read_text(encoding="utf-8")
+    """Le CV en YAML brut : c'est ce que Claude lit. Les années calculées y sont ajoutées."""
+    brut = (RACINE / _fichier_cv(langue)).read_text(encoding="utf-8")
+    donnees = _lire_yaml(_fichier_cv(langue))
+    n = experience.annees_experience(donnees)
+    return brut.replace("{annees_experience}", str(n)) + experience.resume_chiffres(donnees)

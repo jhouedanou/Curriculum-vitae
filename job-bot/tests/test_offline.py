@@ -557,3 +557,40 @@ def test_web_adapter(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     assert "Texte modifié à la main." in page and "Tu modifies les fichiers déjà enregistrés" in page
     assert "Texte modifié à la main." not in c.get(f"/offre/{oid}/adapter?brouillon=1").text
     assert c.get("/offre/999/adapter").status_code == 404
+
+
+def test_annees_experience():
+    import sys
+    from datetime import date
+
+    import yaml
+    from jobbot import experience
+    from jobbot.config import cv, cv_texte
+
+    jour = date(2026, 11, 27)
+    essai = {"experiences": [{"debut": "2020-01", "fin": "2020-12"}, {"debut": "2020-07", "fin": "2021-06"}],
+             "experiences_anterieures": ["texte seul, sans dates"]}
+    assert experience.mois_travailles(essai, jour) == 18                  # juillet–décembre 2020 compté une fois
+    essai["experiences"].append({"debut": "2026-01", "fin": None})        # poste actuel : jusqu'à aujourd'hui
+    assert experience.mois_travailles(essai, jour) == 29 and experience.annees_experience(essai, jour) == 2
+
+    from jobbot.config import RACINE
+    brut = yaml.safe_load((RACINE / "cv.yaml").read_text(encoding="utf-8"))
+    assert experience.mois_travailles(brut, jour) == 191 and experience.annees_experience(brut, jour) == 15
+    assert experience.annees_experience(brut, date(2027, 10, 1)) == 16
+    d = experience.completer(brut, jour)
+    assert "15 ans" in d["resume"] and all(isinstance(x, str) for x in d["experiences_anterieures"])
+    html5 = next(c for cat in d["competences"] for c in cat["items"] if c["nom"] == "HTML5")
+    assert html5["annees"] == 13
+
+    for langue in ("fr", "en"):
+        assert "{" not in cv(langue)["resume"]
+        assert all("annees" in c for cat in cv(langue)["competences"] for c in cat["items"])
+        assert "{annees_experience}" not in cv_texte(langue) and "ans d'expérience au total" in cv_texte(langue)
+
+    # L'outil retrouve chaque nombre à remplacer dans les CV et le portfolio (sinon il s'arrête).
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "outils"))
+    import maj_experience
+    attendu = maj_experience.fichiers(jour)
+    assert "plus de 15 ans d'expertise" in attendu["cv_HOUEDANOU.md"] and "HTML5 (13 ans" in attendu["cv_HOUEDANOU.md"]
+    assert "over 15 years" in attendu["CV_Jean_Luc_Houedanou_EN.html"] and "PERIODES_EXPERIENCE" in attendu["experience-data.js"]
