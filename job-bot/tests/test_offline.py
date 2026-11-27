@@ -579,18 +579,18 @@ def test_annees_experience():
     assert experience.mois_travailles(brut, jour) == 191 and experience.annees_experience(brut, jour) == 15
     assert experience.annees_experience(brut, date(2027, 10, 1)) == 16
     d = experience.completer(brut, jour)
-    assert "15 ans" in d["resume"] and all(isinstance(x, str) for x in d["experiences_anterieures"])
+    assert "plusieurs années" in d["resume"] and all(isinstance(x, str) for x in d["experiences_anterieures"])
     html5 = next(c for cat in d["competences"] for c in cat["items"] if c["nom"] == "HTML5")
     assert html5["annees"] == 13
 
     for langue in ("fr", "en"):
         assert "{" not in cv(langue)["resume"]
         assert all("annees" in c for cat in cv(langue)["competences"] for c in cat["items"])
-        assert "{annees_experience}" not in cv_texte(langue) and "ans d'expérience au total" in cv_texte(langue)
+        assert "plusieurs années" in cv_texte(langue) and "ans d'expérience au total" not in cv_texte(langue)
 
-    # L'outil retrouve chaque nombre à remplacer dans les CV et le portfolio (sinon il s'arrête).
+    # L'outil retrouve chaque nombre à remplacer dans les CV Markdown (sinon il s'arrête).
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "outils"))
     import maj_experience
     attendu = maj_experience.fichiers(jour)
-    assert "plus de 15 ans d'expertise" in attendu["cv_HOUEDANOU.md"] and "HTML5 (13 ans" in attendu["cv_HOUEDANOU.md"]
-    assert "over 15 years" in attendu["CV_Jean_Luc_Houedanou_EN.html"] and "PERIODES_EXPERIENCE" in attendu["experience-data.js"]
+    assert "HTML5 (13 ans" in attendu["cv_HOUEDANOU.md"] and "plusieurs années d'expertise" in attendu["cv_HOUEDANOU.md"]
+    assert "HTML5 (13 years" in attendu["cv_HOUEDANOUen.md"]

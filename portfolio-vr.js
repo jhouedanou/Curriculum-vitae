@@ -32,7 +32,7 @@
             kicker: 'Directeur solutions digitales · Abidjan',
             title: 'Je transforme des idées en produits', accent: 'vivants.',
             intro: 'Je conçois, développe et mets en ligne des expériences web qui tiennent la route — du premier pixel au dernier serveur.',
-            years: 'ans à construire', projects: 'projets', lookAround: 'Regardez autour de vous · choisissez un projet',
+            several: 'Plusieurs', years: 'années à construire', projects: 'projets', lookAround: 'Regardez autour de vous · choisissez un projet',
             hint: 'Glisser pour regarder · Z Q S D ou flèches pour avancer · cliquer sur un projet',
             back: '← Portfolio', langLabel: 'Passer en anglais', langBtn: 'EN',
             tech: 'Technologies', desc: 'Description', challenges: 'Défis', results: 'Résultats',
@@ -46,7 +46,7 @@
             kicker: 'Digital solutions director · Abidjan',
             title: 'I turn ideas into', accent: 'living products.',
             intro: 'I design, build and ship web experiences that hold up — from the first pixel to the last server.',
-            years: 'years building', projects: 'projects', lookAround: 'Look around · pick a project',
+            several: 'Several', years: 'years building', projects: 'projects', lookAround: 'Look around · pick a project',
             hint: 'Drag to look · W A S D or arrows to move · click a project',
             back: '← Portfolio', langLabel: 'Passer en français', langBtn: 'FR',
             tech: 'Technologies', desc: 'Description', challenges: 'Challenges', results: 'Results',
@@ -232,10 +232,10 @@
         roundRect(ctx, px, py, pw, ph, [8, 96, 8, 96]); ctx.strokeStyle = C.line; ctx.lineWidth = 2; ctx.stroke();
         ctx.strokeStyle = 'rgba(137, 148, 228, .38)'; ctx.strokeRect(px + 26, py + 26, pw, ph);
 
-        // Étiquette « N+ » : années calculées par experience-data.js
+        // Étiquette « Plusieurs années »
         ctx.fillStyle = '#192236'; roundRect(ctx, px - 30, py + ph - 70, 300, 130, 4); ctx.fill();
         ctx.strokeStyle = C.line; ctx.stroke();
-        ctx.fillStyle = C.orangeDark; ctx.font = '500 64px ' + MONO; spacing(ctx, -2); ctx.fillText(window.ANNEES_EXPERIENCE + '+', px - 4, py + ph + 2);
+        ctx.fillStyle = C.orangeDark; ctx.font = '500 44px ' + MONO; spacing(ctx, -1); ctx.fillText(t().several.toUpperCase(), px - 4, py + ph + 2);
         ctx.fillStyle = C.muted; ctx.font = '600 18px ' + MONO; spacing(ctx, 2); ctx.fillText(t().years.toUpperCase(), px - 4, py + ph + 36);
 
         const x = 590, maxW = 780;

@@ -1,6 +1,6 @@
 name: Années d'expérience
 
-# Recalcule les années d'expérience (dates de job-bot/cv.yaml) dans les CV et le portfolio.
+# Recalcule les années par compétence (dates « depuis » de job-bot/cv.yaml) dans les CV Markdown et leurs PDF.
 # Le 1er de chaque mois ; commit sur main seulement si un nombre a changé.
 on:
   schedule:
@@ -47,6 +47,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -u
-          git add experience-data.js
           git commit -m "Met à jour les années d'expérience"
           git push
