@@ -177,7 +177,7 @@ Jean Mermoz College, Côte d'Ivoire
 
 ## PROFESSIONAL PROFILE
 
-Experienced **Web Developper** with **over 15 years of expertise** in full-stack web development, UI/UX design, and digital project management.
+Experienced **Web Developper** with **several years of expertise** in full-stack web development, UI/UX design, and digital project management.
 
 **Front-end specialist** (VueJS, Nuxt) combining technical expertise and strategic vision to create high-performance and innovative web solutions that generate measurable value.
 

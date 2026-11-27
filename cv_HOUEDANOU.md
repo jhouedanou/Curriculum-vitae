@@ -177,7 +177,7 @@ Collège Jean Mermoz, Côte d'Ivoire
 
 ## PROFIL PROFESSIONNEL
 
-**Développeur web** expérimenté avec **plus de 15 ans d'expertise** en développement web full-stack, design UI/UX et gestion de projets digitaux.
+**Développeur web** expérimenté avec **plusieurs années d'expertise** en développement web full-stack, design UI/UX et gestion de projets digitaux.
 
 **Spécialiste front-end** (VueJS, Nuxt) alliant expertise technique et vision stratégique pour créer des solutions web performantes et innovantes qui génèrent de la valeur mesurable.
 

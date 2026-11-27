@@ -1,4 +1,4 @@
-"""Met à jour les années d'expérience dans les fichiers déjà fabriqués (CV Markdown, CV HTML, portfolio).
+"""Met à jour les années par compétence dans les CV Markdown déjà fabriqués, puis leurs PDF.
 
 Les nombres viennent de jobbot/experience.py, donc des dates de cv.yaml.
   python job-bot/outils/maj_experience.py            réécrit les fichiers qui ne sont plus à jour
@@ -8,7 +8,6 @@ Les nombres viennent de jobbot/experience.py, donc des dates de cv.yaml.
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import subprocess
 import sys
@@ -38,45 +37,14 @@ def _remplacer(texte: str, motif: str, valeurs: list, nom: str) -> str:
 
 
 def fichiers(aujourdhui: date | None = None) -> dict[str, str]:
-    """Contenu attendu de chaque fichier, à partir des fichiers actuels."""
+    """Contenu attendu de chaque fichier : les années par compétence des CV Markdown.
+    Le total n'est écrit nulle part (« plusieurs années »)."""
     sortie = {}
-    for langue, yml in (("fr", "cv.yaml"), ("en", "cv_en.yaml")):
+    for langue, yml, md in (("fr", "cv.yaml", "cv_HOUEDANOU.md"), ("en", "cv_en.yaml", "cv_HOUEDANOUen.md")):
         d = experience.completer(_cv(yml), aujourdhui)
-        n = d["annees_experience"]
         comp = [c["annees"] for cat in d["competences"] for c in cat["items"]]
-        md = "cv_HOUEDANOU.md" if langue == "fr" else "cv_HOUEDANOUen.md"
-        html = f"CV_Jean_Luc_Houedanou_{langue.upper()}.html"
-        s = (DEPOT / md).read_text(encoding="utf-8")
-        if langue == "fr":
-            s = _remplacer(s, r"\((?P<n>\d+) ans d'expérience,", comp, md)
-            s = _remplacer(s, r"plus de (?P<n>\d+) ans d'expertise", [n], md)
-        else:
-            s = _remplacer(s, r"\((?P<n>\d+) years experience,", comp, md)
-            s = _remplacer(s, r"over (?P<n>\d+) years of expertise", [n], md)
-        sortie[md] = s
-        s = (DEPOT / html).read_text(encoding="utf-8")
-        motif = r"plus de (?P<n>\d+) ans d&#39;expertise" if langue == "fr" else r"over (?P<n>\d+) years of experience"
-        sortie[html] = _remplacer(s, motif, [n], html)
-        doc = f"CV Jean Luc Houedanou {langue.upper()}.doc"   # version Word (pas de PDF tiré de ce fichier)
-        s = (DEPOT / doc).read_text(encoding="utf-8")
-        motif = r"plus de <b>(?P<n>\d+) ans d'expérience</b>" if langue == "fr" else r"over <b>(?P<n>\d+) years of experience</b>"
-        s = _remplacer(s, motif, [n], doc)
-        sortie[doc] = _remplacer(s, r'color:#1f5a73;">(?P<n>\d+)\+</span><br><span[^>]*>(?:ans|years) ', [n], doc)
-    # Portfolio : les périodes ; le navigateur fait le calcul à chaque visite.
-    per = [{"debut": a, "fin": b} for a, b in experience.periodes(_cv("cv.yaml"))]
-    sortie["experience-data.js"] = (
-        "// Généré par job-bot/outils/maj_experience.py à partir de job-bot/cv.yaml. Ne pas modifier à la main.\n"
-        "// Années d'expérience = mois travaillés (un mois sur deux postes compte une fois), arrondi à l'année inférieure.\n"
-        f"window.PERIODES_EXPERIENCE = {json.dumps(per)};\n"
-        "window.anneesExperience = function (aujourdhui) {\n"
-        "    var d = aujourdhui || new Date(), fin = d.getFullYear() * 12 + d.getMonth(), mois = {};\n"
-        "    var m = function (t) { var p = t.split('-'); return +p[0] * 12 + (+p[1] - 1); };\n"
-        "    window.PERIODES_EXPERIENCE.forEach(function (p) {\n"
-        "        for (var i = m(p.debut); i <= (p.fin ? m(p.fin) : fin); i++) mois[i] = 1;\n"
-        "    });\n"
-        "    return Math.floor(Object.keys(mois).length / 12);\n"
-        "};\n"
-        "window.ANNEES_EXPERIENCE = window.anneesExperience();\n")
+        motif = r"\((?P<n>\d+) ans d'expérience," if langue == "fr" else r"\((?P<n>\d+) years experience,"
+        sortie[md] = _remplacer((DEPOT / md).read_text(encoding="utf-8"), motif, comp, md)
     return sortie
 
 
@@ -119,7 +87,7 @@ def main() -> int:
         print("mis à jour :", n)
     if a.pdf and changes:
         faire_pdf(changes)
-    print(f"{experience.annees_experience(_cv('cv.yaml'))} ans d'expérience ;", len(changes), "fichier(s) modifié(s)")
+    print(len(changes), "fichier(s) modifié(s)")
     return 0
 
 

@@ -1,7 +1,8 @@
 """Années d'expérience calculées à partir des dates de cv.yaml (rien n'est écrit en dur).
 
-Règle : mois réellement travaillés, un mois couvert par deux postes compte une fois,
-arrondi à l'année inférieure. Années par compétence = année en cours − `depuis`.
+Années par compétence = année en cours − `depuis` (affichées dans le CV).
+Total = mois réellement travaillés, un mois couvert par deux postes compte une fois, arrondi à
+l'année inférieure. Le total n'est pas affiché (« plusieurs années ») ; il sert au tri des offres.
 """
 from __future__ import annotations
 
@@ -56,8 +57,8 @@ def completer(cv: dict, aujourdhui: Optional[date] = None) -> dict:
 
 
 def resume_chiffres(cv: dict, aujourdhui: Optional[date] = None) -> str:
-    """Ligne ajoutée au YAML lu par Claude : les nombres calculés, pour qu'il les reprenne tels quels."""
+    """Lignes ajoutées au YAML lu par Claude : années par compétence (calculées) et consigne sur le total."""
     d = completer(cv, aujourdhui)
     comp = ", ".join(f"{c['nom']} {c['annees']}" for cat in d.get("competences", []) for c in cat["items"] if "annees" in c)
-    return (f"\n# Calculé le {(aujourdhui or date.today()).isoformat()} : {d['annees_experience']} ans d'expérience au total."
-            f"\n# Années par compétence : {comp}.\n")
+    return (f"\n# Années par compétence au {(aujourdhui or date.today()).isoformat()} : {comp}."
+            "\n# Expérience totale : n'écris pas de nombre d'années, écris « plusieurs années » (« several years »).\n")

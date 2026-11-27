@@ -181,11 +181,11 @@ Le bot écarte aussi :
 ## 6. Les garde-fous contre l'invention
 
 - Les postes, entreprises, dates et diplômes viennent de `cv.yaml`, jamais de l'IA.
-- Les années d'expérience sont **calculées**, jamais écrites à la main : total = mois travaillés
-  (`debut`/`fin` de chaque poste, un mois sur deux postes compte une fois), arrondi à l'année
-  inférieure ; par compétence = année en cours − `depuis`. Dans `resume`, écris `{annees_experience}`.
-  Après un changement de dates : `python job-bot/outils/maj_experience.py --pdf` met à jour les CV
-  Markdown et HTML, leurs PDF et le portfolio. Le workflow « Années d'expérience » le fait chaque mois.
+- Années d'expérience : le total n'est pas affiché, le CV et le portfolio disent « plusieurs années ».
+  Les années **par compétence** sont calculées : année en cours − `depuis`. Après un changement :
+  `python job-bot/outils/maj_experience.py --pdf` met à jour les CV Markdown et leurs PDF
+  (le workflow « Années d'expérience » le fait chaque mois). Le bot calcule le total à partir de
+  `debut`/`fin` des postes, seulement pour noter les offres.
 - Une compétence absente de ton CV est **retirée** du CV adapté.
 - Une expérience oubliée par l'IA est **remise** avec son texte d'origine.
 - Un chiffre absent de ton CV est **signalé** dans `offre.md` → « À vérifier ».
